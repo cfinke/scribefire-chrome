@@ -1,5 +1,4 @@
-var blogAPI = function () {
-};
+var blogAPI = function () { };
 
 blogAPI.prototype = {
 	init : function (blogObject) {
@@ -26,18 +25,10 @@ blogAPI.prototype = {
 		 */
 		
 		/**
-		 * success(params) = [ { "id": 1, "title": "Post Title", ... }, ... ]
-		 */
-	},
-	
-	getCategories : function (params, success, failure) {
-		/**
-		 * params = { }
+		 * success(params) = [ { "id": <int>, "title": <string>, "description": <string>, "published": <bool>, "tags": <string>, "categories": <string>[] } ]
 		 */
 		
-		/**
-		 * success(params) = [ { "id": 1, "name": "Category 1" }, ... ]
-		 */
+		success([]);
 	},
 	
 	publish : function (params, success, failure) {
@@ -50,6 +41,40 @@ blogAPI.prototype = {
 		/**
 		 * success(params) = { "id": "123" }
 		 */
+	},
+	
+	deletePost : function (params, success, failure) {
+		/**
+		 * params = { "id" : <int> }
+		 */
+		
+		/**
+		 * success(params) = true
+		 */
+	},
+
+	getCategories : function (params, success, failure) {
+		/**
+		 * params = { }
+		 */
+		
+		/**
+		 * success(params) = [ { "id": 1, "name": "Category 1" }, ... ]
+		 */
+		
+		success([]);
+	},
+	
+	addCategory : function (params, success, failure) {
+		/**
+		 * params = { "id": 1, "name": "Category" }
+		 */
+		
+		/**
+		 * success(params) = { "id": 1, "name": "Category" }
+		 */
+		
+		failure({ "status": 0, "msg": "This blog does not support adding categories."});
 	}
 };
 
@@ -102,6 +127,12 @@ var wordpressBlogAPI = function () {
 				if (success) {
 					for (var i = 0; i < rv.length; i++) {
 						rv[i].id = rv[i].postid;
+						rv[i].tags = rv[i].mt_keywords;
+						rv[i].published = (rv[i].post_status != "draft");
+						
+						delete rv[i].id;
+						delete rv[i].post_status;
+						delete rv[i].mt_keywords;
 					}
 				
 					success(rv);
@@ -259,10 +290,226 @@ var wordpressBlogAPI = function () {
 };
 wordpressBlogAPI.prototype = new blogAPI();
 
+var tumblrBlogAPI = function () {
+	this.getBlogs = function (params, success, failure) {
+		var url = "http://www.tumblr.com/api/authenticate";
+		
+		var args = {};
+		args.email = params.username;
+		args.password = params.password;
+		
+		var argstring = "";
+		
+		for (var i in args) {
+			argstring += encodeURIComponent(i) + "=" + encodeURIComponent(args[i]) + "&";
+		}
+		
+		argstring = argstring.substr(0, argstring.length - 1);
+		
+		var req = new XMLHttpRequest();
+		req.open("POST", url, true);
+		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		req.onreadystatechange = function () {
+			if (req.readyState == 4) {
+				if (req.status == 200) {
+					var xml = req.responseXML;
+					var jxml = $(xml);
+					
+					var blogs = [];
+					
+					var i = 1;
+					
+					jxml.find("tumblelog").each(function () {
+						var blog = {};
+						blog.apiUrl = "http://www.tumblr.com/api";
+						blog.type = params.type;
+						blog.username = params.username;
+						blog.password = params.password;
+						blog.isPrivate = ($(this).attr("type") == "private");
+						
+						if (blog.isPrivate) {
+							blog.id = $(this).attr("private-id");
+							blog.name = "Private Tumblr Blog #" + blog.id;
+							blog.url = "http://www.tumblr.com/#" + blog.id;
+						}
+						else {
+							blog.id = i++;
+							blog.name = $(this).attr("title");
+							blog.url = $(this).attr("url");
+						}
+						
+						blogs.push(blog);
+					});
+					
+					success(blogs);
+				}
+				else {
+					failure(req.status, req.responseText);
+				}
+			}
+		};
+		
+		req.send(argstring);
+	};
+	
+	this.getPosts = function (params, success, failure) {
+		if (!("limit" in params)) params.limit = 30;
+		
+		if (this.isPrivate) {
+			var url = this.url;
+		}
+		else {
+			var url = this.url + "api/read/xml?start=0&num="+params.limit+"&type=regular";
+		}
+		
+		var req = new XMLHttpRequest();
+		req.open("GET", url, true);
+		
+		req.onreadystatechange = function () {
+			if (req.readyState == 4) {
+				if (req.status == 200) {
+					var xml = req.responseXML;
+					var jxml = $(xml);
+				
+					var rv = [];
+				
+					jxml.find("post").each(function () {
+						var post = {};
+						post.title = $(this).find("regular-title:first").text();
+						post.description = $(this).find("regular-body:first").text();
+						post.dateCreated = $(this).attr("date-gmt");
+						post.id = $(this).attr("id");
+						post.url = $(this).attr("url");
+						post.published = true;
+						
+						rv.push(post);
+					});
+					
+					success(rv);
+				}
+				else {
+					failure({"status": req.status, "msg" : req.responseText});
+				}
+			}
+		};
+		
+		req.send(null);
+	};
+	
+	this.publish = function (params, success, failure) {
+		var args = {};
+		args.email = this.username;
+		args.password = this.password;
+		args.generator = "ScribeFire";
+		args.group = this.url.split("//")[1].split("/")[0];
+		
+		/*
+		if ("private" in params) {
+			args["private"] = params.private * 1;
+		}
+		*/
+		
+		/*
+		var theDate = new Date(aDateCreated);
+		var now = new Date();
+		
+		if (theDate > now) {
+			aDateCreated = now;
+		}
+		else {
+			aDateCreated = theDate;
+		}
+		
+		args.date = aDateCreated.toString();
+		*/
+		
+		args.tags = params.tags;
+		args.type = 'regular';
+		args.format = 'html';
+		args.title = params.title;
+		args.body = params.content;
+		
+		if ("draft" in params) {
+			args.state = params.draft ? "draft" : "published";
+		}
+		
+		if (("id" in params) && params.id) {
+			args["post-id"] = params.id;
+		}
+		
+		var argstring = "";
+		
+		for (var i in args) {
+			argstring += encodeURIComponent(i) + "=" + encodeURIComponent(args[i]) + "&";
+		}
+		
+		argstring = argstring.substr(0, argstring.length - 1);
+		
+		var req = new XMLHttpRequest();
+		req.open("POST", "http://www.tumblr.com/api/write", true);
+		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		req.onreadystatechange = function (event) {
+			if (req.readyState == 4) {
+				if (req.status < 300) {
+					if (("id" in params) && params.id) {
+						success({ "id" : params.id });
+					}
+					else {
+						success({ "id": req.responseText });
+					}
+				}
+				else {
+					failure({ "status": req.status, "msg": req.responseText });
+				}
+			}
+		};
+		
+		req.send(argstring);
+	};
+	
+	this.deletePost = function (params, success, failure) {
+		var args = {};
+		args.email = this.username;
+		args.password = this.password;
+		args["post-id"] = params.id;
+		
+		var argstring = "";
+		
+		for (var i in args) {
+			argstring += encodeURIComponent(i) + "=" + encodeURIComponent(args[i]) + "&";
+		}
+		
+		argstring = argstring.substr(0, argstring.length - 1);
+		
+		var req = new XMLHttpRequest();
+		req.open("POST", "http://www.tumblr.com/api/delete", true);
+		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		req.onreadystatechange = function (event) {
+			if (req.readyState == 4) {
+				if (req.status < 300) {
+					success(true);
+				}
+				else {
+					failure({ "status": req.status, "msg": req.responseText });
+				}
+			}
+		};
+		
+		req.send(argstring);
+	};
+};
+tumblrBlogAPI.prototype = new blogAPI();
+
 function getBlogAPI(type) {
 	switch (type) {
 		case "wordpress":
 			return new wordpressBlogAPI();
+		break;
+		case "tumblr":
+			return new tumblrBlogAPI();
 		break;
 		default:
 			alert("Unsupported blog type.");

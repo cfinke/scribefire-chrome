@@ -209,6 +209,10 @@ var SCRIBEFIRE = {
 			metaData.type = "wordpress";
 			metaData.apiUrl = "http://wordpress.com/xmlrpc.php";
 		}
+		else if (parsed.host.search(/\.tumblr\.com$/i) != -1) {
+			metaData.type = "tumblr";
+			metaData.apiUrl = "http://www.tumblr.com/api";
+		}
 		
 		callback(metaData);
 	},
@@ -234,15 +238,11 @@ var SCRIBEFIRE = {
 	},
 	
 	populateCategoriesList : function () {
-		console.log("in pop cat");
-		
 		$("#list-categories").html("");
 		
 		SCRIBEFIRE.getAPI().getCategories(
 			{ },
 			function success(rv) {
-				console.log(rv);
-				
 				for (var i = 0; i < rv.length; i++) {
 					var option = $("<option/>");
 					option.html(rv[i].name);
@@ -280,7 +280,7 @@ var SCRIBEFIRE = {
 				
 				SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
 				
-				successCallback();
+				successCallback(rv);
 			},
 			function (rv) {
 				SCRIBEFIRE.genericError(rv);

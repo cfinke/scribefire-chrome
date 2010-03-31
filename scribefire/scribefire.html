@@ -41,6 +41,7 @@
 							<div class="subunderbar">
 								<select id="list-blog-types" disabled="disabled">
 									<option value="wordpress">Wordpress</option>
+									<option value="tumblr">Tumblr</option>
 								</select>
 							</div>
 						</div>
@@ -157,7 +158,7 @@
 				});
 				
 				$(".bar").click(function () {
-					if ($(this).attr("disabled") != "true") {
+					if (1 || $(this).attr("disabled") != "true") {
 						$(this).parent().find(".underbar:first").toggle();
 					
 						if ($(this).hasClass("bar-selected")) {
@@ -170,7 +171,7 @@
 				});
 
 				$(".subbar").click(function () {
-					if ($(this).attr("disabled") != "true") {
+					if (1 || $(this).attr("disabled") != "true") {
 						$(this).parent().find(".subunderbar:first").toggle();
 					
 						if ($(this).hasClass("subbar-selected")) {
@@ -214,8 +215,8 @@
 						
 						$("#text-title").val(entry.attr("title"));
 						$("#text-content").val(entry.attr("description"));
-						$("#checkbox-draft").attr("checked", (entry.attr("post_status") == "draft"));
-						$("#text-tags").val(entry.attr("mt_keywords"));
+						$("#checkbox-draft").attr("checked", !entry.attr("published"));
+						$("#text-tags").val(entry.attr("tags"));
 						$("#list-categories").val(entry.attr("categories").split(","));
 					}
 					
@@ -255,9 +256,9 @@
 						$("#list-blog-types").val(),
 						$("#text-blog-username").val(),
 						$("#text-blog-password").val(),
-						function () {
-							SCRIBEFIRE.populateEntriesList();
-							SCRIBEFIRE.populateCategoriesList();
+						function (rv) {
+							$("#list-blogs").val(rv[0].url).change();
+							$("#dialog-blog-add").hide();
 						},
 						function () {
 							alert("failure");
