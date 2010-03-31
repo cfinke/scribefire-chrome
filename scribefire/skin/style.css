@@ -7,7 +7,7 @@ body {
 	background-color: #f5f5f5;
 }
 
-.bar {
+.bar, .subbar {
 	color: #5d5d5d;
 	font-weight: bold;
 	font-size: 12px;
@@ -17,24 +17,28 @@ body {
 	text-shadow: 1px 1px #f5f5f5;
 }
 
-.bar-selected {
+.bar-selected, .subbar-selected {
 	background: url(arrow-down.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
 }
 
-.underbar {
+.underbar, .subunderbar {
 	background-color: #fff;
 	padding: 10px;
 	display: none;
 }
 
-.bar, .underbar {
+.bar, .underbar, .subbar, .subunderbar {
 	border-bottom: #bdbdbd 1px solid;
 }
 
-.underbar-selected {
+.underbar-selected, .subunderbar-selected {
 	display: block;
 }
 
 input[type="text"], input[type="password"], textarea, select {
 	width: 95%;
+}
+
+#dialog-blog-add {
+	border: 1px dotted #aaa;
 }

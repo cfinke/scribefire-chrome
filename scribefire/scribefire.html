@@ -23,24 +23,48 @@
 					</p>
 					<div id="dialog-blog-add" style="display:none;">
 						<div>
-							<label>URL</label>
-							<input type="text" id="text-blog-url" />
-							<button id="button-blog-urlcheck">Next</button>
+							<div class="subbar subbar-selected">
+								<label>URL: <span id="label-add-blog-url"></span></label>
+							</div>
+							<div class="subunderbar subunderbar-selected">
+								<input type="text" id="text-blog-url" />
+								<p>
+									<button id="button-addblog-cancel">Cancel</button>
+									<button id="button-blog-urlcheck">Next</button>
+								</p>
+							</div>
 						</div>
 						<div>
-							<label>Blog Type</label>
-							<select id="list-blog-types" disabled="disabled">
-								<option value="wordpress">Wordpress</option>
-							</select>
-							<label>API Url</label>
-							<input type="text" id="text-blog-api-url" disabled="disabled" />
+							<div class="subbar" disabled="true">
+								<label>Blog Type: <span id="label-add-blog-type"></span></label>
+							</div>
+							<div class="subunderbar">
+								<select id="list-blog-types" disabled="disabled">
+									<option value="wordpress">Wordpress</option>
+								</select>
+							</div>
 						</div>
 						<div>
-							<label>Username</label>
-							<input type="text" id="text-blog-username" disabled="disabled" />
-							<label>Password</label>
-							<input type="password" id="text-blog-password" disabled="disabled" />
-							<button id="button-blog-logincheck">Next</button>
+							<div class="subbar" disabled="true">
+								<label>API URL: <span id="label-add-blog-apiurl"></span></label>
+							</div>
+							<div class="subunderbar">
+								<input type="text" id="text-blog-api-url" disabled="disabled" />
+							</div>
+						</div>
+						<div>
+							<div class="subbar" disabled="true">
+								<label>Login Credentials</label>
+							</div>
+							<div class="subunderbar">
+								<label>Username</label>
+								<input type="text" id="text-blog-username" disabled="disabled" />
+								<label>Password</label>
+								<input type="password" id="text-blog-password" disabled="disabled" />
+								<p>
+									<button id="button-blog-logincheck">Next</button>
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -76,6 +100,7 @@
 				</div>
 				<div class="underbar">
 					<select id="list-categories" multiple="true"></select>
+					<button id="button-category-add">New</button>
 				</div>
 			</div>
 			<div>
@@ -100,6 +125,29 @@
 			$(document).ready(function () {
 				SCRIBEFIRE.load();
 				
+				$("#button-category-add").click(function (e) {
+					e.preventDefault();
+					
+					var categoryName = prompt("Name?");
+					
+					if (categoryName) {
+						SCRIBEFIRE.addCategory(categoryName);
+					}
+				});
+				
+				$("#button-addblog-cancel").click(function (e) {
+					e.preventDefault();
+					$("#dialog-blog-add").hide();	
+				});
+				
+				$("#button-blog-remove").click(function (e) {
+					e.preventDefault();
+					
+					if (confirm("Are you sure?")) {
+						SCRIBEFIRE.removeBlog($("#list-blogs").val());
+					}
+				});
+				
 				$("#button-entry-remove").click(function (e){
 					e.preventDefault();
 					
@@ -107,14 +155,30 @@
 						SCRIBEFIRE.deletePost($("#list-entries").val());
 					}
 				});
+				
 				$(".bar").click(function () {
-					$(this).parent().find(".underbar:first").toggle();
+					if ($(this).attr("disabled") != "true") {
+						$(this).parent().find(".underbar:first").toggle();
 					
-					if ($(this).hasClass("bar-selected")) {
-						$(this).removeClass("bar-selected");
+						if ($(this).hasClass("bar-selected")) {
+							$(this).removeClass("bar-selected");
+						}
+						else {
+							$(this).addClass("bar-selected");
+						}
 					}
-					else {
-						$(this).addClass("bar-selected");
+				});
+
+				$(".subbar").click(function () {
+					if ($(this).attr("disabled") != "true") {
+						$(this).parent().find(".subunderbar:first").toggle();
+					
+						if ($(this).hasClass("subbar-selected")) {
+							$(this).removeClass("subbar-selected");
+						}
+						else {
+							$(this).addClass("subbar-selected");
+						}
 					}
 				});
 				

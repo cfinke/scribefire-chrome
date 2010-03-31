@@ -143,6 +143,36 @@ var SCRIBEFIRE = {
 		);
 	},
 	
+	addCategory : function (categoryName) {
+		var params = { "name" : categoryName };
+		
+		SCRIBEFIRE.getAPI().addCategory(
+			params,
+			function success(rv) {
+				var option = $("<option/>");
+				option.html(rv.name);
+				option.attr("value", rv.name);
+				option.attr("categoryId", rv.id);
+				option.attr("selected", "selected");
+				$("#list-categories").append(option);
+			},
+			SCRIBEFIRE.genericError
+		);
+	},
+	
+	removeBlog : function (url) {
+		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
+		
+		if (url in blogs) {
+			delete blogs[url];
+			
+			SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
+		}
+/*		
+		$("#list-blogs option[value='"+url+"']").remove();
+		*/
+	},
+	
 	getBlog : function (url) {
 		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 		

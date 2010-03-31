@@ -236,6 +236,26 @@ var wordpressBlogAPI = function () {
 			}
 		);
 	};
+	
+	this.addCategory = function (params, success, failure) {
+		var args = [this.apiUrl, this.id, this.username, this.password, { name : params.name } ];
+		var xml = performancingAPICalls.wp_newCategory(args);
+		
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml, 
+			function (rv) {
+				if (success) {
+					success({ "id": rv, "name": params.name });
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	}
 };
 wordpressBlogAPI.prototype = new blogAPI();
 
