@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>ScribeFire</title>
-		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" type="text/css" href="skin/style.css" />
 		<script type="text/javascript" src="xmlrpc.js"></script>
 		<script type="text/javascript" src="apis.js"></script>
 		<script type="text/javascript" src="scribefire.js"></script>
@@ -125,13 +125,14 @@
 				});
 				
 				$("#button-blog-logincheck").click(function (e) {
-					SCRIBEFIRE.tryBlogLogin(
+					SCRIBEFIRE.getBlogs(
 						$("#text-blog-api-url").val(),
 						$("#list-blog-types").val(),
 						$("#text-blog-username").val(),
 						$("#text-blog-password").val(),
 						function () {
-							alert("success");
+							SCRIBEFIRE.populateEntriesList();
+							SCRIBEFIRE.populateCategoriesList();
 						},
 						function () {
 							alert("failure");

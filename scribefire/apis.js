@@ -8,14 +8,36 @@ blogAPI.prototype = {
 		}
 	},
 	
-	login : function (username, password) { },
+	getBlogs : function (params, success, failure) {
+		/**
+		 * params = { "apiUrl" : "http://...", "username": "john", "password" : "secret123" }
+		 */
+		
+		/**
+		 * success(params) = [ {"url" : "http://...", "id" : "123", "name": "My Blog", 
+		 *                      "apiUrl" : "http://...", "type": "wordpress", "username": "john", 
+		 *                      "password": "secret123"}, ... ]
+		 */
+	},
 	
-	getRecentPosts : function (params, success, failure) {
+	getPosts : function (params, success, failure) {
 		/**
 		 * params = { "limit": <int> }
 		 */
 		
-		// Parameter to success is an array of posts, with the "id" and "title" parameters defined.
+		/**
+		 * success(params) = [ { "id": 1, "title": "Post Title", ... }, ... ]
+		 */
+	},
+	
+	getCategories : function (params, success, failure) {
+		/**
+		 * params = { }
+		 */
+		
+		/**
+		 * success(params) = [ { "id": 1, "name": "Category 1" }, ... ]
+		 */
 	},
 	
 	publish : function (params, success, failure) {
@@ -24,23 +46,57 @@ blogAPI.prototype = {
 		 *            "categories": <int>[], "tags": <string>, 
 		 *            "draft": <bool>, "id": <int> }
 		 */
+		
+		/**
+		 * success(params) = { "id": "123" }
+		 */
 	}
 };
 
 var wordpressBlogAPI = function () {
-	this.login = function (username, password) {
-		var args = [this.xmlrpc, username, password];
-		return performancingAPICalls.wp_getUsersBlogs(args);
+	this.getBlogs = function (params, success, failure) {
+		var args = [params.apiUrl, params.username, params.password];
+		var xml = performancingAPICalls.wp_getUsersBlogs(args);
+		
+		XMLRPC_LIB.doCommand(
+			params.apiUrl,
+			xml,
+			function (rv) {
+				if (success) {
+					var blogs = [];
+				
+					for (var i = 0; i < rv.length; i++) {
+						var blog = {};
+						blog.url = rv[i].url;
+						blog.id = rv[i].blogid;
+						blog.name = rv[i].blogName;
+						blog.apiUrl = rv[i].xmlrpc;
+						blog.type = params.type;
+						blog.username = params.username;
+						blog.password = params.password;
+					
+						blogs.push(blog);
+					}
+					
+					success(blogs);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
 	};
 	
-	this.getRecentPosts = function (params, success, failure) {
+	this.getPosts = function (params, success, failure) {
 		if (!("limit" in params)) params.limit = 30;
 		
-		var args = [this.xmlrpc, this.blogid, this.username, this.password, params.limit];
+		var args = [this.apiUrl, this.id, this.username, this.password, params.limit];
 		var xml = performancingAPICalls.metaWeblog_getRecentPosts(args);
 		
 		XMLRPC_LIB.doCommand(
-			this.xmlrpc,
+			this.apiUrl,
 			xml, 
 			function (rv) {
 				if (success) {
@@ -103,16 +159,16 @@ var wordpressBlogAPI = function () {
 		}
 		
 		if (("id" in params) && params.id) {
-			var args = [this.xmlrpc, params.id, this.username, this.password, contentStruct, publish];
+			var args = [this.apiUrl, params.id, this.username, this.password, contentStruct, publish];
 			var xml = performancingAPICalls.metaWeblog_editPost(args);
 		}
 		else {
-			var args = [this.xmlrpc, this.blogid, this.username, this.password, contentStruct, publish];
+			var args = [this.apiUrl, this.id, this.username, this.password, contentStruct, publish];
 			var xml = performancingAPICalls.metaWeblog_newPost(args);
 		}
 		
 		XMLRPC_LIB.doCommand(
-			this.xmlrpc,
+			this.apiUrl,
 			xml, 
 			function (rv) {
 				if (success) {
@@ -132,51 +188,32 @@ var wordpressBlogAPI = function () {
 		);
 	};
 	
-	this.newPost = function (params) {
-		var contentStruct = { };
+	this.getCategories = function (params, success, failure) {
+		var args = [this.apiUrl, this.id, this.username, this.password];
+		var xml = performancingAPICalls.mt_getCategoryList(args);
 		
-		if ("title" in params) {
-			contentStruct.title = params.title;
-		}
-		
-		if ("content" in params) {
-			contentStruct.description = params.content;
-		}
-		
-		if ("categories" in params) {
-			contentStruct.categories = params.categories;
-		}
-		
-		if ("tags" in params) {
-			contentStruct.mt_keywords = params.tags;
-		}
-		
-		if ("timestamp" in params) {
-			contentStruct.dateCreated = new Date(params.timestamp);
-		}
-		
-		if ("custom_fields" in params && params.custom_fields.length > 0) {
-			contentStruct.custom_fields = custom_fields;
-		}
-		
-		if ("slug" in params && params.slug) {
-			contentStruct.slug = slug;
-		}
-		
-		if ("draft" in params) {
-			var publish = params.draft ? "bool0" : "bool1";
-		}
-		else {
-			var publish = "bool1";
-		}
-		
-		var args = [this.xmlrpc, this.blogid, this.username, this.password, contentStruct, publish];
-		return performancingAPICalls.metaWeblog_newPost(args);
-	};
-	
-	this.getCategoryList = function () {
-		var args = [this.xmlrpc, this.blogid, this.username, this.password];
-		return performancingAPICalls.mt_getCategoryList(args);
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml, 
+			function (rv) {
+				if (success) {
+					for (var i = 0; i < rv.length; i++) {
+						rv[i].id = rv[i].categoryId;
+						rv[i].name = rv[i].categoryName;
+						
+						delete rv[i].categoryId;
+						delete rv[i].categoryName;
+					}
+					
+					success(rv);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
 	};
 };
 wordpressBlogAPI.prototype = new blogAPI();

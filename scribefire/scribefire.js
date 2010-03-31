@@ -96,7 +96,7 @@ var SCRIBEFIRE = {
 		for (var i in blogs) {
 			var blog = $("<option/>");
 			blog.attr("value", blogs[i].url);
-			blog.html(blogs[i].blogName);
+			blog.html(blogs[i].name);
 			$("#list-blogs").append(blog);
 		}
 	},
@@ -104,7 +104,7 @@ var SCRIBEFIRE = {
 	populateEntriesList : function () {
 		$("#list-entries").html('<option value="">(new)</option>');
 		
-		SCRIBEFIRE.getAPI().getRecentPosts(
+		SCRIBEFIRE.getAPI().getPosts(
 			{ },
 			function success(rv) {
 				for (var i = 0; i < rv.length; i++) {
@@ -189,39 +189,35 @@ var SCRIBEFIRE = {
 		
 		$("#list-categories").html("");
 		
-		var api = SCRIBEFIRE.getAPI();
-		
-		XMLRPC_LIB.doCommand(
-			api.xmlrpc,
-			api.getCategoryList(),
+		SCRIBEFIRE.getAPI().getCategories(
+			{ },
 			function success(rv) {
 				console.log(rv);
 				
 				for (var i = 0; i < rv.length; i++) {
 					var option = $("<option/>");
-					option.html(rv[i].categoryName);
-					option.attr("value", rv[i].categoryName);
-					option.attr("categoryId", rv[i].categoryId);
+					option.html(rv[i].name);
+					option.attr("value", rv[i].name);
+					option.attr("categoryId", rv[i].id);
 					
 					$("#list-categories").append(option);
 				}
 			},
-			function failure(status, msg) {
-				alert("Error ("+status+"): " + msg);
-			}
+			SCRIBEFIRE.genericError
 		);
 	},
 	
-	tryBlogLogin : function (apiUrl, apiType, username, password, successCallback, failureCallback) {
-		var api = getBlogAPI(apiType);
-		api.init({ "xmlrpc": apiUrl, "username": username, "password": password});
+	getBlogs : function (apiUrl, apiType, username, password, successCallback, failureCallback) {
+		var params = {
+			"apiUrl" : apiUrl,
+			"username" : username,
+			"password" : password,
+			"type": apiType
+		};
 		
-		XMLRPC_LIB.doCommand(
-			api.xmlrpc, 
-			api.login(username, password),
+		getBlogAPI(apiType).getBlogs(
+			params,
 			function success(rv) {
-				alert("Succes: " + rv);
-				
 				var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 				
 				for (var i = 0; i < rv.length; i++) {
@@ -229,13 +225,17 @@ var SCRIBEFIRE = {
 					blog.type = apiType;
 					blog.username = username;
 					blog.password = password;
+					
 					blogs[blog.url] = blog;
 				}
 				
 				SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
+				
+				successCallback();
 			},
-			function failure(status, msg) {
-				alert("Error ("+status+"): " + msg);
+			function (rv) {
+				SCRIBEFIRE.genericError(rv);
+				failureCallback();
 			}
 		);
 	}
