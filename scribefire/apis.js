@@ -369,6 +369,8 @@ var tumblrBlogAPI = function () {
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
+					console.log(req.responseText);
+					
 					var xml = req.responseXML;
 					var jxml = $(xml);
 				
@@ -382,9 +384,20 @@ var tumblrBlogAPI = function () {
 						post.id = $(this).attr("id");
 						post.url = $(this).attr("url");
 						post.published = true;
+						post.categories = [];
+						
+						post.tags = [];
+						
+						$(this).find("tag").each(function () {
+							post.tags.push($(this).text());
+						});
+						
+						post.tags = post.tags.join(", ");
 						
 						rv.push(post);
 					});
+					
+					console.log(rv);
 					
 					success(rv);
 				}
