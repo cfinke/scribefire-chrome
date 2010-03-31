@@ -1,0 +1,7 @@
+<script>
+chrome.browserAction.onClicked.addListener(function(tab) {
+	var scribefireUrl = chrome.extension.getURL('scribefire.html');
+	
+	window.open(scribefireUrl, "scribefire", "width=500");
+});
+</script>

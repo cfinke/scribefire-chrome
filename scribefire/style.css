@@ -1,0 +1,7 @@
+body {
+	width: 500px;
+}
+
+input[type="text"], input[type="password"], textarea, select {
+	width: 95%;
+}

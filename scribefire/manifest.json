@@ -1,0 +1,13 @@
+{
+	"name": "ScribeFire",
+	"version": "1.0",
+	"description": "A full-featured blog editor that integrates with your browser and lets you easily post to your blog.",
+	"background_page": "background.html",
+	"browser_action": {
+		"default_icon" : "icon.png"
+	},
+	"permissions": [
+		"http://*/",
+		"https://*/"
+	]
+}
