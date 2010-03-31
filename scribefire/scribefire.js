@@ -84,6 +84,10 @@ var SCRIBEFIRE = {
 		}
 	},
 	
+	genericError : function (rv) {
+		alert("Error ("+rv.status+"): " + rv.msg);
+	},
+	
 	populateBlogsList : function () {
 		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 		
@@ -101,6 +105,7 @@ var SCRIBEFIRE = {
 		$("#list-entries").html('<option value="">(new)</option>');
 		
 		SCRIBEFIRE.getAPI().getRecentPosts(
+			{ },
 			function success(rv) {
 				for (var i = 0; i < rv.length; i++) {
 					var entry = $("<option/>");
@@ -115,9 +120,7 @@ var SCRIBEFIRE = {
 					$("#list-entries").append(entry);
 				}
 			},
-			function failure(rv) {
-				alert("Error ("+rv.status+"): " + rv.msg);
-			}
+			SCRIBEFIRE.genericError
 		);
 	},
 	
@@ -163,26 +166,21 @@ var SCRIBEFIRE = {
 	
 	publish : function () {
 		var params = {};
-		
 		params.title = $("#text-title").val();
 		params.content = $("#text-content").val();
 		params.categories = $("#list-categories").val() || [];
 		params.tags = $("#text-tags").val();
 		params.draft = $("#checkbox-draft").is(":checked");
+		params.id = $("#list-entries").val();
 		
-		var api = SCRIBEFIRE.getAPI();
-		
-		XMLRPC_LIB.doCommand(
-			api.xmlrpc,
-			api.newPost(params),
+		SCRIBEFIRE.getAPI().publish(
+			params,
 			function success(rv) {
-				console.log(rv);
-				alert("success");
 				// @todo
+				alert("Success!");
+				console.log(rv);
 			},
-			function failure(status, msg) {
-				alert("Error ("+status+"): " + msg);
-			}
+			SCRIBEFIRE.genericError
 		);
 	},
 	

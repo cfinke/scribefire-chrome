@@ -9,8 +9,21 @@ blogAPI.prototype = {
 	},
 	
 	login : function (username, password) { },
-	getRecentPosts : function (success, failure) {
+	
+	getRecentPosts : function (params, success, failure) {
+		/**
+		 * params = { "limit": <int> }
+		 */
+		
 		// Parameter to success is an array of posts, with the "id" and "title" parameters defined.
+	},
+	
+	publish : function (params, success, failure) {
+		/**
+		 * params = { "title": <string>, "content": <string>, 
+		 *            "categories": <int>[], "tags": <string>, 
+		 *            "draft": <bool>, "id": <int> }
+		 */
 	}
 };
 
@@ -20,9 +33,10 @@ var wordpressBlogAPI = function () {
 		return performancingAPICalls.wp_getUsersBlogs(args);
 	};
 	
-	this.getRecentPosts = function (success, failure) {
-		var limit = 30;
-		var args = [this.xmlrpc, this.blogid, this.username, this.password, limit];
+	this.getRecentPosts = function (params, success, failure) {
+		if (!("limit" in params)) params.limit = 30;
+		
+		var args = [this.xmlrpc, this.blogid, this.username, this.password, params.limit];
 		var xml = performancingAPICalls.metaWeblog_getRecentPosts(args);
 		
 		XMLRPC_LIB.doCommand(
@@ -35,6 +49,79 @@ var wordpressBlogAPI = function () {
 					}
 				
 					success(rv);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
+	
+	this.publish = function (params, success, failure) {
+		var contentStruct = { };
+		
+		if (("id" in params) && params.id) {
+		}
+		
+		if ("title" in params) {
+			contentStruct.title = params.title;
+		}
+		
+		if ("content" in params) {
+			contentStruct.description = params.content;
+		}
+		
+		if ("categories" in params) {
+			contentStruct.categories = params.categories;
+		}
+		
+		if ("tags" in params) {
+			contentStruct.mt_keywords = params.tags;
+		}
+		
+		/*
+		if ("timestamp" in params) {
+			contentStruct.dateCreated = new Date(params.timestamp);
+		}
+		
+		if ("custom_fields" in params && params.custom_fields.length > 0) {
+			contentStruct.custom_fields = custom_fields;
+		}
+		
+		if ("slug" in params && params.slug) {
+			contentStruct.slug = slug;
+		}
+		*/
+		
+		if ("draft" in params) {
+			var publish = params.draft ? "bool0" : "bool1";
+		}
+		else {
+			var publish = "bool1";
+		}
+		
+		if (("id" in params) && params.id) {
+			var args = [this.xmlrpc, params.id, this.username, this.password, contentStruct, publish];
+			var xml = performancingAPICalls.metaWeblog_editPost(args);
+		}
+		else {
+			var args = [this.xmlrpc, this.blogid, this.username, this.password, contentStruct, publish];
+			var xml = performancingAPICalls.metaWeblog_newPost(args);
+		}
+		
+		XMLRPC_LIB.doCommand(
+			this.xmlrpc,
+			xml, 
+			function (rv) {
+				if (success) {
+					if (("id" in params) && params.id) {
+						success({ "id" : params.id });
+					}
+					else {
+						success({ "id": rv });
+					}
 				}
 			},
 			function (status, msg) {
