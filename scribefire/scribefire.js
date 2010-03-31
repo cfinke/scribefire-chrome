@@ -99,6 +99,8 @@ var SCRIBEFIRE = {
 			blog.html(blogs[i].name);
 			$("#list-blogs").append(blog);
 		}
+		
+		$("#list-blogs").change();
 	},
 	
 	populateEntriesList : function () {
@@ -118,6 +120,23 @@ var SCRIBEFIRE = {
 					entry.html(rv[i].title);
 					
 					$("#list-entries").append(entry);
+				}
+				
+				$("#list-entries").change();
+			},
+			SCRIBEFIRE.genericError
+		);
+	},
+	
+	deletePost : function (postId) {
+		var params = { "id": postId };
+		
+		SCRIBEFIRE.getAPI().deletePost(
+			params,
+			function success(rv) {
+				if (rv) {
+					$("#list-entries option[value='"+postId+"']").remove();
+					alert("Done");
 				}
 			},
 			SCRIBEFIRE.genericError

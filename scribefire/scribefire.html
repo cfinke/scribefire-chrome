@@ -8,66 +8,123 @@
 		<script type="text/javascript" src="lib/jquery.js"></script>
 		<script type="text/javascript" src="lib/parseUri.js"></script>
 	</head>
-	<body>
+	<body onload="window.innerHeight = 700;">
 		<div>
 			<div>
-				<label>Blog:</label>
-				<select id="list-blogs"></select>
-				<button id="button-blog-add">New</button>
-				<button id="button-blog-edit">Edit</button>
-				<button id="button-blog-remove">Remove</button>
-				<div id="dialog-blog-add" style="display:none;">
-					<div>
-						<label>URL</label>
-						<input type="text" id="text-blog-url" />
-						<button id="button-blog-urlcheck">Next</button>
-					</div>
-					<div>
-						<label>Blog Type</label>
-						<select id="list-blog-types" disabled="disabled">
-							<option value="wordpress">Wordpress</option>
-						</select>
-						<label>API Url</label>
-						<input type="text" id="text-blog-api-url" disabled="disabled" />
-					</div>
-					<div>
-						<label>Username</label>
-						<input type="text" id="text-blog-username" disabled="disabled" />
-						<label>Password</label>
-						<input type="password" id="text-blog-password" disabled="disabled" />
-						<button id="button-blog-logincheck">Next</button>
+				<div class="bar">
+					<label>Blog: <span id="label-current-blog"></span></label>
+				</div>
+				<div class="underbar">
+					<select id="list-blogs"></select>
+					<p>
+						<button id="button-blog-add">New</button>
+						<button id="button-blog-edit">Edit</button>
+						<button id="button-blog-remove">Remove</button>
+					</p>
+					<div id="dialog-blog-add" style="display:none;">
+						<div>
+							<label>URL</label>
+							<input type="text" id="text-blog-url" />
+							<button id="button-blog-urlcheck">Next</button>
+						</div>
+						<div>
+							<label>Blog Type</label>
+							<select id="list-blog-types" disabled="disabled">
+								<option value="wordpress">Wordpress</option>
+							</select>
+							<label>API Url</label>
+							<input type="text" id="text-blog-api-url" disabled="disabled" />
+						</div>
+						<div>
+							<label>Username</label>
+							<input type="text" id="text-blog-username" disabled="disabled" />
+							<label>Password</label>
+							<input type="password" id="text-blog-password" disabled="disabled" />
+							<button id="button-blog-logincheck">Next</button>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div>
-				<label>Entry:</label>
-				<select id="list-entries"><option value="">(new)</option></select>
-				<button id="button-entry-remove">Remove</button>
+				<div class="bar">
+					<label>Entry: <span id="label-current-entry"></span></label>
+				</div>
+				<div class="underbar">
+					<select id="list-entries"><option value="">(new)</option></select>
+					<button id="button-entry-remove">Remove</button>
+				</div>
 			</div>
 			<div>
-				<label>Title:</label>
-				<input type="text" id="text-title" />
+				<div class="bar bar-selected">
+					<label>Title: <span id="label-current-title"></span></label>
+				</div>
+				<div class="underbar underbar-selected">
+					<input type="text" id="text-title" />
+				</div>
 			</div>
 			<div>
-				<label>Content</label>
-				<textarea rows="10" id="text-content"></textarea>
+				<div class="bar bar-selected">
+					<label>Content</label>
+				</div>
+				<div class="underbar underbar-selected">
+					<textarea rows="10" id="text-content"></textarea>
+				</div>
 			</div>
 			<div>
-				<label>Categories:</label>
-				<select id="list-categories" multiple="true"></select>
+				<div class="bar">
+					<label>Categories:</label>
+				</div>
+				<div class="underbar">
+					<select id="list-categories" multiple="true"></select>
+				</div>
 			</div>
 			<div>
-				<label>Tags:</label>
-				<input type="text" id="text-tags" />
+				<div class="bar">
+					<label>Tags: <span id="label-current-tags"></span></label>
+				</div>
+				<div class="underbar">
+					<input type="text" id="text-tags" />
+				</div>
 			</div>
 		</div>
 		<div>
-			<input type="checkbox" id="checkbox-draft" /> <label>Draft</label>
-			<button id="button-publish">Publish</button>
+			<div class="bar bar-selected">
+				<label>Publish</label>
+			</div>
+			<div class="underbar underbar-selected">
+				<input type="checkbox" id="checkbox-draft" /> <label>Draft</label>
+				<button id="button-publish">Publish</button>
+			</div>
 		</div>
 		<script>
 			$(document).ready(function () {
 				SCRIBEFIRE.load();
+				
+				$("#button-entry-remove").click(function (e){
+					e.preventDefault();
+					
+					if (confirm("Are you sure?")) {
+						SCRIBEFIRE.deletePost($("#list-entries").val());
+					}
+				});
+				$(".bar").click(function () {
+					$(this).parent().find(".underbar:first").toggle();
+					
+					if ($(this).hasClass("bar-selected")) {
+						$(this).removeClass("bar-selected");
+					}
+					else {
+						$(this).addClass("bar-selected");
+					}
+				});
+				
+				$("#text-title").change(function () {
+					$("#label-current-title").html($(this).val());
+				});
+				
+				$("#text-tags").change(function () {
+					$("#label-current-tags").html($(this).val());
+				});
 				
 				$("#list-blogs").change(function () {
 					if (!$(this).val()) {
@@ -78,6 +135,8 @@
 						SCRIBEFIRE.populateEntriesList();
 						SCRIBEFIRE.populateCategoriesList();
 					}
+					
+					$("#label-current-blog").html($(this).find("option:selected").text());
 				});
 				
 				$("#list-entries").change(function () {
@@ -95,6 +154,8 @@
 						$("#text-tags").val(entry.attr("mt_keywords"));
 						$("#list-categories").val(entry.attr("categories").split(","));
 					}
+					
+					$("#label-current-entry").html($(this).find("option:selected").text());
 				});
 				
 				$("#list-blogs").change();

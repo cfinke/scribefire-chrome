@@ -188,6 +188,27 @@ var wordpressBlogAPI = function () {
 		);
 	};
 	
+	this.deletePost = function (params, success, failure) {
+		var args = [this.apiUrl, "ignored", params.id, this.username, this.password, true];
+		var xml = performancingAPICalls.blogger_deletePost(args);
+		
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml,
+			function (rv) {
+				if (success) {
+					success(rv);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+		
+	};
+	
 	this.getCategories = function (params, success, failure) {
 		var args = [this.apiUrl, this.id, this.username, this.password];
 		var xml = performancingAPICalls.mt_getCategoryList(args);
