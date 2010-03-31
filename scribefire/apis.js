@@ -9,8 +9,9 @@ blogAPI.prototype = {
 	},
 	
 	login : function (username, password) { },
-	getRecentPosts : function (limit) { }
-	
+	getRecentPosts : function (success, failure) {
+		// Parameter to success is an array of posts, with the "id" and "title" parameters defined.
+	}
 };
 
 var wordpressBlogAPI = function () {
@@ -19,11 +20,29 @@ var wordpressBlogAPI = function () {
 		return performancingAPICalls.wp_getUsersBlogs(args);
 	};
 	
-	this.getRecentPosts = function (limit) {
-		if (!limit) limit = 30;
-		
+	this.getRecentPosts = function (success, failure) {
+		var limit = 30;
 		var args = [this.xmlrpc, this.blogid, this.username, this.password, limit];
-		return performancingAPICalls.metaWeblog_getRecentPosts(args);
+		var xml = performancingAPICalls.metaWeblog_getRecentPosts(args);
+		
+		XMLRPC_LIB.doCommand(
+			this.xmlrpc,
+			xml, 
+			function (rv) {
+				if (success) {
+					for (var i = 0; i < rv.length; i++) {
+						rv[i].id = rv[i].postid;
+					}
+				
+					success(rv);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
 	};
 	
 	this.newPost = function (params) {

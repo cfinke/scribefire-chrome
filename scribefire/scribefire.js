@@ -100,14 +100,8 @@ var SCRIBEFIRE = {
 	populateEntriesList : function () {
 		$("#list-entries").html('<option value="">(new)</option>');
 		
-		var api = SCRIBEFIRE.getAPI();
-		
-		XMLRPC_LIB.doCommand(
-			api.xmlrpc,
-			api.getRecentPosts(),
+		SCRIBEFIRE.getAPI().getRecentPosts(
 			function success(rv) {
-				console.log(rv);
-				
 				for (var i = 0; i < rv.length; i++) {
 					var entry = $("<option/>");
 					
@@ -115,14 +109,14 @@ var SCRIBEFIRE = {
 						entry.attr(x, rv[i][x]);
 					}
 					
-					entry.attr("value", rv[i].postid);
+					entry.attr("value", rv[i].id);
 					entry.html(rv[i].title);
 					
 					$("#list-entries").append(entry);
 				}
 			},
-			function failure(status, msg) {
-				alert("Error ("+status+"): " + msg);
+			function failure(rv) {
+				alert("Error ("+rv.status+"): " + rv.msg);
 			}
 		);
 	},
