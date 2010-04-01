@@ -125,8 +125,6 @@
 		</div>
 		<script>
 			$(document).ready(function () {
-				SCRIBEFIRE.load();
-				
 				$("#button-category-add").click(function (e) {
 					e.preventDefault();
 					
@@ -222,11 +220,10 @@
 						$("#list-categories").val(entry.attr("categories").split(","));
 					}
 					
+					SCRIBEFIRE.prefs.setCharPref("selectedEntry", $(this).val());
+					
 					$("#label-current-entry").html($(this).find("option:selected").text());
 				});
-				
-				$("#list-blogs").change();
-				$("#list-entries").change();
 				
 				$("#button-blog-add").click(function (e) {
 					$("#dialog-blog-add").show();
@@ -285,6 +282,8 @@
 					
 					SCRIBEFIRE.publish();
 				});
+				
+				SCRIBEFIRE.load();
 			});
 		</script>
 	</body>

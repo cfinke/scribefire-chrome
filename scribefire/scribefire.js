@@ -45,9 +45,13 @@ var SCRIBEFIRE = {
 		},
 		
 		setPref : function (prefName, prefVal) {
-			localStorage[this.namespace + prefName] = prefVal;
+			var existing = this.getPref(prefName);
 			
-			SCRIBEFIRE.observe(null, null, prefName);
+			if (existing !== prefVal) {
+				localStorage[this.namespace + prefName] = prefVal;
+				
+				SCRIBEFIRE.observe(null, null, prefName);
+			}
 		},
 
 		setCharPref : function (prefName, prefVal) {
@@ -81,6 +85,9 @@ var SCRIBEFIRE = {
 				// Refill the blogs list.
 				SCRIBEFIRE.populateBlogsList();
 			break;
+			case "selectedBlog":
+				SCRIBEFIRE.prefs.setCharPref("selectedEntry", "");
+			break;
 		}
 	},
 	
@@ -110,6 +117,8 @@ var SCRIBEFIRE = {
 		SCRIBEFIRE.getAPI().getPosts(
 			{ },
 			function success(rv) {
+				var selectedEntry = SCRIBEFIRE.prefs.getCharPref("selectedEntry");
+				
 				for (var i = 0; i < rv.length; i++) {
 					var entry = $("<option/>");
 					
@@ -119,6 +128,10 @@ var SCRIBEFIRE = {
 					
 					entry.attr("value", rv[i].id);
 					entry.html(rv[i].title);
+					
+					if (selectedEntry && (entry.attr("value") == selectedEntry)) {
+						entry.attr("selected", "selected");
+					}
 					
 					$("#list-entries").append(entry);
 				}

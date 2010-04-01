@@ -130,9 +130,9 @@ var wordpressBlogAPI = function () {
 						rv[i].tags = rv[i].mt_keywords;
 						rv[i].published = (rv[i].post_status != "draft");
 						
-						delete rv[i].id;
-						delete rv[i].post_status;
+						delete rv[i].postid;
 						delete rv[i].mt_keywords;
+						delete rv[i].post_status;
 					}
 				
 					success(rv);
