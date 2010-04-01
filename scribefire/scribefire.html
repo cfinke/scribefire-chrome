@@ -96,7 +96,7 @@
 					<textarea rows="10" id="text-content"></textarea>
 				</div>
 			</div>
-			<div>
+			<div id="ui-categories">
 				<div class="bar">
 					<label>Categories:</label>
 				</div>
@@ -202,6 +202,17 @@
 					
 					SCRIBEFIRE.prefs.setCharPref("selectedBlog", $(this).val());
 					$("#label-current-blog").html($(this).find("option:selected").text());
+					
+					var api = SCRIBEFIRE.getAPI();
+					
+					for (x in api.ui) {
+						if (!api.ui[x]) {
+							$("#ui-" + x).hide();
+						}
+						else {
+							$("#ui-" + x).show();
+						}
+					}
 				});
 				
 				$("#list-entries").change(function () {

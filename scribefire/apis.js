@@ -1,4 +1,9 @@
-var blogAPI = function () { };
+var blogAPI = function () {
+	this.ui = {};
+	this.ui.categories = true;
+	this.ui.tags = true;
+	this.ui.draft = true;	
+};
 
 blogAPI.prototype = {
 	init : function (blogObject) {
@@ -291,6 +296,8 @@ var wordpressBlogAPI = function () {
 wordpressBlogAPI.prototype = new blogAPI();
 
 var tumblrBlogAPI = function () {
+	this.ui.categories = false;
+	
 	this.getBlogs = function (params, success, failure) {
 		var url = "http://www.tumblr.com/api/authenticate";
 		
