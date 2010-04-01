@@ -100,6 +100,7 @@ var SCRIBEFIRE = {
 			$("#list-blogs").append(blog);
 		}
 		
+		$("#list-blogs").val(SCRIBEFIRE.prefs.getCharPref("selectedBlog"));
 		$("#list-blogs").change();
 	},
 	

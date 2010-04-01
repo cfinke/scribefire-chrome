@@ -22,30 +22,31 @@
 						<button id="button-blog-remove">Remove</button>
 					</p>
 					<div id="dialog-blog-add" style="display:none;">
-						<div>
+						<div class="step-1">
 							<div class="subbar subbar-selected">
 								<label>URL: <span id="label-add-blog-url"></span></label>
 							</div>
 							<div class="subunderbar subunderbar-selected">
 								<input type="text" id="text-blog-url" />
 								<p>
-									<button id="button-addblog-cancel">Cancel</button>
 									<button id="button-blog-urlcheck">Next</button>
+									<button id="button-addblog-cancel">Cancel</button>
 								</p>
 							</div>
 						</div>
-						<div>
+						<div class="step-2">
 							<div class="subbar" disabled="true">
 								<label>Blog Type: <span id="label-add-blog-type"></span></label>
 							</div>
 							<div class="subunderbar">
 								<select id="list-blog-types" disabled="disabled">
+									<option vlaue="">(select)</option>
 									<option value="wordpress">Wordpress</option>
 									<option value="tumblr">Tumblr</option>
 								</select>
 							</div>
 						</div>
-						<div>
+						<div class="step-2">
 							<div class="subbar" disabled="true">
 								<label>API URL: <span id="label-add-blog-apiurl"></span></label>
 							</div>
@@ -53,7 +54,7 @@
 								<input type="text" id="text-blog-api-url" disabled="disabled" />
 							</div>
 						</div>
-						<div>
+						<div class="step-2">
 							<div class="subbar" disabled="true">
 								<label>Login Credentials</label>
 							</div>
@@ -63,7 +64,7 @@
 								<label>Password</label>
 								<input type="password" id="text-blog-password" disabled="disabled" />
 								<p>
-									<button id="button-blog-logincheck">Next</button>
+									<button id="button-blog-logincheck">Finish</button>
 								</p>
 							</div>
 						</div>
@@ -201,6 +202,7 @@
 						SCRIBEFIRE.populateCategoriesList();
 					}
 					
+					SCRIBEFIRE.prefs.setCharPref("selectedBlog", $(this).val());
 					$("#label-current-blog").html($(this).find("option:selected").text());
 				});
 				
@@ -228,6 +230,17 @@
 				
 				$("#button-blog-add").click(function (e) {
 					$("#dialog-blog-add").show();
+					
+					$("#text-blog-url").val("").change();
+					$("#list-blog-types").val("");
+					$("#text-blog-api-url").val("");
+					$("#text-blog-username").val("");
+					$("#text-blog-password").val("");
+					
+					$("#dialog-blog-add .step-2 .subbar").attr("disabled", "true").removeClass("subbar-selected");
+					$("#dialog-blog-add .step-2 .subunderbar").removeClass("subunderbar-selected");
+					$("#dialog-blog-add .step-2").find("input, select").attr("disabled", "true");
+					$("#dialog-blog-add .step-2 .subunderbar").hide();
 				});
 				
 				$("#button-blog-urlcheck").click(function (e) {
@@ -241,7 +254,8 @@
 									$("#text-blog-api-url").val(metaData.apiUrl);
 									$("#text-blog-api-url").removeAttr("disabled");
 									
-									$("#text-blog-username, #text-blog-password").removeAttr("disabled");
+									$("#dialog-blog-add .step-2 .subbar").click();
+									$("#dialog-blog-add .step-2 *[disabled]").removeAttr("disabled");
 								}
 								else {
 									alert("Unsupported blog type.");
