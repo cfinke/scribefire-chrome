@@ -208,6 +208,10 @@ var SCRIBEFIRE = {
 	},
 	
 	getBlogMetaData : function (url, callback) {
+		if (!url.match(/^https?:\/\//)) {
+			url = "http://" + url;
+		}
+		
 		var parsed = parseUri(url);
 		
 		var metaData = {
@@ -228,7 +232,117 @@ var SCRIBEFIRE = {
 			metaData.apiUrl = "http://www.tumblr.com/api";
 		}
 		
-		callback(metaData);
+		if (metaData.type) {
+			callback(metaData);
+		}
+		else {
+			// Do some requests to try and figure this sucker out.
+			var req = new XMLHttpRequest();
+			req.open("GET", url, true);
+			
+			req.onreadystatechange = function () {
+				if (req.readyState == 4) {
+					if (req.status < 300) {
+						// Check for a <link /> tag.
+						var linkTags = req.responseText.match(/<link(?:(?:\s+\w+(?:\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/g);
+						
+						for (var i = 0; i < linkTags.length; i++) {
+							var link = $(linkTags[i]);
+							
+							if (link.attr("rel") == 'service.post' && link.attr("type") == 'application/atom+xml' && link.attr("href").indexOf("posts/") != -1) {
+								metaData.type = "blogger_atom";
+								metaData.apiUrl = link.attr("href");
+								callback(metaData);
+								return;
+							}
+							else if (link.attr("rel") == "pingback" && link.attr("href")) {
+								metaData.type = "wordpress";
+								metaData.apiUrl = link.attr("href");
+								callback(metaData);
+								return;
+							}
+							else if (link.attr("title") == "RSD" && link.attr("href")) {
+								// Check the RSD file.
+								var rsdReq = new XMLHttpRequest();
+								rsdReq.open("GET", link.attr("href"), true);
+								rsdReq.overrideMimeType("text/xml");
+								
+								rsdReq.onreadystatechange = function () {
+									if (rsdReq.readyState == 4) {
+										if (rsdReq.status < 300) {
+											console.log(rsdReq.responseText);
+											
+											var xml = rsdReq.responseXML;
+											var jxml = $(xml);
+											
+											var engineName = $(jxml).find("engineName:first").text().toLowerCase();
+											
+											if (engineName == "typepad") {
+												metaData.type = "typepad";
+												metaData.apiUrl = "http://www.typepad.com/t/api";
+												callback(metaData);
+												return;
+											}
+											
+											var apis = $(jxml).find("api");
+											
+											for (var i = 0; i < apis.length; i++) {
+												var api = $(apis[i]);
+
+												var name = api.attr("name").toLowerCase();
+												var apiUrl = api.attr("apiLink");
+												
+												switch (name) {
+													case "blogger":
+														metaData.type = "blogger";
+													break;
+													case "metaweblog":
+														metaData.type = "metaweblog";
+													break;
+													case "movabletype":
+													case "movable type":
+														metaData.type = "movabletype";
+													break;
+													case "wordpress":
+														metaData.type = "wordpress";
+													break;
+												}
+												
+												if (metaData.type) {
+													if (api.attr("blogID")) {
+														metaData.id = api.attr("blogID");
+													}
+													
+													metaData.apiUrl = apiUrl;
+													callback(metaData);
+													return;
+												}
+											}
+											
+											alert("Well, this is embarrassing (RSD)...");
+										}
+										else {
+											alert("RSD Check Error: "+rsdReq.status);
+										}
+									}
+								};
+								
+								rsdReq.send(null);
+								
+								return;
+							}
+						}
+						
+						alert("Well, this is embarrassing...");
+					}
+					else {
+						alert("API Check Error: "+req.status);
+					}
+				}
+			};
+			
+			req.send(null);
+		}
 	},
 	
 	publish : function () {
@@ -270,24 +384,17 @@ var SCRIBEFIRE = {
 		);
 	},
 	
-	getBlogs : function (apiUrl, apiType, username, password, successCallback, failureCallback) {
-		var params = {
-			"apiUrl" : apiUrl,
-			"username" : username,
-			"password" : password,
-			"type": apiType
-		};
-		
-		getBlogAPI(apiType).getBlogs(
+	getBlogs : function (params, successCallback, failureCallback) {
+		getBlogAPI(params.type).getBlogs(
 			params,
 			function success(rv) {
 				var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 				
 				for (var i = 0; i < rv.length; i++) {
 					var blog = rv[i];
-					blog.type = apiType;
-					blog.username = username;
-					blog.password = password;
+					blog.type = params.type;
+					blog.username = params.username;
+					blog.password = params.password;
 					
 					blogs[blog.url] = blog;
 				}

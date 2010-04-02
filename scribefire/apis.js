@@ -1,3 +1,20 @@
+function getBlogAPI(type) {
+	switch (type) {
+		case "wordpress":
+			return new wordpressBlogAPI();
+		break;
+		case "blogger_atom":
+			return new bloggerAtomBlogAPI();
+		break;
+		case "tumblr":
+			return new tumblrBlogAPI();
+		break;
+		default:
+			alert("Unsupported blog type.");
+		break;
+	}
+}
+
 var blogAPI = function () {
 	this.ui = {};
 	this.ui.categories = true;
@@ -295,6 +312,394 @@ var wordpressBlogAPI = function () {
 };
 wordpressBlogAPI.prototype = new blogAPI();
 
+var bloggerAtomBlogAPI = function () {
+	this.authToken = null;
+	
+	this.ui.tags = false;
+	
+	this.doAuth = function (callback, params) {
+		if (this.authToken) {
+			console.log("Just calling back. " + this.authToken);
+			callback(this.authToken);
+		}
+		else {
+			var self = this;
+		
+			var req = new XMLHttpRequest();
+			req.open("POST", "https://www.google.com/accounts/ClientLogin", true);
+			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+			var argString = "Email="+encodeURIComponent(this.username)+"&Passwd="+encodeURIComponent(this.password)+"&service=blogger&source=scribefire";
+			
+			if (params) {
+				for (var i in params) {
+					argString += "&"+i+"="+encodeURIComponent(params[i]);
+				}
+			}
+			
+			console.log(argString);
+			
+			req.onreadystatechange = function () {
+				if (req.readyState == 4) {
+					console.log(req.responseText);
+				
+					var lines = req.responseText.split("\n");
+					
+					var returnValues = {};
+					
+					for (var i = 0; i < lines.length; i++) {
+						var parts = lines[i].split("=");
+						var key = parts.shift();
+						var value = parts.join("=");
+						
+						returnValues[key] = value;
+					}
+					
+					console.log(returnValues);
+					console.log(req.status);
+				
+					if (req.status < 300) {
+						self.authToken = returnValues["Auth"];
+						
+						callback(self.authToken);
+					}
+					else {
+						switch (returnValues["Error"]) {
+							case 'BadAuthentication':
+							break;
+							case 'NotVerified':
+							break;
+							case 'TermsNotAgreed':
+							break;
+							case 'AccountDeleted':
+							break;
+							case 'ServiceDisabled':
+							break;
+							case 'ServiceUnavailable':
+							break;
+							case 'CaptchaRequired':
+								var imgUrl = "https://www.google.com/accounts/" + returnValues["CaptchaUrl"];
+								var img = $("<img />");
+								img.attr("src", imgUrl);
+								img.load(function () {
+									var captcha = prompt("Captcha");
+									img.remove();
+
+									if (captcha) {
+										self.doAuth(callback, {"logintoken": returnValues["CaptchaToken"], "logincaptcha": captcha });
+										return;
+									}
+								});
+								
+								$("body").prepend(img);
+								
+								return;
+							break;
+							case 'Unknown':
+							default:
+							break;
+						}
+					
+						alert("Error: " + returnValues["Error"]);
+					}
+				}
+			};
+		
+			req.send(argString);
+		}
+	};
+	
+	this.buildRequest = function (method, url, callback) {
+		console.log("In buildRequesT");
+		
+		var token = this.authToken;
+		
+		console.log("Token: " + token);
+		
+		var self = this;
+		
+		function build(token) {
+			console.log("in build");
+			console.log("Token: " + token);
+			
+			var req = new XMLHttpRequest();
+			req.open(method, url, true, self.username, self.password);
+			req.setRequestHeader("Authorization", "GoogleLogin auth=" + token);
+			req.setRequestHeader("Content-Type", "application/atom+xml");
+			
+			return req;
+		}
+		
+		if (token) {
+			console.log("Token exists");
+			var req = build(token);
+			callback(req);
+		}
+		else {
+			console.log("need to get token");
+			this.doAuth(function (token) {
+				var req = build(token);
+				callback(req);
+			});
+		}
+	};
+	
+	this.getBlogs = function (params, success, failure) {
+		console.log(params);
+		
+		this.init(params);
+		
+		this.buildRequest(
+			"GET",
+			params.apiUrl,
+			function (req) {
+				req.onreadystatechange = function () {
+					if (req.readyState == 4) {
+						if (req.status < 300) {
+							console.log(req.responseText);
+						
+							var xml = req.responseXML;
+						
+							if (!xml) {
+								// bloggerIncompleteResponse
+								failure({"status": req.status, "msg": "Incomplete response"});
+							}
+							else {
+						
+								var jxml = $(xml);
+						
+								var blogs = [];
+						
+								var blog = {};
+								blog.url = jxml.find("link[rel='alternate']:first").attr("href");
+								blog.name = jxml.find("title:first").text();
+								blog.id = jxml.find("id:first").text().split(":blog-")[1];
+								blog.apiUrl = params.apiUrl;
+								blog.type = "blogger_atom";
+								blog.username = params.username;
+								blog.password = params.password;
+						
+								blogs.push(blog);
+						
+								success(blogs);
+							}
+						}
+						else {
+							failure({"status": req.status, "msg": req.responseText});
+						}
+					}
+				};
+				
+				req.send(null);
+			}
+		);
+	};
+	
+	this.getPosts = function (params, success, failure) {
+		this.buildRequest(
+			"GET",
+			this.apiUrl,
+			function (req) {
+				req.onreadystatechange = function () {
+					if (req.readyState == 4) {
+						if (req.status < 300) {
+							var xml = req.responseXML;
+							var jxml = $(xml);
+						
+							var posts = [];
+						
+							console.log(jxml);
+						
+							$(jxml).find("entry").each(function () {
+								var post = {};
+								post.description = $(this).find("content:first").text();
+							
+								// @todo Do this better.
+								post.description = post.description.replace('<content type="xhtml">' + "\n  ", "");
+								post.description = post.description.replace("\n</content>", "");
+							
+								// @todo Do this better too.
+								var divRegexp = /\<div xmlns\=\'http:\/\/www.w3.org\/1999\/xhtml\'\>|\<div xmlns\=\"http:\/\/www.w3.org\/1999\/xhtml\"\>/;
+								var divIndex = post.description.search(divRegexp);
+
+								if (divIndex >= 0 && divIndex < 30){
+									// If we have a <div xmlns='http://www.w3.org/1999/xhtml'> at the top
+									post.description = post.description.substring(42, post.description.length - 6); // Get rid of the outer div
+								}
+							
+								post.title = $(this).find("title:first").text();
+							
+								/*
+								var val = $(this).find("published:first").text();
+
+								// Check for a timezone offset
+								var possibleOffset = val.substr(-6);
+								var hasTimezone = false;
+								var minutes = null;
+
+								if (possibleOffset.charAt(0) == "-" || possibleOffset.charAt(0) == "+") {
+									var hours = parseInt(possibleOffset.substr(1,2), 10);
+									var minutes = (hours * 60) + parseInt(possibleOffset.substr(4,2), 10);
+
+									if (possibleOffset.charAt(0) == "+") {
+										minutes *= -1;
+									}
+
+									hasTimezone = true;
+								}
+
+								val = val.replace(/-/gi, "");
+
+								var year = parseInt(val.substring(0, 4), 10);
+								var month = parseInt(val.substring(4, 6), 10) - 1
+								var day = parseInt(val.substring(6, 8), 10);
+								var hour = parseInt(val.substring(9, 11), 10);
+								var minute = parseInt(val.substring(12, 14), 10);
+								var second = parseInt(val.substring(15, 17), 10);
+
+								var dateutc =  Date.UTC(year, month, day, hour, minute, second);
+								dateutc = new Date(dateutc);
+
+								if (!hasTimezone) {
+									minutes = new Date(dateutc).getTimezoneOffset();
+								}
+
+								var offsetDate = dateutc.getTime();
+								offsetDate += (1000 * 60 * minutes);
+								dateutc.setTime(offsetDate);
+							
+								post.date = dateutc;
+								*/
+							
+								post.categories = [];
+							
+								$(this).find("category").each(function () {
+									post.categories.push($(this).attr("term"));
+								});
+							
+								post.tags = "";
+							
+								$(this).find("link").each(function () {
+									if ($(this).attr("rel") == "alternate") {
+										post.url = $(this).attr("href");
+									}
+									else if ($(this).attr("rel") == "edit") {
+										post.editUrl = $(this).attr("href");
+									}
+								});
+							
+								var postUrl = $(this).find("id:first").text();
+								post.id = postUrl.match( /(?:\/|post-)(\d{5,})(?!\d*\/)/)[1];
+								post.published = true;
+							
+								posts.push(post);
+							});
+						
+							console.log(posts);
+						
+							success(posts);
+						}
+						else {
+							failure({ "status": req.status, "msg": req.responseText });
+						}
+					}
+				};
+				
+				req.send(null);
+			}
+		);
+	};
+	
+	this.publish = function (params, success, failure) {
+		var method = "POST";
+		var apiUrl = this.apiUrl;
+		
+		if ("id" in params && params.id) {
+			method = "PUT";
+			
+			if (apiUrl[apiUrl.length - 1] != "/") {
+				apiUrl += "/";
+			}
+			
+			apiUrl += params.id;
+		}
+		
+		var body = "";
+		body += '<?xml version="1.0" encoding="UTF-8" ?>';
+		body += '<entry xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://purl.org/atom/app#">';
+		
+		var title = params.title.replace(/&amp;/g, '&');
+		title = namedEntitiesToNumericEntities(title);
+		title = title.replace(/&([^#])/g, "&amp;$1");
+		
+		for (var i = 0; i < params.categories.length; i++) {
+			body += '<category scheme="http://www.blogger.com/atom/ns#" term="'+params.categories[i].replace(/&/g,'&amp;')+'"/>';
+		}
+		
+		body += '<title mode="escaped" type="text">' + title + '</title>';
+		
+		if ("date" in params && params.date) {
+			var date = params.date;
+			body += '<issued>' + params.date + '</issued>';
+			
+			if (date) {
+				var validDate = date.substring(0,4) + "-" + date.substring(4,6) + "-" + date.substring(6,8) + "T" + date.substring(9,17) + ".000Z";
+				body += '<published>' + validDate + '</published>';
+			}
+		}
+		
+		body += '<content type="xhtml">'
+		
+		// Blogger doesn't like named entities.
+		description = namedEntitiesToNumericEntities(params.content);
+		
+		if (description.indexOf('<div xmlns="http://www.w3.org/1999/xhtml">') != -1){
+			body += description.replace(/&([^#])/g, "&amp;$1");
+		}
+		else {
+			body += '<div xmlns="http://www.w3.org/1999/xhtml">' + description.replace(/&([^#])/g, "&amp;$1") + '</div>';
+		}
+		
+		body += '</content>';
+		
+		if (params.draft) {
+			body += '<app:control>';
+			body += '    <app:draft>yes</app:draft>';
+			body += '</app:control>';
+		}
+		
+		body += ' </entry>';
+		
+		console.log(body);
+		
+		this.buildRequest(
+			method,
+			apiUrl,
+			function (req) {
+				req.onreadystatechange = function () {
+					if (req.readyState == 4) {
+						console.log(req.responseText);
+						
+						if (req.status < 300) {
+							var xml = req.responseXML;
+							var jxml = $(xml);
+							
+							var postId = jxml.find("id:first").text().split(".post-")[1];
+							success({ "id": postId });
+						}
+						else {
+							failure({ "status": req.status, "msg": req.responseText });
+						}
+					}
+				};
+				
+				req.send(body);
+			}
+		);
+	};
+};
+bloggerAtomBlogAPI.prototype = new blogAPI();
+
 var tumblrBlogAPI = function () {
 	this.ui.categories = false;
 	
@@ -522,20 +927,6 @@ var tumblrBlogAPI = function () {
 	};
 };
 tumblrBlogAPI.prototype = new blogAPI();
-
-function getBlogAPI(type) {
-	switch (type) {
-		case "wordpress":
-			return new wordpressBlogAPI();
-		break;
-		case "tumblr":
-			return new tumblrBlogAPI();
-		break;
-		default:
-			alert("Unsupported blog type.");
-		break;
-	}
-}
 
 var performancingAPICalls = {
     //myParams  = [url, appkey, blogid, username, password, content, publish]
