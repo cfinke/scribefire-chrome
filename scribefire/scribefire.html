@@ -234,7 +234,7 @@
 						
 						$("#text-title").val(entry.attr("title"));
 						$("#text-content").val(entry.attr("description"));
-						$("#checkbox-draft").attr("checked", !entry.attr("published"));
+						$("#checkbox-draft").attr("checked", entry.attr("published") == "false");
 						$("#text-tags").val(entry.attr("tags"));
 						$("#list-categories").val(entry.attr("categories").split(",")).change();
 					}

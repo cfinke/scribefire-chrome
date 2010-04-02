@@ -1,17 +1,31 @@
-function getBlogAPI(type) {
+var blogApis = {
+};
+
+function getBlogAPI(type, apiUrl) {
+	if (apiUrl in blogApis) {
+		return blogApis[apiUrl];
+	}
+	
+	var api = null;
+	
 	switch (type) {
 		case "wordpress":
-			return new wordpressBlogAPI();
+			api = new wordpressBlogAPI();
 		break;
 		case "blogger_atom":
-			return new bloggerAtomBlogAPI();
+			api = new bloggerAtomBlogAPI();
 		break;
 		case "tumblr":
-			return new tumblrBlogAPI();
+			api = new tumblrBlogAPI();
 		break;
 		default:
 			alert("Unsupported blog type.");
 		break;
+	}
+	
+	if (api) {
+		blogApis[apiUrl] = api;
+		return api;
 	}
 }
 
@@ -377,7 +391,7 @@ var bloggerAtomBlogAPI = function () {
 						
 							var posts = [];
 						
-							$(jxml).find("entry").each(function () {
+							jxml.find("entry").each(function () {
 								var post = {};
 								post.description = $(this).find("content:first").text();
 							
@@ -457,8 +471,15 @@ var bloggerAtomBlogAPI = function () {
 							
 								var postUrl = $(this).find("id:first").text();
 								post.id = postUrl.match( /(?:\/|post-)(\d{5,})(?!\d*\/)/)[1];
+								
 								post.published = true;
-							
+								
+								$(this).find("draft").each(function () {
+									if ($(this).text() == "yes") {
+										post.published = false;
+									}
+								});
+								
 								posts.push(post);
 							});
 						
@@ -574,8 +595,6 @@ var bloggerAtomBlogAPI = function () {
 			function (req) {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4){
-						console.log(req.responseText);
-						
 						if (req.status < 300) {
 							success(true);
 						}

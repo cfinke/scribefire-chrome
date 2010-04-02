@@ -201,7 +201,7 @@ var SCRIBEFIRE = {
 		var selectedBlog = $("#list-blogs").val();
 		var blog = SCRIBEFIRE.getBlog(selectedBlog);
 		
-		var api = getBlogAPI(blog.type);
+		var api = getBlogAPI(blog.type, blog.apiUrl);
 		api.init(blog);
 		
 		return api;
@@ -270,8 +270,6 @@ var SCRIBEFIRE = {
 								rsdReq.onreadystatechange = function () {
 									if (rsdReq.readyState == 4) {
 										if (rsdReq.status < 300) {
-											console.log(rsdReq.responseText);
-											
 											var xml = rsdReq.responseXML;
 											var jxml = $(xml);
 											
@@ -357,12 +355,20 @@ var SCRIBEFIRE = {
 		SCRIBEFIRE.getAPI().publish(
 			params,
 			function success(rv) {
-				// @todo
-				alert("Success!");
-				console.log(rv);
+				$("#list-entries").val("").change();
+				SCRIBEFIRE.populateEntriesList();
+				SCRIBEFIRE.clearData();
 			},
 			SCRIBEFIRE.genericError
 		);
+	},
+	
+	clearData : function () {
+		$("#text-title").val("").change();
+		$("#text-content").val("");
+		$("#checkbox-draft").removeAttr("checked");
+		$("#text-tags").val("");
+		$("#list-categories").val("");
 	},
 	
 	populateCategoriesList : function () {
@@ -385,7 +391,7 @@ var SCRIBEFIRE = {
 	},
 	
 	getBlogs : function (params, successCallback, failureCallback) {
-		getBlogAPI(params.type).getBlogs(
+		getBlogAPI(params.type, params.apiUrl).getBlogs(
 			params,
 			function success(rv) {
 				var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
