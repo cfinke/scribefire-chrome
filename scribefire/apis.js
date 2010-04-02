@@ -317,136 +317,7 @@ var bloggerAtomBlogAPI = function () {
 	
 	this.ui.tags = false;
 	
-	this.doAuth = function (callback, params) {
-		if (this.authToken) {
-			console.log("Just calling back. " + this.authToken);
-			callback(this.authToken);
-		}
-		else {
-			var self = this;
-		
-			var req = new XMLHttpRequest();
-			req.open("POST", "https://www.google.com/accounts/ClientLogin", true);
-			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		
-			var argString = "Email="+encodeURIComponent(this.username)+"&Passwd="+encodeURIComponent(this.password)+"&service=blogger&source=scribefire";
-			
-			if (params) {
-				for (var i in params) {
-					argString += "&"+i+"="+encodeURIComponent(params[i]);
-				}
-			}
-			
-			console.log(argString);
-			
-			req.onreadystatechange = function () {
-				if (req.readyState == 4) {
-					console.log(req.responseText);
-				
-					var lines = req.responseText.split("\n");
-					
-					var returnValues = {};
-					
-					for (var i = 0; i < lines.length; i++) {
-						var parts = lines[i].split("=");
-						var key = parts.shift();
-						var value = parts.join("=");
-						
-						returnValues[key] = value;
-					}
-					
-					console.log(returnValues);
-					console.log(req.status);
-				
-					if (req.status < 300) {
-						self.authToken = returnValues["Auth"];
-						
-						callback(self.authToken);
-					}
-					else {
-						switch (returnValues["Error"]) {
-							case 'BadAuthentication':
-							break;
-							case 'NotVerified':
-							break;
-							case 'TermsNotAgreed':
-							break;
-							case 'AccountDeleted':
-							break;
-							case 'ServiceDisabled':
-							break;
-							case 'ServiceUnavailable':
-							break;
-							case 'CaptchaRequired':
-								var imgUrl = "https://www.google.com/accounts/" + returnValues["CaptchaUrl"];
-								var img = $("<img />");
-								img.attr("src", imgUrl);
-								img.load(function () {
-									var captcha = prompt("Captcha");
-									img.remove();
-
-									if (captcha) {
-										self.doAuth(callback, {"logintoken": returnValues["CaptchaToken"], "logincaptcha": captcha });
-										return;
-									}
-								});
-								
-								$("body").prepend(img);
-								
-								return;
-							break;
-							case 'Unknown':
-							default:
-							break;
-						}
-					
-						alert("Error: " + returnValues["Error"]);
-					}
-				}
-			};
-		
-			req.send(argString);
-		}
-	};
-	
-	this.buildRequest = function (method, url, callback) {
-		console.log("In buildRequesT");
-		
-		var token = this.authToken;
-		
-		console.log("Token: " + token);
-		
-		var self = this;
-		
-		function build(token) {
-			console.log("in build");
-			console.log("Token: " + token);
-			
-			var req = new XMLHttpRequest();
-			req.open(method, url, true, self.username, self.password);
-			req.setRequestHeader("Authorization", "GoogleLogin auth=" + token);
-			req.setRequestHeader("Content-Type", "application/atom+xml");
-			
-			return req;
-		}
-		
-		if (token) {
-			console.log("Token exists");
-			var req = build(token);
-			callback(req);
-		}
-		else {
-			console.log("need to get token");
-			this.doAuth(function (token) {
-				var req = build(token);
-				callback(req);
-			});
-		}
-	};
-	
 	this.getBlogs = function (params, success, failure) {
-		console.log(params);
-		
 		this.init(params);
 		
 		this.buildRequest(
@@ -456,8 +327,6 @@ var bloggerAtomBlogAPI = function () {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
 						if (req.status < 300) {
-							console.log(req.responseText);
-						
 							var xml = req.responseXML;
 						
 							if (!xml) {
@@ -507,8 +376,6 @@ var bloggerAtomBlogAPI = function () {
 							var jxml = $(xml);
 						
 							var posts = [];
-						
-							console.log(jxml);
 						
 							$(jxml).find("entry").each(function () {
 								var post = {};
@@ -595,8 +462,6 @@ var bloggerAtomBlogAPI = function () {
 								posts.push(post);
 							});
 						
-							console.log(posts);
-						
 							success(posts);
 						}
 						else {
@@ -670,16 +535,12 @@ var bloggerAtomBlogAPI = function () {
 		
 		body += ' </entry>';
 		
-		console.log(body);
-		
 		this.buildRequest(
 			method,
 			apiUrl,
 			function (req) {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
-						console.log(req.responseText);
-						
 						if (req.status < 300) {
 							var xml = req.responseXML;
 							var jxml = $(xml);
@@ -696,6 +557,195 @@ var bloggerAtomBlogAPI = function () {
 				req.send(body);
 			}
 		);
+	};
+	
+	this.deletePost = function (params, success, failure) {
+		var apiUrl = this.apiUrl;
+		
+		if (apiUrl[apiUrl.length - 1] != "/") {
+			apiUrl += "/";
+		}
+		
+		apiUrl += params.id;
+		
+		this.buildRequest(
+			"DELETE",
+			apiUrl,
+			function (req) {
+				req.onreadystatechange = function () {
+					if (req.readyState == 4){
+						console.log(req.responseText);
+						
+						if (req.status < 300) {
+							success(true);
+						}
+						else {
+							failure({ "status": req.status, "msg": req.responseText });
+						}
+					}
+				};
+				
+				req.send(null);
+			}
+		);
+	};
+	
+	this.getCategories = function (params, success, failure) {
+		this.buildRequest(
+			"GET",
+			this.apiUrl,
+			function (req) {
+				req.onreadystatechange = function () {
+					if (req.readyState == 4) {
+						if (req.status < 300) {
+							var xml = req.responseXML;
+							var jxml = $(xml);
+							
+							var categories = {};
+						
+							jxml.find("category").each(function () {
+								var term = $(this).attr("term");
+								categories[term] = true;
+							});
+							
+							var rv = [];
+							
+							for (var i in categories) {
+								rv.push(i);
+							}
+							
+							rv.sort();
+							
+							for (var i = 0; i < rv.length; i++) {
+								var categoryName = rv[i];
+								rv[i] = { "id" : rv[i], "name": rv[i] };
+							}
+							
+							success(rv);
+						}
+						else {
+							failure({ "status": req.status, "msg": req.responseText });
+						}
+					}
+				};
+				
+				req.send(null);
+			}
+		);
+	};
+	
+	this.addCategory = function (params, success, failure) {
+		success({ "id": params.name, "name": params.name });
+	};
+	
+	this.doAuth = function (callback, params) {
+		if (this.authToken) {
+			callback(this.authToken);
+		}
+		else {
+			var self = this;
+		
+			var req = new XMLHttpRequest();
+			req.open("POST", "https://www.google.com/accounts/ClientLogin", true);
+			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+			var argString = "Email="+encodeURIComponent(this.username)+"&Passwd="+encodeURIComponent(this.password)+"&service=blogger&source=scribefire";
+			
+			if (params) {
+				for (var i in params) {
+					argString += "&"+i+"="+encodeURIComponent(params[i]);
+				}
+			}
+			
+			req.onreadystatechange = function () {
+				if (req.readyState == 4) {
+					var lines = req.responseText.split("\n");
+					
+					var returnValues = {};
+					
+					for (var i = 0; i < lines.length; i++) {
+						var parts = lines[i].split("=");
+						var key = parts.shift();
+						var value = parts.join("=");
+						
+						returnValues[key] = value;
+					}
+					
+					if (req.status < 300) {
+						self.authToken = returnValues["Auth"];
+						
+						callback(self.authToken);
+					}
+					else {
+						switch (returnValues["Error"]) {
+							case 'BadAuthentication':
+							break;
+							case 'NotVerified':
+							break;
+							case 'TermsNotAgreed':
+							break;
+							case 'AccountDeleted':
+							break;
+							case 'ServiceDisabled':
+							break;
+							case 'ServiceUnavailable':
+							break;
+							case 'CaptchaRequired':
+								var imgUrl = "https://www.google.com/accounts/" + returnValues["CaptchaUrl"];
+								var img = $("<img />");
+								img.attr("src", imgUrl);
+								img.load(function () {
+									var captcha = prompt("Captcha");
+									img.remove();
+
+									if (captcha) {
+										self.doAuth(callback, {"logintoken": returnValues["CaptchaToken"], "logincaptcha": captcha });
+										return;
+									}
+								});
+								
+								$("body").prepend(img);
+								
+								return;
+							break;
+							case 'Unknown':
+							default:
+							break;
+						}
+					
+						alert("Error: " + returnValues["Error"]);
+					}
+				}
+			};
+		
+			req.send(argString);
+		}
+	};
+	
+	this.buildRequest = function (method, url, callback) {
+		var token = this.authToken;
+		
+		var self = this;
+		
+		function build(token) {
+			var req = new XMLHttpRequest();
+			req.open(method, url, true, self.username, self.password);
+			req.setRequestHeader("Authorization", "GoogleLogin auth=" + token);
+			req.setRequestHeader("Content-Type", "application/atom+xml");
+			
+			return req;
+		}
+		
+		if (token) {
+			var req = build(token);
+			callback(req);
+		}
+		else {
+			this.doAuth(function (token) {
+				var req = build(token);
+				callback(req);
+			});
+		}
 	};
 };
 bloggerAtomBlogAPI.prototype = new blogAPI();
@@ -781,8 +831,6 @@ var tumblrBlogAPI = function () {
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
-					console.log(req.responseText);
-					
 					var xml = req.responseXML;
 					var jxml = $(xml);
 				
@@ -808,8 +856,6 @@ var tumblrBlogAPI = function () {
 						
 						rv.push(post);
 					});
-					
-					console.log(rv);
 					
 					success(rv);
 				}

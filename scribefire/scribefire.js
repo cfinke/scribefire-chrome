@@ -168,7 +168,7 @@ var SCRIBEFIRE = {
 				option.attr("value", rv.name);
 				option.attr("categoryId", rv.id);
 				option.attr("selected", "selected");
-				$("#list-categories").append(option);
+				$("#list-categories").append(option).change();
 			},
 			SCRIBEFIRE.genericError
 		);
@@ -366,7 +366,7 @@ var SCRIBEFIRE = {
 	},
 	
 	populateCategoriesList : function () {
-		$("#list-categories").html("");
+		$("#list-categories").html("").change();
 		
 		SCRIBEFIRE.getAPI().getCategories(
 			{ },

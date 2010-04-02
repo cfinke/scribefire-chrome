@@ -106,7 +106,7 @@
 			</div>
 			<div id="ui-categories">
 				<div class="bar">
-					<label>Categories:</label>
+					<label>Categories: <span id="label-current-categories"></span></label>
 				</div>
 				<div class="underbar">
 					<select id="list-categories" multiple="true"></select>
@@ -236,12 +236,27 @@
 						$("#text-content").val(entry.attr("description"));
 						$("#checkbox-draft").attr("checked", !entry.attr("published"));
 						$("#text-tags").val(entry.attr("tags"));
-						$("#list-categories").val(entry.attr("categories").split(","));
+						$("#list-categories").val(entry.attr("categories").split(",")).change();
 					}
 					
 					SCRIBEFIRE.prefs.setCharPref("selectedEntry", $(this).val());
 					
 					$("#label-current-entry").html($(this).find("option:selected").text());
+				});
+				
+				$("#list-categories").change(function (e) {
+					if (!$(this).val()) {
+						$("#label-current-categories").val("(none)");
+					}
+					else {
+						var categories = [];
+						
+						$(this).find("option:selected").each(function () {
+							categories.push($(this).text());
+						});
+						
+						$("#label-current-categories").html(categories.join(", "));
+					}
 				});
 				
 				$("#button-blog-add").click(function (e) {
