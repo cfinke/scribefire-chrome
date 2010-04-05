@@ -246,88 +246,90 @@ var SCRIBEFIRE = {
 						// Check for a <link /> tag.
 						var linkTags = req.responseText.match(/<link(?:(?:\s+\w+(?:\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/g);
 						
-						for (var i = 0; i < linkTags.length; i++) {
-							var link = $(linkTags[i]);
+						if (linkTags) {
+							for (var i = 0; i < linkTags.length; i++) {
+								var link = $(linkTags[i]);
 							
-							if (link.attr("rel") == 'service.post' && link.attr("type") == 'application/atom+xml' && link.attr("href").indexOf("posts/") != -1) {
-								metaData.type = "blogger_atom";
-								metaData.apiUrl = link.attr("href");
-								callback(metaData);
-								return;
-							}
-							else if (link.attr("rel") == "pingback" && link.attr("href")) {
-								metaData.type = "wordpress";
-								metaData.apiUrl = link.attr("href");
-								callback(metaData);
-								return;
-							}
-							else if (link.attr("title") == "RSD" && link.attr("href")) {
-								// Check the RSD file.
-								var rsdReq = new XMLHttpRequest();
-								rsdReq.open("GET", link.attr("href"), true);
-								rsdReq.overrideMimeType("text/xml");
+								if (link.attr("rel") == 'service.post' && link.attr("type") == 'application/atom+xml' && link.attr("href").indexOf("posts/") != -1) {
+									metaData.type = "blogger_atom";
+									metaData.apiUrl = link.attr("href");
+									callback(metaData);
+									return;
+								}
+								else if (link.attr("rel") == "pingback" && link.attr("href")) {
+									metaData.type = "wordpress";
+									metaData.apiUrl = link.attr("href");
+									callback(metaData);
+									return;
+								}
+								else if (link.attr("title") == "RSD" && link.attr("href")) {
+									// Check the RSD file.
+									var rsdReq = new XMLHttpRequest();
+									rsdReq.open("GET", link.attr("href"), true);
+									rsdReq.overrideMimeType("text/xml");
 								
-								rsdReq.onreadystatechange = function () {
-									if (rsdReq.readyState == 4) {
-										if (rsdReq.status < 300) {
-											var xml = rsdReq.responseXML;
-											var jxml = $(xml);
+									rsdReq.onreadystatechange = function () {
+										if (rsdReq.readyState == 4) {
+											if (rsdReq.status < 300) {
+												var xml = rsdReq.responseXML;
+												var jxml = $(xml);
 											
-											var engineName = $(jxml).find("engineName:first").text().toLowerCase();
+												var engineName = $(jxml).find("engineName:first").text().toLowerCase();
 											
-											if (engineName == "typepad") {
-												metaData.type = "typepad";
-												metaData.apiUrl = "http://www.typepad.com/t/api";
-												callback(metaData);
-												return;
-											}
-											
-											var apis = $(jxml).find("api");
-											
-											for (var i = 0; i < apis.length; i++) {
-												var api = $(apis[i]);
-
-												var name = api.attr("name").toLowerCase();
-												var apiUrl = api.attr("apiLink");
-												
-												switch (name) {
-													case "blogger":
-														metaData.type = "blogger";
-													break;
-													case "metaweblog":
-														metaData.type = "metaweblog";
-													break;
-													case "movabletype":
-													case "movable type":
-														metaData.type = "movabletype";
-													break;
-													case "wordpress":
-														metaData.type = "wordpress";
-													break;
-												}
-												
-												if (metaData.type) {
-													if (api.attr("blogID")) {
-														metaData.id = api.attr("blogID");
-													}
-													
-													metaData.apiUrl = apiUrl;
+												if (engineName == "typepad") {
+													metaData.type = "typepad";
+													metaData.apiUrl = "http://www.typepad.com/t/api";
 													callback(metaData);
 													return;
 												}
-											}
 											
-											alert("Well, this is embarrassing (RSD)...");
+												var apis = $(jxml).find("api");
+											
+												for (var i = 0; i < apis.length; i++) {
+													var api = $(apis[i]);
+
+													var name = api.attr("name").toLowerCase();
+													var apiUrl = api.attr("apiLink");
+												
+													switch (name) {
+														case "blogger":
+															metaData.type = "blogger";
+														break;
+														case "metaweblog":
+															metaData.type = "metaweblog";
+														break;
+														case "movabletype":
+														case "movable type":
+															metaData.type = "movabletype";
+														break;
+														case "wordpress":
+															metaData.type = "wordpress";
+														break;
+													}
+												
+													if (metaData.type) {
+														if (api.attr("blogID")) {
+															metaData.id = api.attr("blogID");
+														}
+													
+														metaData.apiUrl = apiUrl;
+														callback(metaData);
+														return;
+													}
+												}
+											
+												alert("Well, this is embarrassing (RSD)...");
+											}
+											else {
+												alert("RSD Check Error: "+rsdReq.status);
+											}
 										}
-										else {
-											alert("RSD Check Error: "+rsdReq.status);
-										}
-									}
-								};
+									};
 								
-								rsdReq.send(null);
+									rsdReq.send(null);
 								
-								return;
+									return;
+								}
 							}
 						}
 						
@@ -351,6 +353,37 @@ var SCRIBEFIRE = {
 		params.tags = $("#text-tags").val();
 		params.draft = $("#checkbox-draft").is(":checked");
 		params.id = $("#list-entries").val();
+		
+		// Preserve newlines and angle brackets in <pre>
+		if (params.content.match(/<pre[^>]*>/i)) {
+			try {
+				var allMatches = params.content.match(/<pre[^>]*>([\s\S]+?)<\/pre>/img);
+				
+				for (var i = 0; i < allMatches.length; i++) {
+					var currentMatch = allMatches[i];
+					
+					var toReplace = currentMatch.match(/<pre[^>]*>([\s\S]+?)<\/pre>/im)[1];
+					
+					var replaced = toReplace.replace(/\n/g, "SCRIBEFIRE_NEWLINE");
+					replaced = replaced.replace(/</g, "&lt;");
+					replaced = replaced.replace(/>/g, "&gt;");
+					
+					// $ is a special backreference char.
+					replaced = replaced.replace(/\$/g, "$$$$");
+					
+					params.content = params.content.replace(toReplace, replaced);
+				}
+			} catch (e) {
+			}
+		}
+		
+		// Many APIs convert newlines to <br />
+		params.content = params.content.replace(/\n/g, "");
+		params.content = params.content.replace(/SCRIBEFIRE_NEWLINE/g, "\n");
+		params.content = params.content.replace(/<wbr>/gi, "<wbr/>");
+		
+		// Get rid of MS Word stuff.
+		params.content = params.content.replace(/<[^>\s]+:[^\s>]+[^>]*>/g, " ");
 		
 		SCRIBEFIRE.getAPI().publish(
 			params,

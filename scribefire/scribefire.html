@@ -2,14 +2,19 @@
 	<head>
 		<title>ScribeFire</title>
 		<link rel="stylesheet" type="text/css" href="skin/style.css" />
+		<link rel="stylesheet" type="text/css" href="skin/facebox.css" />
+		<link rel="icon" type="image/png" href="skin/icon.png" />
 		<script type="text/javascript" src="util.js"></script>
 		<script type="text/javascript" src="xmlrpc.js"></script>
 		<script type="text/javascript" src="apis.js"></script>
 		<script type="text/javascript" src="scribefire.js"></script>
 		<script type="text/javascript" src="lib/jquery.js"></script>
 		<script type="text/javascript" src="lib/parseUri.js"></script>
+		<script type="text/javascript" src="lib/facebox.js"></script>
+		<script type="text/javascript" src="lib/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="lib/ckeditor/adapters/jquery.js"></script>
 	</head>
-	<body onload="window.innerHeight = 700;">
+	<body>
 		<div>
 			<div>
 				<div class="bar">
@@ -128,7 +133,7 @@
 			</div>
 			<div class="underbar underbar-selected">
 				<input type="checkbox" id="checkbox-draft" /> <label>Draft</label>
-				<button id="button-publish">Publish</button>
+				<button id="button-publish">Publish Post</button>
 			</div>
 		</div>
 		<script>
@@ -226,14 +231,16 @@
 				$("#list-entries").change(function () {
 					if (!$(this).val()) {
 						$("#button-entry-remove").attr("disabled","disabled");
+						$("#button-publish").html("Publish Post");
 					}
 					else {
 						$("#button-entry-remove").removeAttr("disabled");
+						$("#button-publish").html("Publish Edited Post");
 						
 						var entry = $(this).find("option:selected");
 						
-						$("#text-title").val(entry.attr("title"));
-						$("#text-content").val(entry.attr("description"));
+						$("#text-title").val(entry.attr("title")).change();
+						$("#text-content").val(entry.attr("content"));
 						$("#checkbox-draft").attr("checked", entry.attr("published") == "false");
 						$("#text-tags").val(entry.attr("tags"));
 						$("#list-categories").val(entry.attr("categories").split(",")).change();
@@ -329,6 +336,25 @@
 					
 					SCRIBEFIRE.publish();
 				});
+				
+				$("#text-content").ckeditor(function () { }, {
+				        on :
+				        {
+				            instanceReady : function( ev )
+				            {
+				                // Output paragraphs as <p>Text</p>.
+				                //this.dataProcessor.writer.lineBreakChars = "";
+//								this.dataProcessor.writer.indentationChars = "";
+								
+								this.dataProcessor.writer.setRules('p',
+									{
+									    indent: false,
+									    breakAfterOpen: false
+									});
+				            }
+				        }
+				    }
+				);
 				
 				SCRIBEFIRE.load();
 			});

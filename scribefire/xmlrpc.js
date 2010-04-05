@@ -20,8 +20,6 @@ var XMLRPC_LIB = {
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
-				console.log(req.responseXML);
-				
 				var jDoc = $(req.responseXML);
 				
 				if (req.status < 300 && (jDoc.find("fault").length == 0)) {
@@ -29,10 +27,7 @@ var XMLRPC_LIB = {
 					callback(parsedObject);
 				}
 				else {
-					console.log("Error in doCommand");
-					
 					var parsedObject = XMLRPC_LIB.XMLToObject(jDoc.find("fault:first > value:first > *")[0]);
-					console.log(parsedObject);
 					
 					if (failureCallback) {
 						failureCallback(parsedObject.faultCode, parsedObject.faultString);

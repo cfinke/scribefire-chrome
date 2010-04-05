@@ -17,8 +17,19 @@ body {
 	text-shadow: 1px 1px #f5f5f5;
 }
 
-.bar-selected, .subbar-selected {
+.subbar {
+	color: #fff;
+	border-top-color: #91a0c0;
+	text-shadow: none;
+	background: url(arrow-right-blue.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf));
+}
+
+.bar-selected {
 	background: url(arrow-down.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
+}
+
+.subbar-selected {
+	background: url(arrow-down-blue.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf)) !important;
 }
 
 .underbar, .subunderbar {
@@ -41,4 +52,17 @@ input[type="text"], input[type="password"], textarea, select {
 
 #dialog-blog-add {
 	border: 1px dotted #aaa;
+}
+
+button, input[type="submit"] {
+	border: #a5a5a5 1px solid;
+	-webkit-border-radius: 10px;
+	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc));
+	color: #000;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+button:active, input[type="submit"]:active {
+	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
 }

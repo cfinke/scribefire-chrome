@@ -1,3 +1,5 @@
+var JUMP_BREAK_REGEX = /<hr\s*class=['"]jump['"]\s*\/?>/g;
+
 var blogApis = {
 };
 
@@ -61,7 +63,7 @@ blogAPI.prototype = {
 		 */
 		
 		/**
-		 * success(params) = [ { "id": <int>, "title": <string>, "description": <string>, "published": <bool>, "tags": <string>, "categories": <string>[] } ]
+		 * success(params) = [ { "id": <int>, "title": <string>, "content": <string>, "published": <bool>, "tags": <string>, "categories": <string>[] } ]
 		 */
 		
 		success([]);
@@ -165,10 +167,18 @@ var wordpressBlogAPI = function () {
 						rv[i].id = rv[i].postid;
 						rv[i].tags = rv[i].mt_keywords;
 						rv[i].published = (rv[i].post_status != "draft");
+						rv[i].content = rv[i].description;
+						
+						if ("mt_text_more" in rv[i]) {
+							rv[i].content += '<hr class="jump" />';
+							rv[i].content += rv[i].mt_text_more;
+						}
 						
 						delete rv[i].postid;
 						delete rv[i].mt_keywords;
 						delete rv[i].post_status;
+						delete rv[i].mt_text_more;
+						delete rv[i].description;
 					}
 				
 					success(rv);
@@ -185,15 +195,12 @@ var wordpressBlogAPI = function () {
 	this.publish = function (params, success, failure) {
 		var contentStruct = { };
 		
-		if (("id" in params) && params.id) {
-		}
-		
 		if ("title" in params) {
 			contentStruct.title = params.title;
 		}
 		
 		if ("content" in params) {
-			contentStruct.description = params.content;
+			contentStruct.content = params.content.replace(JUMP_BREAK_REGEX, "<!--more-->");;
 		}
 		
 		if ("categories" in params) {
@@ -393,19 +400,19 @@ var bloggerAtomBlogAPI = function () {
 						
 							jxml.find("entry").each(function () {
 								var post = {};
-								post.description = $(this).find("content:first").text();
+								post.content = $(this).find("content:first").text();
 							
 								// @todo Do this better.
-								post.description = post.description.replace('<content type="xhtml">' + "\n  ", "");
-								post.description = post.description.replace("\n</content>", "");
+								post.content = post.content.replace('<content type="xhtml">' + "\n  ", "");
+								post.content = post.content.replace("\n</content>", "");
 							
 								// @todo Do this better too.
 								var divRegexp = /\<div xmlns\=\'http:\/\/www.w3.org\/1999\/xhtml\'\>|\<div xmlns\=\"http:\/\/www.w3.org\/1999\/xhtml\"\>/;
-								var divIndex = post.description.search(divRegexp);
+								var divIndex = post.content.search(divRegexp);
 
 								if (divIndex >= 0 && divIndex < 30){
 									// If we have a <div xmlns='http://www.w3.org/1999/xhtml'> at the top
-									post.description = post.description.substring(42, post.description.length - 6); // Get rid of the outer div
+									post.content = post.content.substring(42, post.content.length - 6); // Get rid of the outer div
 								}
 							
 								post.title = $(this).find("title:first").text();
@@ -536,15 +543,19 @@ var bloggerAtomBlogAPI = function () {
 		
 		body += '<content type="xhtml">'
 		
-		// Blogger doesn't like named entities.
-		description = namedEntitiesToNumericEntities(params.content);
+		var content = params.content;
+		content = content.replace(JUMP_BREAK_REGEX, "<!-- more -->");
 		
-		if (description.indexOf('<div xmlns="http://www.w3.org/1999/xhtml">') != -1){
-			body += description.replace(/&([^#])/g, "&amp;$1");
-		}
-		else {
-			body += '<div xmlns="http://www.w3.org/1999/xhtml">' + description.replace(/&([^#])/g, "&amp;$1") + '</div>';
-		}
+		// Blogger doesn't like named entities.
+		content = namedEntitiesToNumericEntities(content);
+		
+		// I don't think these divs are actually necessary.
+		//if (content.indexOf('<div xmlns="http://www.w3.org/1999/xhtml">') != -1){
+			body += content.replace(/&([^#])/g, "&amp;$1");
+		//}
+		//else {
+		//	body += '<div xmlns="http://www.w3.org/1999/xhtml">' + content.replace(/&([^#])/g, "&amp;$1") + '</div>';
+		//}
 		
 		body += '</content>';
 		
@@ -667,7 +678,7 @@ var bloggerAtomBlogAPI = function () {
 			var req = new XMLHttpRequest();
 			req.open("POST", "https://www.google.com/accounts/ClientLogin", true);
 			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		
+			
 			var argString = "Email="+encodeURIComponent(this.username)+"&Passwd="+encodeURIComponent(this.password)+"&service=blogger&source=scribefire";
 			
 			if (params) {
@@ -696,6 +707,8 @@ var bloggerAtomBlogAPI = function () {
 						callback(self.authToken);
 					}
 					else {
+						returnValues["Error"] = "CaptchaRequired";
+						
 						switch (returnValues["Error"]) {
 							case 'BadAuthentication':
 							break;
@@ -711,19 +724,19 @@ var bloggerAtomBlogAPI = function () {
 							break;
 							case 'CaptchaRequired':
 								var imgUrl = "https://www.google.com/accounts/" + returnValues["CaptchaUrl"];
-								var img = $("<img />");
-								img.attr("src", imgUrl);
-								img.load(function () {
-									var captcha = prompt("Captcha");
-									img.remove();
-
+								
+								$.facebox("<div><h4>Google requires that you complete this CAPTCHA in order to continue:</h4><p><img src='"+imgUrl+"' /><p><input type='text' id='google-captcha' /><input type='submit' value='Continue' id='captcha-continue' /></div>");
+								
+								$("#captcha-continue").click(function (e) {
+									var captcha = $("#google-captcha").val();
+									
+									$(document).trigger("close.facebox");
+									
 									if (captcha) {
 										self.doAuth(callback, {"logintoken": returnValues["CaptchaToken"], "logincaptcha": captcha });
 										return;
 									}
 								});
-								
-								$("body").prepend(img);
 								
 								return;
 							break;
@@ -858,7 +871,7 @@ var tumblrBlogAPI = function () {
 					jxml.find("post").each(function () {
 						var post = {};
 						post.title = $(this).find("regular-title:first").text();
-						post.description = $(this).find("regular-body:first").text();
+						post.content = $(this).find("regular-body:first").text();
 						post.dateCreated = $(this).attr("date-gmt");
 						post.id = $(this).attr("id");
 						post.url = $(this).attr("url");
