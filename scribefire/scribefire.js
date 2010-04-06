@@ -91,6 +91,9 @@ var SCRIBEFIRE = {
 		}
 	},
 	
+	persist : function () {
+	},
+	
 	genericError : function (rv) {
 		alert("Error ("+rv.status+"): " + rv.msg);
 	},
@@ -276,45 +279,51 @@ var SCRIBEFIRE = {
 											
 												var engineName = $(jxml).find("engineName:first").text().toLowerCase();
 											
+												/*
 												if (engineName == "typepad") {
 													metaData.type = "typepad";
 													metaData.apiUrl = "http://www.typepad.com/t/api";
 													callback(metaData);
 													return;
 												}
-											
-												var apis = $(jxml).find("api");
-											
-												for (var i = 0; i < apis.length; i++) {
-													var api = $(apis[i]);
-
-													var name = api.attr("name").toLowerCase();
-													var apiUrl = api.attr("apiLink");
+												*/
 												
-													switch (name) {
-														case "blogger":
-															metaData.type = "blogger";
-														break;
-														case "metaweblog":
-															metaData.type = "metaweblog";
-														break;
-														case "movabletype":
-														case "movable type":
-															metaData.type = "movabletype";
-														break;
-														case "wordpress":
-															metaData.type = "wordpress";
-														break;
-													}
+												var apis = [ $(jxml).find("api[preferred='true']"), $(jxml).find("api") ];
 												
-													if (metaData.type) {
-														if (api.attr("blogID")) {
-															metaData.id = api.attr("blogID");
-														}
+												for (var j = 0; j < apis.length; j++) {
+													var api_set = apis[j];
 													
-														metaData.apiUrl = apiUrl;
-														callback(metaData);
-														return;
+													for (var i = 0; i < api_set.length; i++) {
+														var api = $(api_set[i]);
+
+														var name = api.attr("name").toLowerCase();
+														var apiUrl = api.attr("apiLink");
+														
+														switch (name) {
+															case "blogger":
+																metaData.type = "blogger";
+															break;
+															case "metaweblog":
+																metaData.type = "metaweblog";
+															break;
+															case "movabletype":
+															case "movable type":
+																metaData.type = "movabletype";
+															break;
+															case "wordpress":
+																metaData.type = "wordpress";
+															break;
+														}
+												
+														if (metaData.type) {
+															if (api.attr("blogID")) {
+																metaData.id = api.attr("blogID");
+															}
+													
+															metaData.apiUrl = apiUrl;
+															callback(metaData);
+															return;
+														}
 													}
 												}
 											

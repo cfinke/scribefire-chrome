@@ -20,6 +20,9 @@ function getBlogAPI(type, apiUrl) {
 		case "tumblr":
 			api = new tumblrBlogAPI();
 		break;
+		case "metaweblog":
+			api = new genericMetaWeblogAPI();
+		break;
 		default:
 			alert("Unsupported blog type.");
 		break;
@@ -116,7 +119,189 @@ blogAPI.prototype = {
 	}
 };
 
+var genericMetaWeblogAPI = function () {
+	this.ui.categories = false;
+	
+	this.getBlogs = function (params, success, failure) {
+		// How safe is it to assume that MetaWeblog APIs implement the blogger_ methods?
+		
+		var args = [params.apiUrl, params.id, params.username, params.password];
+		var xml = performancingAPICalls.blogger_getUsersBlogs(args);
+		
+		XMLRPC_LIB.doCommand(
+			params.apiUrl,
+			xml,
+			function (rv) {
+				if (success) {
+					var blogs = [];
+				
+					for (var i = 0; i < rv.length; i++) {
+						var blog = {};
+						blog.url = rv[i].url;
+						blog.id = rv[i].blogid;
+						blog.name = rv[i].blogName;
+						blog.apiUrl = params.apiUrl;
+						blog.type = params.type;
+						blog.username = params.username;
+						blog.password = params.password;
+					
+						blogs.push(blog);
+					}
+					
+					success(blogs);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
+	
+	this.getPosts = function (params, success, failure) {
+		if (!("limit" in params)) params.limit = 30;
+		
+		var args = [this.apiUrl, this.id, this.username, this.password, params.limit];
+		
+		var xml = performancingAPICalls.metaWeblog_getRecentPosts(args);
+		
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml, 
+			function (rv) {
+				if (success) {
+					for (var i = 0; i < rv.length; i++) {
+						rv[i].id = rv[i].postid;
+						rv[i].tags = rv[i].mt_keywords;
+						rv[i].published = (rv[i].post_status != "draft");
+						rv[i].content = rv[i].description;
+						
+						if (("mt_text_more" in rv[i]) && rv[i].mt_text_more) {
+							rv[i].content += '<hr class="jump" />';
+							rv[i].content += rv[i].mt_text_more;
+						}
+						
+						if (!("categories" in rv[i])){
+							rv[i].categories = [];
+						}
+						
+						rv[i].permalink = rv[i].permaLink;
+						
+						delete rv[i].postid;
+						delete rv[i].mt_keywords;
+						delete rv[i].post_status;
+						delete rv[i].mt_text_more;
+						delete rv[i].description;
+						delete rv[i].permaLink;
+					}
+
+					success(rv);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
+
+	this.publish = function (params, success, failure) {
+		var contentStruct = { };
+
+		if ("title" in params) {
+			contentStruct.title = params.title;
+		}
+
+		if ("content" in params) {
+			contentStruct.description = params.content.replace(JUMP_BREAK_REGEX, "<!--more-->");;
+		}
+
+		if ("categories" in params) {
+			contentStruct.categories = params.categories;
+		}
+
+		if ("tags" in params) {
+			contentStruct.mt_keywords = params.tags;
+		}
+
+		/*
+		if ("timestamp" in params) {
+			contentStruct.dateCreated = new Date(params.timestamp);
+		}
+
+		if ("custom_fields" in params && params.custom_fields.length > 0) {
+			contentStruct.custom_fields = custom_fields;
+		}
+
+		if ("slug" in params && params.slug) {
+			contentStruct.slug = slug;
+		}
+		*/
+
+		if ("draft" in params) {
+			var publish = params.draft ? "bool0" : "bool1";
+		}
+		else {
+			var publish = "bool1";
+		}
+
+		if (("id" in params) && params.id) {
+			var args = [this.apiUrl, params.id, this.username, this.password, contentStruct, publish];
+			var xml = performancingAPICalls.metaWeblog_editPost(args);
+		}
+		else {
+			var args = [this.apiUrl, this.id, this.username, this.password, contentStruct, publish];
+			var xml = performancingAPICalls.metaWeblog_newPost(args);
+		}
+
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml, 
+			function (rv) {
+				if (success) {
+					if (("id" in params) && params.id) {
+						success({ "id" : params.id });
+					}
+					else {
+						success({ "id": rv });
+					}
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
+
+	this.deletePost = function (params, success, failure) {
+		var args = [this.apiUrl, "0123456789ABCDEF", params.id, this.username, this.password, true];
+		var xml = performancingAPICalls.blogger_deletePost(args);
+
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml,
+			function (rv) {
+				if (success) {
+					success(rv);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
+};
+genericMetaWeblogAPI.prototype = new blogAPI();
+
 var wordpressBlogAPI = function () {
+	this.ui.categories = true;
+	
 	this.getBlogs = function (params, success, failure) {
 		var args = [params.apiUrl, params.username, params.password];
 		var xml = performancingAPICalls.wp_getUsersBlogs(args);
@@ -150,137 +335,6 @@ var wordpressBlogAPI = function () {
 				}
 			}
 		);
-	};
-	
-	this.getPosts = function (params, success, failure) {
-		if (!("limit" in params)) params.limit = 30;
-		
-		var args = [this.apiUrl, this.id, this.username, this.password, params.limit];
-		var xml = performancingAPICalls.metaWeblog_getRecentPosts(args);
-		
-		XMLRPC_LIB.doCommand(
-			this.apiUrl,
-			xml, 
-			function (rv) {
-				if (success) {
-					for (var i = 0; i < rv.length; i++) {
-						rv[i].id = rv[i].postid;
-						rv[i].tags = rv[i].mt_keywords;
-						rv[i].published = (rv[i].post_status != "draft");
-						rv[i].content = rv[i].description;
-						
-						if ("mt_text_more" in rv[i]) {
-							rv[i].content += '<hr class="jump" />';
-							rv[i].content += rv[i].mt_text_more;
-						}
-						
-						delete rv[i].postid;
-						delete rv[i].mt_keywords;
-						delete rv[i].post_status;
-						delete rv[i].mt_text_more;
-						delete rv[i].description;
-					}
-				
-					success(rv);
-				}
-			},
-			function (status, msg) {
-				if (failure) {
-					failure({"status": status, "msg": msg});
-				}
-			}
-		);
-	};
-	
-	this.publish = function (params, success, failure) {
-		var contentStruct = { };
-		
-		if ("title" in params) {
-			contentStruct.title = params.title;
-		}
-		
-		if ("content" in params) {
-			contentStruct.content = params.content.replace(JUMP_BREAK_REGEX, "<!--more-->");;
-		}
-		
-		if ("categories" in params) {
-			contentStruct.categories = params.categories;
-		}
-		
-		if ("tags" in params) {
-			contentStruct.mt_keywords = params.tags;
-		}
-		
-		/*
-		if ("timestamp" in params) {
-			contentStruct.dateCreated = new Date(params.timestamp);
-		}
-		
-		if ("custom_fields" in params && params.custom_fields.length > 0) {
-			contentStruct.custom_fields = custom_fields;
-		}
-		
-		if ("slug" in params && params.slug) {
-			contentStruct.slug = slug;
-		}
-		*/
-		
-		if ("draft" in params) {
-			var publish = params.draft ? "bool0" : "bool1";
-		}
-		else {
-			var publish = "bool1";
-		}
-		
-		if (("id" in params) && params.id) {
-			var args = [this.apiUrl, params.id, this.username, this.password, contentStruct, publish];
-			var xml = performancingAPICalls.metaWeblog_editPost(args);
-		}
-		else {
-			var args = [this.apiUrl, this.id, this.username, this.password, contentStruct, publish];
-			var xml = performancingAPICalls.metaWeblog_newPost(args);
-		}
-		
-		XMLRPC_LIB.doCommand(
-			this.apiUrl,
-			xml, 
-			function (rv) {
-				if (success) {
-					if (("id" in params) && params.id) {
-						success({ "id" : params.id });
-					}
-					else {
-						success({ "id": rv });
-					}
-				}
-			},
-			function (status, msg) {
-				if (failure) {
-					failure({"status": status, "msg": msg});
-				}
-			}
-		);
-	};
-	
-	this.deletePost = function (params, success, failure) {
-		var args = [this.apiUrl, "ignored", params.id, this.username, this.password, true];
-		var xml = performancingAPICalls.blogger_deletePost(args);
-		
-		XMLRPC_LIB.doCommand(
-			this.apiUrl,
-			xml,
-			function (rv) {
-				if (success) {
-					success(rv);
-				}
-			},
-			function (status, msg) {
-				if (failure) {
-					failure({"status": status, "msg": msg});
-				}
-			}
-		);
-		
 	};
 	
 	this.getCategories = function (params, success, failure) {
@@ -331,7 +385,7 @@ var wordpressBlogAPI = function () {
 		);
 	}
 };
-wordpressBlogAPI.prototype = new blogAPI();
+wordpressBlogAPI.prototype = new genericMetaWeblogAPI();
 
 var bloggerAtomBlogAPI = function () {
 	this.authToken = null;

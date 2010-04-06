@@ -13,18 +13,19 @@
 		<script type="text/javascript" src="lib/facebox.js"></script>
 		<script type="text/javascript" src="lib/ckeditor/ckeditor.js"></script>
 		<script type="text/javascript" src="lib/ckeditor/adapters/jquery.js"></script>
+		<script type="text/javascript" src="lib/persist.js"></script>
 	</head>
 	<body>
 		<div>
 			<div>
-				<div class="bar">
+				<div class="bar" id="bar-blog">
 					<label>Blog: <span id="label-current-blog"></span></label>
 				</div>
-				<div class="underbar">
+				<div class="underbar" id="underbar-blog">
 					<select id="list-blogs"></select>
 					<p>
 						<button id="button-blog-add">New</button>
-						<button id="button-blog-edit">Edit</button>
+						<!--<button id="button-blog-edit">Edit</button>-->
 						<button id="button-blog-remove">Remove</button>
 					</p>
 					<div id="dialog-blog-add" style="display:none;">
@@ -52,6 +53,7 @@
 									<option value="blogger_atom">Blogger</option>
 									<option value="blogger">Blogger (Old)</option>
 									<option value="typepad">TypePad</option>
+									<option value="metaweblog">MetaWeblog</option>
 									<option value="tumblr">Tumblr</option>
 								</select>
 							</div>
@@ -85,53 +87,53 @@
 				</div>
 			</div>
 			<div>
-				<div class="bar">
+				<div class="bar" id="bar-entries">
 					<label>Entry: <span id="label-current-entry"></span></label>
 				</div>
-				<div class="underbar">
+				<div class="underbar" id="underbar-entries">
 					<select id="list-entries"><option value="">(new)</option></select>
 					<button id="button-entry-remove">Remove</button>
 				</div>
 			</div>
 			<div>
-				<div class="bar bar-selected">
+				<div class="bar bar-selected" id="bar-title">
 					<label>Title: <span id="label-current-title"></span></label>
 				</div>
-				<div class="underbar underbar-selected">
+				<div class="underbar underbar-selected" id="underbar-title">
 					<input type="text" id="text-title" />
 				</div>
 			</div>
 			<div>
-				<div class="bar bar-selected">
+				<div class="bar bar-selected" id="bar-content">
 					<label>Content</label>
 				</div>
-				<div class="underbar underbar-selected">
+				<div class="underbar underbar-selected" id="underbar-content">
 					<textarea rows="10" id="text-content"></textarea>
 				</div>
 			</div>
 			<div id="ui-categories">
-				<div class="bar">
+				<div class="bar" id="bar-categories">
 					<label>Categories: <span id="label-current-categories"></span></label>
 				</div>
-				<div class="underbar">
+				<div class="underbar" id="underbar-categories">
 					<select id="list-categories" multiple="true"></select>
 					<button id="button-category-add">New</button>
 				</div>
 			</div>
 			<div id="ui-tags">
-				<div class="bar">
+				<div class="bar" id="bar-tags">
 					<label>Tags: <span id="label-current-tags"></span></label>
 				</div>
-				<div class="underbar">
+				<div class="underbar" id="underbar-tags">
 					<input type="text" id="text-tags" />
 				</div>
 			</div>
 		</div>
 		<div>
-			<div class="bar bar-selected">
+			<div class="bar bar-selected" id="bar-publish">
 				<label>Publish</label>
 			</div>
-			<div class="underbar underbar-selected">
+			<div class="underbar underbar-selected" id="underbar-publish">
 				<input type="checkbox" id="checkbox-draft" /> <label>Draft</label>
 				<button id="button-publish">Publish Post</button>
 			</div>
@@ -171,15 +173,19 @@
 				
 				$(".bar").click(function () {
 					if (1 || $(this).attr("disabled") != "true") {
-						$(this).parent().find(".underbar:first").toggle();
 					
 						if ($(this).hasClass("bar-selected")) {
 							$(this).removeClass("bar-selected");
+							$(this).parent().find(".underbar:first").removeClass("underbar-selected");
 						}
 						else {
 							$(this).addClass("bar-selected");
+							$(this).parent().find(".underbar:first").addClass("underbar-selected");
 						}
 					}
+					
+					$(this).persist("class");
+					$(this).parent().find(".underbar:first").persist("class");
 				});
 
 				$(".subbar").click(function () {
@@ -312,7 +318,8 @@
 						apiUrl : $("#text-blog-api-url").val(),
 						type : $("#list-blog-types").val(),
 						username : $("#text-blog-username").val(),
-						password : $("#text-blog-password").val()
+						password : $("#text-blog-password").val(),
+						blogUrl : $("#text-blog-url").val()
 					};
 					
 					if ($("#text-addblog-id").val()) {
