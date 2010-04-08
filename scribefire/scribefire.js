@@ -91,11 +91,56 @@ var SCRIBEFIRE = {
 		}
 	},
 	
-	persist : function () {
+	genericError : function (rv) {
+		console.log("Error ("+rv.status+"): " + rv.msg);
+		
+		SCRIBEFIRE.notify("Debugging error ("+rv.status+"): " + rv.func, null, null, null, "notifier-error");
 	},
 	
-	genericError : function (rv) {
-		alert("Error ("+rv.status+"): " + rv.msg);
+	notify : function (msg, buttonLabel, buttonCallback, buttonProperties, notifyClass) {
+		$(".notifier").remove();
+		
+		var notifier = $("<div />");
+		notifier.addClass("notifier");
+		
+		if (notifyClass) {
+			notifier.addClass(notifyClass);
+		}
+		
+		notifier.html(msg);
+		
+		if (buttonLabel) {
+			var button = $("<button />");
+			button.html(buttonLabel);
+			
+			if (buttonProperties) {
+				for (x in buttonProperties) {
+					button.attr(x, buttonProperties[x]);
+				}
+			}
+			
+			button.click(function (e) {
+				e.preventDefault();
+				
+				buttonCallback($(this));
+			});
+			
+			notifier.append(button);
+		}
+		
+		notifier.mouseover(function (e) {
+			clearTimeout(notifier.timer);
+		});
+		
+		notifier.mouseout(function (e) {
+			notifier.timer = setTimeout(function () { notifier.hide("slow"); }, 2000);
+		});
+
+		$("body").prepend(notifier.hide()).addClass("notifying");
+		
+		notifier.show("slow", function () {
+			notifier.timer = setTimeout(function () { notifier.hide("slow"); }, 5000);
+		});
 	},
 	
 	populateBlogsList : function () {
@@ -141,26 +186,37 @@ var SCRIBEFIRE = {
 				
 				$("#list-entries").change();
 			},
-			SCRIBEFIRE.genericError
+			function failure(rv) {
+				rv.func = "getPosts";
+				
+				SCRIBEFIRE.genericError(rv);
+			}
 		);
 	},
 	
-	deletePost : function (postId) {
+	deletePost : function (postId, callbackSuccess, callbackFailure) {
 		var params = { "id": postId };
 		
 		SCRIBEFIRE.getAPI().deletePost(
 			params,
 			function success(rv) {
-				if (rv) {
-					$("#list-entries option[value='"+postId+"']").remove();
-					alert("Done");
+				$("#list-entries option[value='"+postId+"']").remove();
+				
+				if (callbackSuccess) {
+					callbackSuccess(rv);
 				}
 			},
-			SCRIBEFIRE.genericError
+			function failure(rv) {
+				SCRIBEFIRE.error("ScribeFire found this little error when trying to delete your post: " + rv.status);
+				
+				if (callbackFailure) {
+					callbackFailure(rv);
+				}
+			}
 		);
 	},
 	
-	addCategory : function (categoryName) {
+	addCategory : function (categoryName, callbackSuccess, callbackFailure) {
 		var params = { "name" : categoryName };
 		
 		SCRIBEFIRE.getAPI().addCategory(
@@ -172,8 +228,18 @@ var SCRIBEFIRE = {
 				option.attr("categoryId", rv.id);
 				option.attr("selected", "selected");
 				$("#list-categories").append(option).change();
+				
+				if (callbackSuccess) {
+					callbackSuccess(rv);
+				}
 			},
-			SCRIBEFIRE.genericError
+			function failure(rv) {
+				SCRIBEFIRE.error("ScribeFire really wanted to help, but something broke when trying to add a category.  The error code was "+rv.status+".");
+				
+				if (callbackFailure) {
+					callbackFailure(rv);
+				}
+			}
 		);
 	},
 	
@@ -210,7 +276,7 @@ var SCRIBEFIRE = {
 		return api;
 	},
 	
-	getBlogMetaData : function (url, callback) {
+	getBlogMetaData : function (url, callbackSuccess, callbackFailure) {
 		if (!url.match(/^https?:\/\//)) {
 			url = "http://" + url;
 		}
@@ -236,7 +302,7 @@ var SCRIBEFIRE = {
 		}
 		
 		if (metaData.type) {
-			callback(metaData);
+			callbackSuccess(metaData);
 		}
 		else {
 			// Do some requests to try and figure this sucker out.
@@ -256,13 +322,13 @@ var SCRIBEFIRE = {
 								if (link.attr("rel") == 'service.post' && link.attr("type") == 'application/atom+xml' && link.attr("href").indexOf("posts/") != -1) {
 									metaData.type = "blogger_atom";
 									metaData.apiUrl = link.attr("href");
-									callback(metaData);
+									callbackSuccess(metaData);
 									return;
 								}
 								else if (link.attr("rel") == "pingback" && link.attr("href")) {
 									metaData.type = "wordpress";
 									metaData.apiUrl = link.attr("href");
-									callback(metaData);
+									callbackSuccess(metaData);
 									return;
 								}
 								else if (link.attr("title") == "RSD" && link.attr("href")) {
@@ -283,7 +349,7 @@ var SCRIBEFIRE = {
 												if (engineName == "typepad") {
 													metaData.type = "typepad";
 													metaData.apiUrl = "http://www.typepad.com/t/api";
-													callback(metaData);
+													callbackSuccess(metaData);
 													return;
 												}
 												*/
@@ -300,9 +366,11 @@ var SCRIBEFIRE = {
 														var apiUrl = api.attr("apiLink");
 														
 														switch (name) {
+															/*
 															case "blogger":
 																metaData.type = "blogger";
 															break;
+															*/
 															case "metaweblog":
 																metaData.type = "metaweblog";
 															break;
@@ -321,16 +389,16 @@ var SCRIBEFIRE = {
 															}
 													
 															metaData.apiUrl = apiUrl;
-															callback(metaData);
+															callbackSuccess(metaData);
 															return;
 														}
 													}
 												}
-											
-												alert("Well, this is embarrassing (RSD)...");
+												
+												callbackFailure("INCOMPATIBLE");
 											}
 											else {
-												alert("RSD Check Error: "+rsdReq.status);
+												callbackFailure("RSD_ERROR", req.status);
 											}
 										}
 									};
@@ -342,10 +410,10 @@ var SCRIBEFIRE = {
 							}
 						}
 						
-						alert("Well, this is embarrassing...");
+						callbackFailure("UNKNOWN_BLOG_TYPE");
 					}
 					else {
-						alert("API Check Error: "+req.status);
+						callbackFailure("REMOTE_ERROR", req.status);
 					}
 				}
 			};
@@ -354,7 +422,7 @@ var SCRIBEFIRE = {
 		}
 	},
 	
-	publish : function () {
+	publish : function (callbackSuccess, callbackFailure) {
 		var params = {};
 		params.title = $("#text-title").val();
 		params.content = $("#text-content").val();
@@ -400,8 +468,16 @@ var SCRIBEFIRE = {
 				$("#list-entries").val("").change();
 				SCRIBEFIRE.populateEntriesList();
 				SCRIBEFIRE.clearData();
+				
+				if (callbackSuccess) {
+					rv.url = SCRIBEFIRE.getAPI().url;
+					callbackSuccess(rv);
+				}
 			},
-			SCRIBEFIRE.genericError
+			function (rv) {
+				SCRIBEFIRE.error("Uh-oh, ScribeFire couldn't publish your post.  Here's what the server said:\n\nError Status "+rv.status+"\n\n"+rv.msg);
+				failureCallback();
+			}
 		);
 	},
 	
@@ -428,7 +504,10 @@ var SCRIBEFIRE = {
 					$("#list-categories").append(option);
 				}
 			},
-			SCRIBEFIRE.genericError
+			function failure(rv) {
+				rv.func = "getCategories";
+				SCRIBEFIRE.genericError(rv);
+			}
 		);
 	},
 	
@@ -452,9 +531,30 @@ var SCRIBEFIRE = {
 				successCallback(rv);
 			},
 			function (rv) {
-				SCRIBEFIRE.genericError(rv);
-				failureCallback();
+				SCRIBEFIRE.error("Sigh... ScribeFire couldn't get the information it needed about your blog. Helpfully, your blog returned this message:\n\n" + rv.msg);
+				failureCallback(rv);
 			}
 		);
+	},
+	
+	updateOptionalUI : function () {
+		var api = SCRIBEFIRE.getAPI();
+		
+		for (x in api.ui) {
+			console.log(x + ": " + api.ui[x]);
+			
+			if (!api.ui[x]) {
+				$("#ui-" + x).hide();
+			}
+			else {
+				$("#ui-" + x).show();
+			}
+		}
+	},
+	
+	error : function (msg) {
+		msg = msg.replace(/</g, "&lt;").replace(/\n/g, "<br />");
+		
+		$.facebox("<div class='error'><h3>Well, this is embarrassing...</h3><p>"+msg+"</p></div>");
 	}
 };

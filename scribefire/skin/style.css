@@ -7,6 +7,10 @@ body {
 	background-color: #f5f5f5;
 }
 
+body.notifying {
+	/* padding-top: 30px; */
+}
+
 .bar, .subbar {
 	color: #5d5d5d;
 	font-weight: bold;
@@ -65,4 +69,36 @@ button, input[type="submit"] {
 
 button:active, input[type="submit"]:active {
 	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
+}
+
+button.busy, input[type="submit"].busy {
+	padding-left: 27px;
+	background: url(throbber-16.png) 8px 3px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc));
+	background-size: 12px 12px, auto;
+}
+
+button.busy:active, input[type="submit"].busy:active {
+	background: url(throbber-16.png) 8px 3px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
+}
+
+.notifier {
+	background: #666;
+	color: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999999999;
+	width: 100% !important;
+	padding: 5px;
+}
+
+.notifier-error {
+	background: #a00;
+	font-weight: bold;
+}
+
+.notifier button {
+	position: absolute;
+	right: 20px;
+	top: 0px;
 }

@@ -23,8 +23,12 @@ function getBlogAPI(type, apiUrl) {
 		case "metaweblog":
 			api = new genericMetaWeblogAPI();
 		break;
+		case "movabletype":
+		case "movable type":
+			api = new genericMovableTypeAPI();
+		break;
 		default:
-			alert("Unsupported blog type.");
+			SCRIBEFIRE.error("It's not your fault, but ScribeFire is looking for an API ("+type+") that doesn't exist.");
 		break;
 	}
 	
@@ -116,6 +120,10 @@ blogAPI.prototype = {
 		 */
 		
 		failure({ "status": 0, "msg": "This blog does not support adding categories."});
+	},
+	
+	getPostCategories : function (params, success, failure) {
+		success($("#list-entries option[value='"+params.id+"']:first").attr("categories").split(","));
 	}
 };
 
@@ -132,6 +140,8 @@ var genericMetaWeblogAPI = function () {
 			params.apiUrl,
 			xml,
 			function (rv) {
+				console.log("in success");
+				console.log(rv);
 				if (success) {
 					var blogs = [];
 				
@@ -144,7 +154,9 @@ var genericMetaWeblogAPI = function () {
 						blog.type = params.type;
 						blog.username = params.username;
 						blog.password = params.password;
-					
+						
+						console.log(blog);
+						
 						blogs.push(blog);
 					}
 					
@@ -160,7 +172,7 @@ var genericMetaWeblogAPI = function () {
 	};
 	
 	this.getPosts = function (params, success, failure) {
-		if (!("limit" in params)) params.limit = 30;
+		if (!("limit" in params)) params.limit = 20;
 		
 		var args = [this.apiUrl, this.id, this.username, this.password, params.limit];
 		
@@ -208,6 +220,10 @@ var genericMetaWeblogAPI = function () {
 	};
 
 	this.publish = function (params, success, failure) {
+		this.doPublish(params, success, failure);
+	};
+	
+	this.doPublish = function (params, success, failure) {
 		var contentStruct = { };
 
 		if ("title" in params) {
@@ -298,6 +314,164 @@ var genericMetaWeblogAPI = function () {
 	};
 };
 genericMetaWeblogAPI.prototype = new blogAPI();
+
+var genericMovableTypeAPI = function () {
+	this.ui.categories = true;
+	
+	this.publish = function (params, success, failure) {
+		// MovableType is hacky about publishing and categories.
+		
+		// MT supposedly uses the "draft" setting to determine whether
+		// to rebuild static pages, not whether it's actually a draft.
+
+		var trueDraft = params.draft;
+		params.draft = false;
+		
+		var self = this;
+		
+		this.doPublish(params, 
+			function newSuccess(rv) {
+				console.log(rv);
+				if (("id" in rv) && rv.id) {
+					var postId = rv.id;
+				}
+				else {
+					var postId = rv;
+				}
+				
+				var newParams = {
+					"id": postId,
+					"categories": params.categories
+				};
+				
+				self.setCategories(newParams,
+					function categorySuccess(rv) {
+						self.publishPost(
+							newParams,
+							function publishSuccess(rv) {
+								success({ "id": postId });
+							},
+							function publishFailure(status, msg) {
+								failure({"status": status, "msg": msg});
+							}
+						);
+					},
+					function categoryFailure(status, msg) {
+						failure({"status": status, "msg": msg});
+					}
+				);
+			},
+			function newFailure(status, msg) {
+				failure({"status": status, "msg": msg});
+			}
+		);
+	};
+	
+	this.getCategories = function (params, success, failure) {
+		var args = [this.apiUrl, this.id, this.username, this.password];
+		var xml = performancingAPICalls.mt_getCategoryList(args);
+		
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml, 
+			function (rv) {
+				if (success) {
+					for (var i = 0; i < rv.length; i++) {
+						rv[i].id = rv[i].categoryId;
+						rv[i].name = rv[i].categoryName;
+						
+						delete rv[i].categoryId;
+						delete rv[i].categoryName;
+					}
+					
+					success(rv);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
+	
+	this.setCategories = function (params, success, failure) {
+		var categories = [];
+		
+		for (var i = 0; i < params.categories.length; i++) {
+			categories.push({"categoryId" : params.categories[i]});
+		}
+		
+		var args = [this.apiUrl, params.id, this.username, this.password, categories];
+		
+		var xml = performancingAPICalls.mt_setPostCategories(args);
+		
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml, 
+			function privateCategorySuccess (rv) {
+				// rv == true
+				if (success) {
+					success(rv);
+				}
+			},
+			function privateCategoryFailure (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
+	
+	this.getPostCategories = function (params, success, failure) {
+		var args = [this.apiUrl, params.id, this.username, this.password];
+		var xml = performancingAPICalls.mt_getPostCategories(args);
+		
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml, 
+			function (rv) {
+				if (success) {
+					var categories = [];
+					
+					for (var i = 0; i < rv.length; i++) {
+						categories.push(rv[i].categoryId);
+					}
+					
+					success(categories);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
+	
+	this.publishPost = function (params, success, failure) {
+		var args = [this.apiUrl, params.id, this.username, this.password];
+		
+		var xml = performancingAPICalls.mt_publishPost(args);
+		
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml, 
+			function (rv) {
+				// rv == true
+				if (success) {
+					success(rv);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
+};
+genericMovableTypeAPI.prototype = new genericMetaWeblogAPI();
 
 var wordpressBlogAPI = function () {
 	this.ui.categories = true;
@@ -799,7 +973,7 @@ var bloggerAtomBlogAPI = function () {
 							break;
 						}
 					
-						alert("Error: " + returnValues["Error"]);
+						SCRIBEFIRE.error("Blogger isn't playing nicely; it's giving ScribeFire an error: " + returnValues["Error"]);
 					}
 				}
 			};
@@ -1061,92 +1235,89 @@ var tumblrBlogAPI = function () {
 tumblrBlogAPI.prototype = new blogAPI();
 
 var performancingAPICalls = {
-    //myParams  = [url, appkey, blogid, username, password, content, publish]
-    blogger_newPost: function(myParams) {
-      return XMLRPC_LIB.makeXML("blogger.newPost", myParams);
-    },
-    
-    //myParams  = [url, appkey, postid, username, password, content, publish]
-    blogger_editPost: function(myParams) {
-      return XMLRPC_LIB.makeXML("blogger.editPost", myParams);
-    },
-    
-    //myParams  = [url, appkey, postid, username, password, publish]
-    blogger_deletePost: function(myParams) {
-      return XMLRPC_LIB.makeXML("blogger.deletePost", myParams);
-    },
-    
-    //myParams  = [url, appkey, blogid, username, password, numberOfPosts]
-    blogger_getRecentPosts: function(myParams) {
-      return XMLRPC_LIB.makeXML("blogger.getRecentPosts", myParams);
-    },
-    
-    //myParams  = [url, appkey, username, password]
-    blogger_getUsersBlogs: function(myParams) {
-      return XMLRPC_LIB.makeXML("blogger.getUsersBlogs", myParams);
-    },
-    
-    //myParams  = [url, appkey, username, password]
-    blogger_getUserInfo: function(myParams) {
-      return XMLRPC_LIB.makeXML("blogger.getUserInfo", myParams);
-    },
-    
-    //myParams  = [url, blogid, username, password, content_t, publish]
-    metaWeblog_newPost: function(myParams) {
+	//myParams  = [url, appkey, blogid, username, password, content, publish]
+	blogger_newPost: function(myParams) {
+		return XMLRPC_LIB.makeXML("blogger.newPost", myParams);
+	},
+
+	//myParams  = [url, appkey, postid, username, password, content, publish]
+	blogger_editPost: function(myParams) {
+		return XMLRPC_LIB.makeXML("blogger.editPost", myParams);
+	},
+
+	//myParams  = [url, appkey, postid, username, password, publish]
+	blogger_deletePost: function(myParams) {
+		return XMLRPC_LIB.makeXML("blogger.deletePost", myParams);
+	},
+
+	//myParams  = [url, appkey, blogid, username, password, numberOfPosts]
+	blogger_getRecentPosts: function(myParams) {
+		return XMLRPC_LIB.makeXML("blogger.getRecentPosts", myParams);
+	},
+
+	//myParams  = [url, appkey, username, password]
+	blogger_getUsersBlogs: function(myParams) {
+		return XMLRPC_LIB.makeXML("blogger.getUsersBlogs", myParams);
+	},
+
+	//myParams  = [url, appkey, username, password]
+	blogger_getUserInfo: function(myParams) {
+		return XMLRPC_LIB.makeXML("blogger.getUserInfo", myParams);
+	},
+
+	//myParams  = [url, blogid, username, password, content_t, publish]
+	metaWeblog_newPost: function(myParams) {
 		return XMLRPC_LIB.makeXML("metaWeblog.newPost", myParams);
-    },
-    
-    metaWeblog_editPost: function(myParams) {
-      return XMLRPC_LIB.makeXML("metaWeblog.editPost", myParams);
-    },
-    
-    //myParams  = [url, blogid, username, password, numberOfPosts]
-    metaWeblog_getRecentPosts: function(myParams) {
-      return XMLRPC_LIB.makeXML("metaWeblog.getRecentPosts", myParams);
-    },
-    
-    //myParams  = [url, blogid, username, password]
-    metaWeblog_getCategoryList: function(myParams) {
-      return XMLRPC_LIB.makeXML("metaWeblog.getCategories", myParams);
-    },
-    
-    //myParams  = [url, blogid, username, password, mediaStruct]
-    metaWeblog_newMediaObject: function(myParams) {
-      return XMLRPC_LIB.makeXML("metaWeblog.newMediaObject", myParams);
-    },
-    
-    //myParams  = [url, blogid, username, password, numberOfPosts]
-    mt_getRecentPostTitles: function(myParams) {
-      return XMLRPC_LIB.makeXML("mt.getRecentPostTitles", myParams);
-    },
-    
-    //myParams  = [url, blogid, username, password]
-    mt_getCategoryList: function(myParams) {
-      return XMLRPC_LIB.makeXML("mt.getCategoryList", myParams);
-    },
-    
-    //myParams  = [url, postid, username, password, categories]
-    mt_setPostCategories: function(myParams) {
-      return XMLRPC_LIB.makeXML("mt.setPostCategories", myParams);
-    },
+	},
+
+	metaWeblog_editPost: function(myParams) {
+		return XMLRPC_LIB.makeXML("metaWeblog.editPost", myParams);
+	},
+
+	//myParams  = [url, blogid, username, password, numberOfPosts]
+	metaWeblog_getRecentPosts: function(myParams) {
+		return XMLRPC_LIB.makeXML("metaWeblog.getRecentPosts", myParams);
+	},
+
+	//myParams  = [url, blogid, username, password]
+	metaWeblog_getCategoryList: function(myParams) {
+		return XMLRPC_LIB.makeXML("metaWeblog.getCategories", myParams);
+	},
+
+	//myParams  = [url, blogid, username, password, mediaStruct]
+	metaWeblog_newMediaObject: function(myParams) {
+		return XMLRPC_LIB.makeXML("metaWeblog.newMediaObject", myParams);
+	},
+
+	//myParams  = [url, blogid, username, password, numberOfPosts]
+	mt_getRecentPostTitles: function(myParams) {
+		return XMLRPC_LIB.makeXML("mt.getRecentPostTitles", myParams);
+	},
+
+	//myParams  = [url, blogid, username, password]
+	mt_getCategoryList: function(myParams) {
+		return XMLRPC_LIB.makeXML("mt.getCategoryList", myParams);
+	},
+
+	//myParams  = [url, postid, username, password, categories]
+	mt_setPostCategories: function(myParams) {
+		return XMLRPC_LIB.makeXML("mt.setPostCategories", myParams);
+	},
 
 	mt_getPostCategories: function(myParams) {
 		return XMLRPC_LIB.makeXML("mt.getPostCategories", myParams);
 	},
-	
-    //mt_publishPost
-    //myParams  = [url, postid, username, password]
-    mt_publishPost: function(myParams) {
-      return XMLRPC_LIB.makeXML("mt.publishPost", myParams);
-    },
-	
+
+	//mt_publishPost
+	//myParams  = [url, postid, username, password]
+	mt_publishPost: function(myParams) {
+		return XMLRPC_LIB.makeXML("mt.publishPost", myParams);
+	},
+
 	wp_getPage : function (myParams) {
 		return XMLRPC_LIB.makeXML("wp.getPage", myParams);
 	},
 	wp_getPages : function (myParams) {
-		//	    $blog_id    = $args[0];
-		//      $username    = $args[1];
-		//      $password    = $args[2];
 		return XMLRPC_LIB.makeXML("wp.getPages", myParams);
 	},
 	wp_newPage : function (myParams) {

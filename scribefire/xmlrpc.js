@@ -20,10 +20,26 @@ var XMLRPC_LIB = {
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
+				console.log("Receiving: " + req.responseText);
 				var jDoc = $(req.responseXML);
 				
 				if (req.status < 300 && (jDoc.find("fault").length == 0)) {
-					var parsedObject = XMLRPC_LIB.XMLToObject(jDoc.find("params:first > param:first > value:first > *")[0]);
+					var returnValue = jDoc.find("params:first > param:first > value:first > *:first");
+					
+					if (returnValue.length == 0) {
+						// Instead of <value><string>data</string></value>, it's
+						// <value>data</value>
+						
+						returnValueText = jDoc.find("params:first > param:first > value:first").text();
+						returnValue = $("<string />");
+						returnValue.html(returnValueText);
+					}
+					
+					var parsedObject = XMLRPC_LIB.XMLToObject(returnValue);
+					
+					console.log("Parsed: ");
+					console.log(parsedObject);
+					
 					callback(parsedObject);
 				}
 				else {
@@ -36,6 +52,8 @@ var XMLRPC_LIB = {
 			}
 		};
 		
+		console.log("Sending: " + xml);
+		
 		req.send(xml);
 	},
 	
@@ -47,7 +65,7 @@ var XMLRPC_LIB = {
 			
 			// i->0 is the URL
 			for (var i = 1; i < myParams.length; i++){
-				xml += '<param><value>'+XMLRPC_LIB.convertToXML(myParams[i], isAtom)+'</value></param>';
+				xml += '<param><value>'+XMLRPC_LIB.convertToXML(myParams[i])+'</value></param>';
 			}
 			
 			xml += '</params>';
@@ -60,8 +78,14 @@ var XMLRPC_LIB = {
 		return 0;
 	},
 	
-	convertToXML : function (myParams, isAtom) {
-		var paramType = myParams.constructor.name;
+	convertToXML : function (myParams) {
+		try {
+			var paramType = myParams.constructor.name;
+		} catch (e) {
+			console.log(myParams);
+			throw e;
+		}
+		
 		var paramTemp = null;
 		
 		switch (paramType) {
@@ -159,7 +183,7 @@ var XMLRPC_LIB = {
 		var jNode = $(node);
 		var node = jNode.get(0);
 		
-		switch (node.nodeName) {
+		switch (node.nodeName.toString().toLowerCase()) {
 			case 'int':
 			case 'i4':
 				return parseInt(jNode.text());
@@ -173,7 +197,7 @@ var XMLRPC_LIB = {
 			case 'double':
 				return parseFloat(jNode.text());
 			break;
-			case 'dateTime.iso8601':
+			case 'datetime.iso8601':
 				var val = jNode.text().replace(/^\s+|\s+$/g, "");
 				
 				if (val.match(/z/i) || (nodeName && nodeName == 'date_created_gmt')) {
@@ -236,10 +260,22 @@ var XMLRPC_LIB = {
 				var struct = new Object();
 				
 				jNode.children().each(function () {
-					struct[ $(this).find("name:first").text() ] = 
+					var keyName = $(this).find("name:first").text();
+					var nodeValue = $(this).find("value:first > *:first");
+					
+					if (nodeValue.length == 0) {
+						// Instead of <value><string>data</string></value>, it's
+						// <value>data</value>
+						
+						nodeText = $(this).find("value:first").text();
+						nodeValue = $("<string />");
+						nodeValue.html(nodeText);
+					}
+					
+					struct[ keyName ] = 
 						XMLRPC_LIB.XMLToObject(
-							$(this).find("value:first > *:first"),
-							$(this).find("name:first").text()
+							nodeValue,
+							keyName
 						);
 				});
 				

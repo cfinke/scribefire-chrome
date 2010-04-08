@@ -14,6 +14,7 @@
 		<script type="text/javascript" src="lib/ckeditor/ckeditor.js"></script>
 		<script type="text/javascript" src="lib/ckeditor/adapters/jquery.js"></script>
 		<script type="text/javascript" src="lib/persist.js"></script>
+		<script type="text/javascript" src="lib/keyboard.js"></script>
 	</head>
 	<body>
 		<div>
@@ -35,7 +36,7 @@
 								<label>URL: <span id="label-add-blog-url"></span></label>
 							</div>
 							<div class="subunderbar subunderbar-selected">
-								<input type="text" id="text-blog-url" />
+								<input type="text" id="text-blog-url" accept="button-blog-urlcheck" cancel="button-addblog-cancel" />
 								<p>
 									<button id="button-blog-urlcheck">Next</button>
 									<button id="button-addblog-cancel">Cancel</button>
@@ -51,10 +52,11 @@
 									<option vlaue="">(select)</option>
 									<option value="wordpress">Wordpress</option>
 									<option value="blogger_atom">Blogger</option>
-									<option value="blogger">Blogger (Old)</option>
-									<option value="typepad">TypePad</option>
-									<option value="metaweblog">MetaWeblog</option>
+									<!-- <option value="blogger">Blogger (Old)</option> -->
+									<!-- <option value="typepad">TypePad</option> -->
 									<option value="tumblr">Tumblr</option>
+									<option value="metaweblog">MetaWeblog</option>
+									<option value="movabletype">MovableType</option>
 								</select>
 							</div>
 						</div>
@@ -143,16 +145,27 @@
 				$("#button-category-add").click(function (e) {
 					e.preventDefault();
 					
+					var button = $(this);
+					button.addClass("busy");
+					
 					var categoryName = prompt("Name?");
 					
 					if (categoryName) {
-						SCRIBEFIRE.addCategory(categoryName);
+						function callback() {
+							button.removeClass("busy");
+						}
+						
+						SCRIBEFIRE.addCategory(categoryName, callback, callback);
 					}
 				});
 				
 				$("#button-addblog-cancel").click(function (e) {
 					e.preventDefault();
+					
 					$("#dialog-blog-add").hide();	
+					
+					// @todo Cancel any requests.
+					$("#button-blog-urlcheck").removeClass("busy");
 				});
 				
 				$("#button-blog-remove").click(function (e) {
@@ -166,14 +179,24 @@
 				$("#button-entry-remove").click(function (e){
 					e.preventDefault();
 					
+					var button = $(this);
+					button.addClass("busy");
+					
 					if (confirm("Are you sure?")) {
-						SCRIBEFIRE.deletePost($("#list-entries").val());
+						function callback() {
+							button.removeClass("busy");
+						}
+						
+						SCRIBEFIRE.deletePost(
+							$("#list-entries").val(),
+							callback,
+							callback
+						);
 					}
 				});
 				
 				$(".bar").click(function () {
-					if (1 || $(this).attr("disabled") != "true") {
-					
+					if ($(this).attr("disabled") != "true") {
 						if ($(this).hasClass("bar-selected")) {
 							$(this).removeClass("bar-selected");
 							$(this).parent().find(".underbar:first").removeClass("underbar-selected");
@@ -189,7 +212,7 @@
 				});
 
 				$(".subbar").click(function () {
-					if (1 || $(this).attr("disabled") != "true") {
+					if ($(this).attr("disabled") != "true") {
 						$(this).parent().find(".subunderbar:first").toggle();
 					
 						if ($(this).hasClass("subbar-selected")) {
@@ -222,25 +245,18 @@
 					SCRIBEFIRE.prefs.setCharPref("selectedBlog", $(this).val());
 					$("#label-current-blog").html($(this).find("option:selected").text());
 					
-					var api = SCRIBEFIRE.getAPI();
-					
-					for (x in api.ui) {
-						if (!api.ui[x]) {
-							$("#ui-" + x).hide();
-						}
-						else {
-							$("#ui-" + x).show();
-						}
-					}
+					SCRIBEFIRE.updateOptionalUI();
 				});
 				
 				$("#list-entries").change(function () {
-					if (!$(this).val()) {
-						$("#button-entry-remove").attr("disabled","disabled");
+					var postId = $(this).val();
+					
+					if (!postId) {
+						$("#button-entry-remove").hide();
 						$("#button-publish").html("Publish Post");
 					}
 					else {
-						$("#button-entry-remove").removeAttr("disabled");
+						$("#button-entry-remove").show();
 						$("#button-publish").html("Publish Edited Post");
 						
 						var entry = $(this).find("option:selected");
@@ -249,7 +265,17 @@
 						$("#text-content").val(entry.attr("content"));
 						$("#checkbox-draft").attr("checked", entry.attr("published") == "false");
 						$("#text-tags").val(entry.attr("tags"));
-						$("#list-categories").val(entry.attr("categories").split(",")).change();
+						
+						SCRIBEFIRE.getAPI().getPostCategories(
+							{ "id" : postId },
+							function success (categories) {
+								$("#list-categories").val(categories).change();
+							},
+							function failure(rv) {
+								rv.func = "getPostCategories";
+								SCRIBEFIRE.genericError(rv);
+							}
+						);
 					}
 					
 					SCRIBEFIRE.prefs.setCharPref("selectedEntry", $(this).val());
@@ -289,31 +315,42 @@
 				});
 				
 				$("#button-blog-urlcheck").click(function (e) {
+					var button = $(this);
+					
+					button.addClass("busy");
+					
 					SCRIBEFIRE.getBlogMetaData(
 						$("#text-blog-url").val(),
-							function (metaData) {
-								if (metaData) {
-									$("#list-blog-types").val(metaData.type);
-									$("#list-blog-types").removeAttr("disabled");
-									
-									$("#text-blog-api-url").val(metaData.apiUrl);
-									$("#text-blog-api-url").removeAttr("disabled");
-									
-									if (metaData.id) {
-										$("#text-addblog-id").val(metaData.id);
-									}
-									
-									$("#dialog-blog-add .step-2 .subbar").click();
-									$("#dialog-blog-add .step-2 *[disabled]").removeAttr("disabled");
+						function (metaData) {
+							button.removeClass("busy");
+							
+							if (metaData) {
+								$("#list-blog-types").val(metaData.type);
+								$("#list-blog-types").removeAttr("disabled");
+								
+								$("#text-blog-api-url").val(metaData.apiUrl);
+								$("#text-blog-api-url").removeAttr("disabled");
+								
+								if (metaData.id) {
+									$("#text-addblog-id").val(metaData.id);
 								}
-								else {
-									alert("Unsupported blog type.");
-								}
+								
+								$("#dialog-blog-add .step-2 *[disabled]").removeAttr("disabled");
+								$("#dialog-blog-add .step-2 .subbar").click();
 							}
-						);
+						},
+						function failure(code, status) {
+							button.removeClass("busy");
+							
+							SCRIBEFIRE.error("While trying to determine your blog's settings, ScribeFire tripped over this code: " + code);
+						}
+					);
 				});
 				
 				$("#button-blog-logincheck").click(function (e) {
+					var button = $(this);
+					button.addClass("busy");
+					
 					var params = {
 						apiUrl : $("#text-blog-api-url").val(),
 						type : $("#list-blog-types").val(),
@@ -329,11 +366,14 @@
 					SCRIBEFIRE.getBlogs(
 						params,
 						function (rv) {
+							button.removeClass("busy");
+							
 							$("#list-blogs").val(rv[0].url).change();
 							$("#dialog-blog-add").hide();
+							SCRIBEFIRE.notify("Your blog was added successfully!");
 						},
-						function () {
-							alert("failure");
+						function (rv) {
+							button.removeClass("busy");
 						}
 					);
 				});
@@ -341,26 +381,36 @@
 				$("#button-publish").click(function (e) {
 					e.preventDefault();
 					
-					SCRIBEFIRE.publish();
+					var button = $(this);
+					button.addClass("busy");
+					
+					function callback() {
+						button.removeClass("busy");
+					}
+					
+					SCRIBEFIRE.publish(
+						function success(rv) {
+							button.removeClass("busy");
+							SCRIBEFIRE.notify("Post published successfully!", "Open blog in a new tab", function (button) { chrome.tabs.create({ "url": rv.url }) });
+						},
+						function error(rv) {
+							button.removeClass("busy");
+							$.facebox("<div>Error!</div>");
+						});
 				});
 				
-				$("#text-content").ckeditor(function () { }, {
-				        on :
-				        {
-				            instanceReady : function( ev )
-				            {
-				                // Output paragraphs as <p>Text</p>.
-				                //this.dataProcessor.writer.lineBreakChars = "";
-//								this.dataProcessor.writer.indentationChars = "";
-								
-								this.dataProcessor.writer.setRules('p',
-									{
-									    indent: false,
-									    breakAfterOpen: false
-									});
-				            }
-				        }
-				    }
+				$("#text-content").ckeditor(
+					function () { },
+					{
+						on : {
+							instanceReady : function (e) {
+								this.dataProcessor.writer.setRules('p', {
+									indent: false,
+									breakAfterOpen: false
+								});
+							}
+						}
+					}
 				);
 				
 				SCRIBEFIRE.load();
