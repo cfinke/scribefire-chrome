@@ -10,8 +10,6 @@
 		<script type="text/javascript" src="lib/jquery.js"></script>
 		<script type="text/javascript" src="lib/parseUri.js"></script>
 		<script type="text/javascript" src="lib/facebox.js"></script>
-		<script type="text/javascript" src="lib/ckeditor/ckeditor.js"></script>
-		<script type="text/javascript" src="lib/ckeditor/adapters/jquery.js"></script>
 		<script type="text/javascript" src="lib/persist.js"></script>
 		<script type="text/javascript" src="lib/keyboard.js"></script>
 	</head>
@@ -414,19 +412,7 @@
 						});
 				});
 				
-				$("#text-content").ckeditor(
-					function () { },
-					{
-						on : {
-							instanceReady : function (e) {
-								this.dataProcessor.writer.setRules('p', {
-									indent: false,
-									breakAfterOpen: false
-								});
-							}
-						}
-					}
-				);
+				// $("#text-content").editor();
 				
 				SCRIBEFIRE.load();
 			});
