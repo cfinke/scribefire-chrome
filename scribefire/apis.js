@@ -86,6 +86,8 @@ blogAPI.prototype = {
 		/**
 		 * success(params) = { "id": "123" }
 		 */
+		
+		failure({"status": 0, "msg": "Slow down... You need to add your blog before you can publish."});
 	},
 	
 	deletePost : function (params, success, failure) {
@@ -140,8 +142,8 @@ var genericMetaWeblogAPI = function () {
 			params.apiUrl,
 			xml,
 			function (rv) {
-				console.log("in success");
-				console.log(rv);
+				//console.log("in success");
+				//console.log(rv);
 				if (success) {
 					var blogs = [];
 				
@@ -155,7 +157,7 @@ var genericMetaWeblogAPI = function () {
 						blog.username = params.username;
 						blog.password = params.password;
 						
-						console.log(blog);
+						//console.log(blog);
 						
 						blogs.push(blog);
 					}
@@ -331,7 +333,7 @@ var genericMovableTypeAPI = function () {
 		
 		this.doPublish(params, 
 			function newSuccess(rv) {
-				console.log(rv);
+				//console.log(rv);
 				if (("id" in rv) && rv.id) {
 					var postId = rv.id;
 				}
@@ -1067,7 +1069,7 @@ var tumblrBlogAPI = function () {
 					success(blogs);
 				}
 				else {
-					failure(req.status, req.responseText);
+					failure({"status": req.status, "msg": req.responseText});
 				}
 			}
 		};

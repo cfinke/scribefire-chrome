@@ -3,7 +3,6 @@
 		<title>ScribeFire</title>
 		<link rel="stylesheet" type="text/css" href="skin/style.css" />
 		<link rel="stylesheet" type="text/css" href="skin/facebox.css" />
-		<link rel="icon" type="image/png" href="skin/icon.png" />
 		<script type="text/javascript" src="util.js"></script>
 		<script type="text/javascript" src="xmlrpc.js"></script>
 		<script type="text/javascript" src="apis.js"></script>
@@ -19,13 +18,13 @@
 	<body>
 		<div>
 			<div>
-				<div class="bar" id="bar-blog">
+				<div class="bar bar-selected" id="bar-blog">
 					<label>Blog: <span id="label-current-blog"></span></label>
 				</div>
-				<div class="underbar" id="underbar-blog">
+				<div class="underbar underbar-selected" id="underbar-blog">
 					<select id="list-blogs"></select>
 					<p>
-						<button id="button-blog-add">New</button>
+						<button id="button-blog-add">New Blog</button>
 						<!--<button id="button-blog-edit">Edit</button>-->
 						<button id="button-blog-remove">Remove</button>
 					</p>
@@ -74,9 +73,9 @@
 							</div>
 							<div class="subunderbar">
 								<label>Username</label>
-								<input type="text" id="text-blog-username" disabled="disabled" />
+								<input type="text" id="text-blog-username" disabled="disabled" accept="button-blog-logincheck" />
 								<label>Password</label>
-								<input type="password" id="text-blog-password" disabled="disabled" />
+								<input type="password" id="text-blog-password" disabled="disabled" accept="button-blog-logincheck" />
 								<p>
 									<button id="button-blog-logincheck">Finish</button>
 								</p>
@@ -94,7 +93,7 @@
 				</div>
 				<div class="underbar" id="underbar-entries">
 					<select id="list-entries"><option value="">(new)</option></select>
-					<button id="button-entry-remove">Remove</button>
+					<button id="button-entry-remove" style="display: none;">Delete Post</button>
 				</div>
 			</div>
 			<div>
@@ -107,7 +106,7 @@
 			</div>
 			<div>
 				<div class="bar bar-selected" id="bar-content">
-					<label>Content</label>
+					<label>Post Content</label>
 				</div>
 				<div class="underbar underbar-selected" id="underbar-content">
 					<textarea rows="10" id="text-content"></textarea>
@@ -119,7 +118,7 @@
 				</div>
 				<div class="underbar" id="underbar-categories">
 					<select id="list-categories" multiple="true"></select>
-					<button id="button-category-add">New</button>
+					<button id="button-category-add">New Category</button>
 				</div>
 			</div>
 			<div id="ui-tags">
@@ -148,7 +147,7 @@
 					var button = $(this);
 					button.addClass("busy");
 					
-					var categoryName = prompt("Name?");
+					var categoryName = prompt("New category name:");
 					
 					if (categoryName) {
 						function callback() {
@@ -156,6 +155,9 @@
 						}
 						
 						SCRIBEFIRE.addCategory(categoryName, callback, callback);
+					}
+					else {
+						button.removeClass("busy");
 					}
 				});
 				
@@ -189,8 +191,16 @@
 						
 						SCRIBEFIRE.deletePost(
 							$("#list-entries").val(),
-							callback,
-							callback
+							function success() {
+								SCRIBEFIRE.notify("Post deleted successfully.");
+								
+								SCRIBEFIRE.clearData();
+								
+								button.removeClass("busy");
+							},
+							function failure() {
+								button.removeClass("busy");
+							}
 						);
 					}
 				});
@@ -234,10 +244,10 @@
 				
 				$("#list-blogs").change(function () {
 					if (!$(this).val()) {
-						$("#button-blog-edit, #button-blog-remove").attr("disabled","disabled");
+						$("#button-blog-edit, #button-blog-remove").hide();
 					}
 					else {
-						$("#button-blog-edit, #button-blog-remove").removeAttr("disabled");
+						$("#button-blog-edit, #button-blog-remove").remove();
 						SCRIBEFIRE.populateEntriesList();
 						SCRIBEFIRE.populateCategoriesList();
 					}
@@ -312,6 +322,8 @@
 					$("#dialog-blog-add .step-2 .subunderbar").removeClass("subunderbar-selected");
 					$("#dialog-blog-add .step-2").find("input, select").attr("disabled", "true");
 					$("#dialog-blog-add .step-2 .subunderbar").hide();
+					
+					$("#text-blog-url").focus();
 				});
 				
 				$("#button-blog-urlcheck").click(function (e) {
@@ -337,6 +349,8 @@
 								
 								$("#dialog-blog-add .step-2 *[disabled]").removeAttr("disabled");
 								$("#dialog-blog-add .step-2 .subbar").click();
+								
+								$("#text-blog-username").focus();
 							}
 						},
 						function failure(code, status) {
@@ -370,6 +384,8 @@
 							
 							$("#list-blogs").val(rv[0].url).change();
 							$("#dialog-blog-add").hide();
+							SCRIBEFIRE.clearData();
+							
 							SCRIBEFIRE.notify("Your blog was added successfully!");
 						},
 						function (rv) {
@@ -395,7 +411,6 @@
 						},
 						function error(rv) {
 							button.removeClass("busy");
-							$.facebox("<div>Error!</div>");
 						});
 				});
 				

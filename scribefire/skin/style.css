@@ -36,6 +36,11 @@ body.notifying {
 	background: url(arrow-down-blue.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf)) !important;
 }
 
+.bar-busy {
+	background: url(throbber-16.png) 5px 2px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
+	background-size: 12px 12px, auto;
+}
+
 .underbar, .subunderbar {
 	background-color: #fff;
 	padding: 10px;

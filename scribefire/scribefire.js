@@ -92,7 +92,7 @@ var SCRIBEFIRE = {
 	},
 	
 	genericError : function (rv) {
-		console.log("Error ("+rv.status+"): " + rv.msg);
+		//console.log("Error ("+rv.status+"): " + rv.msg);
 		
 		SCRIBEFIRE.notify("Debugging error ("+rv.status+"): " + rv.func, null, null, null, "notifier-error");
 	},
@@ -151,7 +151,8 @@ var SCRIBEFIRE = {
 		for (var i in blogs) {
 			var blog = $("<option/>");
 			blog.attr("value", blogs[i].url);
-			blog.html(blogs[i].name);
+			blog.html(blogs[i].name + " ("+blogs[i].url+")");
+			blog.attr("label", "test");
 			$("#list-blogs").append(blog);
 		}
 		
@@ -161,6 +162,8 @@ var SCRIBEFIRE = {
 	
 	populateEntriesList : function () {
 		$("#list-entries").html('<option value="">(new)</option>');
+		
+		$("#bar-entries").addClass("bar-busy");
 		
 		SCRIBEFIRE.getAPI().getPosts(
 			{ },
@@ -185,9 +188,11 @@ var SCRIBEFIRE = {
 				}
 				
 				$("#list-entries").change();
+				$("#bar-entries").removeClass("bar-busy");
 			},
 			function failure(rv) {
 				rv.func = "getPosts";
+				$("#bar-entries").removeClass("bar-busy");
 				
 				SCRIBEFIRE.genericError(rv);
 			}
@@ -268,10 +273,16 @@ var SCRIBEFIRE = {
 	
 	getAPI : function () {
 		var selectedBlog = $("#list-blogs").val();
-		var blog = SCRIBEFIRE.getBlog(selectedBlog);
 		
-		var api = getBlogAPI(blog.type, blog.apiUrl);
-		api.init(blog);
+		if (!selectedBlog) {
+			var api = new blogAPI();
+		}
+		else {
+			var blog = SCRIBEFIRE.getBlog(selectedBlog);
+		
+			var api = getBlogAPI(blog.type, blog.apiUrl);
+			api.init(blog);
+		}
 		
 		return api;
 	},
@@ -475,8 +486,8 @@ var SCRIBEFIRE = {
 				}
 			},
 			function (rv) {
-				SCRIBEFIRE.error("Uh-oh, ScribeFire couldn't publish your post.  Here's what the server said:\n\nError Status "+rv.status+"\n\n"+rv.msg);
-				failureCallback();
+				SCRIBEFIRE.error("ScribeFire couldn't publish your post. Here's the error message that bubbled up:\n\n"+rv.msg);
+				callbackFailure();
 			}
 		);
 	},
@@ -487,10 +498,13 @@ var SCRIBEFIRE = {
 		$("#checkbox-draft").removeAttr("checked");
 		$("#text-tags").val("");
 		$("#list-categories").val("");
+		$("#button-publish").html("Publish Post");
 	},
 	
 	populateCategoriesList : function () {
 		$("#list-categories").html("").change();
+		
+		$("#bar-categories").addClass("bar-busy");
 		
 		SCRIBEFIRE.getAPI().getCategories(
 			{ },
@@ -503,18 +517,23 @@ var SCRIBEFIRE = {
 					
 					$("#list-categories").append(option);
 				}
+				
+				$("#bar-categories").removeClass("bar-busy");
 			},
 			function failure(rv) {
 				rv.func = "getCategories";
+				
+				$("#bar-categories").removeClass("bar-busy");
+				
 				SCRIBEFIRE.genericError(rv);
 			}
 		);
 	},
 	
-	getBlogs : function (params, successCallback, failureCallback) {
+	getBlogs : function (params, callbackSuccess, callbackFailure) {
 		getBlogAPI(params.type, params.apiUrl).getBlogs(
 			params,
-			function success(rv) {
+			function success (rv) {
 				var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 				
 				for (var i = 0; i < rv.length; i++) {
@@ -528,11 +547,11 @@ var SCRIBEFIRE = {
 				
 				SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
 				
-				successCallback(rv);
+				callbackSuccess(rv);
 			},
-			function (rv) {
+			function failure (rv) {
 				SCRIBEFIRE.error("Sigh... ScribeFire couldn't get the information it needed about your blog. Helpfully, your blog returned this message:\n\n" + rv.msg);
-				failureCallback(rv);
+				callbackFailure(rv);
 			}
 		);
 	},
@@ -541,7 +560,7 @@ var SCRIBEFIRE = {
 		var api = SCRIBEFIRE.getAPI();
 		
 		for (x in api.ui) {
-			console.log(x + ": " + api.ui[x]);
+			//console.log(x + ": " + api.ui[x]);
 			
 			if (!api.ui[x]) {
 				$("#ui-" + x).hide();

@@ -11,7 +11,7 @@ function childNodes(xml) {
 }
 	
 var XMLRPC_LIB = {
-	doCommand : function (apiUrl, xml, callback, failureCallback) {
+	doCommand : function (apiUrl, xml, callback, callbackFailure) {
 		var req = new XMLHttpRequest();
 		req.open("POST", apiUrl, true);
 		
@@ -20,7 +20,7 @@ var XMLRPC_LIB = {
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
-				console.log("Receiving: " + req.responseText);
+				//console.log("Receiving: " + req.responseText);
 				var jDoc = $(req.responseXML);
 				
 				if (req.status < 300 && (jDoc.find("fault").length == 0)) {
@@ -37,22 +37,22 @@ var XMLRPC_LIB = {
 					
 					var parsedObject = XMLRPC_LIB.XMLToObject(returnValue);
 					
-					console.log("Parsed: ");
-					console.log(parsedObject);
+					//console.log("Parsed: ");
+					//console.log(parsedObject);
 					
 					callback(parsedObject);
 				}
 				else {
 					var parsedObject = XMLRPC_LIB.XMLToObject(jDoc.find("fault:first > value:first > *")[0]);
 					
-					if (failureCallback) {
-						failureCallback(parsedObject.faultCode, parsedObject.faultString);
+					if (callbackFailure) {
+						callbackFailure(parsedObject.faultCode, parsedObject.faultString);
 					}
 				}
 			}
 		};
 		
-		console.log("Sending: " + xml);
+		//console.log("Sending: " + xml);
 		
 		req.send(xml);
 	},
@@ -82,7 +82,7 @@ var XMLRPC_LIB = {
 		try {
 			var paramType = myParams.constructor.name;
 		} catch (e) {
-			console.log(myParams);
+			//console.log(myParams);
 			throw e;
 		}
 		
@@ -285,7 +285,7 @@ var XMLRPC_LIB = {
 				return (atob(jNode.text()));
 			break;
 			default:
-				console.log("Error parsing XML: " + node.nodeName.toString());
+				//console.log("Error parsing XML: " + node.nodeName.toString());
 			break;
 		}
 	},
