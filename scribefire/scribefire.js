@@ -174,7 +174,7 @@ var SCRIBEFIRE = {
 					var entry = $("<option/>");
 					
 					for (var x in rv[i]) {
-						entry.attr(x, rv[i][x]);
+						entry.data(x, rv[i][x]);
 					}
 					
 					entry.attr("value", rv[i].id);
@@ -326,98 +326,122 @@ var SCRIBEFIRE = {
 						// Check for a <link /> tag.
 						var linkTags = req.responseText.match(/<link(?:(?:\s+\w+(?:\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/g);
 						
+						var atomAPIs = {};
+						
 						if (linkTags) {
 							for (var i = 0; i < linkTags.length; i++) {
 								var link = $(linkTags[i]);
-							
-								if (link.attr("rel") == 'service.post' && link.attr("type") == 'application/atom+xml' && link.attr("href").indexOf("posts/") != -1) {
-									metaData.type = "blogger_atom";
-									metaData.apiUrl = link.attr("href");
-									callbackSuccess(metaData);
-									return;
-								}
-								else if (link.attr("rel") == "pingback" && link.attr("href")) {
-									metaData.type = "wordpress";
-									metaData.apiUrl = link.attr("href");
-									callbackSuccess(metaData);
-									return;
-								}
-								else if (link.attr("title") == "RSD" && link.attr("href")) {
-									// Check the RSD file.
-									var rsdReq = new XMLHttpRequest();
-									rsdReq.open("GET", link.attr("href"), true);
-									rsdReq.overrideMimeType("text/xml");
 								
-									rsdReq.onreadystatechange = function () {
-										if (rsdReq.readyState == 4) {
-											if (rsdReq.status < 300) {
-												var xml = rsdReq.responseXML;
-												var jxml = $(xml);
+								if (link.attr("rel").match(/^service\./i) && link.attr("type") == 'application/atom+xml') {
+									atomAPIs[link.attr("rel").toLowerCase()] = link.attr("href");
+									
+									metaData.type = "atom";
+								}
+								else if (!metaData.type) {
+									if (link.attr("rel") == "pingback" && link.attr("href")) {
+										metaData.type = "wordpress";
+										metaData.apiUrl = link.attr("href");
+										callbackSuccess(metaData);
+										return;
+									}
+									else if (link.attr("title") == "RSD" && link.attr("href")) {
+										// Check the RSD file.
+										var rsdReq = new XMLHttpRequest();
+										rsdReq.open("GET", link.attr("href"), true);
+										rsdReq.overrideMimeType("text/xml");
+								
+										rsdReq.onreadystatechange = function () {
+											if (rsdReq.readyState == 4) {
+												if (rsdReq.status < 300) {
+													var xml = rsdReq.responseXML;
+													var jxml = $(xml);
 											
-												var engineName = $(jxml).find("engineName:first").text().toLowerCase();
+													var engineName = $(jxml).find("engineName:first").text().toLowerCase();
 											
-												/*
-												if (engineName == "typepad") {
-													metaData.type = "typepad";
-													metaData.apiUrl = "http://www.typepad.com/t/api";
-													callbackSuccess(metaData);
-													return;
-												}
-												*/
+													/*
+													if (engineName == "typepad") {
+														metaData.type = "typepad";
+														metaData.apiUrl = "http://www.typepad.com/t/api";
+														callbackSuccess(metaData);
+														return;
+													}
+													*/
 												
-												var apis = [ $(jxml).find("api[preferred='true']"), $(jxml).find("api") ];
+													var apis = [ $(jxml).find("api[preferred='true']"), $(jxml).find("api") ];
 												
-												for (var j = 0; j < apis.length; j++) {
-													var api_set = apis[j];
+													for (var j = 0; j < apis.length; j++) {
+														var api_set = apis[j];
 													
-													for (var i = 0; i < api_set.length; i++) {
-														var api = $(api_set[i]);
+														for (var i = 0; i < api_set.length; i++) {
+															var api = $(api_set[i]);
 
-														var name = api.attr("name").toLowerCase();
-														var apiUrl = api.attr("apiLink");
+															var name = api.attr("name").toLowerCase();
+															var apiUrl = api.attr("apiLink");
 														
-														switch (name) {
-															/*
-															case "blogger":
-																metaData.type = "blogger";
-															break;
-															*/
-															case "metaweblog":
-																metaData.type = "metaweblog";
-															break;
-															case "movabletype":
-															case "movable type":
-																metaData.type = "movabletype";
-															break;
-															case "wordpress":
-																metaData.type = "wordpress";
-															break;
-														}
-												
-														if (metaData.type) {
-															if (api.attr("blogID")) {
-																metaData.id = api.attr("blogID");
+															switch (name) {
+																/*
+																case "blogger":
+																	metaData.type = "blogger";
+																break;
+																*/
+																case "metaweblog":
+																	metaData.type = "metaweblog";
+																break;
+																case "movabletype":
+																case "movable type":
+																	metaData.type = "movabletype";
+																break;
+																case "wordpress":
+																	metaData.type = "wordpress";
+																break;
 															}
+												
+															if (metaData.type) {
+																if (api.attr("blogID")) {
+																	metaData.id = api.attr("blogID");
+																}
 													
-															metaData.apiUrl = apiUrl;
-															callbackSuccess(metaData);
-															return;
+																metaData.apiUrl = apiUrl;
+																callbackSuccess(metaData);
+																return;
+															}
 														}
 													}
-												}
 												
-												callbackFailure("INCOMPATIBLE");
+													callbackFailure("INCOMPATIBLE");
+												}
+												else {
+													callbackFailure("RSD_ERROR", req.status);
+												}
 											}
-											else {
-												callbackFailure("RSD_ERROR", req.status);
-											}
-										}
-									};
-								
-									rsdReq.send(null);
-								
-									return;
+										};
+										
+										rsdReq.send(null);
+										
+										return;
+									}
 								}
+							}
+							
+							if ("service.post" in atomAPIs) {
+								if (atomAPIs["service.post"].indexOf("blogger") != -1) {
+									metaData.type = "blogger_atom";
+								}
+								else {
+									metaData.type = "atom";
+								}
+								
+								metaData.atomAPIs = atomAPIs;
+								
+								if ("service.feed" in atomAPIs) {
+									metaData.apiUrl = atomAPIs["service.feed"];
+								}
+								else {
+									metaData.apiUrl = atomAPIs["service.post"];
+								}
+								
+								callbackSuccess(metaData);
+								return;
 							}
 						}
 						
@@ -435,12 +459,31 @@ var SCRIBEFIRE = {
 	
 	publish : function (callbackSuccess, callbackFailure) {
 		var params = {};
+		
+		params.id = $("#list-entries").val();
+		
+		if (params.id) {
+			var option = $("#list-entries option[value='"+params.id+"']:first");
+			
+			// Pass along any custom post metadata that the API stored.
+			var attrs = option.data();
+			
+			for (var x in attrs) {
+				params[x] = attrs[x];
+			}
+			
+			// Wordpress resets the post slug if you send an edit request without the original.
+			// @bug-wordpress
+			if (attrs.slug) {
+				params.slug = attrs.slug;
+			}
+		}
+		
 		params.title = $("#text-title").val();
 		params.content = $("#text-content").val();
 		params.categories = $("#list-categories").val() || [];
 		params.tags = $("#text-tags").val();
 		params.draft = $("#checkbox-draft").is(":checked");
-		params.id = $("#list-entries").val();
 		
 		// Preserve newlines and angle brackets in <pre>
 		if (params.content.match(/<pre[^>]*>/i)) {
@@ -541,6 +584,10 @@ var SCRIBEFIRE = {
 					blog.type = params.type;
 					blog.username = params.username;
 					blog.password = params.password;
+					
+					for (x in rv[i]) {
+						blog[x] = rv[i][x];
+					}
 					
 					blogs[blog.url] = blog;
 				}

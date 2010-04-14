@@ -27,6 +27,9 @@ function getBlogAPI(type, apiUrl) {
 		case "movable type":
 			api = new genericMovableTypeAPI();
 		break;
+		case "atom":
+			api = new genericAtomAPI();
+		break;
 		default:
 			SCRIBEFIRE.error("It's not your fault, but ScribeFire is looking for an API ("+type+") that doesn't exist.");
 		break;
@@ -125,7 +128,7 @@ blogAPI.prototype = {
 	},
 	
 	getPostCategories : function (params, success, failure) {
-		success($("#list-entries option[value='"+params.id+"']:first").attr("categories").split(","));
+		success($("#list-entries option[value='"+params.id+"']:first").data("categories"));
 	}
 };
 
@@ -200,6 +203,10 @@ var genericMetaWeblogAPI = function () {
 							rv[i].categories = [];
 						}
 						
+						if ("wp_slug" in rv[i]) {
+							rv[i].slug = rv[i].wp_slug;
+						}
+						
 						rv[i].permalink = rv[i].permaLink;
 						
 						delete rv[i].postid;
@@ -252,9 +259,9 @@ var genericMetaWeblogAPI = function () {
 		if ("custom_fields" in params && params.custom_fields.length > 0) {
 			contentStruct.custom_fields = custom_fields;
 		}
-
+		
 		if ("slug" in params && params.slug) {
-			contentStruct.slug = slug;
+			contentStruct.wp_slug = params.slug;
 		}
 		*/
 
@@ -563,17 +570,15 @@ var wordpressBlogAPI = function () {
 };
 wordpressBlogAPI.prototype = new genericMetaWeblogAPI();
 
-var bloggerAtomBlogAPI = function () {
-	this.authToken = null;
-	
-	this.ui.tags = false;
-	
+var genericAtomAPI = function () {
 	this.getBlogs = function (params, success, failure) {
 		this.init(params);
 		
+		var self = this;
+		
 		this.buildRequest(
 			"GET",
-			params.apiUrl,
+			params.atomAPIs["service.feed"],
 			function (req) {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
@@ -581,15 +586,14 @@ var bloggerAtomBlogAPI = function () {
 							var xml = req.responseXML;
 						
 							if (!xml) {
-								// bloggerIncompleteResponse
 								failure({"status": req.status, "msg": "Incomplete response"});
 							}
 							else {
-						
+								
 								var jxml = $(xml);
-						
+								
 								var blogs = [];
-						
+								
 								var blog = {};
 								blog.url = jxml.find("link[rel='alternate']:first").attr("href");
 								blog.name = jxml.find("title:first").text();
@@ -598,9 +602,11 @@ var bloggerAtomBlogAPI = function () {
 								blog.type = "blogger_atom";
 								blog.username = params.username;
 								blog.password = params.password;
-						
+								
+								blog.atomAPIs = self.atomAPIs;
+								
 								blogs.push(blog);
-						
+								
 								success(blogs);
 							}
 						}
@@ -615,6 +621,315 @@ var bloggerAtomBlogAPI = function () {
 		);
 	};
 	
+	this.getPosts = function (params, success, failure) {
+		this.buildRequest(
+			"GET",
+			this.atomAPIs["service.feed"],
+			function (req) {
+				req.onreadystatechange = function () {
+					if (req.readyState == 4) {
+						if (req.status < 300) {
+							//console.log(req.responseText);
+							var xml = req.responseXML;
+							var jxml = $(xml);
+						
+							var posts = [];
+						
+							jxml.find("entry").each(function () {
+								var post = {};
+								post.content = $(this).find("content:first").text();
+							
+								// @todo Do this better.
+								post.content = post.content.replace('<content type="xhtml">' + "\n  ", "");
+								post.content = post.content.replace("\n</content>", "");
+							
+								// @todo Do this better too.
+								var divRegexp = /\<div xmlns\=\'http:\/\/www.w3.org\/1999\/xhtml\'\>|\<div xmlns\=\"http:\/\/www.w3.org\/1999\/xhtml\"\>/;
+								var divIndex = post.content.search(divRegexp);
+
+								if (divIndex >= 0 && divIndex < 30){
+									// If we have a <div xmlns='http://www.w3.org/1999/xhtml'> at the top
+									post.content = post.content.substring(42, post.content.length - 6); // Get rid of the outer div
+								}
+							
+								post.title = $(this).find("title:first").text();
+							
+								/*
+								var val = $(this).find("published:first").text();
+
+								// Check for a timezone offset
+								var possibleOffset = val.substr(-6);
+								var hasTimezone = false;
+								var minutes = null;
+
+								if (possibleOffset.charAt(0) == "-" || possibleOffset.charAt(0) == "+") {
+									var hours = parseInt(possibleOffset.substr(1,2), 10);
+									var minutes = (hours * 60) + parseInt(possibleOffset.substr(4,2), 10);
+
+									if (possibleOffset.charAt(0) == "+") {
+										minutes *= -1;
+									}
+
+									hasTimezone = true;
+								}
+
+								val = val.replace(/-/gi, "");
+
+								var year = parseInt(val.substring(0, 4), 10);
+								var month = parseInt(val.substring(4, 6), 10) - 1
+								var day = parseInt(val.substring(6, 8), 10);
+								var hour = parseInt(val.substring(9, 11), 10);
+								var minute = parseInt(val.substring(12, 14), 10);
+								var second = parseInt(val.substring(15, 17), 10);
+
+								var dateutc =  Date.UTC(year, month, day, hour, minute, second);
+								dateutc = new Date(dateutc);
+
+								if (!hasTimezone) {
+									minutes = new Date(dateutc).getTimezoneOffset();
+								}
+
+								var offsetDate = dateutc.getTime();
+								offsetDate += (1000 * 60 * minutes);
+								dateutc.setTime(offsetDate);
+							
+								post.date = dateutc;
+								*/
+							
+								post.categories = [];
+							
+								$(this).find("category").each(function () {
+									post.categories.push($(this).attr("term"));
+								});
+							
+								post.tags = "";
+							
+								$(this).find("link").each(function () {
+									if ($(this).attr("rel") == "alternate") {
+										post.url = $(this).attr("href");
+									}
+									else if ($(this).attr("rel") == "edit") {
+										post.editUrl = $(this).attr("href");
+									}
+								});
+							
+								//var postUrl = $(this).find("id:first").text();
+								post.id = $(this).find("id:first").text();//postUrl.match( /(?:\/|post-)(\d{5,})(?!\d*\/)/)[1];
+								
+								if ($(this).find("link[rel='service.edit']:first").length > 0) {
+									post["service.edit"] = $(this).find("link[rel='service.edit']:first").attr("href");
+								}
+								else {
+									post["service.edit"] = $(this).find("link[rel='edit']:first").attr("href");
+								}
+								
+								post.published = true;
+								
+								$(this).find("draft").each(function () {
+									if ($(this).text() == "yes") {
+										post.published = false;
+									}
+								});
+								
+								posts.push(post);
+							});
+						
+							success(posts);
+						}
+						else {
+							failure({ "status": req.status, "msg": req.responseText });
+						}
+					}
+				};
+				
+				req.send(null);
+			}
+		);
+	};
+		
+	this.publish = function (params, success, failure) {
+		var method = "POST";
+		var apiUrl = this.atomAPIs["service.post"];
+		
+		var body = "";
+		body += '<?xml version="1.0" encoding="UTF-8" ?>';
+		body += '<entry xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://purl.org/atom/app#">';
+
+		if ("id" in params && params.id) {
+			method = "PUT";
+			
+			apiUrl = params["service.edit"];
+			
+			// Apparently LiveJournal requires this, but Blogger overlooks it.
+			body += '<id>'+params.id+'</id>';
+		}
+		
+		var title = params.title;/*.replace(/&amp;/g, '&');
+		title = namedEntitiesToNumericEntities(title);
+		title = title.replace(/&([^#])/g, "&amp;$1");
+		
+		for (var i = 0; i < params.categories.length; i++) {
+			body += '<category scheme="http://www.blogger.com/atom/ns#" term="'+params.categories[i].replace(/&/g,'&amp;')+'"/>';
+		}
+		*/
+		body += '<title><![CDATA[' + title + ']]></title>';
+		
+		if ("date" in params && params.date) {
+			var date = params.date;
+			body += '<issued>' + params.date + '</issued>';
+			
+			if (date) {
+				var validDate = date.substring(0,4) + "-" + date.substring(4,6) + "-" + date.substring(6,8) + "T" + date.substring(9,17) + ".000Z";
+				body += '<published>' + validDate + '</published>';
+			}
+		}
+		
+		body += '<content type="html"><![CDATA['
+		
+		var content = params.content;
+		// content = content.replace(JUMP_BREAK_REGEX, "<!-- more -->");
+		
+		// Blogger doesn't like named entities.
+		// content = namedEntitiesToNumericEntities(content);
+		
+		// I don't think these divs are actually necessary.
+		//if (content.indexOf('<div xmlns="http://www.w3.org/1999/xhtml">') != -1){
+			body += content;//.replace(/&([^#])/g, "&amp;$1");
+		//}
+		//else {
+		//	body += '<div xmlns="http://www.w3.org/1999/xhtml">' + content.replace(/&([^#])/g, "&amp;$1") + '</div>';
+		//}
+		
+		body += ']]></content>';
+		/*
+		if (params.draft) {
+			body += '<app:control>';
+			body += '    <app:draft>yes</app:draft>';
+			body += '</app:control>';
+		}
+		*/
+		body += ' </entry>';
+		
+		//console.log(body);
+		//console.log(apiUrl);
+		//console.log(method);
+		
+		this.buildRequest(
+			method,
+			apiUrl,
+			function (req) {
+				req.onreadystatechange = function () {
+					if (req.readyState == 4) {
+						if (req.status < 300) {
+							var xml = req.responseXML;
+							var jxml = $(xml);
+							
+							var postId = jxml.find("id:first").text().split(".post-")[1];
+							success({ "id": postId });
+						}
+						else {
+							failure({ "status": req.status, "msg": req.responseText });
+						}
+					}
+				};
+				
+				req.send(body);
+			}
+		);
+	};
+	
+	this.getCategories = function (params, success, failure) {
+		this.buildRequest(
+			"GET",
+			this.apiUrl,
+			function (req) {
+				req.onreadystatechange = function () {
+					if (req.readyState == 4) {
+						if (req.status < 300) {
+							var xml = req.responseXML;
+							var jxml = $(xml);
+							
+							var categories = {};
+						
+							jxml.find("category").each(function () {
+								var term = $(this).attr("term");
+								categories[term] = true;
+							});
+							
+							var rv = [];
+							
+							for (var i in categories) {
+								rv.push(i);
+							}
+							
+							rv.sort();
+							
+							for (var i = 0; i < rv.length; i++) {
+								var categoryName = rv[i];
+								rv[i] = { "id" : rv[i], "name": rv[i] };
+							}
+							
+							success(rv);
+						}
+						else {
+							failure({ "status": req.status, "msg": req.responseText });
+						}
+					}
+				};
+				
+				req.send(null);
+			}
+		);
+	};
+	
+	this.addCategory = function (params, success, failure) {
+		success({ "id": params.name, "name": params.name });
+	};
+	
+	this.deletePost = function (params, success, failure) {
+		var apiUrl = this.apiUrl;
+		
+		if (apiUrl[apiUrl.length - 1] != "/") {
+			apiUrl += "/";
+		}
+		
+		apiUrl += params.id;
+		
+		this.buildRequest(
+			"DELETE",
+			this.atomAPIs["service.post"],
+			function (req) {
+				req.onreadystatechange = function () {
+					if (req.readyState == 4){
+						if (req.status < 300) {
+							success(true);
+						}
+						else {
+							failure({ "status": req.status, "msg": req.responseText });
+						}
+					}
+				};
+				
+				req.send(null);
+			}
+		);
+	};
+
+	this.buildRequest = function (method, url, callback) {
+		var req = new XMLHttpRequest();
+		req.open(method, url, true, this.username, this.password);
+		req.setRequestHeader("Content-Type", "application/atom+xml");
+		
+		callback(req);
+	};
+};
+genericAtomAPI.prototype = new blogAPI();
+
+var bloggerAtomBlogAPI = function () {
+	this.authToken = null;
+	
+	this.ui.tags = false;
+
 	this.getPosts = function (params, success, failure) {
 		this.buildRequest(
 			"GET",
@@ -821,83 +1136,6 @@ var bloggerAtomBlogAPI = function () {
 		);
 	};
 	
-	this.deletePost = function (params, success, failure) {
-		var apiUrl = this.apiUrl;
-		
-		if (apiUrl[apiUrl.length - 1] != "/") {
-			apiUrl += "/";
-		}
-		
-		apiUrl += params.id;
-		
-		this.buildRequest(
-			"DELETE",
-			apiUrl,
-			function (req) {
-				req.onreadystatechange = function () {
-					if (req.readyState == 4){
-						if (req.status < 300) {
-							success(true);
-						}
-						else {
-							failure({ "status": req.status, "msg": req.responseText });
-						}
-					}
-				};
-				
-				req.send(null);
-			}
-		);
-	};
-	
-	this.getCategories = function (params, success, failure) {
-		this.buildRequest(
-			"GET",
-			this.apiUrl,
-			function (req) {
-				req.onreadystatechange = function () {
-					if (req.readyState == 4) {
-						if (req.status < 300) {
-							var xml = req.responseXML;
-							var jxml = $(xml);
-							
-							var categories = {};
-						
-							jxml.find("category").each(function () {
-								var term = $(this).attr("term");
-								categories[term] = true;
-							});
-							
-							var rv = [];
-							
-							for (var i in categories) {
-								rv.push(i);
-							}
-							
-							rv.sort();
-							
-							for (var i = 0; i < rv.length; i++) {
-								var categoryName = rv[i];
-								rv[i] = { "id" : rv[i], "name": rv[i] };
-							}
-							
-							success(rv);
-						}
-						else {
-							failure({ "status": req.status, "msg": req.responseText });
-						}
-					}
-				};
-				
-				req.send(null);
-			}
-		);
-	};
-	
-	this.addCategory = function (params, success, failure) {
-		success({ "id": params.name, "name": params.name });
-	};
-	
 	this.doAuth = function (callback, params) {
 		if (this.authToken) {
 			callback(this.authToken);
@@ -1010,7 +1248,7 @@ var bloggerAtomBlogAPI = function () {
 		}
 	};
 };
-bloggerAtomBlogAPI.prototype = new blogAPI();
+bloggerAtomBlogAPI.prototype = new genericAtomAPI();
 
 var tumblrBlogAPI = function () {
 	this.ui.categories = false;
