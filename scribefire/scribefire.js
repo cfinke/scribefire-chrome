@@ -451,6 +451,8 @@ var SCRIBEFIRE = {
 								}
 								else {
 									metaData.apiUrl = atomAPIs["service.post"];
+									
+									atomAPIs["service.feed"] = atomAPIs["service.post"];
 								}
 								
 								callbackSuccess(metaData);

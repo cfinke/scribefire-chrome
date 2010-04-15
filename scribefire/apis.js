@@ -581,13 +581,13 @@ var genericAtomAPI = function () {
 		
 		this.buildRequest(
 			"GET",
-			params.atomAPIs["service.feed"],
+			this.apiUrl,
 			function (req) {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
 						if (req.status < 300) {
 							var xml = req.responseXML;
-							alert(req.responseText);
+							
 							if (!xml) {
 								failure({"status": req.status, "msg": "Incomplete response"});
 							}
@@ -632,7 +632,6 @@ var genericAtomAPI = function () {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
 						if (req.status < 300) {
-							//console.log(req.responseText);
 							var xml = req.responseXML;
 							var jxml = $(xml);
 						
@@ -698,9 +697,6 @@ var genericAtomAPI = function () {
 									if ($(this).attr("rel") == "alternate") {
 										post.url = $(this).attr("href");
 									}
-									else if ($(this).attr("rel") == "edit") {
-										post.editUrl = $(this).attr("href");
-									}
 								});
 							
 								//var postUrl = $(this).find("id:first").text();
@@ -758,6 +754,11 @@ var genericAtomAPI = function () {
 		
 		body += '<title><![CDATA[' + title + ']]></title>';
 		
+		for (var i = 0; i < params.categories.length; i++) {
+			// Not all Atom APIs will respect this.
+			body += '<category scheme="http://www.blogger.com/atom/ns#" term="'+params.categories[i].replace(/&/g,'&amp;')+'"/>';
+		}
+		
 		/*
 		if ("date" in params && params.date) {
 			var date = params.date;
@@ -768,34 +769,24 @@ var genericAtomAPI = function () {
 				body += '<published>' + validDate + '</published>';
 			}
 		}
-		
+		*/
 		body += '<content type="html"><![CDATA['
 		
 		var content = params.content;
-		// content = content.replace(JUMP_BREAK_REGEX, "<!-- more -->");
+		content = content.replace(JUMP_BREAK_REGEX, "<!-- more -->");
 		
-		// Blogger doesn't like named entities.
-		// content = namedEntitiesToNumericEntities(content);
-		
-		// I don't think these divs are actually necessary.
-		//if (content.indexOf('<div xmlns="http://www.w3.org/1999/xhtml">') != -1){
-			body += content;//.replace(/&([^#])/g, "&amp;$1");
-		//}
-		//else {
-		//	body += '<div xmlns="http://www.w3.org/1999/xhtml">' + content.replace(/&([^#])/g, "&amp;$1") + '</div>';
-		//}
-		
+		body += content;
 		body += ']]></content>';
-		/*
+		
 		if (params.draft) {
 			body += '<app:control>';
-			body += '    <app:draft>yes</app:draft>';
+				body += '<app:draft>yes</app:draft>';
 			body += '</app:control>';
 		}
-		*/
-		body += ' </entry>';
 		
-		//console.log(body);
+		body += '</entry>';
+		
+		// console.log(body);
 		//console.log(apiUrl);
 		//console.log(method);
 		
@@ -972,212 +963,41 @@ genericAtomAPI.prototype = new blogAPI();
 var bloggerAtomBlogAPI = function () {
 	this.authToken = null;
 	
-	this.ui.tags = false;
-
-	this.xgetPosts = function (params, success, failure) {
-		this.buildRequest(
-			"GET",
-			this.apiUrl,
-			function (req) {
-				req.onreadystatechange = function () {
-					if (req.readyState == 4) {
-						if (req.status < 300) {
-							var xml = req.responseXML;
-							var jxml = $(xml);
-						
-							var posts = [];
-						
-							jxml.find("entry").each(function () {
-								var post = {};
-								post.content = $(this).find("content:first").text();
-							
-								// @todo Do this better.
-								post.content = post.content.replace('<content type="xhtml">' + "\n  ", "");
-								post.content = post.content.replace("\n</content>", "");
-							
-								// @todo Do this better too.
-								var divRegexp = /\<div xmlns\=\'http:\/\/www.w3.org\/1999\/xhtml\'\>|\<div xmlns\=\"http:\/\/www.w3.org\/1999\/xhtml\"\>/;
-								var divIndex = post.content.search(divRegexp);
-
-								if (divIndex >= 0 && divIndex < 30){
-									// If we have a <div xmlns='http://www.w3.org/1999/xhtml'> at the top
-									post.content = post.content.substring(42, post.content.length - 6); // Get rid of the outer div
-								}
-							
-								post.title = $(this).find("title:first").text();
-							
-								/*
-								var val = $(this).find("published:first").text();
-
-								// Check for a timezone offset
-								var possibleOffset = val.substr(-6);
-								var hasTimezone = false;
-								var minutes = null;
-
-								if (possibleOffset.charAt(0) == "-" || possibleOffset.charAt(0) == "+") {
-									var hours = parseInt(possibleOffset.substr(1,2), 10);
-									var minutes = (hours * 60) + parseInt(possibleOffset.substr(4,2), 10);
-
-									if (possibleOffset.charAt(0) == "+") {
-										minutes *= -1;
-									}
-
-									hasTimezone = true;
-								}
-
-								val = val.replace(/-/gi, "");
-
-								var year = parseInt(val.substring(0, 4), 10);
-								var month = parseInt(val.substring(4, 6), 10) - 1
-								var day = parseInt(val.substring(6, 8), 10);
-								var hour = parseInt(val.substring(9, 11), 10);
-								var minute = parseInt(val.substring(12, 14), 10);
-								var second = parseInt(val.substring(15, 17), 10);
-
-								var dateutc =  Date.UTC(year, month, day, hour, minute, second);
-								dateutc = new Date(dateutc);
-
-								if (!hasTimezone) {
-									minutes = new Date(dateutc).getTimezoneOffset();
-								}
-
-								var offsetDate = dateutc.getTime();
-								offsetDate += (1000 * 60 * minutes);
-								dateutc.setTime(offsetDate);
-							
-								post.date = dateutc;
-								*/
-							
-								post.categories = [];
-							
-								$(this).find("category").each(function () {
-									post.categories.push($(this).attr("term"));
-								});
-							
-								post.tags = "";
-							
-								$(this).find("link").each(function () {
-									if ($(this).attr("rel") == "alternate") {
-										post.url = $(this).attr("href");
-									}
-									else if ($(this).attr("rel") == "edit") {
-										post.editUrl = $(this).attr("href");
-									}
-								});
-							
-								var postUrl = $(this).find("id:first").text();
-								post.id = postUrl.match( /(?:\/|post-)(\d{5,})(?!\d*\/)/)[1];
-								
-								post.published = true;
-								
-								$(this).find("draft").each(function () {
-									if ($(this).text() == "yes") {
-										post.published = false;
-									}
-								});
-								
-								posts.push(post);
-							});
-						
-							success(posts);
-						}
-						else {
-							failure({ "status": req.status, "msg": req.responseText });
-						}
-					}
-				};
+	this.ui.categories = true;
+	
+	this.getCategories = function (params, success, failure) {
+		this.getPosts(
+			params,
+			function (posts) {
+				var categories = {};
 				
-				req.send(null);
-			}
+				for (var i = 0; i < posts.length; i++) {
+					for (var j = 0; j < posts[i].categories.length; j++) {
+						categories[posts[i].categories[j]] = true;
+					}
+				}
+				
+				var rv = [];
+				
+				for (var i in categories) {
+					rv.push(i);
+				}
+				
+				rv.sort();
+				
+				for (var i = 0; i < rv.length; i++) {
+					var categoryName = rv[i];
+					rv[i] = { "id" : rv[i], "name": rv[i] };
+				}
+				
+				success(rv);
+			},
+			failure
 		);
 	};
 	
-	this.xpublish = function (params, success, failure) {
-		var method = "POST";
-		var apiUrl = this.apiUrl;
-		
-		if ("id" in params && params.id) {
-			method = "PUT";
-			
-			if (apiUrl[apiUrl.length - 1] != "/") {
-				apiUrl += "/";
-			}
-			
-			apiUrl += params.id;
-		}
-		
-		var body = "";
-		body += '<?xml version="1.0" encoding="UTF-8" ?>';
-		body += '<entry xmlns="http://www.w3.org/2005/Atom" xmlns:app="http://purl.org/atom/app#">';
-		
-		var title = params.title.replace(/&amp;/g, '&');
-		title = namedEntitiesToNumericEntities(title);
-		title = title.replace(/&([^#])/g, "&amp;$1");
-		
-		for (var i = 0; i < params.categories.length; i++) {
-			body += '<category scheme="http://www.blogger.com/atom/ns#" term="'+params.categories[i].replace(/&/g,'&amp;')+'"/>';
-		}
-		
-		body += '<title mode="escaped" type="text">' + title + '</title>';
-		
-		if ("date" in params && params.date) {
-			var date = params.date;
-			body += '<issued>' + params.date + '</issued>';
-			
-			if (date) {
-				var validDate = date.substring(0,4) + "-" + date.substring(4,6) + "-" + date.substring(6,8) + "T" + date.substring(9,17) + ".000Z";
-				body += '<published>' + validDate + '</published>';
-			}
-		}
-		
-		body += '<content type="xhtml">'
-		
-		var content = params.content;
-		content = content.replace(JUMP_BREAK_REGEX, "<!-- more -->");
-		
-		// Blogger doesn't like named entities.
-		content = namedEntitiesToNumericEntities(content);
-		
-		// I don't think these divs are actually necessary.
-		//if (content.indexOf('<div xmlns="http://www.w3.org/1999/xhtml">') != -1){
-			body += content.replace(/&([^#])/g, "&amp;$1");
-		//}
-		//else {
-		//	body += '<div xmlns="http://www.w3.org/1999/xhtml">' + content.replace(/&([^#])/g, "&amp;$1") + '</div>';
-		//}
-		
-		body += '</content>';
-		
-		if (params.draft) {
-			body += '<app:control>';
-			body += '    <app:draft>yes</app:draft>';
-			body += '</app:control>';
-		}
-		
-		body += ' </entry>';
-		
-		this.buildRequest(
-			method,
-			apiUrl,
-			function (req) {
-				req.onreadystatechange = function () {
-					if (req.readyState == 4) {
-						if (req.status < 300) {
-							var xml = req.responseXML;
-							var jxml = $(xml);
-							
-							var postId = jxml.find("id:first").text().split(".post-")[1];
-							success({ "id": postId });
-						}
-						else {
-							failure({ "status": req.status, "msg": req.responseText });
-						}
-					}
-				};
-				
-				req.send(body);
-			}
-		);
+	this.addCategory = function (params, success, failure) {
+		success({ "id": params.name, "name": params.name });
 	};
 	
 	this.doAuth = function (callback, params) {
@@ -1220,6 +1040,8 @@ var bloggerAtomBlogAPI = function () {
 					}
 					else {
 						returnValues["Error"] = "CaptchaRequired";
+						
+						// @todo
 						
 						switch (returnValues["Error"]) {
 							case 'BadAuthentication':
