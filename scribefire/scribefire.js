@@ -81,10 +81,12 @@ var SCRIBEFIRE = {
 	
 	observe : function (subject, topic, prefName) {
 		switch (prefName) {
+			/*
 			case "blogs":
 				// Refill the blogs list.
 				SCRIBEFIRE.populateBlogsList();
 			break;
+			*/
 			case "selectedBlog":
 				SCRIBEFIRE.prefs.setCharPref("selectedEntry", "");
 			break;
@@ -202,6 +204,15 @@ var SCRIBEFIRE = {
 	deletePost : function (postId, callbackSuccess, callbackFailure) {
 		var params = { "id": postId };
 		
+		var option = $("#list-entries option[value='"+params.id+"']:first");
+		
+		// Pass along any custom post metadata that the API stored.
+		var attrs = option.data();
+		
+		for (var x in attrs) {
+			params[x] = attrs[x];
+		}
+		
 		SCRIBEFIRE.getAPI().deletePost(
 			params,
 			function success(rv) {
@@ -255,6 +266,8 @@ var SCRIBEFIRE = {
 			delete blogs[url];
 			
 			SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
+			
+			SCRIBEFIRE.populateBlogsList();
 		}
 /*		
 		$("#list-blogs option[value='"+url+"']").remove();
@@ -573,6 +586,18 @@ var SCRIBEFIRE = {
 		);
 	},
 	
+	setBlogProperty : function (blogUrl, property, value) {
+		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
+		
+		var blog = blogs[blogUrl];
+		
+		blog[property] = value;
+		
+		blogs[blogUrl] = blog;
+		
+		SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
+	},
+	
 	getBlogs : function (params, callbackSuccess, callbackFailure) {
 		getBlogAPI(params.type, params.apiUrl).getBlogs(
 			params,
@@ -593,6 +618,7 @@ var SCRIBEFIRE = {
 				}
 				
 				SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
+				SCRIBEFIRE.populateBlogsList();
 				
 				callbackSuccess(rv);
 			},

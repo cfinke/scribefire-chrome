@@ -571,6 +571,9 @@ var wordpressBlogAPI = function () {
 wordpressBlogAPI.prototype = new genericMetaWeblogAPI();
 
 var genericAtomAPI = function () {
+	this.ui.tags = false;
+	this.ui.categories = false;
+	
 	this.getBlogs = function (params, success, failure) {
 		this.init(params);
 		
@@ -584,7 +587,7 @@ var genericAtomAPI = function () {
 					if (req.readyState == 4) {
 						if (req.status < 300) {
 							var xml = req.responseXML;
-						
+							alert(req.responseText);
 							if (!xml) {
 								failure({"status": req.status, "msg": "Incomplete response"});
 							}
@@ -637,21 +640,8 @@ var genericAtomAPI = function () {
 						
 							jxml.find("entry").each(function () {
 								var post = {};
+								
 								post.content = $(this).find("content:first").text();
-							
-								// @todo Do this better.
-								post.content = post.content.replace('<content type="xhtml">' + "\n  ", "");
-								post.content = post.content.replace("\n</content>", "");
-							
-								// @todo Do this better too.
-								var divRegexp = /\<div xmlns\=\'http:\/\/www.w3.org\/1999\/xhtml\'\>|\<div xmlns\=\"http:\/\/www.w3.org\/1999\/xhtml\"\>/;
-								var divIndex = post.content.search(divRegexp);
-
-								if (divIndex >= 0 && divIndex < 30){
-									// If we have a <div xmlns='http://www.w3.org/1999/xhtml'> at the top
-									post.content = post.content.substring(42, post.content.length - 6); // Get rid of the outer div
-								}
-							
 								post.title = $(this).find("title:first").text();
 							
 								/*
@@ -764,16 +754,11 @@ var genericAtomAPI = function () {
 			body += '<id>'+params.id+'</id>';
 		}
 		
-		var title = params.title;/*.replace(/&amp;/g, '&');
-		title = namedEntitiesToNumericEntities(title);
-		title = title.replace(/&([^#])/g, "&amp;$1");
+		var title = params.title;
 		
-		for (var i = 0; i < params.categories.length; i++) {
-			body += '<category scheme="http://www.blogger.com/atom/ns#" term="'+params.categories[i].replace(/&/g,'&amp;')+'"/>';
-		}
-		*/
 		body += '<title><![CDATA[' + title + ']]></title>';
 		
+		/*
 		if ("date" in params && params.date) {
 			var date = params.date;
 			body += '<issued>' + params.date + '</issued>';
@@ -838,66 +823,125 @@ var genericAtomAPI = function () {
 		);
 	};
 	
+	/*
+	
+	// You would think that if the list of categories is made available, it would be possible to add
+	// a category to an entry, but noooooo.
+	
 	this.getCategories = function (params, success, failure) {
-		this.buildRequest(
-			"GET",
-			this.apiUrl,
-			function (req) {
-				req.onreadystatechange = function () {
-					if (req.readyState == 4) {
-						if (req.status < 300) {
-							var xml = req.responseXML;
-							var jxml = $(xml);
+		// This API is checked for exposure the first time that categories need to be loaded.
+		if ("service.categories" in this.atomAPIs) {
+			if (this.atomAPIs["service.categories"]) {
+				this.buildRequest(
+					"GET",
+					this.atomAPIs["service.categories"],
+					function (req) {
+						req.onreadystatechange = function () {
+							if (req.readyState == 4) {
+								if (req.status < 300) {
+									var xml = req.responseXML;
+									var jxml = $(xml);
 							
-							var categories = {};
+									var categories = [];
+							
+									jxml.find("subject").each(function () {
+										var cat = $(this).text();
+								
+										categories.push({ "id": cat, "name": cat });
+									});
+							
+									success(categories);
+							
+								}
+								else {
+									failure({ "status": req.status, "msg": req.responseText });
+								}
+							}
+						};
 						
-							jxml.find("category").each(function () {
-								var term = $(this).attr("term");
-								categories[term] = true;
-							});
-							
-							var rv = [];
-							
-							for (var i in categories) {
-								rv.push(i);
-							}
-							
-							rv.sort();
-							
-							for (var i = 0; i < rv.length; i++) {
-								var categoryName = rv[i];
-								rv[i] = { "id" : rv[i], "name": rv[i] };
-							}
-							
-							success(rv);
-						}
-						else {
-							failure({ "status": req.status, "msg": req.responseText });
-						}
+						req.send(null);
 					}
-				};
-				
-				req.send(null);
+				);
 			}
-		);
+			else {
+				this.ui.categories = false;
+				
+				SCRIBEFIRE.updateOptionalUI();
+				
+				success([]);
+			}
+		}
+		else {
+			var self = this;
+			
+			this.buildRequest(
+				"GET",
+				this.atomAPIs["service.feed"],
+				function (req) {
+					req.onreadystatechange = function () {
+						if (req.readyState == 4) {
+							if (req.status < 300) {
+								var xml = req.responseXML;
+								var jxml = $(xml);
+								
+								var interfaceUrl = jxml.find("entry:first link[rel='self']:first").attr("href");
+								
+								self.buildRequest(
+									"GET",
+									interfaceUrl,
+									function (creq) {
+										creq.onreadystatechange = function () {
+											if (creq.readyState == 4) {
+												if (creq.status < 300) {
+													var cxml = creq.responseXML;
+													var cjxml = $(cxml);
+												
+													var categoryLink = cjxml.find("link[rel='service.categories']:first");
+												
+													if (categoryLink) {
+														self.atomAPIs["service.categories"] = categoryLink.attr("href");
+													}
+													else {
+														self.atomAPIs["service.categories"] = false;
+													}
+												}
+												else {
+													self.atomAPIs["service.categories"] = false;
+												}
+												
+												SCRIBEFIRE.setBlogProperty(self.url, "atomAPIs", self.atomAPIs);
+												self.getCategories(params, success, failure);
+											}
+										};
+									
+										creq.send(null);
+									}
+								);
+							}
+							else {
+								self.atomAPIs["service.categories"] = false;
+								SCRIBEFIRE.setBlogProperty(self.url, "atomAPIs", self.atomAPIs);
+								self.getCategories(params, success, failure);
+							}
+						}
+					};
+				
+					req.send(null);
+				}
+			);
+		}
 	};
 	
 	this.addCategory = function (params, success, failure) {
 		success({ "id": params.name, "name": params.name });
 	};
 	
+	*/
+	
 	this.deletePost = function (params, success, failure) {
-		var apiUrl = this.apiUrl;
-		
-		if (apiUrl[apiUrl.length - 1] != "/") {
-			apiUrl += "/";
-		}
-		
-		apiUrl += params.id;
-		
 		this.buildRequest(
 			"DELETE",
-			this.atomAPIs["service.post"],
+			params["service.edit"],
 			function (req) {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4){
@@ -930,7 +974,7 @@ var bloggerAtomBlogAPI = function () {
 	
 	this.ui.tags = false;
 
-	this.getPosts = function (params, success, failure) {
+	this.xgetPosts = function (params, success, failure) {
 		this.buildRequest(
 			"GET",
 			this.apiUrl,
@@ -1048,7 +1092,7 @@ var bloggerAtomBlogAPI = function () {
 		);
 	};
 	
-	this.publish = function (params, success, failure) {
+	this.xpublish = function (params, success, failure) {
 		var method = "POST";
 		var apiUrl = this.apiUrl;
 		
