@@ -223,7 +223,7 @@ var SCRIBEFIRE = {
 				}
 			},
 			function failure(rv) {
-				SCRIBEFIRE.error("ScribeFire found this little error when trying to delete your post: " + rv.status);
+				SCRIBEFIRE.error("ScribeFire found this little error when trying to delete your post: " + rv.status + "\n\n" + rv.msg);
 				
 				if (callbackFailure) {
 					callbackFailure(rv);
@@ -323,6 +323,10 @@ var SCRIBEFIRE = {
 		else if (parsed.host.search(/\.tumblr\.com$/i) != -1) {
 			metaData.type = "tumblr";
 			metaData.apiUrl = "http://www.tumblr.com/api";
+		}
+		else if (parsed.host.search(/\.posterous\.com$/i) != -1) {
+			metaData.type = "posterous";
+			metaData.apiUrl = "http://posterous.com/api";
 		}
 		
 		if (metaData.type) {
@@ -438,7 +442,7 @@ var SCRIBEFIRE = {
 							
 							if ("service.post" in atomAPIs) {
 								if (atomAPIs["service.post"].indexOf("blogger") != -1) {
-									metaData.type = "blogger_atom";
+									metaData.type = "blogger";
 								}
 								else {
 									metaData.type = "atom";

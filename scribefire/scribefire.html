@@ -49,13 +49,14 @@
 							<div class="subunderbar">
 								<select id="list-blog-types" disabled="disabled">
 									<option vlaue="">(select)</option>
+									<option value="atom">Atom</option>
+									<option value="blogger">Blogger</option>
 									<option value="wordpress">Wordpress</option>
-									<option value="blogger_atom">Blogger</option>
 									<!-- <option value="typepad">TypePad</option> -->
 									<option value="tumblr">Tumblr</option>
 									<option value="metaweblog">MetaWeblog</option>
 									<option value="movabletype">MovableType</option>
-									<option value="atom">Atom</option>
+									<option value="posterous">Posterous</option>
 								</select>
 							</div>
 						</div>
@@ -93,7 +94,9 @@
 				</div>
 				<div class="underbar" id="underbar-entries">
 					<select id="list-entries"><option value="">(new)</option></select>
-					<button id="button-entry-remove" style="display: none;">Delete Post</button>
+					<span id="ui-deleteEntry">
+						<button id="button-entry-remove" style="display: none;">Delete Post</button>
+					</span>
 				</div>
 			</div>
 			<div>

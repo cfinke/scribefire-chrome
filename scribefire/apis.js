@@ -14,7 +14,7 @@ function getBlogAPI(type, apiUrl) {
 		case "wordpress":
 			api = new wordpressAPI();
 		break;
-		case "blogger_atom":
+		case "blogger":
 			api = new bloggerAPI();
 		break;
 		case "tumblr":
@@ -29,6 +29,9 @@ function getBlogAPI(type, apiUrl) {
 		break;
 		case "atom":
 			api = new genericAtomAPI();
+		break;
+		case "posterous":
+			api = new posterousAPI();
 		break;
 		default:
 			SCRIBEFIRE.error("It's not your fault, but ScribeFire is looking for an API ("+type+") that doesn't exist.");
@@ -45,7 +48,8 @@ var blogAPI = function () {
 	this.ui = {};
 	this.ui.categories = true;
 	this.ui.tags = true;
-	this.ui.draft = true;	
+	this.ui.draft = true;
+	this.ui.deleteEntry = true;	
 };
 
 blogAPI.prototype = {
@@ -602,7 +606,7 @@ var genericAtomAPI = function () {
 								blog.name = jxml.find("title:first").text();
 								blog.id = jxml.find("id:first").text().split(":blog-")[1];
 								blog.apiUrl = params.apiUrl;
-								blog.type = "blogger_atom";
+								blog.type = params.type;
 								blog.username = params.username;
 								blog.password = params.password;
 								
@@ -1340,7 +1344,165 @@ var tumblrAPI = function () {
 };
 tumblrAPI.prototype = new blogAPI();
 
-var posterousAPI
+var posterousAPI = function () {
+	//this.ui.tags = false;
+	this.ui.categories = false;
+	this.ui.deleteEntry = false;
+	
+	this.getBlogs = function (params, success, failure) {
+		var url = "http://posterous.com/api/getsites";
+		
+		var req = new XMLHttpRequest();
+		req.open("POST", url, true);
+		req.setRequestHeader("Authorization", "Basic " + btoa(params.username + ":" + params.password));
+		
+		req.onreadystatechange = function () {
+			if (req.readyState == 4) {
+				if (req.status == 200) {
+					var xml = req.responseXML;
+					var jxml = $(xml);
+					
+					var blogs = [];
+					
+					jxml.find("site").each(function () {
+						var blog = {};
+						blog.id = $(this).find("id:first").text();
+						blog.apiUrl = "http://posterous.com/api";
+						blog.type = params.type;
+						blog.username = params.username;
+						blog.password = params.password;
+						blog.name = $(this).find("name:first").text();
+						blog.url = $(this).find("url:first").text();
+						
+						blogs.push(blog);
+					});
+					
+					success(blogs);
+				}
+				else {
+					failure({"status": req.status, "msg": req.responseText});
+				}
+			}
+		};
+		
+		req.send(null);
+	};
+	
+	this.getPosts = function (params, success, failure) {
+		var url = "http://posterous.com/api/readposts";
+		
+		var args = {};
+		args.site_id = this.id;
+		args.num_posts = 50;
+		
+		var argstring = "";
+
+		for (var i in args) {
+			argstring += encodeURIComponent(i) + "=" + encodeURIComponent(args[i]) + "&";
+		}
+
+		argstring = argstring.substr(0, argstring.length - 1);
+		
+		var req = new XMLHttpRequest();
+		req.open("POST", url, true);
+		req.setRequestHeader("Authorization", "Basic " + btoa(this.username + ":" + this.password));
+		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		req.onreadystatechange = function () {
+			if (req.readyState == 4) {
+				if (req.status == 200) {
+					var xml = req.responseXML;
+					var jxml = $(xml);
+					
+					var rv = [];
+					
+					jxml.find("post").each(function () {
+						var entry = {}
+						entry.id = $(this).find("id:first").text();
+						entry.content = $(this).find("body:first").text();
+						entry.title = $(this).find("title:first").text();
+						entry.published = true; // @todo Does Posterous support drafts?
+						
+						var tags = [];
+						
+						$(this).find("tag").each(function () {
+							tags.push($(this).text());
+						});
+						
+						entry.tags = tags.join(", ");
+						entry.categories = [];
+						
+						rv.push(entry);
+					});
+					
+					success(rv);
+				}
+				else {
+					failure({"status": req.status, "msg": req.responseText});
+				}
+			}
+		};
+		
+		req.send(argstring);
+	};
+	
+	this.publish = function (params, success, failure) {
+		var args = {};
+		
+		if ("id" in params && params.id) {
+			var url = "http://posterous.com/api/updatepost";
+			
+			args.post_id = params.id;
+		}
+		else {
+			var url = "http://posterous.com/api/newpost";
+		}
+		
+		args.site_id = this.id;
+		args.title = params.title;
+		args.body = params.content;
+		args.tags = params.tags;
+		
+		args.source = "ScribeFire";
+		args.sourceLink = "http://www.scribefire.com/";
+		
+		console.log(args);
+		
+		var argstring = "";
+
+		for (var i in args) {
+			argstring += encodeURIComponent(i) + "=" + encodeURIComponent(args[i]) + "&";
+		}
+
+		argstring = argstring.substr(0, argstring.length - 1);
+		
+		var req = new XMLHttpRequest();
+		req.open("POST", url, true);
+		req.setRequestHeader("Authorization", "Basic " + btoa(this.username + ":" + this.password));
+		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		req.onreadystatechange = function () {
+			if (req.readyState == 4) {
+				var xml = req.responseXML;
+				var jxml = $(xml);
+				
+				if (req.status == 200) {
+					success({ "id": jxml.find("id:first").text() });
+				}
+				else {
+					failure({"status": req.status, "msg": jxml.find("err:first").attr("msg")});
+				}
+			}
+		};
+		
+		req.send(argstring);
+	};
+	
+	this.deletePost = function (params, success, failure) {
+		failure({"status": 0, "msg": "Posterous does not support post deletion at this time."});
+	};
+};
+posterousAPI.prototype = new blogAPI();
 
 var performancingAPICalls = {
 	//myParams  = [url, appkey, blogid, username, password, content, publish]
