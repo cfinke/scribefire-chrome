@@ -263,11 +263,11 @@ var genericMetaWeblogAPI = function () {
 		if ("custom_fields" in params && params.custom_fields.length > 0) {
 			contentStruct.custom_fields = custom_fields;
 		}
+		*/
 		
 		if ("slug" in params && params.slug) {
 			contentStruct.wp_slug = params.slug;
 		}
-		*/
 
 		if ("draft" in params) {
 			var publish = params.draft ? "bool0" : "bool1";
