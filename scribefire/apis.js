@@ -12,13 +12,13 @@ function getBlogAPI(type, apiUrl) {
 	
 	switch (type) {
 		case "wordpress":
-			api = new wordpressBlogAPI();
+			api = new wordpressAPI();
 		break;
 		case "blogger_atom":
-			api = new bloggerAtomBlogAPI();
+			api = new bloggerAPI();
 		break;
 		case "tumblr":
-			api = new tumblrBlogAPI();
+			api = new tumblrAPI();
 		break;
 		case "metaweblog":
 			api = new genericMetaWeblogAPI();
@@ -482,7 +482,7 @@ var genericMovableTypeAPI = function () {
 };
 genericMovableTypeAPI.prototype = new genericMetaWeblogAPI();
 
-var wordpressBlogAPI = function () {
+var wordpressAPI = function () {
 	this.ui.categories = true;
 	
 	this.getBlogs = function (params, success, failure) {
@@ -568,7 +568,7 @@ var wordpressBlogAPI = function () {
 		);
 	}
 };
-wordpressBlogAPI.prototype = new genericMetaWeblogAPI();
+wordpressAPI.prototype = new genericMetaWeblogAPI();
 
 var genericAtomAPI = function () {
 	this.ui.tags = false;
@@ -960,7 +960,7 @@ var genericAtomAPI = function () {
 };
 genericAtomAPI.prototype = new blogAPI();
 
-var bloggerAtomBlogAPI = function () {
+var bloggerAPI = function () {
 	this.authToken = null;
 	
 	this.ui.categories = true;
@@ -1114,9 +1114,9 @@ var bloggerAtomBlogAPI = function () {
 		}
 	};
 };
-bloggerAtomBlogAPI.prototype = new genericAtomAPI();
+bloggerAPI.prototype = new genericAtomAPI();
 
-var tumblrBlogAPI = function () {
+var tumblrAPI = function () {
 	this.ui.categories = false;
 	
 	this.getBlogs = function (params, success, failure) {
@@ -1338,7 +1338,9 @@ var tumblrBlogAPI = function () {
 		req.send(argstring);
 	};
 };
-tumblrBlogAPI.prototype = new blogAPI();
+tumblrAPI.prototype = new blogAPI();
+
+var posterousAPI
 
 var performancingAPICalls = {
 	//myParams  = [url, appkey, blogid, username, password, content, publish]
