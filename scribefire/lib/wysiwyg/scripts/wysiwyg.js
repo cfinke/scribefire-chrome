@@ -681,11 +681,93 @@ var WYSIWYG = {
 		WYSIWYG_Core.setAttribute(doc.body, "style", this.config[n].DefaultStyle);
 	},
 	
+	nl2br : function (html) {
+		// This is not as simple as it looks.
+		
+		// We want to go from a world where a visible linebreak is \n to one where it's <br />
+		// But not all \n are created equal.  For example:
+		//
+		// <ul>
+		// <li>Item 1</li>
+		// <li>Item 2</li>
+		// </ul>
+		// 
+		// should not end up with any <br />'s.  But:
+		//
+		// Hi there, how are <b>you?</b>
+		// <i>I am fine</i>, thank you.
+		//
+		// should have a <br /> after the first line.
+		
+		var blockTags = ["address","blockquote","center","dir","div","dl","fieldset","form","h1","h2","h3","h4","h5","h6","hr","isindex","menu","noframes","noscript","ol","p","pre","table","ul","dd","dt","li","tbody","td","tfoot","th","thead","tr","applet","button","del","iframe","ins","map","object","script"];
+		var frontTagRE = '(/?(?:' + blockTags.join("|") + ')\\s*/?>)';
+		var backTagRE = '(</?(?:' + blockTags.join("|") + '))';
+		
+		// Pull out all whitespace that we don't want potentially converted to <br>.
+		// Starting white whitespace following a block tag.
+		var trailingWhitespaceMatchesRE = new RegExp(frontTagRE + '(\\s+)', "ig");
+		var trailingWhitespaceList = [];
+		var m = null;
+		
+		while ((m = trailingWhitespaceMatchesRE.exec(html, 0))) {
+			trailingWhitespaceList.push(m[2]);
+			
+			html = html.replace(m[1] + m[2], m[1] + "__SCRIBEFIRE_TRAILING_WHITESPACE_PLACEHOLDER__");
+		}
+		
+		// Now whitespace preceding a block tag.
+		var leadingWhitespaceMatchesRE = new RegExp('(\\s+)' + backTagRE, "ig");
+		var leadingWhitespaceList = [];
+		var m = null;
+		
+		while ((m = leadingWhitespaceMatchesRE.exec(html))) {
+			leadingWhitespaceList.push(m[1]);
+			
+			html = html.replace(m[1] + m[2], "__SCRIBEFIRE_LEADING_WHITESPACE_PLACEHOLDER__" + m[2]);
+		}
+		
+		// All newlines now are ripe for replacement.
+		var allNewlinesRE = new RegExp("\n", "ig");
+		html = html.replace(allNewlinesRE, "<br />");
+		
+		// Replace the whitespaces we pulled out
+		for (var i = 0; i < trailingWhitespaceList.length; i++){
+			var whitespace = trailingWhitespaceList[i];
+			
+			html = html.replace("__SCRIBEFIRE_TRAILING_WHITESPACE_PLACEHOLDER__", whitespace);
+		}
+		
+		for (var i = 0; i < leadingWhitespaceList.length; i++){
+			var whitespace = leadingWhitespaceList[i];
+			
+			html = html.replace("__SCRIBEFIRE_LEADING_WHITESPACE_PLACEHOLDER__", whitespace);
+		}
+		
+		return html;
+	},
+	
+	/**
+	 * Replaces all <br> tags with \n for readability.
+	 * Actually, when I say "all", I mean "all without extra attributes that might be meaningful.
+	 */
+	
+	br2nl : function (html) {
+		return html.replace(/<br\s*\/?>/g, "\n");
+	},
+	
 	val : function (id, value) {
+		var sourceMode = (this.viewTextMode[id]);
+		
+		if (sourceMode) {
+			// All val() interactions happen in WYSIWYG mode.
+			this.viewText(id);
+		}
+		
 		var doc = this.getEditorWindow(id).document;
+		var rv = null;
 		
 		if (typeof value == 'undefined') {
-			return doc.innerHTML;
+			rv = doc.body.innerHTML;
 		}
 		else {
 			var doc = this.getEditorWindow(id).document;
@@ -711,6 +793,12 @@ var WYSIWYG = {
 			
 			WYSIWYG_Core.setAttribute(doc.body, "style", this.config[id].DefaultStyle);
 		}
+		
+		if (sourceMode) {
+			this.viewSource(id);
+		}
+		
+		return rv;
 	},
 	
 	/**
@@ -1490,7 +1578,7 @@ var WYSIWYG = {
 			var html = WYSIWYG_Core.replaceRGBWithHexColor(doc.body.innerHTML);
 			
 			// @cfinke
-			html = html.replace(/<br\s*\/?>/g, "\n");
+			html = WYSIWYG.br2nl(html);
 			
 			parts = html.split("\n");
 			
@@ -1560,11 +1648,9 @@ var WYSIWYG = {
 	    	// replace all decimal color strings with hex decimal color strings
 			html = WYSIWYG_Core.replaceRGBWithHexColor(html.toString());
 			
-			// @cfinke
-			// @todo Don't modify newlines that are just for formatting.
-			html = html.replace(/\n/g, "<br />");
+			html = WYSIWYG.nl2br(html);
 			
-	    	doc.body.innerHTML = html;
+			doc.body.innerHTML = html;
 		}
 		
 		// Enable table highlighting
