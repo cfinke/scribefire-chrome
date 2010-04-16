@@ -150,15 +150,27 @@ var SCRIBEFIRE = {
 		
 		$("#list-blogs").html("");
 		
+		var count = 0;
+		
 		for (var i in blogs) {
 			var blog = $("<option/>");
 			blog.attr("value", blogs[i].url);
 			blog.html(blogs[i].name + " ("+blogs[i].url+")");
 			blog.attr("label", "test");
 			$("#list-blogs").append(blog);
+			
+			count++;
 		}
 		
-		$("#list-blogs").val(SCRIBEFIRE.prefs.getCharPref("selectedBlog"));
+		if (count > 0) {
+			$("#list-blogs").val(SCRIBEFIRE.prefs.getCharPref("selectedBlog"));
+			$("#list-blogs").show();
+		}
+		else {
+			$("#list-blogs").hide();
+			$("#list-blogs").val("");
+		}
+
 		$("#list-blogs").change();
 	},
 	
@@ -499,7 +511,7 @@ var SCRIBEFIRE = {
 		}
 		
 		params.title = $("#text-title").val();
-		params.content = $("#text-content").val();
+		params.content = WYSIWYG.val('text-content');//$("#text-content").val();
 		params.categories = $("#list-categories").val() || [];
 		params.tags = $("#text-tags").val();
 		params.draft = $("#checkbox-draft").is(":checked");
@@ -556,7 +568,7 @@ var SCRIBEFIRE = {
 	
 	clearData : function () {
 		$("#text-title").val("").change();
-		$("#text-content").val("");
+		WYSIWYG.val('text-content', '');//$("#text-content").val("");
 		$("#checkbox-draft").removeAttr("checked");
 		$("#text-tags").val("");
 		$("#list-categories").val("");

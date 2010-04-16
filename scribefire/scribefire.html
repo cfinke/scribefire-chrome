@@ -10,8 +10,8 @@
 		<script type="text/javascript" src="lib/jquery.js"></script>
 		<script type="text/javascript" src="lib/parseUri.js"></script>
 		<script type="text/javascript" src="lib/facebox.js"></script>
-		<script type="text/javascript" src="lib/ckeditor/ckeditor.js"></script>
-		<script type="text/javascript" src="lib/ckeditor/adapters/jquery.js"></script>
+		<script type="text/javascript" src="lib/wysiwyg/scripts/wysiwyg.js"></script>
+		<script type="text/javascript" src="lib/wysiwyg/scripts/wysiwyg-settings.js"></script>
 		<script type="text/javascript" src="lib/persist.js"></script>
 		<script type="text/javascript" src="lib/keyboard.js"></script>
 	</head>
@@ -24,7 +24,7 @@
 				<div class="underbar underbar-selected" id="underbar-blog">
 					<select id="list-blogs"></select>
 					<p>
-						<button id="button-blog-add">New Blog</button>
+						<button id="button-blog-add">Add a New Blog</button>
 						<!--<button id="button-blog-edit">Edit</button>-->
 						<button id="button-blog-remove">Remove</button>
 					</p>
@@ -277,7 +277,8 @@
 						var entry = $(this).find("option:selected");
 						
 						$("#text-title").val(entry.data("title")).change();
-						$("#text-content").val(entry.data("content"));
+						WYSIWYG.val('text-content', entry.data("content").replace(/\n/g, "<br />"));
+						// $("#text-content").val(entry.data("content"));
 						$("#checkbox-draft").attr("checked", entry.data("published") == "false");
 						$("#text-tags").val(entry.data("tags"));
 						
@@ -427,19 +428,8 @@
 						});
 				});
 				
-				$("#text-content").ckeditor(function () { },
-					{
-						on : {
-							instanceReady : function (e) {
-								this.dataProcessor.writer.setRules('p', {
-									indent: false,
-									breakAfterOpen: false
-								});
-							}
-						}
-					}
-				);
-				
+				WYSIWYG.attach('text-content', wysiwyg_scribefire);
+
 				SCRIBEFIRE.load();
 			});
 		</script>
