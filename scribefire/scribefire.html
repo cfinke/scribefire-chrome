@@ -278,7 +278,7 @@
 						
 						$("#text-title").val(entry.data("title")).change();
 						
-						WYSIWYG.val('text-content', WYSIWYG.nl2br(entry.data("content")));
+						WYSIWYG.val('text-content', entry.data("content"));
 						
 						// $("#text-content").val(entry.data("content"));
 						$("#checkbox-draft").attr("checked", entry.data("published") == "false");

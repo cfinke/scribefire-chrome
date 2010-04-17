@@ -23,3 +23,4 @@ wysiwyg_scribefire.Toolbar[0] = [
 wysiwyg_scribefire.Toolbar[1] = [];
 wysiwyg_scribefire.Toolbar[2] = [];
 wysiwyg_scribefire.StatusBarEnabled = false;
+wysiwyg_scribefire.ReplaceLineBreaks = true;

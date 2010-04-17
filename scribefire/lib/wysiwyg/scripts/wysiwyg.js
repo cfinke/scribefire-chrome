@@ -773,8 +773,8 @@ var WYSIWYG = {
 			var doc = this.getEditorWindow(id).document;
 
 			// Replace all \n with <br> 
-			if(this.config[id].ReplaceLineBreaks) {
-				value = value.replace(/(\r\n)|(\n)/ig, "<br>");
+			if (this.config[id].ReplaceLineBreaks) {
+				value = WYSIWYG.nl2br(value);
 			}
 			
 			// Write the textarea's content into the iframe
@@ -1577,8 +1577,9 @@ var WYSIWYG = {
 	  		// replace all decimal color strings with hex decimal color strings
 			var html = WYSIWYG_Core.replaceRGBWithHexColor(doc.body.innerHTML);
 			
-			// @cfinke
-			html = WYSIWYG.br2nl(html);
+			if (this.config[n].ReplaceLineBreaks) {
+				html = WYSIWYG.br2nl(html);
+			}
 			
 			parts = html.split("\n");
 			
@@ -1586,7 +1587,10 @@ var WYSIWYG = {
 	
 			for (var i = 0; i < parts.length; i++) {
 				doc.body.appendChild(document.createTextNode(parts[i]));
-				doc.body.appendChild(document.createElement("br"));
+				
+				if (i != (parts.length - 1)) {
+					doc.body.appendChild(document.createElement("br"));
+				}
 			}
 	  	}
 	  
@@ -1624,31 +1628,51 @@ var WYSIWYG = {
 			iText = WYSIWYG_Core.replaceRGBWithHexColor(iText);
 	    	doc.body.innerHTML = iText;
 		}
-	  
-		// View Text for Mozilla/Netscape
 	  	else {
+			// View Text for Mozilla/Netscape
 			var parts = [];
-		
+			
+			var range = doc.body.ownerDocument.createRange();
+			range.selectNodeContents(doc.body);
+			
+			var blockTags = ["address","blockquote","center","dir","div","dl","fieldset","form","h1","h2","h3","h4","h5","h6","hr","isindex","menu","noframes","noscript","ol","p","pre","table","ul","dd","dt","li","tbody","td","tfoot","th","thead","tr","applet","button","del","iframe","ins","map","object","script"];
+			var leadingBlockTagRE = new RegExp("</?("+blockTags.join("|")+")", "gi");
+			var trailingBlockTagRE = new RegExp("/?("+blockTags.join("|")+")\\s*/?>", "gi");
+			
+			var previousText = null;
+			
 			for (var i = 0; i < doc.body.childNodes.length; i++) {
 				var node = doc.body.childNodes[i];
 				var range = doc.body.ownerDocument.createRange();
 				range.selectNodeContents(node);
 				
-				var text = range.toString();
+				var text = range.toString().replace(/^\s+|\s+$/g, "");
+				
+				if (text && (i > 0)) {
+					if (text.search(leadingBlockTagRE) == -1 || previousText.search(trailingBlockTagRE) == -1) {
+						parts.push("\n");
+					}
+				}
 				
 				parts.push(text);
 				
+				if (text && (i != (doc.body.childNodes.length - 1))) {
+					parts.push("\n");
+				}
+				
 				if (text) {
-					parts.push("\n\n");
+					previousText = text;
 				}
 			}
 			
 			var html = parts.join("");
-	
-	    	// replace all decimal color strings with hex decimal color strings
+			
+			// replace all decimal color strings with hex decimal color strings
 			html = WYSIWYG_Core.replaceRGBWithHexColor(html.toString());
 			
-			html = WYSIWYG.nl2br(html);
+			if (this.config[n].ReplaceLineBreaks) {
+				html = WYSIWYG.nl2br(html);
+			}
 			
 			doc.body.innerHTML = html;
 		}

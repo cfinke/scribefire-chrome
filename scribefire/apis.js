@@ -34,7 +34,7 @@ function getBlogAPI(type, apiUrl) {
 			api = new posterousAPI();
 		break;
 		default:
-			SCRIBEFIRE.error("It's not your fault, but ScribeFire is looking for an API ("+type+") that doesn't exist.");
+			SCRIBEFIRE.error("It's not your fault, but ScribeFire is looking for an API ("+type+") that doesn't exist.\n\nIf you're an alpha tester, you need to remove this blog and add it again.");
 		break;
 	}
 	
