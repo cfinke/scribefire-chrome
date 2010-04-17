@@ -1641,28 +1641,48 @@ var WYSIWYG = {
 			
 			var previousText = null;
 			
-			for (var i = 0; i < doc.body.childNodes.length; i++) {
-				var node = doc.body.childNodes[i];
-				var range = doc.body.ownerDocument.createRange();
-				range.selectNodeContents(node);
-				
-				var text = range.toString().replace(/^\s+|\s+$/g, "");
-				
-				if (text && (i > 0)) {
-					if (text.search(leadingBlockTagRE) == -1 || previousText.search(trailingBlockTagRE) == -1) {
-						parts.push("\n");
+			// This document should be flat, since it's supposed to be just a series of text nodes.
+			var i = 0;
+			var parts = [];
+			
+			function toText(node) {
+				if (node.childNodes.length > 0) {
+					for (var j = 0; j < node.childNodes.length; j++) {
+						toText(node.childNodes[j]);
 					}
 				}
-				
-				parts.push(text);
-				
-				if (text && (i != (doc.body.childNodes.length - 1))) {
-					parts.push("\n");
+				else {
+					var range = doc.body.ownerDocument.createRange();
+					range.selectNodeContents(node);
+					
+					var text = range.toString().replace(/^\s+|\s+$/g, "");
+					
+					if (text && (i > 0)) {
+						if (text.search(leadingBlockTagRE) == -1 || previousText.search(trailingBlockTagRE) == -1) {
+							//parts.push("\n");
+						}
+					}
+					
+					parts.push(text);
+					
+					if (text && !previousText) {
+						parts.push("\n");
+					}
+					
+					if ((!text && !previousText) && i != (doc.body.childNodes.length - 1)) {
+						parts.push("\n");
+						previousText = "_";
+					}
+					else {
+						previousText = text;
+					}
+					
+					i++;
 				}
-				
-				if (text) {
-					previousText = text;
-				}
+			}
+			
+			for (var k = 0; k < doc.body.childNodes.length; k++) {
+				toText(doc.body.childNodes[k]);
 			}
 			
 			var html = parts.join("");
