@@ -87,9 +87,6 @@ var SCRIBEFIRE = {
 				SCRIBEFIRE.populateBlogsList();
 			break;
 			*/
-			case "selectedBlog":
-				SCRIBEFIRE.prefs.setCharPref("selectedEntry", "");
-			break;
 		}
 	},
 	
@@ -182,7 +179,9 @@ var SCRIBEFIRE = {
 		SCRIBEFIRE.getAPI().getPosts(
 			{ },
 			function success(rv) {
-				var selectedEntry = SCRIBEFIRE.prefs.getCharPref("selectedEntry");
+				$("#list-entries").attr("ignoreContent", "true");
+				
+				var selectedEntry = SCRIBEFIRE.prefs.getCharPref("state.entryId");
 				
 				for (var i = 0; i < rv.length; i++) {
 					var entry = $("<option/>");
@@ -196,12 +195,14 @@ var SCRIBEFIRE = {
 					
 					if (selectedEntry && (entry.attr("value") == selectedEntry)) {
 						entry.attr("selected", "selected");
+						SCRIBEFIRE.prefs.setCharPref("state.entryId", "");
 					}
 					
 					$("#list-entries").append(entry);
 				}
 				
 				$("#list-entries").change();
+				$("#list-entries").removeAttr("ignoreContent")
 				$("#bar-entries").removeClass("bar-busy");
 			},
 			function failure(rv) {
@@ -583,6 +584,8 @@ var SCRIBEFIRE = {
 		SCRIBEFIRE.getAPI().getCategories(
 			{ },
 			function success(rv) {
+				var selectedCategories = SCRIBEFIRE.prefs.getJSONPref("state.categories", []);
+				
 				for (var i = 0; i < rv.length; i++) {
 					var option = $("<option/>");
 					option.html(rv[i].name);
@@ -590,6 +593,11 @@ var SCRIBEFIRE = {
 					option.attr("categoryId", rv[i].id);
 					
 					$("#list-categories").append(option);
+				}
+				
+				if (selectedCategories.length > 0) {
+					$("#list-categories").val(selectedCategories).change();
+					SCRIBEFIRE.prefs.setJSONPref("state.categories", []);
 				}
 				
 				$("#bar-categories").removeClass("bar-busy");

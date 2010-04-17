@@ -82,9 +82,6 @@
 								</p>
 							</div>
 						</div>
-						<div class="step-3">
-							
-						</div>
 					</div>
 				</div>
 			</div>
@@ -138,6 +135,9 @@
 				<label>Publish</label>
 			</div>
 			<div class="underbar underbar-selected" id="underbar-publish">
+				<div style="text-align: right; float: right;">
+					<button id="reset-button">Clear All Fields</button>
+				</div>
 				<input type="checkbox" id="checkbox-draft" /> <label>Draft</label>
 				<button id="button-publish">Publish Post</button>
 			</div>
@@ -146,6 +146,8 @@
 			var accountWizardBlog = {};
 			
 			$(document).ready(function () {
+				WYSIWYG.attach('text-content', wysiwyg_scribefire);
+				
 				$("#button-category-add").click(function (e) {
 					e.preventDefault();
 					
@@ -164,6 +166,18 @@
 					else {
 						button.removeClass("busy");
 					}
+				});
+				
+				$("#reset-button").click(function (e) {
+					e.preventDefault();
+					
+					$("#list-entries").val("").change();
+					$("#text-title").val("").change();
+					$("#text-tags").val("").change();
+					$("#checkbox-draft").attr("checked", false).change();
+					$("#list-categories").val("").change();
+					
+					WYSIWYG.val('text-content', '');
 				});
 				
 				$("#button-addblog-cancel").click(function (e) {
@@ -274,29 +288,29 @@
 						$("#button-entry-remove").show();
 						$("#button-publish").html("Publish Edited Post");
 						
-						var entry = $(this).find("option:selected");
+						if (!$(this).attr("ignoreContent")) {
+							var entry = $(this).find("option:selected");
 						
-						$("#text-title").val(entry.data("title")).change();
+							$("#text-title").val(entry.data("title")).change();
 						
-						WYSIWYG.val('text-content', entry.data("content"));
+							WYSIWYG.val('text-content', entry.data("content"));
 						
-						// $("#text-content").val(entry.data("content"));
-						$("#checkbox-draft").attr("checked", entry.data("published") == "false");
-						$("#text-tags").val(entry.data("tags"));
+							// $("#text-content").val(entry.data("content"));
+							$("#checkbox-draft").attr("checked", entry.data("published") == "false");
+							$("#text-tags").val(entry.data("tags"));
 						
-						SCRIBEFIRE.getAPI().getPostCategories(
-							{ "id" : postId },
-							function success (categories) {
-								$("#list-categories").val(categories).change();
-							},
-							function failure(rv) {
-								rv.func = "getPostCategories";
-								SCRIBEFIRE.genericError(rv);
-							}
-						);
+							SCRIBEFIRE.getAPI().getPostCategories(
+								{ "id" : postId },
+								function success (categories) {
+									$("#list-categories").val(categories).change();
+								},
+								function failure(rv) {
+									rv.func = "getPostCategories";
+									SCRIBEFIRE.genericError(rv);
+								}
+							);
+						}
 					}
-					
-					SCRIBEFIRE.prefs.setCharPref("selectedEntry", $(this).val());
 					
 					$("#label-current-entry").html($(this).find("option:selected").text());
 				});
@@ -430,9 +444,31 @@
 						});
 				});
 				
-				WYSIWYG.attach('text-content', wysiwyg_scribefire);
-
+				$(window).unload(function (e) {
+					// Grab all of the input values for state persistence.
+					SCRIBEFIRE.prefs.setCharPref("state.entryId", $("#list-entries").val());
+					SCRIBEFIRE.prefs.setCharPref("state.title",   $("#text-title").val());
+					SCRIBEFIRE.prefs.setCharPref("state.content", WYSIWYG.val('text-content'));
+					SCRIBEFIRE.prefs.setCharPref("state.tags",    $("#text-tags").val());
+					SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#checkbox-draft").is(":checked"));
+					SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());
+				});
+				
+				$("#text-title").val(SCRIBEFIRE.prefs.getCharPref("state.title"));
+				SCRIBEFIRE.prefs.setCharPref("state.title", "");
+				
+				$("#text-tags").val(SCRIBEFIRE.prefs.getCharPref("state.tags"));
+				SCRIBEFIRE.prefs.setCharPref("state.tags", "");
+				
+				$("#checkbox-draft").attr("checked", SCRIBEFIRE.prefs.getBoolPref("state.draft"));
+				SCRIBEFIRE.prefs.setBoolPref("state.draft", false);
+				
 				SCRIBEFIRE.load();
+				
+				$(window).load(function () {
+					WYSIWYG.val('text-content', SCRIBEFIRE.prefs.getCharPref("state.content"));
+					SCRIBEFIRE.prefs.setCharPref("state.content", "");
+				});
 			});
 		</script>
 	</body>
