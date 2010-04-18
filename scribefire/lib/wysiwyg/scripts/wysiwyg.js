@@ -457,14 +457,59 @@ var WYSIWYG = {
 			img = doc.createElement("img");
 		}
 		
-		// set the attributes
+		// Set the attributes
 		WYSIWYG_Core.setAttribute(img, "src", src);
-		WYSIWYG_Core.setAttribute(img, "style", "width:" + width + ";height:" + height);
-		if(align != "") { WYSIWYG_Core.setAttribute(img, "align", align); } else { img.removeAttribute("align"); }
-		WYSIWYG_Core.setAttribute(img, "border", border);
-		WYSIWYG_Core.setAttribute(img, "alt", alt);
-		WYSIWYG_Core.setAttribute(img, "hspace", hspace);
-		WYSIWYG_Core.setAttribute(img, "vspace", vspace);
+		
+		if (width || height) {
+			if (!height) {
+				WYSIWYG_Core.setAttribute(img, "style", "width:" + width + ";");
+			}
+			else if (!width) {
+				WYSIWYG_Core.setAttribute(img, "style", "height:" + height + ";");
+			}
+			else {
+				WYSIWYG_Core.setAttribute(img, "style", "width:" + width + "; height:" + height + ";");
+			}
+		}
+		else {
+			img.removeAttribute("style");
+		}
+		
+		if (align) {
+			WYSIWYG_Core.setAttribute(img, "align", align);
+		}
+		else {
+			img.removeAttribute("align");
+		}
+		
+		if (border) {
+			WYSIWYG_Core.setAttribute(img, "border", border);
+		}
+		else {
+			img.removeAttribute("border");
+		}
+		
+		if (alt) {
+			WYSIWYG_Core.setAttribute(img, "alt", alt);
+		}
+		else {
+			img.removeAttribute("alt");
+		}
+		
+		if (hspace) {
+			WYSIWYG_Core.setAttribute(img, "hspace", hspace);
+		}
+		else {
+			img.removeAttribute("hspace");
+		}
+		
+		if (vspace) {
+			WYSIWYG_Core.setAttribute(img, "vspace", vspace);
+		}
+		else {
+			img.removeAttribute("vspace");
+		}
+		
 		img.removeAttribute("width");
 		img.removeAttribute("height");
 		
@@ -517,12 +562,42 @@ var WYSIWYG = {
 		}
 		
 		// set the attributes
-		WYSIWYG_Core.setAttribute(lin, "href", href);
-		WYSIWYG_Core.setAttribute(lin, "class", styleClass);
-		WYSIWYG_Core.setAttribute(lin, "className", styleClass);
-		WYSIWYG_Core.setAttribute(lin, "target", target);
-		WYSIWYG_Core.setAttribute(lin, "name", name);
-		WYSIWYG_Core.setAttribute(lin, "style", style);
+		if (href) {
+			WYSIWYG_Core.setAttribute(lin, "href", href);
+		}
+		else {
+			WYSIWYG_Core.removeAttribute(lin, "href");
+		}
+
+		if (styleClass) {
+			WYSIWYG_Core.setAttribute(lin, "class", styleClass);
+			WYSIWYG_Core.setAttribute(lin, "className", styleClass);
+		}
+		else {
+			WYSIWYG_Core.removeAttribute(lin, "class");
+			WYSIWYG_Core.removeAttribute(lin, "className");
+		}
+
+		if (target) {
+			WYSIWYG_Core.setAttribute(lin, "target", target);
+		}
+		else {
+			WYSIWYG_Core.removeAttribute(lin, "target");
+		}
+
+		if (name) {
+			WYSIWYG_Core.setAttribute(lin, "name", name);
+		}
+		else {
+			WYSIWYG_Core.removeAttribute(lin, "name");
+		}
+
+		if (style) {
+			WYSIWYG_Core.setAttribute(lin, "style", style);
+		}
+		else {
+			WYSIWYG_Core.removeAttribute(lin, "style");
+		}
 		
 		// on update exit here
 		if(update) { return; }
@@ -2224,12 +2299,12 @@ var WYSIWYG_Core = {
 	 * @param {String} style Stylesheet which will be set
 	 */
 	_setStyleAttribute: function(node, style) {
-		if(style == null) return;
+		if (style == null) return;
 		var styles = style.split(";");
 		var pos;
-		for(var i=0;i<styles.length;i++) {
+		for (var i=0;i<styles.length;i++) {
 			var attributes = styles[i].split(":");
-			if(attributes.length == 2) {
+			if (attributes.length == 2) {
 				try {
 					var attr = WYSIWYG_Core.trim(attributes[0]);
 					while((pos = attr.search(/-/)) != -1) {
@@ -2274,7 +2349,8 @@ var WYSIWYG_Core = {
 	 */
 	setAttribute: function(node, attr, value) {
 		if(value == null || node == null || attr == null) return;
-		if(attr.toLowerCase() == "style") {
+		
+		if (attr.toLowerCase() == "style") {
 			this._setStyleAttribute(node, value);
 		}
 		else {
