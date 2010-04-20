@@ -1,4 +1,4 @@
-<html>
+<html manifest="scribefire.manifest">
 	<head>
 		<title>ScribeFire</title>
 		<link rel="stylesheet" type="text/css" href="skin/style.css" />
@@ -29,7 +29,6 @@
 						<button id="button-blog-remove">Remove</button>
 					</p>
 					<div id="dialog-blog-add" style="display:none;">
-						<input type="hidden" id="text-addblog-id" />
 						<div class="step-1">
 							<div class="subbar subbar-selected">
 								<label>URL: <span id="label-add-blog-url"></span></label>
@@ -43,40 +42,48 @@
 							</div>
 						</div>
 						<div class="step-2">
-							<div class="subbar" disabled="true">
+							<div class="subbar">
 								<label>Blog Type: <span id="label-add-blog-type"></span></label>
 							</div>
 							<div class="subunderbar">
-								<select id="list-blog-types" disabled="disabled">
+								<select id="list-blog-types">
 									<option vlaue="">(select)</option>
 									<option value="atom">Atom</option>
 									<option value="blogger">Blogger</option>
 									<option value="wordpress">Wordpress</option>
 									<!-- <option value="typepad">TypePad</option> -->
 									<option value="tumblr">Tumblr</option>
-									<option value="metaweblog">MetaWeblog</option>
-									<option value="movabletype">MovableType</option>
+									<option value="metaweblog" requires_id="true">MetaWeblog</option>
+									<option value="movabletype" requires_id="true">MovableType</option>
 									<option value="posterous">Posterous</option>
 								</select>
 							</div>
 						</div>
 						<div class="step-2">
-							<div class="subbar" disabled="true">
+							<div class="subbar">
 								<label>API URL: <span id="label-add-blog-apiurl"></span></label>
 							</div>
 							<div class="subunderbar">
-								<input type="text" id="text-blog-api-url" disabled="disabled" />
+								<input type="text" id="text-blog-api-url" />
+							</div>
+							<div id="text-addblog-id-container" style="display: none;">
+								<div class="subbar">
+									<label>Blog ID: <span id="label-add-blog-blogid"></span><label>
+								</div>
+								<div class="subunderbar">
+									<input type="text" id="text-addblog-id" />
+								</div>
 							</div>
 						</div>
 						<div class="step-2">
-							<div class="subbar" disabled="true">
+							<div class="subbar">
 								<label>Login Credentials</label>
 							</div>
 							<div class="subunderbar">
 								<label>Username</label>
-								<input type="text" id="text-blog-username" disabled="disabled" accept="button-blog-logincheck" />
+								<input type="text" id="text-blog-username" accept="button-blog-logincheck" />
 								<label>Password</label>
-								<input type="password" id="text-blog-password" disabled="disabled" accept="button-blog-logincheck" />
+								<input type="password" id="text-blog-password" accept="button-blog-logincheck" />
 								<p>
 									<button id="button-blog-logincheck">Finish</button>
 								</p>
@@ -147,6 +154,17 @@
 			
 			$(document).ready(function () {
 				WYSIWYG.attach('text-content', wysiwyg_scribefire);
+				
+				$("#list-blog-types").change(function (e) {
+					var option = $(this).find("option:selected");
+					
+					if (option.attr("requires_id") == "true") {
+						$("#text-addblog-id-container").show();
+					}
+					else {
+						$("#text-addblog-id-container").hide();
+					}
+				});
 				
 				$("#button-category-add").click(function (e) {
 					e.preventDefault();
@@ -336,15 +354,15 @@
 					$("#dialog-blog-add").show();
 					
 					$("#text-blog-url").val("").change();
-					$("#list-blog-types").val("");
+					$("#list-blog-types").val("").change();
 					$("#text-blog-api-url").val("");
 					$("#text-blog-username").val("");
 					$("#text-blog-password").val("");
 					$("#text-addblog-id").val("");
 					
-					$("#dialog-blog-add .step-2 .subbar").attr("disabled", "true").removeClass("subbar-selected");
+					$("#dialog-blog-add .step-2 .subbar").removeClass("subbar-selected");
 					$("#dialog-blog-add .step-2 .subunderbar").removeClass("subunderbar-selected");
-					$("#dialog-blog-add .step-2").find("input, select").attr("disabled", "true");
+					$("#dialog-blog-add .step-2").find("input, select");
 					$("#dialog-blog-add .step-2 .subunderbar").hide();
 					
 					$("#text-blog-url").focus();
@@ -355,34 +373,65 @@
 					
 					button.addClass("busy");
 					
+					$("#list-blog-types").val("").change();
+					$("#text-blog-api-url").val("");
+					$("#text-blog-username").val("");
+					$("#text-blog-password").val("");
+					$("#text-addblog-id").val("");
+					
 					SCRIBEFIRE.getBlogMetaData(
 						$("#text-blog-url").val(),
 						function (metaData) {
 							button.removeClass("busy");
 							
-							if (metaData) {
-								accountWizardBlog = metaData;
-								
-								$("#list-blog-types").val(metaData.type);
-								$("#list-blog-types").removeAttr("disabled");
-								
-								$("#text-blog-api-url").val(metaData.apiUrl);
-								$("#text-blog-api-url").removeAttr("disabled");
-								
-								if (metaData.id) {
-									$("#text-addblog-id").val(metaData.id);
-								}
-								
-								$("#dialog-blog-add .step-2 *[disabled]").removeAttr("disabled");
-								$("#dialog-blog-add .step-2 .subbar").click();
-								
-								$("#text-blog-username").focus();
+							$("#text-addblog-id-container").hide();
+							
+							accountWizardBlog = metaData;
+							
+							$("#list-blog-types").val(metaData.type).change();
+							$("#list-blog-types").removeAttr("disabled");
+							
+							$("#text-blog-api-url").val(metaData.apiUrl);
+							$("#text-blog-api-url").removeAttr("disabled");
+							
+							if (metaData.id) {
+								$("#text-addblog-id").val(metaData.id);
 							}
+							else {
+								$("#text-addblog-id").val("");
+							}
+							
+							$("#dialog-blog-add .step-2 *[disabled]").removeAttr("disabled");
+							
+							$("#dialog-blog-add .step-2 .subbar").each(function () {
+								if (!$(this).hasClass("subbar-selected")) {
+									$(this).click();
+								}
+							});
+							
+							$("#text-blog-username").focus();
 						},
 						function failure(code, status) {
 							button.removeClass("busy");
 							
-							SCRIBEFIRE.error("While trying to determine your blog's settings, ScribeFire tripped over this code: " + code);
+							var error = "While trying to determine your blog's settings, ScribeFire tripped over this code: " + code;
+							
+							if (code == "UNKNOWN_BLOG_TYPE") {
+								error += "\n\nYou're welcome to try and configure your blog manually.";
+								
+								$("#list-blog-types").removeAttr("disabled");
+								$("#text-blog-api-url").removeAttr("disabled");
+								
+								$("#dialog-blog-add .step-2 *[disabled]").removeAttr("disabled");
+								
+								$("#dialog-blog-add .step-2 .subbar").each(function () {
+									if (!$(this).hasClass("subbar-selected")) {
+										$(this).click();
+									}
+								});
+							}
+							
+							SCRIBEFIRE.error(error);
 						}
 					);
 				});

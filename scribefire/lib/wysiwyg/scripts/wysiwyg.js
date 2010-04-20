@@ -301,7 +301,12 @@ var WYSIWYG = {
 	 * @return {Range} Range object
 	 */
 	getRange: function(sel) {
-		return sel.createRange ? sel.createRange() : sel.getRangeAt(0);
+		if (sel.createRange) {
+			return sel.createRange();
+		}
+		else {
+			return sel.getRangeAt(0);
+		}
 	},
 	
 	/**

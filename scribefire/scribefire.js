@@ -512,7 +512,7 @@ var SCRIBEFIRE = {
 		}
 		
 		params.title = $("#text-title").val();
-		params.content = WYSIWYG.val('text-content');//$("#text-content").val();
+		params.content = WYSIWYG.val('text-content');
 		params.categories = $("#list-categories").val() || [];
 		params.tags = $("#text-tags").val();
 		params.draft = $("#checkbox-draft").is(":checked");
@@ -569,7 +569,7 @@ var SCRIBEFIRE = {
 	
 	clearData : function () {
 		$("#text-title").val("").change();
-		WYSIWYG.val('text-content', '');//$("#text-content").val("");
+		WYSIWYG.val('text-content', '');
 		$("#checkbox-draft").removeAttr("checked");
 		$("#text-tags").val("");
 		$("#list-categories").val("");
