@@ -282,7 +282,8 @@ var WYSIWYG = {
 	"delete":         ['Delete',               'Delete',             	'delete.gif',     		  'delete_on.gif'],
 	"save": 		  ['Save', 				   'Save document',         'save.gif', 			  'save_on.gif'],
 	"return": 		  ['Return', 			   'Return without saving', 'return.gif', 			  'return_on.gif'],
-	"maximize": 	  ['Maximize', 			   'Maximize the editor',   'maximize.gif', 		  'maximize_on.gif']
+	"maximize": 	  ['Maximize', 			   'Maximize the editor',   'maximize.gif', 		  'maximize_on.gif'],
+	"quote":          ['Quote',                'Add a quote',           'quote.gif',              'quote_on.gif']
 	},
 	
 	// stores the different settings for each textarea
@@ -625,6 +626,47 @@ var WYSIWYG = {
 		}
 	},
 	
+	genericTag : function (tag, n) {
+		var doc = this.getEditorWindow(n).document;
+		var sel = this.getSelection(n);
+		var range = this.getRange(sel);
+		var qNode = null;
+		
+		// get element from selection
+		if(WYSIWYG_Core.isMSIE) {
+			if(sel.type == "Control" && range.length == 1) {	
+				range = this.getTextRange(range(0));
+				range.select();
+			}
+		}
+		
+		qNode = doc.createElement(tag);
+		
+		// Check if IE or Mozilla (other)
+		if (WYSIWYG_Core.isMSIE) {	
+			range.select();
+			qNode.innerHTML = range.htmlText;
+			range.pasteHTML(qNode.outerHTML);
+		}
+		else {
+			var node = range.startContainer;
+			var pos = range.startOffset;
+			
+			if (node.nodeType != 3) { 
+				node = node.childNodes[pos];
+			}
+			
+			if (node.tagName) {
+				qNode.appendChild(node);
+			}
+			else {
+				qNode.innerHTML = sel;
+			}
+			
+			this.insertNodeAtSelection(qNode, n);
+		}
+	},
+	
 	/**
 	 * Strips any HTML added by word
 	 *
@@ -778,6 +820,8 @@ var WYSIWYG = {
 		// <i>I am fine</i>, thank you.
 		//
 		// should have a <br /> after the first line.
+		
+		html = html.replace(/^\s+|\s+$/g, "");
 		
 		var blockTags = ["address","blockquote","center","dir","div","dl","fieldset","form","h1","h2","h3","h4","h5","h6","hr","isindex","menu","noframes","noscript","ol","p","pre","table","ul","dd","dt","li","tbody","td","tfoot","th","thead","tr","applet","button","del","iframe","ins","map","object","script"];
 		var frontTagRE = '(/?(?:' + blockTags.join("|") + ')\\s*/?>)';
@@ -1399,7 +1443,10 @@ var WYSIWYG = {
 			case "Return":
 			   location.replace(this.config[n].Opener);
 			break;
-						
+			case "Quote":
+			alert("quoting");
+				this.genericTag("blockquote", n);
+			break;
 			default: 
 				WYSIWYG_Core.execCommand(n, cmd, value);
 				
@@ -1661,11 +1708,16 @@ var WYSIWYG = {
 				html = WYSIWYG.br2nl(html);
 			}
 			
+			// An artifact of how this editor does paragraphs.
+			html = html.replace(/<div>\s*<\/div>/g, "\n\n");
+			
 			parts = html.split("\n");
 			
 			doc.body.innerHTML = "";
 	
 			for (var i = 0; i < parts.length; i++) {
+				parts[i] = parts[i].replace(/&nbsp;/g, " ");
+				
 				doc.body.appendChild(document.createTextNode(parts[i]));
 				
 				if (i != (parts.length - 1)) {
@@ -1737,27 +1789,13 @@ var WYSIWYG = {
 					
 					var text = range.toString().replace(/^\s+|\s+$/g, "");
 					
-					if (text && (i > 0)) {
-						if (text.search(leadingBlockTagRE) == -1 || previousText.search(trailingBlockTagRE) == -1) {
-							//parts.push("\n");
-						}
-					}
-					
 					parts.push(text);
 					
-					if (text && !previousText) {
-						parts.push("\n");
+					if (!text && previousText) {
+						parts.push("\n\n");
 					}
 					
-					if ((!text && !previousText) && i != (doc.body.childNodes.length - 1)) {
-						parts.push("\n");
-						previousText = "_";
-					}
-					else {
-						previousText = text;
-					}
-					
-					i++;
+					previousText = text;
 				}
 			}
 			

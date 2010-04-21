@@ -11,7 +11,7 @@ wysiwyg_scribefire.Toolbar[0] = [
 		"headings",
 		"bold", "italic", "underline", "strikethrough", "subscript", "superscript", "forecolor", 
 	"seperator", 
-		"createlink", "insertimage", "inserttable",
+		"createlink", "insertimage", "inserttable", "quote",
 	"seperator",
 		"justifyleft", "justifycenter", "justifyright", 
 	"seperator", 
