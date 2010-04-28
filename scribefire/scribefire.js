@@ -341,6 +341,11 @@ var SCRIBEFIRE = {
 			metaData.type = "posterous";
 			metaData.apiUrl = "http://posterous.com/api";
 		}
+		else if (parsed.host.search(/\.xanga\.com$/i) != -1) {
+			metaData.type = "metaweblog";
+			metaData.id = 1;
+			metaData.apiUrl = "http://api.xanga.com/metaweblogapi";
+		}
 		
 		if (metaData.type) {
 			callbackSuccess(metaData);
