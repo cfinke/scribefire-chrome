@@ -146,6 +146,12 @@
 					<button id="reset-button">Clear All Fields</button>
 				</div>
 				<input type="checkbox" id="checkbox-draft" /> <label>Draft</label>
+				<div style="display: inline;" id="ui-timestamp">
+					Schedule for:
+					
+					<input type="text" id="text-timestamp" />
+					
+				</div>
 				<button id="button-publish">Publish Post</button>
 			</div>
 		</div>
@@ -192,6 +198,7 @@
 					$("#list-entries").val("").change();
 					$("#text-title").val("").change();
 					$("#text-tags").val("").change();
+					$("#text-timestamp").val("").change();
 					$("#checkbox-draft").attr("checked", false).change();
 					$("#list-categories").val("").change();
 					
@@ -316,6 +323,7 @@
 							// $("#text-content").val(entry.data("content"));
 							$("#checkbox-draft").attr("checked", entry.data("published") == "false");
 							$("#text-tags").val(entry.data("tags"));
+							$("#text-timestamp").val(entry.data("timestamp"));
 						
 							SCRIBEFIRE.getAPI().getPostCategories(
 								{ "id" : postId },
@@ -499,6 +507,7 @@
 					SCRIBEFIRE.prefs.setCharPref("state.title",   $("#text-title").val());
 					SCRIBEFIRE.prefs.setCharPref("state.content", WYSIWYG.val('text-content'));
 					SCRIBEFIRE.prefs.setCharPref("state.tags",    $("#text-tags").val());
+					SCRIBEFIRE.prefs.setCharPref("state.timestamp",$("#text-timestamp").val());
 					SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#checkbox-draft").is(":checked"));
 					SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());
 				});
@@ -508,6 +517,9 @@
 				
 				$("#text-tags").val(SCRIBEFIRE.prefs.getCharPref("state.tags"));
 				SCRIBEFIRE.prefs.setCharPref("state.tags", "");
+				
+				$("#text-timestamp").val(SCRIBEFIRE.prefs.getCharPref("state.timestamp"));
+				SCRIBEFIRE.prefs.setCharPref("state.timestamp");
 				
 				$("#checkbox-draft").attr("checked", SCRIBEFIRE.prefs.getBoolPref("state.draft"));
 				SCRIBEFIRE.prefs.setBoolPref("state.draft", false);

@@ -50,6 +50,7 @@ var blogAPI = function () {
 	this.ui.tags = true;
 	this.ui.draft = true;
 	this.ui.deleteEntry = true;	
+	this.ui.timestamp = true;
 };
 
 blogAPI.prototype = {
@@ -763,17 +764,12 @@ var genericAtomAPI = function () {
 			body += '<category scheme="http://www.blogger.com/atom/ns#" term="'+params.categories[i].replace(/&/g,'&amp;')+'"/>';
 		}
 		
-		/*
-		if ("date" in params && params.date) {
-			var date = params.date;
-			body += '<issued>' + params.date + '</issued>';
+		if ("timestamp" in params && params.timestamp) {
+			var date = params.timestamp;
 			
-			if (date) {
-				var validDate = date.substring(0,4) + "-" + date.substring(4,6) + "-" + date.substring(6,8) + "T" + date.substring(9,17) + ".000Z";
-				body += '<published>' + validDate + '</published>';
-			}
+			body += '<published>' + date.getFullYear() + "-" + pad(date.getMonth() + 1) + "-" + pad(date.getDate()) + "T" + pad(date.getHours()) + ":" + pad(date.getMinutes()) + ":00.000Z" + '</published>';
 		}
-		*/
+		
 		body += '<content type="html"><![CDATA['
 		
 		var content = params.content;
@@ -789,10 +785,6 @@ var genericAtomAPI = function () {
 		}
 		
 		body += '</entry>';
-		
-		// console.log(body);
-		//console.log(apiUrl);
-		//console.log(method);
 		
 		this.buildRequest(
 			method,
@@ -1348,6 +1340,7 @@ var posterousAPI = function () {
 	//this.ui.tags = false;
 	this.ui.categories = false;
 	this.ui.deleteEntry = false;
+	this.ui.timestamp = false;
 	
 	this.getBlogs = function (params, success, failure) {
 		var url = "http://posterous.com/api/getsites";
