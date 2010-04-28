@@ -1444,7 +1444,6 @@ var WYSIWYG = {
 			   location.replace(this.config[n].Opener);
 			break;
 			case "Quote":
-			alert("quoting");
 				this.genericTag("blockquote", n);
 			break;
 			default: 
