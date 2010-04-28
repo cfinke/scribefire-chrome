@@ -94,7 +94,7 @@
               <!--<td class="b"/> \
               --><td class="body"> \
                 <div class="content"> \
-                </div> \
+                </div><div style="text-align: right;"><button class="modal_close">Close</button></div> \
                 <!--<div class="footer"> \
                   <a href="#" class="close"> \
                     <img src="/content/images/facebox/closelabel.gif" title="close" class="close_image" /> \
