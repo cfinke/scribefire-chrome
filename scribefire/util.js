@@ -262,3 +262,8 @@ function namedEntitiesToNumericEntities(text) {
 	
 	return text;
 };
+
+function pad(n) {
+	if (n < 10) { return "0" + (n/1); }
+	return n;
+}
