@@ -139,6 +139,7 @@ blogAPI.prototype = {
 
 var genericMetaWeblogAPI = function () {
 	this.ui.categories = false;
+	this.ui.timestamp = true;
 	
 	this.getBlogs = function (params, success, failure) {
 		// How safe is it to assume that MetaWeblog APIs implement the blogger_ methods?
@@ -255,12 +256,13 @@ var genericMetaWeblogAPI = function () {
 		if ("tags" in params) {
 			contentStruct.mt_keywords = params.tags;
 		}
-
-		/*
-		if ("timestamp" in params) {
-			contentStruct.dateCreated = new Date(params.timestamp);
+		
+		if ("timestamp" in params && params.timestamp) {
+			contentStruct.date_created_gmt = params.timestamp;
+			// contentStruct.dateCreated = params.timestamp;
 		}
-
+		
+		/*
 		if ("custom_fields" in params && params.custom_fields.length > 0) {
 			contentStruct.custom_fields = custom_fields;
 		}
@@ -767,7 +769,7 @@ var genericAtomAPI = function () {
 		if ("timestamp" in params && params.timestamp) {
 			var date = params.timestamp;
 			
-			body += '<published>' + date.getFullYear() + "-" + pad(date.getMonth() + 1) + "-" + pad(date.getDate()) + "T" + pad(date.getHours()) + ":" + pad(date.getMinutes()) + ":00.000Z" + '</published>';
+			body += '<published>' + date.getUTCFullYear() + "-" + pad(date.getUTCMonth() + 1) + "-" + pad(date.getUTCDate()) + "T" + pad(date.getUTCHours()) + ":" + pad(date.getUTCMinutes()) + ":00.000Z" + '</published>';
 		}
 		
 		body += '<content type="html"><![CDATA['

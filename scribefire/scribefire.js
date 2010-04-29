@@ -534,13 +534,7 @@ var SCRIBEFIRE = {
 			timestampObject.setDate(timestampParts[2]);
 			timestampObject.setHours(timestampParts[3]);
 			timestampObject.setMinutes(timestampParts[4]);
-			
-			var timestampMS = timestampObject.getTime();
-			
-			var timezoneOffset = timestampObject.getTimezoneOffset();
-			timestampMS += (timezoneOffset * 60 * 1000);
-			
-			timestampObject.setTime(timestampMS);
+			timestampObject.setSeconds(0);
 			
 			params.timestamp = timestampObject;
 		}
