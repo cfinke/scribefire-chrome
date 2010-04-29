@@ -522,21 +522,23 @@ var SCRIBEFIRE = {
 		params.tags = $("#text-tags").val();
 		params.draft = $("#checkbox-draft").is(":checked");
 		
-		var timestamp = $("#text-timestamp").val();
+		if ($("#toggle-schedule-scheduled").is(":visible")) {
+			var timestamp = getTimestamp();
 		
-		if (timestamp) {
-			var timestampObject = new Date();
-			timestamp = timestamp.replace(/[^0-9]/g, " ").replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
-			timestampParts = timestamp.split(" ");
+			if (timestamp) {
+				var timestampObject = new Date();
+				timestamp = timestamp.replace(/[^0-9]/g, " ").replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
+				timestampParts = timestamp.split(" ");
 			
-			timestampObject.setFullYear(timestampParts[0]);
-			timestampObject.setMonth(timestampParts[1] - 1);
-			timestampObject.setDate(timestampParts[2]);
-			timestampObject.setHours(timestampParts[3]);
-			timestampObject.setMinutes(timestampParts[4]);
-			timestampObject.setSeconds(0);
+				timestampObject.setFullYear(timestampParts[0]);
+				timestampObject.setMonth(timestampParts[1] - 1);
+				timestampObject.setDate(timestampParts[2]);
+				timestampObject.setHours(timestampParts[3]);
+				timestampObject.setMinutes(timestampParts[4]);
+				timestampObject.setSeconds(0);
 			
-			params.timestamp = timestampObject;
+				params.timestamp = timestampObject;
+			}
 		}
 		
 		// Preserve newlines and angle brackets in <pre>
@@ -594,7 +596,9 @@ var SCRIBEFIRE = {
 		WYSIWYG.val('text-content', '');
 		$("#checkbox-draft").removeAttr("checked");
 		$("#text-tags").val("");
-		$("#text-timestamp").val("");
+		setTimestamp();
+			$("#toggle-schedule-immediately").show();
+			$("#toggle-schedule-scheduled").hide();
 		$("#list-categories").val("");
 		$("#button-publish").html("Publish Post");
 	},

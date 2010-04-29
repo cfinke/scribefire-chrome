@@ -146,20 +146,65 @@
 					<button id="reset-button">Clear All Fields</button>
 				</div>
 				<input type="checkbox" id="checkbox-draft" /> <label>Draft</label>
-				<div style="display: inline;" id="ui-timestamp">
-					Schedule for:
-					
-					<input type="text" id="text-timestamp" />
-					
-				</div>
+				<span id="ui-timestamp" style="padding: 0  1.5em 0 1.5em;">
+					<a href="#" id="toggle-schedule">Schedule:</a>
+					<span id="toggle-schedule-immediately">Right now</span>
+					<span id="toggle-schedule-scheduled" style="display:none;">
+						<input type="text" id="text-timestamp-year" style="width: 4em;" placeholder="YYYY" /> /
+						<input type="text" id="text-timestamp-month" style="width: 2em;" placeholder="MM" /> /
+						<input type="text" id="text-timestamp-day" style="width: 2em;" placeholder="DD" /> &nbsp;
+						<input type="text" id="text-timestamp-hour" style="width: 2em;" placeholder="HH" /> :
+						<input type="text" id="text-timestamp-minute" style="width: 2em;" placeholder="mm" />
+					</span>
+				</span>
 				<button id="button-publish">Publish Post</button>
 			</div>
 		</div>
 		<script>
 			var accountWizardBlog = {};
 			
+			function getTimestamp() {
+				if ($("#text-timestamp-year").val() === "" || $("#text-timestamp-month").val() === "" || $("#text-timestamp-day").val() === "" || $("#text-timestamp-hour").val() === "" || $("#text-timestamp-minute").val() === "") {
+					return false;
+				}
+				else {
+					alert( Math.max(1000, $("#text-timestamp-year").val()) + "-" + pad(Math.max(1, $("#text-timestamp-month").val())) + "-" + pad(Math.max(1, $("#text-timestamp-day").val())) + " " + pad(Math.max(0, $("#text-timestamp-hour").val())) + ":" + pad(Math.max(0, $("#text-timestamp-minute").val())) + ":00" );
+					return Math.max(1000, $("#text-timestamp-year").val()) + "-" + pad(Math.max(1, $("#text-timestamp-month").val())) + "-" + pad(Math.max(1, $("#text-timestamp-day").val())) + " " + pad(Math.max(0, $("#text-timestamp-hour").val())) + ":" + pad(Math.max(0, $("#text-timestamp-minute").val())) + ":00";
+				}
+			}
+			
+			function setTimestamp(date) {
+				if (date instanceof Date) {
+					date = phpdate(date, "Y-m-d H:i");
+				}
+				
+				if (date) {
+					var parts = date.split(/[^0-9]/);
+					
+					$("#text-timestamp-year").val(parts[0]);
+					$("#text-timestamp-month").val(parts[1]);
+					$("#text-timestamp-day").val(parts[2]);
+					$("#text-timestamp-hour").val(parts[3]);
+					$("#text-timestamp-minute").val(parts[4]);
+				}
+				else {
+					$("#text-timestamp-year").val("");
+					$("#text-timestamp-month").val("");
+					$("#text-timestamp-day").val("");
+					$("#text-timestamp-hour").val("");
+					$("#text-timestamp-minute").val("");
+				}
+			}
+			
 			$(document).ready(function () {
 				WYSIWYG.attach('text-content', wysiwyg_scribefire);
+				
+				$("#toggle-schedule").click(function (e) {
+					e.preventDefault();
+					
+					$("#toggle-schedule-immediately").toggle();
+					$("#toggle-schedule-scheduled").toggle();
+				});
 				
 				$("#list-blog-types").change(function (e) {
 					var option = $(this).find("option:selected");
@@ -198,7 +243,9 @@
 					$("#list-entries").val("").change();
 					$("#text-title").val("").change();
 					$("#text-tags").val("").change();
-					$("#text-timestamp").val("").change();
+					setTimestamp();
+						$("#toggle-schedule-immediately").show();
+						$("#toggle-schedule-scheduled").hide();
 					$("#checkbox-draft").attr("checked", false).change();
 					$("#list-categories").val("").change();
 					
@@ -325,10 +372,14 @@
 							$("#text-tags").val(entry.data("tags"));
 							
 							if (entry.data("timestamp") instanceof Date) {
-								$("#text-timestamp").val(entry.data("timestamp").date("Y-m-d H:i"));
+								setTimestamp(entry.data("timestamp"));
+								$("#toggle-schedule-immediately").hide();
+								$("#toggle-schedule-scheduled").show();
 							}
 							else {
-								$("#text-timestamp").val("");
+								setTimestamp();
+								$("#toggle-schedule-immediately").show();
+								$("#toggle-schedule-scheduled").hide();
 							}
 							
 							SCRIBEFIRE.getAPI().getPostCategories(
@@ -513,7 +564,7 @@
 					SCRIBEFIRE.prefs.setCharPref("state.title",   $("#text-title").val());
 					SCRIBEFIRE.prefs.setCharPref("state.content", WYSIWYG.val('text-content'));
 					SCRIBEFIRE.prefs.setCharPref("state.tags",    $("#text-tags").val());
-					SCRIBEFIRE.prefs.setCharPref("state.timestamp",$("#text-timestamp").val());
+					SCRIBEFIRE.prefs.setCharPref("state.timestamp",getTimestamp());
 					SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#checkbox-draft").is(":checked"));
 					SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());
 				});
@@ -524,7 +575,17 @@
 				$("#text-tags").val(SCRIBEFIRE.prefs.getCharPref("state.tags"));
 				SCRIBEFIRE.prefs.setCharPref("state.tags", "");
 				
-				$("#text-timestamp").val(SCRIBEFIRE.prefs.getCharPref("state.timestamp"));
+				setTimestamp(SCRIBEFIRE.prefs.getCharPref("state.timestamp"));
+				
+				if (getTimestamp()) {
+					$("#toggle-schedule-immediately").hide();
+					$("#toggle-schedule-scheduled").show();
+				}
+				else {
+					$("#toggle-schedule-immediately").show();
+					$("#toggle-schedule-scheduled").hide();
+				}
+				
 				SCRIBEFIRE.prefs.setCharPref("state.timestamp");
 				
 				$("#checkbox-draft").attr("checked", SCRIBEFIRE.prefs.getBoolPref("state.draft"));

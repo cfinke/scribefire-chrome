@@ -268,8 +268,8 @@ function pad(n) {
 	return n;
 }
 
-Date.prototype.date = function (format) {
-	var timestamp = this;
+function phpdate(date, format) {
+	var timestamp = Math.round(date.getTime() / 1000);
     // http://kevin.vanzonneveld.net
 
     var that = this,
