@@ -323,8 +323,14 @@
 							// $("#text-content").val(entry.data("content"));
 							$("#checkbox-draft").attr("checked", entry.data("published") == "false");
 							$("#text-tags").val(entry.data("tags"));
-							$("#text-timestamp").val(entry.data("timestamp"));
-						
+							
+							if (entry.data("timestamp") instanceof Date) {
+								$("#text-timestamp").val(entry.data("timestamp").date("Y-m-d H:i"));
+							}
+							else {
+								$("#text-timestamp").val("");
+							}
+							
 							SCRIBEFIRE.getAPI().getPostCategories(
 								{ "id" : postId },
 								function success (categories) {

@@ -215,6 +215,15 @@ var genericMetaWeblogAPI = function () {
 						
 						rv[i].permalink = rv[i].permaLink;
 						
+						if ("date_created_gmt" in rv[i]) {
+							rv[i].timestamp = rv[i].date_created_gmt;
+							delete rv[i].date_created_gmt;
+						}
+						else if ("dateCreated" in rv[i]) {
+							rv[i].timestamp = rv[i].dateCreated;
+							delete rv[i].dateCreated;
+						}
+						
 						delete rv[i].postid;
 						delete rv[i].mt_keywords;
 						delete rv[i].post_status;
@@ -258,6 +267,7 @@ var genericMetaWeblogAPI = function () {
 		}
 		
 		if ("timestamp" in params && params.timestamp) {
+			// It's converted to UTC in the conversion to XML Step.
 			contentStruct.date_created_gmt = params.timestamp;
 			// contentStruct.dateCreated = params.timestamp;
 		}
@@ -649,63 +659,61 @@ var genericAtomAPI = function () {
 								
 								post.content = $(this).find("content:first").text();
 								post.title = $(this).find("title:first").text();
-							
-								/*
+								
 								var val = $(this).find("published:first").text();
 
 								// Check for a timezone offset
 								var possibleOffset = val.substr(-6);
 								var hasTimezone = false;
 								var minutes = null;
-
+								
 								if (possibleOffset.charAt(0) == "-" || possibleOffset.charAt(0) == "+") {
 									var hours = parseInt(possibleOffset.substr(1,2), 10);
 									var minutes = (hours * 60) + parseInt(possibleOffset.substr(4,2), 10);
-
+									
 									if (possibleOffset.charAt(0) == "+") {
 										minutes *= -1;
 									}
-
+									
 									hasTimezone = true;
 								}
-
+								
 								val = val.replace(/-/gi, "");
-
+								
 								var year = parseInt(val.substring(0, 4), 10);
 								var month = parseInt(val.substring(4, 6), 10) - 1
 								var day = parseInt(val.substring(6, 8), 10);
 								var hour = parseInt(val.substring(9, 11), 10);
 								var minute = parseInt(val.substring(12, 14), 10);
 								var second = parseInt(val.substring(15, 17), 10);
-
+								
 								var dateutc =  Date.UTC(year, month, day, hour, minute, second);
 								dateutc = new Date(dateutc);
-
+								
 								if (!hasTimezone) {
 									minutes = new Date(dateutc).getTimezoneOffset();
 								}
-
+								
 								var offsetDate = dateutc.getTime();
 								offsetDate += (1000 * 60 * minutes);
 								dateutc.setTime(offsetDate);
-							
-								post.date = dateutc;
-								*/
-							
+								
+								post.timestamp = dateutc;
+								
 								post.categories = [];
-							
+								
 								$(this).find("category").each(function () {
 									post.categories.push($(this).attr("term"));
 								});
-							
+								
 								post.tags = "";
-							
+								
 								$(this).find("link").each(function () {
 									if ($(this).attr("rel") == "alternate") {
 										post.url = $(this).attr("href");
 									}
 								});
-							
+								
 								//var postUrl = $(this).find("id:first").text();
 								post.id = $(this).find("id:first").text();//postUrl.match( /(?:\/|post-)(\d{5,})(?!\d*\/)/)[1];
 								
@@ -726,7 +734,7 @@ var genericAtomAPI = function () {
 								
 								posts.push(post);
 							});
-						
+							
 							success(posts);
 						}
 						else {
@@ -1116,6 +1124,7 @@ bloggerAPI.prototype = new genericAtomAPI();
 
 var tumblrAPI = function () {
 	this.ui.categories = false;
+	this.ui.timestamp = false;
 	
 	this.getBlogs = function (params, success, failure) {
 		var url = "http://www.tumblr.com/api/authenticate";
@@ -1204,7 +1213,6 @@ var tumblrAPI = function () {
 						var post = {};
 						post.title = $(this).find("regular-title:first").text();
 						post.content = $(this).find("regular-body:first").text();
-						post.dateCreated = $(this).attr("date-gmt");
 						post.id = $(this).attr("id");
 						post.url = $(this).attr("url");
 						post.published = true;
@@ -1243,20 +1251,6 @@ var tumblrAPI = function () {
 		if ("private" in params) {
 			args["private"] = params.private * 1;
 		}
-		*/
-		
-		/*
-		var theDate = new Date(aDateCreated);
-		var now = new Date();
-		
-		if (theDate > now) {
-			aDateCreated = now;
-		}
-		else {
-			aDateCreated = theDate;
-		}
-		
-		args.date = aDateCreated.toString();
 		*/
 		
 		args.tags = params.tags;
