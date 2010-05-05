@@ -81,12 +81,6 @@ var SCRIBEFIRE = {
 	
 	observe : function (subject, topic, prefName) {
 		switch (prefName) {
-			/*
-			case "blogs":
-				// Refill the blogs list.
-				SCRIBEFIRE.populateBlogsList();
-			break;
-			*/
 		}
 	},
 	
@@ -145,6 +139,9 @@ var SCRIBEFIRE = {
 	populateBlogsList : function () {
 		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 		
+		var oldSelectedBlog = $("#list-blogs").val();
+		var newSelectedBlog = null;
+		
 		$("#list-blogs").html("");
 		
 		var count = 0;
@@ -155,6 +152,10 @@ var SCRIBEFIRE = {
 			blog.html(blogs[i].name + " ("+blogs[i].url+")");
 			blog.attr("label", "test");
 			$("#list-blogs").append(blog);
+			
+			if (blogs[i].url == oldSelectedBlog) {
+				newSelectedBlog = oldSelectedBlog;
+			}
 			
 			count++;
 		}
@@ -167,8 +168,10 @@ var SCRIBEFIRE = {
 			$("#list-blogs").hide();
 			$("#list-blogs").val("");
 		}
-
-		$("#list-blogs").change();
+		
+		if (!newSelectedBlog) {
+			$("#list-blogs").change();
+		}
 	},
 	
 	populateEntriesList : function () {
