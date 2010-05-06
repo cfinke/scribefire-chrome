@@ -602,7 +602,7 @@ var SCRIBEFIRE = {
 		setTimestamp();
 			$("#toggle-schedule-immediately").show();
 			$("#toggle-schedule-scheduled").hide();
-		$("#list-categories").val("");
+		$("#list-categories").val("").change();
 		$("#button-publish").html("Publish Post");
 	},
 	

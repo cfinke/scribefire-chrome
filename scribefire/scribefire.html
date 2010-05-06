@@ -399,7 +399,7 @@
 				
 				$("#list-categories").change(function (e) {
 					if (!$(this).val()) {
-						$("#label-current-categories").val("(none)");
+						$("#label-current-categories").html("(none)");
 					}
 					else {
 						var categories = [];
