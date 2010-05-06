@@ -2750,6 +2750,9 @@ var WYSIWYG_ContextMenu = {
 	 * @param n Editor identifier
 	 */
 	show: function(e, n) {
+		// Not using the context menu. Chrome's native one offers more functionality.
+		return false;
+		
 		if(this.contextMenuDiv == null) return false;
 		
 		var ifrm = WYSIWYG.getEditor(n);
