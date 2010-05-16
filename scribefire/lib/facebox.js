@@ -83,7 +83,7 @@
       closeImage   : '/content/images/facebox/closelabel.gif',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
-    <div id="facebox" style="display:none;"> \
+    <div id="facebox" style="display:none; border-radius: 10px; padding: 10px;"> \
       <div class="popup"> \
         <table> \
           <tbody> \

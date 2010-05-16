@@ -1710,13 +1710,13 @@ var WYSIWYG = {
 			// An artifact of how this editor does paragraphs.
 			html = html.replace(/<div>\s*<\/div>/g, "\n\n");
 			
+			html = html.replace(/&nbsp;/g, " ").replace(/<div>/ig, "<p>").replace(/<\/div>/ig, "</p>").replace(/<p>(\s*)<\/p>/gi, "$1").replace(/<([a-z]+)><\/\1>/ig, "");
+			
 			parts = html.split("\n");
 			
 			doc.body.innerHTML = "";
 	
 			for (var i = 0; i < parts.length; i++) {
-				parts[i] = parts[i].replace(/&nbsp;/g, " ");
-				
 				doc.body.appendChild(document.createTextNode(parts[i]));
 				
 				if (i != (parts.length - 1)) {

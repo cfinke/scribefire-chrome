@@ -77,6 +77,13 @@ var SCRIBEFIRE = {
 		}
 		
 		SCRIBEFIRE.populateBlogsList();
+		
+		if ($("#list-blogs option").length == 0) {
+			if (!SCRIBEFIRE.prefs.getBoolPref("firstrun")) {
+				$.facebox($("<div><h2>Welcome to ScribeFire!</h2><p>The first thing you're probably going to want to do is add your blog.  Close this dialog and click 'Add a New Blog' to get started.</p></div>"));
+				SCRIBEFIRE.prefs.setBoolPref("firstrun", true);
+			}
+		}
 	},
 	
 	observe : function (subject, topic, prefName) {

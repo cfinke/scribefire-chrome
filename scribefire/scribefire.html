@@ -20,6 +20,7 @@
 			<div>
 				<div class="bar bar-selected" id="bar-blog">
 					<label>Blog: <span id="label-current-blog"></span></label>
+					<a href="#" style="float: right; padding-right: 1ex;" id="link-help">HELP!</a>
 				</div>
 				<div class="underbar underbar-selected" id="underbar-blog">
 					<select id="list-blogs"></select>
@@ -147,7 +148,7 @@
 				</div>
 				<input type="checkbox" id="checkbox-draft" /> <label>Draft</label>
 				<span id="ui-timestamp" style="padding: 0  1.5em 0 1.5em;">
-					<a href="#" id="toggle-schedule">Schedule:</a>
+					<a href="#" id="toggle-schedule">Schedule</a>:
 					<span id="toggle-schedule-immediately">Right now</span>
 					<span id="toggle-schedule-scheduled" style="display:none;">
 						<input type="text" id="text-timestamp-year" style="width: 4em;" placeholder="YYYY" /> /
@@ -197,6 +198,13 @@
 			
 			$(document).ready(function () {
 				WYSIWYG.attach('text-content', wysiwyg_scribefire);
+				
+				$("#link-help").click(function (e) {
+					e.preventDefault();
+					e.stopPropagation();
+					
+					$.facebox("<div><h2>How can I help you?</h2><p>If you found a bug, <a href=\"https://code.google.com/p/scribefire-chrome/issues/entry?template=Defect%20report%20from%20user\" target=\"_blank\">fill out this form</a>.</p><p>If you want to request a feature, <a href=\"https://code.google.com/p/scribefire-chrome/issues/entry?template=Feature%20Request\" target=\"_blank\">fill out this form</a>.</p><p>If you need help using ScribeFire, you can <a href=\"mailto:chris@scribefire.com\">email chris@scribefire.com</a>.</p><p>If you just want to talk, you can ping <a href=\"http://twitter.com/scribefire\" target=\"_blank\">@scribefire</a> on Twitter.</p></div>");
+				});
 				
 				$("#toggle-schedule").click(function (e) {
 					e.preventDefault();

@@ -107,3 +107,7 @@ button.busy:active, input[type="submit"].busy:active {
 	right: 20px;
 	top: 0px;
 }
+
+a {
+	color: #00f;
+}
