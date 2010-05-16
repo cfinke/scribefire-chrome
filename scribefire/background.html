@@ -1,15 +1,15 @@
 <script>
 chrome.browserAction.onClicked.addListener(function(tab) {
-	var scribefireUrl = chrome.extension.getURL('scribefire.html');
 	/*
 	chrome.tabs.getSelected(null, function (tab) {
 		chrome.tabs.sendRequest(tab.id, { greeting : "meta"}, function (response) {
-			
-			//console.log("hi3");
 			//console.log(response);
 		});
 	});
 	*/
+	
+	var scribefireUrl = chrome.extension.getURL('scribefire.html');
+	
 	// Check for a tab already with this URL.
 	chrome.tabs.getAllInWindow(null, function (tabs) {
 		for (var i = 0; i < tabs.length; i++) {

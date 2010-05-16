@@ -1,6 +1,6 @@
 {
 	"name": "ScribeFire",
-	"version": "0.1.2.0",
+	"version": "1.0.0.0",
 	"description": "A full-featured blog editor that integrates with your browser and lets you easily post to your blog.",
 	
 	"icons": {
@@ -22,6 +22,5 @@
 			"matches": ["http://*/", "https://*/"],
 			"js": ["content_helper.js"]
 		}
-	],
-	"update_url": "http://www.chrisfinke.com/files/updaters/scribefire-chrome.xml"
+	]
 }
