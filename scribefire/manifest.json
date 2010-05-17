@@ -1,7 +1,7 @@
 {
 	"name": "ScribeFire",
-	"version": "1.0.0.0",
-	"description": "A full-featured blog editor that integrates with your browser and lets you easily post to your blog.",
+	"version": "1.0.0.1",
+	"description": "A full-featured blog editor lets you easily post to all of your blogs.",
 	
 	"icons": {
 		"48": "skin/icon-48.png",

@@ -1045,22 +1045,30 @@ var bloggerAPI = function () {
 						callback(self.authToken);
 					}
 					else {
-						returnValues["Error"] = "CaptchaRequired";
-						
-						// @todo
-						
 						switch (returnValues["Error"]) {
 							case 'BadAuthentication':
+								SCRIBEFIRE.error("Blogger says that you entered the wrong username or password.");
+								return;
 							break;
 							case 'NotVerified':
+								SCRIBEFIRE.error("Blogger says that you need to verify your account's email address; log into your account directly to handle this.");
+								return;
 							break;
 							case 'TermsNotAgreed':
+								SCRIBEFIRE.error("Blogger says that you still need to agree to Google's Terms of Service; log into your account directly to handle this.");
+								return;
 							break;
 							case 'AccountDeleted':
+								SCRIBEFIRE.error("Blogger says that the account you're using has been deleted.");
+								return;
 							break;
 							case 'ServiceDisabled':
+								SCRIBEFIRE.error("Blogger says that your access to Blogger has been disabled.");
+								return;
 							break;
 							case 'ServiceUnavailable':
+								SCRIBEFIRE.error("Blogger says that the Blogger service is temporarily unavailable.");
+								return;
 							break;
 							case 'CaptchaRequired':
 								var imgUrl = "https://www.google.com/accounts/" + returnValues["CaptchaUrl"];
@@ -1081,11 +1089,13 @@ var bloggerAPI = function () {
 								return;
 							break;
 							case 'Unknown':
+								returnValues["Error"] = "An unknown error occurred.";
+							break;
 							default:
 							break;
 						}
 					
-						SCRIBEFIRE.error("Blogger isn't playing nicely; it's giving ScribeFire an error: " + returnValues["Error"]);
+						SCRIBEFIRE.error("Blogger isn't playing nicely; it's giving ScribeFire an error:\n\n" + returnValues["Error"]);
 					}
 				}
 			};
