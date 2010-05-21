@@ -17,8 +17,12 @@ body.notifying {
 	font-size: 12px;
 	padding: 2px 0 2px 20px;
 	border-top: #f3f3f3 1px solid;
-	background: url(arrow-right.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1));
+	background: url(arrow-right.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); 
 	text-shadow: 1px 1px #f5f5f5;
+}
+
+html[browser='firefox'] .bar, html[browser='firefox'] .subbar {
+	background: url(arrow-right.png) 8px 4px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1);
 }
 
 .subbar {
@@ -28,17 +32,33 @@ body.notifying {
 	background: url(arrow-right-blue.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf));
 }
 
+html[browser='firefox'] .subbar {
+	background: url(arrow-right-blue.png) 8px 4px no-repeat, -moz-linear-gradient(bottom, #798bb2, #a2b1cf);
+}
+
 .bar-selected {
 	background: url(arrow-down.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
+}
+
+html[browser='firefox'] .bar-selected {
+	background: url(arrow-down.png) 7px 5px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1) !important;
 }
 
 .subbar-selected {
 	background: url(arrow-down-blue.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf)) !important;
 }
 
+html[browser='firefox'] .subbar-selected {
+	background: url(arrow-down-blue.png) 7px 5px no-repeat, -moz-linear-gradient(bottom, #798bb2, #a2b1cf) !important;
+}
+
 .bar-busy {
 	background: url(throbber-16.png) 5px 2px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
 	background-size: 12px 12px, auto;
+}
+
+html[browser='firefox'] .bar-busy {
+	background: url(throbber-16.png) 5px 2px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1) !important;
 }
 
 .underbar, .subunderbar {
@@ -66,14 +86,24 @@ input[type="text"], input[type="password"], textarea, select {
 button, input[type="submit"] {
 	border: #a5a5a5 1px solid;
 	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc));
 	color: #000;
 	padding-left: 15px;
 	padding-right: 15px;
 }
 
+html[browser='firefox'] button, html[browser='firefox'] input[type='submit'] {
+	background: -moz-linear-gradient(bottom, #dfdfdf, #fcfcfc);
+}
+
 button:active, input[type="submit"]:active {
 	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
+}
+
+html[browser='firefox'] button:active, html[browser='firefox'] input[type="submit"]:active {
+	background: -moz-linear-gradient(bottom, #c3c3c3, #eeeeee);
 }
 
 button.busy, input[type="submit"].busy {
@@ -82,8 +112,18 @@ button.busy, input[type="submit"].busy {
 	background-size: 12px 12px, auto;
 }
 
+html[browser='firefox'] button.busy, html[browser='firefox'] input[type="submit"].busy {
+	padding-left: 27px;
+	background: url(throbber-16.png) 8px 3px no-repeat, -moz-linear-gradient(bottom, #dfdfdf, #fcfcfc);
+	background-size: 12px 12px, auto;
+}
+
 button.busy:active, input[type="submit"].busy:active {
 	background: url(throbber-16.png) 8px 3px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
+}
+
+html[browser='firefox'] button.busy:active, html[browser='firefox'] input[type="submit"].busy:active {
+	background: url(throbber-16.png) 8px 3px no-repeat, -moz-linear-gradient(bottom, #c3c3c3, #eeeeee);
 }
 
 .notifier {

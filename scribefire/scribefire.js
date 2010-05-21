@@ -4,12 +4,24 @@ var SCRIBEFIRE = {
 
 		getPref : function (prefName) {
 			var key = this.namespace + prefName;
-
-			if (key in localStorage) {
-				return localStorage[this.namespace + prefName];
+			
+			if (typeof Components != 'undefined') {
+				var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch(this.namespace);
+				
+				try {
+					var rv = prefs.getCharPref(prefName);
+					return rv;
+				} catch (e) {
+					return null;
+				}
 			}
 			else {
-				return null;
+				if (key in localStorage) {
+					return localStorage[this.namespace + prefName];
+				}
+				else {
+					return null;
+				}
 			}
 		},
 
@@ -48,7 +60,18 @@ var SCRIBEFIRE = {
 			var existing = this.getPref(prefName);
 			
 			if (existing !== prefVal) {
-				localStorage[this.namespace + prefName] = prefVal;
+				if (typeof prefVal == 'undefined') {
+					prefVal = "";
+				}
+				
+				if (typeof Components != 'undefined') {
+					var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch(this.namespace);
+					
+					prefs.setCharPref(prefName, prefVal);
+				}
+				else {
+					localStorage[this.namespace + prefName] = prefVal;
+				}
 				
 				SCRIBEFIRE.observe(null, null, prefName);
 			}
