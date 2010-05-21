@@ -34,7 +34,6 @@ var XMLRPC_LIB = {
 						returnValue = $("<string />");
 						returnValue.html(returnValueText);
 					}
-					
 					var parsedObject = XMLRPC_LIB.XMLToObject(returnValue);
 					
 					//console.log("Parsed: ");
@@ -43,10 +42,26 @@ var XMLRPC_LIB = {
 					callback(parsedObject);
 				}
 				else {
-					var parsedObject = XMLRPC_LIB.XMLToObject(jDoc.find("fault:first > value:first > *")[0]);
+					if (!jDoc.find("fault:first > value:first > *")[0]) {
+						if (callbackFailure) {
+							switch (req.status) {
+								case 412:
+									var error = "The blog returned a 412 error code. You may be able to fix this by following the instructions at http://wordpress.org/support/topic/130095";
+								break;
+								default:
+									var error = "The blog returned a "+req.status+" error code, but no error message could be found.";
+								break;
+							}
+							
+							callbackFailure(req.status, error);
+						}
+					}
+					else {
+						var parsedObject = XMLRPC_LIB.XMLToObject(jDoc.find("fault:first > value:first > *")[0]);
 					
-					if (callbackFailure) {
-						callbackFailure(parsedObject.faultCode, parsedObject.faultString);
+						if (callbackFailure) {
+							callbackFailure(parsedObject.faultCode, parsedObject.faultString);
+						}
 					}
 				}
 			}
