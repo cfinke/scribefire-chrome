@@ -605,6 +605,15 @@
 					SCRIBEFIRE.prefs.setCharPref("state.content", "");
 				});
 			});
+			
+			if (typeof Components != 'undefined') {
+				var platform = "firefox";
+			}
+			else {
+				var platform = "chrome";
+			}
+			
+			document.documentElement.setAttribute("platform", platform);
 		</script>
 	</body>
 </html>

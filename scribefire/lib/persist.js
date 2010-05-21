@@ -1,5 +1,10 @@
 jQuery.fn.persist = function (property) {
 	return this.each(function () {
+		if (platform == 'firefox') {
+			// @see https://bugzilla.mozilla.org/show_bug.cgi?id=495747
+			return;
+		}
+		
 		var url = document.location.href;
 		var id = $(this).attr("id");
 		
@@ -26,6 +31,11 @@ jQuery.fn.persist = function (property) {
 };
 
 jQuery(document).ready(function () {
+	if (platform == 'firefox') {
+		// @see https://bugzilla.mozilla.org/show_bug.cgi?id=495747
+		return;
+	}
+	
 	var url = document.location.href;
 	
 	var persistenceString = localStorage["persist"];
