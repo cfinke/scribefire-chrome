@@ -18,123 +18,124 @@
 	</head>
 	<body>
 		<div>
-			<div>
-				<div class="bar bar-selected" id="bar-blog">
-					<label>Blog: <span id="label-current-blog"></span></label>
-					<a href="#" style="float: right; padding-right: 1ex;" id="link-help">HELP!</a>
-				</div>
-				<div class="underbar underbar-selected" id="underbar-blog">
+			<div class="bar bar-selected" id="bar-blog">
+				<label>Blog: <span id="label-current-blog"></span></label>
+				<a href="#" style="float: right; padding-right: 1ex;" id="link-help">HELP!</a>
+			</div>
+			<div class="underbar underbar-selected" id="underbar-blog">
+				<div>
 					<select id="list-blogs"></select>
-					<p>
-						<button id="button-blog-add">Add a New Blog</button>
-						<button id="button-blog-remove">Remove</button>
-					</p>
-					<div id="dialog-blog-add" style="display:none;">
-						<div class="step-1">
-							<div class="subbar subbar-selected">
-								<label>URL: <span id="label-add-blog-url"></span></label>
-							</div>
-							<div class="subunderbar subunderbar-selected">
-								<input type="text" id="text-blog-url" accept="button-blog-urlcheck" cancel="button-addblog-cancel" />
-								<p>
-									<button id="button-blog-urlcheck">Next</button>
-									<button id="button-addblog-cancel">Cancel</button>
-								</p>
-							</div>
+				</div>
+				<p>
+					<button id="button-blog-add">Add a New Blog</button>
+					<button id="button-blog-remove">Remove</button>
+					<button id="button-inlinks">$$$</button>
+				</p>
+				<div id="dialog-blog-add" style="display:none;">
+					<div class="step-1">
+						<div class="subbar subbar-selected">
+							<label>URL: <span id="label-add-blog-url"></span></label>
 						</div>
-						<div class="step-2">
+						<div class="subunderbar subunderbar-selected">
+							<input type="text" id="text-blog-url" accept="button-blog-urlcheck" cancel="button-addblog-cancel" />
+							<p>
+								<button id="button-blog-urlcheck">Next</button>
+								<button id="button-addblog-cancel">Cancel</button>
+							</p>
+						</div>
+					</div>
+					<div class="step-2">
+						<div class="subbar">
+							<label>Blog Type: <span id="label-add-blog-type"></span></label>
+						</div>
+						<div class="subunderbar">
+							<select id="list-blog-types">
+								<option vlaue="">(select)</option>
+								<option value="atom">Atom</option>
+								<option value="blogger">Blogger</option>
+								<option value="wordpress">Wordpress</option>
+								<option value="tumblr">Tumblr</option>
+								<option value="metaweblog" requires_id="true">MetaWeblog</option>
+								<option value="movabletype" requires_id="true">MovableType</option>
+								<option value="posterous">Posterous</option>
+							</select>
+						</div>
+					</div>
+					<div class="step-2">
+						<div class="subbar">
+							<label>API URL: <span id="label-add-blog-apiurl"></span></label>
+						</div>
+						<div class="subunderbar">
+							<input type="text" id="text-blog-api-url" value="" />
+						</div>
+						<div id="text-addblog-id-container" style="display: none;">
 							<div class="subbar">
-								<label>Blog Type: <span id="label-add-blog-type"></span></label>
+								<label>Blog ID: <span id="label-add-blog-blogid"></span><label>
 							</div>
 							<div class="subunderbar">
-								<select id="list-blog-types">
-									<option vlaue="">(select)</option>
-									<option value="atom">Atom</option>
-									<option value="blogger">Blogger</option>
-									<option value="wordpress">Wordpress</option>
-									<option value="tumblr">Tumblr</option>
-									<option value="metaweblog" requires_id="true">MetaWeblog</option>
-									<option value="movabletype" requires_id="true">MovableType</option>
-									<option value="posterous">Posterous</option>
-								</select>
+								<input type="text" id="text-addblog-id" />
 							</div>
 						</div>
-						<div class="step-2">
-							<div class="subbar">
-								<label>API URL: <span id="label-add-blog-apiurl"></span></label>
-							</div>
-							<div class="subunderbar">
-								<input type="text" id="text-blog-api-url" value="" />
-							</div>
-							<div id="text-addblog-id-container" style="display: none;">
-								<div class="subbar">
-									<label>Blog ID: <span id="label-add-blog-blogid"></span><label>
-								</div>
-								<div class="subunderbar">
-									<input type="text" id="text-addblog-id" />
-								</div>
-							</div>
+					</div>
+					<div class="step-2">
+						<div class="subbar">
+							<label>Login Credentials</label>
 						</div>
-						<div class="step-2">
-							<div class="subbar">
-								<label>Login Credentials</label>
-							</div>
-							<div class="subunderbar">
-								<label>Username</label>
-								<input type="text" id="text-blog-username" accept="button-blog-logincheck" />
-								<label>Password</label>
-								<input type="password" id="text-blog-password" accept="button-blog-logincheck" />
-								<p>
-									<button id="button-blog-logincheck">Finish</button>
-								</p>
-							</div>
+						<div class="subunderbar">
+							<label>Username</label>
+							<input type="text" id="text-blog-username" accept="button-blog-logincheck" />
+							<label>Password</label>
+							<input type="password" id="text-blog-password" accept="button-blog-logincheck" />
+							<p>
+								<button id="button-blog-logincheck">Finish</button>
+							</p>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div>
-				<div class="bar" id="bar-entries">
-					<label>Entry: <span id="label-current-entry"></span></label>
-				</div>
-				<div class="underbar" id="underbar-entries">
-					<select id="list-entries"><option value="">(new)</option></select>
-					<span id="ui-deleteEntry">
-						<button id="button-entry-remove" style="display: none;">Delete Post</button>
-					</span>
-				</div>
+		</div>
+		<div>
+			<div class="bar" id="bar-entries">
+				<label>Entry: <span id="label-current-entry"></span></label>
 			</div>
-			<div>
-				<div class="bar bar-selected" id="bar-title">
-					<label>Title: <span id="label-current-title"></span></label>
-				</div>
-				<div class="underbar underbar-selected" id="underbar-title">
-					<input type="text" id="text-title" />
-				</div>
+			<div class="underbar" id="underbar-entries">
+				<select id="list-entries"><option value="">(new)</option></select>
+				<span id="ui-deleteEntry">
+					<button id="button-entry-remove" style="display: none;">Delete Post</button>
+				</span>
 			</div>
-			<div>
-				<div class="bar bar-selected" id="bar-content">
-					<label>Post Content</label>
-				</div>
-				<div class="underbar underbar-selected" id="underbar-content">
-					<textarea rows="10" id="text-content"></textarea>
-				</div>
+		</div>
+		<div>
+			<div class="bar bar-selected" id="bar-title">
+				<label>Title: <span id="label-current-title"></span></label>
 			</div>
-			<div id="ui-categories">
-				<div class="bar" id="bar-categories">
-					<label>Categories: <span id="label-current-categories"></span></label>
-				</div>
-				<div class="underbar" id="underbar-categories">
-					<select id="list-categories" multiple="true"></select>
-					<button id="button-category-add">New Category</button>
-				</div>
+			<div class="underbar underbar-selected" id="underbar-title">
+				<input type="text" id="text-title" />
 			</div>
-			<div id="ui-tags">
-				<div class="bar" id="bar-tags">
-					<label>Tags: <span id="label-current-tags"></span></label>
-				</div>
-				<div class="underbar" id="underbar-tags">
-					<input type="text" id="text-tags" />
-				</div>
+		</div>
+		<div>
+			<div class="bar bar-selected" id="bar-content">
+				<label>Post Content</label>
+			</div>
+			<div class="underbar underbar-selected" id="underbar-content">
+				<textarea rows="10" id="text-content"></textarea>
+			</div>
+		</div>
+		<div id="ui-categories">
+			<div class="bar" id="bar-categories">
+				<label>Categories: <span id="label-current-categories"></span></label>
+			</div>
+			<div class="underbar" id="underbar-categories">
+				<select id="list-categories" multiple="true"></select>
+				<button id="button-category-add">New Category</button>
+			</div>
+		</div>
+		<div id="ui-tags">
+			<div class="bar" id="bar-tags">
+				<label>Tags: <span id="label-current-tags"></span></label>
+			</div>
+			<div class="underbar" id="underbar-tags">
+				<input type="text" id="text-tags" />
 			</div>
 		</div>
 		<div>
@@ -159,6 +160,24 @@
 				</span>
 				<button id="button-publish">Publish Post</button>
 			</div>
+		</div>
+		<div id="panel-inlinks" style="display: none;">
+			<image src="skin/inlinks.png" />
+
+			<p>ScribeFire has partnered with <a href="http://www.inlinks.com/?ref=240364" target="_blank">InLinks.com</a> to provide you with an easy-to-use monetization solution for your blog. Out of the blogs you have set up in ScribeFire, the following may be compatible with InLinks:</p>
+			<ul id="list-inlinks-blogs"></ul>
+			
+			<h3>What are InLinks?</h3>
+			<p>InLinks are static HTML advertisements located within content areas of websites.  It is simply the most natural paid link on the market.  The benefits for you are:</p>
+			
+			<ul>
+				<li>Ads that are easy on the eyes.  No annoying pop-ups!</li>
+				<li>Predictable revenue. Get paid a flat rate/month/ad sold.</li>
+				<li>Blog-friendly. Install our simple plugin and we take care of the rest.  Just sit back and collect your monthly earnings.</li>
+			</ul>
+			
+			<p>(For now, InLinks only works on blogs using Wordpress.org, Drupal, or MovableType.)</p>
+			<p><a href="http://www.inlinks.com/?ref=240364" target="_blank">Visit InLinks.com</a> to download the InLinks plugin and start earning money on your blogs today!</a>
 		</div>
 		<script>
 			var accountWizardBlog = {};
@@ -340,6 +359,8 @@
 				});
 				
 				$("#list-blogs").change(function () {
+					$("#button-inlinks").hide();
+					
 					if (!$(this).val()) {
 						$("#button-blog-edit, #button-blog-remove").hide();
 					}
@@ -347,6 +368,10 @@
 						$("#button-blog-edit, #button-blog-remove").show();
 						SCRIBEFIRE.populateEntriesList();
 						SCRIBEFIRE.populateCategoriesList();
+						
+						if ($(this).find("option:selected").data("type") == "wordpress") {
+							$("#button-inlinks").show();
+						}
 					}
 					
 					SCRIBEFIRE.prefs.setCharPref("selectedBlog", $(this).val());
@@ -565,12 +590,19 @@
 						});
 				});
 				
+				$("#button-inlinks").click(function (e) {
+					e.preventDefault();
+					
+					$.facebox($("#panel-inlinks"));
+					$("#panel-inlinks").show();
+				});
+				
 				$(window).unload(function (e) {
 					// Grab all of the input values for state persistence.
 					SCRIBEFIRE.prefs.setCharPref("state.entryId", $("#list-entries").val());
 					SCRIBEFIRE.prefs.setCharPref("state.title",   $("#text-title").val());
 					SCRIBEFIRE.prefs.setCharPref("state.content", WYSIWYG.val('text-content'));
-					SCRIBEFIRE.prefs.setCharPref("state.tags",    $("#text-tags").val());
+					SCRIBEFIRE.prefs.setCharPref("state.tags",	$("#text-tags").val());
 					SCRIBEFIRE.prefs.setCharPref("state.timestamp",getTimestamp());
 					SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#checkbox-draft").is(":checked"));
 					SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());

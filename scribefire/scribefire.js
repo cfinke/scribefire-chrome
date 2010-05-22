@@ -173,6 +173,7 @@ var SCRIBEFIRE = {
 		var newSelectedBlog = null;
 		
 		$("#list-blogs").html("");
+		$("#list-inlinks-blogs").html("");
 		
 		var count = 0;
 		
@@ -180,7 +181,11 @@ var SCRIBEFIRE = {
 			var blog = $("<option/>");
 			blog.attr("value", blogs[i].url);
 			blog.html(blogs[i].name + " ("+blogs[i].url+")");
-			blog.attr("label", "test");
+			
+			for (var x in blogs[i]) {
+				blog.data(x, blogs[i][x]);
+			}
+			
 			$("#list-blogs").append(blog);
 			
 			if (blogs[i].url == oldSelectedBlog) {
@@ -188,6 +193,10 @@ var SCRIBEFIRE = {
 			}
 			
 			count++;
+			
+			if (blogs[i].type == 'wordpress' || blogs[i].type == 'drupal' || blogs[i].type == 'movabletype') {
+				$("#list-inlinks-blogs").append('<li><a href="'+blogs[i].url+'" target="_blank">'+blogs[i].name+'</a></li>');
+			}
 		}
 		
 		if (count > 0) {

@@ -82,7 +82,7 @@ html[platform='firefox'] .bar-busy {
 }
 
 input[type="text"], input[type="password"], textarea, select {
-	width: 95%;
+	width: 100%;
 }
 
 #dialog-blog-add {
@@ -161,4 +161,8 @@ html[platform='firefox'] button.busy:active, html[platform='firefox'] input[type
 
 a {
 	color: #00f;
+}
+
+#button-inlinks {
+	float: right;
 }
