@@ -15,6 +15,7 @@
 		<script type="text/javascript" src="lib/wysiwyg/scripts/wysiwyg-settings.js"></script>
 		<script type="text/javascript" src="lib/persist.js"></script>
 		<script type="text/javascript" src="lib/keyboard.js"></script>
+		<script type="text/javascript" src="lib/jquery.textarearesizer.js"></script>
 	</head>
 	<body>
 		<div>
@@ -177,7 +178,7 @@
 			</ul>
 			
 			<p>(For now, InLinks only works on blogs using Wordpress.org, Drupal, or MovableType.)</p>
-			<p><a href="http://www.inlinks.com/?ref=240364" target="_blank">Visit InLinks.com</a> to download the InLinks plugin and start earning money on your blogs today!</a>
+			<p><a href="http://www.inlinks.com/?ref=240364" target="_blank">Visit InLinks.com</a> to download the InLinks plugin and start earning money on your blogs today!</p>
 		</div>
 		<script>
 			var accountWizardBlog = {};
@@ -606,6 +607,8 @@
 					SCRIBEFIRE.prefs.setCharPref("state.timestamp",getTimestamp());
 					SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#checkbox-draft").is(":checked"));
 					SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());
+					
+					SCRIBEFIRE.prefs.setCharPref("state.editorHeight", $("#wysiwygtext-content").css("height"));
 				});
 				
 				$("#text-title").val(SCRIBEFIRE.prefs.getCharPref("state.title"));
@@ -635,6 +638,14 @@
 				$(window).load(function () {
 					WYSIWYG.val('text-content', SCRIBEFIRE.prefs.getCharPref("state.content"));
 					SCRIBEFIRE.prefs.setCharPref("state.content", "");
+					
+					var height = SCRIBEFIRE.prefs.getCharPref("state.editorHeight");
+					
+					if (height) {
+						$("#wysiwygtext-content").css("height", height);
+					}
+					
+					$("#wysiwyg_div_text-content iframe:first").TextAreaResizer();
 				});
 			});
 			

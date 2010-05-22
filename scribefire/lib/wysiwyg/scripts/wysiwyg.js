@@ -979,7 +979,7 @@ var WYSIWYG = {
 	    // This table holds the toolbars and the iframe as the editor
 	    var editor = "";
 	    editor += '<div id="wysiwyg_div_' + n + '" style="width:' + currentWidth  +';">';
-	    editor += '<table border="0" cellpadding="0" cellspacing="0" class="tableTextareaEditor" id="wysiwyg_table_' + n + '" style="width:' + currentWidth  + '; height:' + currentHeight + ';">';
+	    editor += '<table border="0" cellpadding="0" cellspacing="0" class="tableTextareaEditor" id="wysiwyg_table_' + n + '" style="width:' + currentWidth  + ';/* Commented so that resizing works properly - height:' + currentHeight + ';*/">';
 	    editor += '<tr><td style="height:22px;vertical-align:top;">';
 	    	  
 		// Output all command buttons that belong to toolbar one
