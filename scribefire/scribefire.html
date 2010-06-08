@@ -580,17 +580,28 @@
 					function callback() {
 						button.removeClass("busy");
 					}
-					
+
 					SCRIBEFIRE.publish(
 						function success(rv) {
 							button.removeClass("busy");
-							SCRIBEFIRE.notify("Post published successfully!", "Open blog in a new tab", function (button) { chrome.tabs.create({ "url": rv.url }) });
+							SCRIBEFIRE.notify(
+								"Post published successfully!", 
+								"Open blog in a new tab",
+								function (button) { 
+									if (typeof chrome != 'undefined') {
+										chrome.tabs.create({ "url": rv.url });
+									}
+									else {
+										window.open(rv.url);
+									}
+								}
+							);
 						},
 						function error(rv) {
 							button.removeClass("busy");
 						});
 				});
-				
+
 				$("#button-inlinks").click(function (e) {
 					e.preventDefault();
 					
@@ -645,15 +656,25 @@
 						$("#wysiwygtext-content").css("height", height);
 					}
 					
-					$("#wysiwyg_div_text-content iframe:first").TextAreaResizer();
+					if (platform != 'webkit' || browser != 'safari') {
+						$("#wysiwyg_div_text-content iframe:first").TextAreaResizer();
+					}
 				});
 			});
 			
 			if (typeof Components != 'undefined') {
 				var platform = "firefox";
+				var browser = 'firefox';
 			}
 			else {
-				var platform = "chrome";
+				var platform = "webkit";
+				
+				if (typeof chrome != 'undefined') {
+					var browser = 'chrome';
+				}
+				else {
+					var browser = 'safari';
+				}
 			}
 			
 			document.documentElement.setAttribute("platform", platform);

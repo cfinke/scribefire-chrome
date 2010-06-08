@@ -1465,8 +1465,6 @@ var posterousAPI = function () {
 		args.source = "ScribeFire";
 		args.sourceLink = "http://www.scribefire.com/";
 		
-		console.log(args);
-		
 		var argstring = "";
 
 		for (var i in args) {

@@ -14,7 +14,6 @@ var XMLRPC_LIB = {
 	doCommand : function (apiUrl, xml, callback, callbackFailure) {
 		var req = new XMLHttpRequest();
 		req.open("POST", apiUrl, true);
-		
 		req.setRequestHeader("Content-Type", "text/xml");
 		req.overrideMimeType("text/xml");
 		

@@ -16,7 +16,7 @@ body {
 	text-shadow: 1px 1px #f5f5f5;
 }
 
-html[platform='chrome'] .bar, html[platform='chrome'] .subbar {
+html[platform='webkit'] .bar, html[platform='webkit'] .subbar {
 	background: url(arrow-right.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); 
 }
 
@@ -30,7 +30,7 @@ html[platform='firefox'] .bar, html[platform='firefox'] .subbar {
 	text-shadow: none;
 }
 
-html[platform='chrome'] .subbar {
+html[platform='webkit'] .subbar {
 	background: url(arrow-right-blue.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf));
 }
 
@@ -38,7 +38,7 @@ html[platform='firefox'] .subbar {
 	background: url(arrow-right-blue.png) 8px 4px no-repeat, -moz-linear-gradient(bottom, #798bb2, #a2b1cf);
 }
 
-html[platform='chrome'] .bar-selected {
+html[platform='webkit'] .bar-selected {
 	background: url(arrow-down.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
 }
 
@@ -46,7 +46,7 @@ html[platform='firefox'] .bar-selected {
 	background: url(arrow-down.png) 7px 5px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1) !important;
 }
 
-html[platform='chrome'] .subbar-selected {
+html[platform='webkit'] .subbar-selected {
 	background: url(arrow-down-blue.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf)) !important;
 }
 
@@ -58,7 +58,7 @@ html[platform='firefox'] .subbar-selected {
 	background-size: 12px 12px, auto;
 }
 
-html[platform='chrome'] .bar-busy {
+html[platform='webkit'] .bar-busy {
 	background: url(throbber-16.png) 5px 2px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
 }
 
@@ -97,7 +97,7 @@ button, input[type="submit"] {
 	padding-right: 15px;
 }
 
-html[platform='chrome'] button, html[platform='firefox'] input[type='submit'] {
+html[platform='webkit'] button, html[platform='firefox'] input[type='submit'] {
 	-webkit-border-radius: 10px;
 	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc));
 }
@@ -107,7 +107,7 @@ html[platform='firefox'] button, html[platform='firefox'] input[type='submit'] {
 	background: -moz-linear-gradient(bottom, #dfdfdf, #fcfcfc);
 }
 
-html[platform='chrome'] button:active, html[platform='chrome'] input[type="submit"]:active {
+html[platform='webkit'] button:active, html[platform='webkit'] input[type="submit"]:active {
 	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
 }
 
@@ -120,7 +120,7 @@ button.busy, input[type="submit"].busy {
 	background-size: 12px 12px, auto;
 }
 
-html[platform='chrome'] button.busy, html[platform='chrome'] input[type="submit"].busy {
+html[platform='webkit'] button.busy, html[platform='webkit'] input[type="submit"].busy {
 	background: url(throbber-16.png) 8px 3px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc));
 }
 
@@ -129,7 +129,7 @@ html[platform='firefox'] button.busy, html[platform='firefox'] input[type="submi
 	-moz-background-size: 12px, auto;
 }
 
-html[platform='chrome'] button.busy:active, html[platform='chrome'] input[type="submit"].busy:active {
+html[platform='webkit'] button.busy:active, html[platform='webkit'] input[type="submit"].busy:active {
 	background: url(throbber-16.png) 8px 3px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
 }
 
