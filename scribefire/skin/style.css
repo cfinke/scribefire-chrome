@@ -81,7 +81,7 @@ html[platform='firefox'] .bar-busy {
 	display: block;
 }
 
-input[type="text"], input[type="password"], textarea, select {
+input[type="text"], input[type="password"], input[type="url"], textarea, select {
 	width: 100%;
 }
 

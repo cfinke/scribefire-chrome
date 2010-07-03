@@ -122,45 +122,45 @@ var SCRIBEFIRE = {
 	
 	notify : function (msg, buttonLabel, buttonCallback, buttonProperties, notifyClass) {
 		$(".notifier").remove();
-		
+	
 		var notifier = $("<div />");
 		notifier.addClass("notifier");
-		
+	
 		if (notifyClass) {
 			notifier.addClass(notifyClass);
 		}
-		
+	
 		notifier.html(msg);
-		
+	
 		if (buttonLabel) {
 			var button = $("<button />");
 			button.html(buttonLabel);
-			
+		
 			if (buttonProperties) {
 				for (x in buttonProperties) {
 					button.attr(x, buttonProperties[x]);
 				}
 			}
-			
+		
 			button.click(function (e) {
 				e.preventDefault();
-				
+			
 				buttonCallback($(this));
 			});
-			
+		
 			notifier.append(button);
 		}
-		
+	
 		notifier.mouseover(function (e) {
 			clearTimeout(notifier.timer);
 		});
-		
+	
 		notifier.mouseout(function (e) {
 			notifier.timer = setTimeout(function () { notifier.hide("slow"); }, 2000);
 		});
 
 		$("body").prepend(notifier.hide()).addClass("notifying");
-		
+	
 		notifier.show("slow", function () {
 			notifier.timer = setTimeout(function () { notifier.hide("slow"); }, 5000);
 		});
@@ -563,6 +563,7 @@ var SCRIBEFIRE = {
 		params.categories = $("#list-categories").val() || [];
 		params.tags = $("#text-tags").val();
 		params.draft = $("#checkbox-draft").is(":checked");
+		params.slug = $("#text-slug").val();
 		
 		if ($("#toggle-schedule-scheduled").is(":visible")) {
 			var timestamp = getTimestamp();
@@ -694,6 +695,8 @@ var SCRIBEFIRE = {
 	},
 	
 	getBlogs : function (params, callbackSuccess, callbackFailure) {
+		//console.log(params);
+		
 		getBlogAPI(params.type, params.apiUrl).getBlogs(
 			params,
 			function success (rv) {

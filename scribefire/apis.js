@@ -51,6 +51,8 @@ var blogAPI = function () {
 	this.ui.draft = true;
 	this.ui.deleteEntry = true;	
 	this.ui.timestamp = true;
+	
+	this.ui.slug = false;
 };
 
 blogAPI.prototype = {
@@ -140,6 +142,7 @@ blogAPI.prototype = {
 var genericMetaWeblogAPI = function () {
 	this.ui.categories = false;
 	this.ui.timestamp = true;
+	this.ui.slug = true;
 	
 	this.getBlogs = function (params, success, failure) {
 		// How safe is it to assume that MetaWeblog APIs implement the blogger_ methods?
@@ -211,6 +214,7 @@ var genericMetaWeblogAPI = function () {
 						
 						if ("wp_slug" in rv[i]) {
 							rv[i].slug = rv[i].wp_slug;
+							delete rv[i].wp_slug;
 						}
 						
 						rv[i].permalink = rv[i].permaLink;
@@ -501,6 +505,7 @@ genericMovableTypeAPI.prototype = new genericMetaWeblogAPI();
 
 var wordpressAPI = function () {
 	this.ui.categories = true;
+	this.ui.slug = true;
 	
 	this.getBlogs = function (params, success, failure) {
 		var args = [params.apiUrl, params.username, params.password];
@@ -606,6 +611,9 @@ var genericAtomAPI = function () {
 							var xml = req.responseXML;
 							
 							if (!xml) {
+								//console.log(req.responseText);
+								//console.log(req.status);
+								
 								failure({"status": req.status, "msg": "Incomplete response"});
 							}
 							else {
@@ -650,6 +658,9 @@ var genericAtomAPI = function () {
 					if (req.readyState == 4) {
 						if (req.status < 300) {
 							var xml = req.responseXML;
+							
+							//console.log(xml);
+							
 							var jxml = $(xml);
 						
 							var posts = [];
@@ -800,6 +811,17 @@ var genericAtomAPI = function () {
 			method,
 			apiUrl,
 			function (req) {
+				/**
+				 * If any Atom implementations actually respected it, this is how we would
+				 * set the post slug.
+				 */
+				
+				/*
+				if ("slug" in params) {
+					req.setRequestHeader("Slug", params.slug);
+				}
+				*/
+				
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
 						if (req.status < 300) {
@@ -1135,6 +1157,7 @@ bloggerAPI.prototype = new genericAtomAPI();
 var tumblrAPI = function () {
 	this.ui.categories = false;
 	this.ui.timestamp = false;
+	this.ui.slug = true;
 	
 	this.getBlogs = function (params, success, failure) {
 		var url = "http://www.tumblr.com/api/authenticate";
@@ -1214,6 +1237,7 @@ var tumblrAPI = function () {
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
+					//console.log(req.responseText);
 					var xml = req.responseXML;
 					var jxml = $(xml);
 				
@@ -1235,6 +1259,7 @@ var tumblrAPI = function () {
 						});
 						
 						post.tags = post.tags.join(", ");
+						post.slug = $(this).attr("slug");
 						
 						rv.push(post);
 					});
@@ -1275,6 +1300,10 @@ var tumblrAPI = function () {
 		
 		if (("id" in params) && params.id) {
 			args["post-id"] = params.id;
+		}
+		
+		if ("slug" in params) {
+			args.slug = params.slug;
 		}
 		
 		var argstring = "";
