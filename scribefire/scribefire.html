@@ -657,9 +657,6 @@
 				SCRIBEFIRE.load();
 				
 				$(window).load(function () {
-					WYSIWYG.val('text-content', SCRIBEFIRE.prefs.getCharPref("state.content"));
-					SCRIBEFIRE.prefs.setCharPref("state.content", "");
-					
 					var height = SCRIBEFIRE.prefs.getCharPref("state.editorHeight");
 					
 					if (height) {
@@ -669,6 +666,9 @@
 					if (platform != 'webkit' || browser != 'safari') {
 						$("#wysiwyg_div_text-content iframe:first").TextAreaResizer();
 					}
+					
+					WYSIWYG.val('text-content', SCRIBEFIRE.prefs.getCharPref("state.content"));
+					SCRIBEFIRE.prefs.setCharPref("state.content", "");
 				});
 			});
 			
