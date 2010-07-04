@@ -564,6 +564,7 @@ var SCRIBEFIRE = {
 		params.tags = $("#text-tags").val();
 		params.draft = $("#checkbox-draft").is(":checked");
 		params.slug = $("#text-slug").val();
+		params.private = $("#checkbox-private").is(":checked");
 		
 		if ($("#toggle-schedule-scheduled").is(":visible")) {
 			var timestamp = getTimestamp();

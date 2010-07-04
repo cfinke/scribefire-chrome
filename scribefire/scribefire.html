@@ -148,6 +148,9 @@
 					<button id="reset-button">Clear All Fields</button>
 				</div>
 				<input type="checkbox" id="checkbox-draft" /> <label>Draft</label>
+				<span id="ui-private" style="padding: 0 0 0 1em;">
+					<input type="checkbox" id="checkbox-private" /> <label>Private</label>
+				</span>
 				<span id="ui-slug" style="padding: 0 0 0 1em;">
 					Permalink: / <input type="url" style="width: 10em;" id="text-slug" />
 				</span>
@@ -419,6 +422,7 @@
 							}
 							
 							$("#text-slug").val(entry.data("slug"));
+							$("#checkbox-private").attr("checked", entry.data("private"));
 							
 							SCRIBEFIRE.getAPI().getPostCategories(
 								{ "id" : postId },

@@ -51,8 +51,8 @@ var blogAPI = function () {
 	this.ui.draft = true;
 	this.ui.deleteEntry = true;	
 	this.ui.timestamp = true;
-	
 	this.ui.slug = false;
+	this.ui.private = false;
 };
 
 blogAPI.prototype = {
@@ -201,6 +201,7 @@ var genericMetaWeblogAPI = function () {
 						rv[i].id = rv[i].postid;
 						rv[i].tags = rv[i].mt_keywords;
 						rv[i].published = (rv[i].post_status != "draft");
+						rv[i].private = (rv[i].post_status == "private");
 						rv[i].content = rv[i].description;
 						
 						if (("mt_text_more" in rv[i]) && rv[i].mt_text_more) {
@@ -275,6 +276,11 @@ var genericMetaWeblogAPI = function () {
 			contentStruct.date_created_gmt = params.timestamp;
 			// contentStruct.dateCreated = params.timestamp;
 		}
+		
+		if ("private" in params && params.private) {
+			contentStruct.post_status = "private";
+		}
+		
 		
 		/*
 		if ("custom_fields" in params && params.custom_fields.length > 0) {
@@ -506,6 +512,7 @@ genericMovableTypeAPI.prototype = new genericMetaWeblogAPI();
 var wordpressAPI = function () {
 	this.ui.categories = true;
 	this.ui.slug = true;
+	this.ui.private = true;
 	
 	this.getBlogs = function (params, success, failure) {
 		var args = [params.apiUrl, params.username, params.password];
@@ -1158,6 +1165,7 @@ var tumblrAPI = function () {
 	this.ui.categories = false;
 	this.ui.timestamp = false;
 	this.ui.slug = true;
+	this.ui.private = true;
 	
 	this.getBlogs = function (params, success, failure) {
 		var url = "http://www.tumblr.com/api/authenticate";
@@ -1228,11 +1236,29 @@ var tumblrAPI = function () {
 			var url = this.url;
 		}
 		else {
-			var url = this.url + "api/read/xml?start=0&num="+params.limit+"&type=regular";
+			var url = this.url + "api/read/xml";//?start=0&num="+params.limit+"&type=regular";
 		}
 		
+		var args = {};
+		args.email = this.username;
+		args.password = this.password;
+		args.start = 0;
+		args.num = params.limit;
+		args.type = "regular";
+		
+		var argstring = "";
+		
+		for (var i in args) {
+			argstring += encodeURIComponent(i) + "=" + encodeURIComponent(args[i]) + "&";
+		}
+		
+		argstring = argstring.substr(0, argstring.length - 1);
+		
+		//console.log(argstring);
+		
 		var req = new XMLHttpRequest();
-		req.open("GET", url, true);
+		req.open("POST", url, true);
+		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
@@ -1251,7 +1277,7 @@ var tumblrAPI = function () {
 						post.url = $(this).attr("url");
 						post.published = true;
 						post.categories = [];
-						
+						post.private = $(this).attr("private") && ($(this).attr("private") == "true");
 						post.tags = [];
 						
 						$(this).find("tag").each(function () {
@@ -1272,7 +1298,7 @@ var tumblrAPI = function () {
 			}
 		};
 		
-		req.send(null);
+		req.send(argstring);
 	};
 	
 	this.publish = function (params, success, failure) {
@@ -1282,17 +1308,15 @@ var tumblrAPI = function () {
 		args.generator = "ScribeFire";
 		args.group = this.url.split("//")[1].split("/")[0];
 		
-		/*
-		if ("private" in params) {
-			args["private"] = params.private * 1;
-		}
-		*/
-		
 		args.tags = params.tags;
 		args.type = 'regular';
 		args.format = 'html';
 		args.title = params.title;
 		args.body = params.content;
+		
+		if ("private" in params) {
+			args.private = params.private * 1;
+		}
 		
 		if ("draft" in params) {
 			args.state = params.draft ? "draft" : "published";
@@ -1313,6 +1337,8 @@ var tumblrAPI = function () {
 		}
 		
 		argstring = argstring.substr(0, argstring.length - 1);
+		
+		//console.log(argstring);
 		
 		var req = new XMLHttpRequest();
 		req.open("POST", "http://www.tumblr.com/api/write", true);
@@ -1376,6 +1402,7 @@ var posterousAPI = function () {
 	this.ui.categories = false;
 	this.ui.deleteEntry = false;
 	this.ui.timestamp = false;
+	this.ui.private = true;
 	
 	this.getBlogs = function (params, success, failure) {
 		var url = "http://posterous.com/api/getsites";
@@ -1439,7 +1466,10 @@ var posterousAPI = function () {
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
+
 					var xml = req.responseXML;
+					
+					//console.log(xml);
 					var jxml = $(xml);
 					
 					var rv = [];
@@ -1450,6 +1480,7 @@ var posterousAPI = function () {
 						entry.content = $(this).find("body:first").text();
 						entry.title = $(this).find("title:first").text();
 						entry.published = true; // @todo Does Posterous support drafts?
+						entry.private = $(this).find("private:first").text() == 'true';
 						
 						var tags = [];
 						
@@ -1490,6 +1521,10 @@ var posterousAPI = function () {
 		args.title = params.title;
 		args.body = params.content;
 		args.tags = params.tags;
+		
+		if ("private" in params) {
+			args.private = params.private * 1;
+		}
 		
 		args.source = "ScribeFire";
 		args.sourceLink = "http://www.scribefire.com/";
