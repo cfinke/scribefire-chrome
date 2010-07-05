@@ -182,3 +182,16 @@ div.grippie {
 	width:95%;
 	height: 20%;
 }
+
+#editor-toggles {
+	display: none;
+}
+
+.bar-selected #editor-toggles {
+	display: block;
+}
+
+#text-content_path_row{
+	/* Hides the path stuff below Tiny MCE */
+    display: none;
+}

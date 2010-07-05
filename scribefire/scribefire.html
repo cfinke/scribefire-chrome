@@ -14,18 +14,13 @@
 		<script type="text/javascript" src="lib/tiny_mce/tiny_mce_src.js"></script>
 		<script type="text/javascript" src="lib/persist.js"></script>
 		<script type="text/javascript" src="lib/keyboard.js"></script>
-		<!-- <script type="text/javascript" src="lib/jquery.textarearesizer.js"></script>-->
-		<style type="text/css">
-			#text-content_path_row{
-			    display: none;
-			}
-		</style>
+		<script type="text/javascript" src="lib/wordpress.js"></script>
 	</head>
 	<body>
 		<div>
 			<div class="bar bar-selected" id="bar-blog">
 				<label>Blog: <span id="label-current-blog"></span></label>
-				<a href="#" style="float: right; padding-right: 1ex;" id="link-help">HELP!</a>
+				<a href="#" style="float: right; padding-right: 1ex;" class="trap" id="link-help">HELP!</a>
 			</div>
 			<div class="underbar underbar-selected" id="underbar-blog">
 				<div>
@@ -121,6 +116,10 @@
 		<div>
 			<div class="bar bar-selected" id="bar-content">
 				<label>Post Content</label>
+				<div id="editor-toggles" style="float: right; padding-right: 1ex; cursor: pointer;" class="trap">
+					<a id="edButtonHTML" onclick="switchEditors.go('text-content', 'html');">Switch to HTML Mode</a>
+					<a id="edButtonPreview" style="display: none;" onclick="switchEditors.go('text-content', 'tinymce');">Switch to Visual Editor</a>
+				</div>
 			</div>
 			<div class="underbar underbar-selected" id="underbar-content">
 				<textarea rows="10" name="text-content" id="text-content"></textarea>
@@ -191,10 +190,20 @@
 			var editor = {
 				val : function (new_val) {
 					if (typeof new_val != 'undefined') {
-						tinyMCE.get('text-content').setContent(new_val);
+						if (switchEditors.mode == 'tinymce') {
+							tinyMCE.get('text-content').setContent(new_val);
+						}
+						else {
+							$("#text-content").val(switchEditors._wp_Nop(new_val));
+						}
 					}
 					else {
-						return tinyMCE.get('text-content').getContent();
+						if (switchEditors.mode == 'tinymce') {
+							return tinyMCE.get('text-content').getContent();
+						}
+						else {
+							return switchEditors._wp_Autop($("#text-content").val());
+						}
 					}
 				},
 				
@@ -235,10 +244,12 @@
 			}
 			
 			$(document).ready(function () {
-				$("#link-help").click(function (e) {
+				$(".trap").click(function (e) {
 					e.preventDefault();
 					e.stopPropagation();
-					
+				});
+				
+				$("#link-help").click(function (e) {
 					$.facebox("<div><h2>How can I help you?</h2><p>If you found a bug, <a href=\"https://code.google.com/p/scribefire-chrome/issues/entry?template=Defect%20report%20from%20user\" target=\"_blank\">fill out this form</a>.</p><p>If you want to request a feature, <a href=\"https://code.google.com/p/scribefire-chrome/issues/entry?template=Feature%20Request\" target=\"_blank\">fill out this form</a>.</p><p>If you need help using ScribeFire, you can <a href=\"mailto:chris@scribefire.com\">email chris@scribefire.com</a>.</p><p>If you just want to talk, you can ping <a href=\"http://twitter.com/scribefire\" target=\"_blank\">@scribefire</a> on Twitter.</p></div>");
 				});
 				
@@ -677,7 +688,7 @@
 						plugins : "",
 						
 						// Theme options
-						theme_advanced_buttons1 : "code,|,fontselect,fontsizeselect,bold,italic,underline,strikethrough,sub,sup,forecolor,blockquote,|,link,unlink,image,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,pagebreak",//,|,removeformat",//,|,tablecontrols",
+						theme_advanced_buttons1 : "fontselect,fontsizeselect,bold,italic,underline,strikethrough,sub,sup,forecolor,blockquote,|,link,unlink,image,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,pagebreak",//,|,removeformat",//,|,tablecontrols",
 						theme_advanced_buttons2 : "", theme_advanced_buttons3 : "", theme_advanced_buttons4 : "",
 						theme_advanced_toolbar_location : "top",
 						theme_advanced_toolbar_align : "left",
