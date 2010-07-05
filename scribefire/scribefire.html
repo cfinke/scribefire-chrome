@@ -11,11 +11,15 @@
 		<script type="text/javascript" src="lib/jquery.js"></script>
 		<script type="text/javascript" src="lib/parseUri.js"></script>
 		<script type="text/javascript" src="lib/facebox.js"></script>
-		<script type="text/javascript" src="lib/wysiwyg/scripts/wysiwyg.js"></script>
-		<script type="text/javascript" src="lib/wysiwyg/scripts/wysiwyg-settings.js"></script>
+		<script type="text/javascript" src="lib/tiny_mce/tiny_mce_src.js"></script>
 		<script type="text/javascript" src="lib/persist.js"></script>
 		<script type="text/javascript" src="lib/keyboard.js"></script>
-		<script type="text/javascript" src="lib/jquery.textarearesizer.js"></script>
+		<!-- <script type="text/javascript" src="lib/jquery.textarearesizer.js"></script>-->
+		<style type="text/css">
+			#text-content_path_row{
+			    display: none;
+			}
+		</style>
 	</head>
 	<body>
 		<div>
@@ -119,7 +123,7 @@
 				<label>Post Content</label>
 			</div>
 			<div class="underbar underbar-selected" id="underbar-content">
-				<textarea rows="10" id="text-content"></textarea>
+				<textarea rows="10" name="text-content" id="text-content"></textarea>
 			</div>
 		</div>
 		<div id="ui-categories">
@@ -152,17 +156,14 @@
 					<input type="checkbox" id="checkbox-private" /> <label>Private</label>
 				</span>
 				<span id="ui-slug" style="padding: 0 0 0 1em;">
-					Permalink: / <input type="url" style="width: 10em;" id="text-slug" />
+					Permalink: <span style="border: 2px inset; padding: 1px;">/<input type="url" style="width: 10em; border: 0;" id="text-slug" /></span>
 				</span>
 				<span id="ui-timestamp" style="padding: 0 0 0 1em;">
 					<a href="#" id="toggle-schedule">Schedule</a>:
 					<span id="toggle-schedule-immediately">Right now</span>
-					<span id="toggle-schedule-scheduled" style="display:none;">
-						<input type="number" id="text-timestamp-year" style="width: 4em;" placeholder="YYYY" /> /
-						<input type="number" id="text-timestamp-month" style="width: 2em;" placeholder="MM" /> /
-						<input type="number" id="text-timestamp-day" style="width: 2em;" placeholder="DD" /> &nbsp;
-						<input type="number" id="text-timestamp-hour" style="width: 2em;" placeholder="HH" /> :
-						<input type="number" id="text-timestamp-minute" style="width: 2em;" placeholder="mm" />
+					<span id="toggle-schedule-scheduled" style="display:none; border: 2px inset; padding: 1px;">
+						<input type="number" id="text-timestamp-year" style="width: 3em; border: 0;" placeholder="YYYY" />/<input type="number" id="text-timestamp-month" style="width: 1.5em; border: 0;" placeholder="MM" />/<input type="number" id="text-timestamp-day" style="width: 1.5em; border: 0;" placeholder="DD" />
+						<input type="number" id="text-timestamp-hour" style="width: 1.5em; border: 0;" placeholder="HH" />:<input type="number" id="text-timestamp-minute" style="width: 1.5em; border: 0;" placeholder="mm" />
 					</span>
 				</span>
 				<button id="button-publish" style="margin-left: 1em;">Publish Post</button>
@@ -187,6 +188,18 @@
 			<p><a href="http://www.inlinks.com/?ref=240364" target="_blank">Visit InLinks.com</a> to download the InLinks plugin and start earning money on your blogs today!</p>
 		</div>
 		<script>
+			var editor = {
+				val : function (new_val) {
+					if (typeof new_val != 'undefined') {
+						tinyMCE.get('text-content').setContent(new_val);
+					}
+					else {
+						return tinyMCE.get('text-content').getContent();
+					}
+				},
+				
+			};
+			
 			var accountWizardBlog = {};
 			
 			function getTimestamp() {
@@ -222,8 +235,6 @@
 			}
 			
 			$(document).ready(function () {
-				WYSIWYG.attach('text-content', wysiwyg_scribefire);
-				
 				$("#link-help").click(function (e) {
 					e.preventDefault();
 					e.stopPropagation();
@@ -282,7 +293,7 @@
 					$("#list-categories").val("").change();
 					$("#text-slug").val("");
 					
-					WYSIWYG.val('text-content', '');
+					editor.val('');
 				});
 				
 				$("#button-addblog-cancel").click(function (e) {
@@ -404,7 +415,7 @@
 						
 							$("#text-title").val(entry.data("title")).change();
 							
-							WYSIWYG.val('text-content', entry.data("content"));
+							editor.val(entry.data("content"));
 						
 							// $("#text-content").val(entry.data("content"));
 							$("#checkbox-draft").attr("checked", entry.data("published") == "false");
@@ -619,17 +630,15 @@
 					$("#panel-inlinks").show();
 				});
 				
-				$(window).unload(function (e) {
+				$(window).bind("beforeunload", function (e) {
 					// Grab all of the input values for state persistence.
 					SCRIBEFIRE.prefs.setCharPref("state.entryId", $("#list-entries").val());
 					SCRIBEFIRE.prefs.setCharPref("state.title",   $("#text-title").val());
-					SCRIBEFIRE.prefs.setCharPref("state.content", WYSIWYG.val('text-content'));
+					SCRIBEFIRE.prefs.setCharPref("state.content", editor.val());
 					SCRIBEFIRE.prefs.setCharPref("state.tags",	$("#text-tags").val());
 					SCRIBEFIRE.prefs.setCharPref("state.timestamp",getTimestamp());
 					SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#checkbox-draft").is(":checked"));
 					SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());
-					
-					SCRIBEFIRE.prefs.setCharPref("state.editorHeight", $("#wysiwygtext-content").css("height"));
 				});
 				
 				$("#text-title").val(SCRIBEFIRE.prefs.getCharPref("state.title"));
@@ -657,18 +666,27 @@
 				SCRIBEFIRE.load();
 				
 				$(window).load(function () {
-					var height = SCRIBEFIRE.prefs.getCharPref("state.editorHeight");
-					
-					if (height) {
-						$("#wysiwygtext-content").css("height", height);
-					}
-					
-					if (platform != 'webkit' || browser != 'safari') {
-						$("#wysiwyg_div_text-content iframe:first").TextAreaResizer();
-					}
-					
-					WYSIWYG.val('text-content', SCRIBEFIRE.prefs.getCharPref("state.content"));
+					$("#text-content").val(SCRIBEFIRE.prefs.getCharPref("state.content"));
 					SCRIBEFIRE.prefs.setCharPref("state.content", "");
+					
+					tinyMCE.init({
+						// General options
+						mode : "exact",
+						elements : "text-content",
+						theme : "advanced",
+						plugins : "",
+						
+						// Theme options
+						theme_advanced_buttons1 : "code,|,fontselect,fontsizeselect,bold,italic,underline,strikethrough,sub,sup,forecolor,blockquote,|,link,unlink,image,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,pagebreak",//,|,removeformat",//,|,tablecontrols",
+						theme_advanced_buttons2 : "", theme_advanced_buttons3 : "", theme_advanced_buttons4 : "",
+						theme_advanced_toolbar_location : "top",
+						theme_advanced_toolbar_align : "left",
+						theme_advanced_statusbar_location : "bottom",
+						theme_advanced_resizing : true,
+						
+						// Example content CSS (should be your site CSS)
+						// content_css : "css/content.css",
+					});
 				});
 			});
 			
