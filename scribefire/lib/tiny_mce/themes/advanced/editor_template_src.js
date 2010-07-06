@@ -1151,28 +1151,14 @@
 			// Internal image object like a flash placeholder
 			if (ed.dom.getAttrib(ed.selection.getNode(), 'class').indexOf('mceItem') != -1)
 				return;
-
-			ed.windowManager.open({
-				url : tinymce.baseURL + '/themes/advanced/image.htm',
-				width : 355 + parseInt(ed.getLang('advanced.image_delta_width', 0)),
-				height : 275 + parseInt(ed.getLang('advanced.image_delta_height', 0)),
-				inline : true
-			}, {
-				theme_url : this.url
-			});
+			
+			$.facebox('<iframe src="'+tinymce.baseURL + '/themes/advanced/image.htm" style="width: 100%; height: 250px; border: 0;"/>', true);
 		},
 
 		_mceLink : function(ui, val) {
 			var ed = this.editor;
-
-			ed.windowManager.open({
-				url : tinymce.baseURL + '/themes/advanced/link.htm',
-				width : 310 + parseInt(ed.getLang('advanced.link_delta_width', 0)),
-				height : 200 + parseInt(ed.getLang('advanced.link_delta_height', 0)),
-				inline : true
-			}, {
-				theme_url : this.url
-			});
+			
+			$.facebox('<iframe src="'+tinymce.baseURL + '/themes/advanced/link.htm" style="width: 100%; height: 300px; border: 0;"/>', true);
 		},
 
 		_mceNewDocument : function() {

@@ -1,0 +1,7 @@
+.mceActionPanel {
+	text-align: right;
+}
+
+input[type="text"], input[type="password"], input[type="url"], textarea, select {
+	width: 90%;
+}

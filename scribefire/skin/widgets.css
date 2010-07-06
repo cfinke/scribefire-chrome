@@ -1,0 +1,51 @@
+input[type="text"], input[type="password"], input[type="url"], textarea, select {
+	width: 100%;
+}
+
+button, input[type="submit"] {
+	border: #a5a5a5 1px solid;
+	border-radius: 10px;
+	color: #000;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+html[platform='webkit'] button, html[platform='firefox'] input[type='submit'] {
+	-webkit-border-radius: 10px;
+	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc));
+}
+
+html[platform='firefox'] button, html[platform='firefox'] input[type='submit'] {
+	-moz-border-radius: 10px;
+	background: -moz-linear-gradient(bottom, #dfdfdf, #fcfcfc);
+}
+
+html[platform='webkit'] button:active, html[platform='webkit'] input[type="submit"]:active {
+	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
+}
+
+html[platform='firefox'] button:active, html[platform='firefox'] input[type="submit"]:active {
+	background: -moz-linear-gradient(bottom, #c3c3c3, #eeeeee);
+}
+
+button.busy, input[type="submit"].busy {
+	padding-left: 27px;
+	background-size: 12px 12px, auto;
+}
+
+html[platform='webkit'] button.busy, html[platform='webkit'] input[type="submit"].busy {
+	background: url(throbber-16.png) 8px 3px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc));
+}
+
+html[platform='firefox'] button.busy, html[platform='firefox'] input[type="submit"].busy {
+	background: url(throbber-16.png) 8px 2px no-repeat, -moz-linear-gradient(bottom, #dfdfdf, #fcfcfc);
+	-moz-background-size: 12px, auto;
+}
+
+html[platform='webkit'] button.busy:active, html[platform='webkit'] input[type="submit"].busy:active {
+	background: url(throbber-16.png) 8px 3px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
+}
+
+html[platform='firefox'] button.busy:active, html[platform='firefox'] input[type="submit"].busy:active {
+	background: url(throbber-16.png) 8px 2px no-repeat, -moz-linear-gradient(bottom, #c3c3c3, #eeeeee);
+}

@@ -8612,7 +8612,7 @@ tinymce.create('tinymce.ui.Separator:tinymce.ui.Control', {
 					_mce_color : '#' + c
 				});
 			});
-
+			
 			if (s.more_colors_func) {
 				n = DOM.add(tb, 'tr');
 				n = DOM.add(n, 'td', {colspan : s.grid_width, 'class' : 'mceMoreColors'});
@@ -9898,7 +9898,7 @@ tinymce.create('tinymce.ui.Toolbar:tinymce.ui.Container', {
 				// Load specified content CSS last
 				if (s.content_css) {
 					tinymce.each(explode(s.content_css), function(u) {
-						t.dom.loadCSS(t.documentBaseURI.toAbsolute(u));
+						t.dom.loadCSS(u);
 					});
 				}
 

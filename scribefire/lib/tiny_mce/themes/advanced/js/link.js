@@ -35,7 +35,8 @@ var LinkDialog = {
 
 		tinyMCEPopup.restoreSelection();
 		e = ed.dom.getParent(ed.selection.getNode(), 'A');
-
+		console.log(ed);
+		
 		// Remove element if there is no href
 		if (!f.href.value) {
 			if (e) {
@@ -84,8 +85,9 @@ var LinkDialog = {
 			ed.selection.collapse(0);
 			tinyMCEPopup.storeSelection();
 		}
-
+		
 		tinyMCEPopup.execCommand("mceEndUndoLevel");
+		
 		tinyMCEPopup.close();
 	},
 
@@ -127,7 +129,7 @@ var LinkDialog = {
 			cl = tinyMCEPopup.editor.dom.getClasses();
 
 		if (cl.length > 0) {
-			lst.options[lst.options.length] = new Option(tinyMCEPopup.getLang('not_set'), '');
+			lst.options[lst.options.length] = new Option('-- Not set --', '');
 
 			tinymce.each(cl, function(o) {
 				lst.options[lst.options.length] = new Option(o.title || o['class'], o['class']);
@@ -139,9 +141,9 @@ var LinkDialog = {
 	fillTargetList : function(id) {
 		var dom = tinyMCEPopup.dom, lst = dom.get(id), v;
 
-		lst.options[lst.options.length] = new Option(tinyMCEPopup.getLang('not_set'), '');
-		lst.options[lst.options.length] = new Option(tinyMCEPopup.getLang('advanced_dlg.link_target_same'), '_self');
-		lst.options[lst.options.length] = new Option(tinyMCEPopup.getLang('advanced_dlg.link_target_blank'), '_blank');
+		lst.options[lst.options.length] = new Option('-- Not set --', '');
+		lst.options[lst.options.length] = new Option('Open link in the same window', '_self');
+		lst.options[lst.options.length] = new Option('Open link in a new window', '_blank');
 
 		if (v = tinyMCEPopup.getParam('theme_advanced_link_targets')) {
 			tinymce.each(v.split(','), function(v) {

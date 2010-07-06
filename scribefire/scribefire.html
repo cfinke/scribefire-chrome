@@ -2,6 +2,8 @@
 <html>
 	<head>
 		<title>ScribeFire</title>
+		<link rel="stylesheet" type="text/css" href="skin/base.css" />
+		<link rel="stylesheet" type="text/css" href="skin/widgets.css" />
 		<link rel="stylesheet" type="text/css" href="skin/style.css" />
 		<link rel="stylesheet" type="text/css" href="skin/facebox.css" />
 		<script type="text/javascript" src="util.js"></script>
@@ -139,7 +141,7 @@
 				<label>Tags: <span id="label-current-tags"></span></label>
 			</div>
 			<div class="underbar" id="underbar-tags">
-				<input type="text" id="text-tags" />
+				<input type="text" id="text-tags" placeholder="Comma-separated"/>
 			</div>
 		</div>
 		<div>
@@ -161,8 +163,8 @@
 					<a href="#" id="toggle-schedule">Schedule</a>:
 					<span id="toggle-schedule-immediately">Right now</span>
 					<span id="toggle-schedule-scheduled" style="display:none; border: 2px inset; padding: 1px;">
-						<input type="number" id="text-timestamp-year" style="width: 3em; border: 0;" placeholder="YYYY" />/<input type="number" id="text-timestamp-month" style="width: 1.5em; border: 0;" placeholder="MM" />/<input type="number" id="text-timestamp-day" style="width: 1.5em; border: 0;" placeholder="DD" />
-						<input type="number" id="text-timestamp-hour" style="width: 1.5em; border: 0;" placeholder="HH" />:<input type="number" id="text-timestamp-minute" style="width: 1.5em; border: 0;" placeholder="mm" />
+						<input type="number" id="text-timestamp-year" style="width: 3em; border: 0;" placeholder="YYYY" />/<input type="number" id="text-timestamp-month" style="width: 2em; border: 0;" placeholder="MM" />/<input type="number" id="text-timestamp-day" style="width: 2em; border: 0;" placeholder="DD" />
+						<input type="number" id="text-timestamp-hour" style="width: 2em; border: 0;" placeholder="HH" />:<input type="number" id="text-timestamp-minute" style="width: 2em; border: 0;" placeholder="mm" />
 					</span>
 				</span>
 				<button id="button-publish" style="margin-left: 1em;">Publish Post</button>
@@ -294,17 +296,7 @@
 				$("#reset-button").click(function (e) {
 					e.preventDefault();
 					
-					$("#list-entries").val("").change();
-					$("#text-title").val("").change();
-					$("#text-tags").val("").change();
-					setTimestamp();
-						$("#toggle-schedule-immediately").show();
-						$("#toggle-schedule-scheduled").hide();
-					$("#checkbox-draft").attr("checked", false).change();
-					$("#list-categories").val("").change();
-					$("#text-slug").val("");
-					
-					editor.val('');
+					SCRIBEFIRE.clearData();
 				});
 				
 				$("#button-addblog-cancel").click(function (e) {
@@ -650,6 +642,7 @@
 					SCRIBEFIRE.prefs.setCharPref("state.timestamp",getTimestamp());
 					SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#checkbox-draft").is(":checked"));
 					SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());
+					SCRIBEFIRE.prefs.setCharPref("state.slug", $("#text-slug").val());
 				});
 				
 				$("#text-title").val(SCRIBEFIRE.prefs.getCharPref("state.title"));
@@ -674,6 +667,9 @@
 				$("#checkbox-draft").attr("checked", SCRIBEFIRE.prefs.getBoolPref("state.draft"));
 				SCRIBEFIRE.prefs.setBoolPref("state.draft", false);
 				
+				$("#text-slug").val(SCRIBEFIRE.prefs.getCharPref("state.slug"));
+				SCRIBEFIRE.prefs.setCharPref("state.slug", "");
+				
 				SCRIBEFIRE.load();
 				
 				$(window).load(function () {
@@ -694,29 +690,14 @@
 						theme_advanced_toolbar_align : "left",
 						theme_advanced_statusbar_location : "bottom",
 						theme_advanced_resizing : true,
+						more_colors_func : false,
 						
 						// Example content CSS (should be your site CSS)
-						// content_css : "css/content.css",
+						content_css : "skin/editor_content.css",
 					});
 				});
 			});
-			
-			if (typeof Components != 'undefined') {
-				var platform = "firefox";
-				var browser = 'firefox';
-			}
-			else {
-				var platform = "webkit";
-				
-				if (typeof chrome != 'undefined') {
-					var browser = 'chrome';
-				}
-				else {
-					var browser = 'safari';
-				}
-			}
-			
-			document.documentElement.setAttribute("platform", platform);
 		</script>
+		<script type="text/javascript" src="lib/platform.js"></script>
 	</body>
 </html>

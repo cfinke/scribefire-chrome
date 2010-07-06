@@ -559,7 +559,7 @@ var SCRIBEFIRE = {
 		}
 		
 		params.title = $("#text-title").val();
-		params.content = WYSIWYG.val('text-content');
+		params.content = editor.val();
 		params.categories = $("#list-categories").val() || [];
 		params.tags = $("#text-tags").val();
 		params.draft = $("#checkbox-draft").is(":checked");
@@ -636,14 +636,18 @@ var SCRIBEFIRE = {
 	},
 	
 	clearData : function () {
+		$("#list-entries").val("").change();
 		$("#text-title").val("").change();
-		WYSIWYG.val('text-content', '');
-		$("#checkbox-draft").removeAttr("checked");
-		$("#text-tags").val("");
+		$("#text-tags").val("").change();
 		setTimestamp();
 			$("#toggle-schedule-immediately").show();
 			$("#toggle-schedule-scheduled").hide();
+		$("#checkbox-draft").attr("checked", false).change();
 		$("#list-categories").val("").change();
+		$("#text-slug").val("");
+		
+		editor.val('');
+		
 		$("#button-publish").html("Publish Post");
 	},
 	
