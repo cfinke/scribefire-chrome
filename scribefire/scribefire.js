@@ -179,8 +179,19 @@ var SCRIBEFIRE = {
 		
 		for (var i in blogs) {
 			var blog = $("<option/>");
-			blog.attr("value", blogs[i].url);
-			blog.html(blogs[i].name + " ("+blogs[i].url+")");
+			blog.attr("value", i);
+			
+			// Only show the username as part of the label if the blog URL is listed twice.
+			var label = blogs[i].name + " (" + blogs[i].url + ")";
+			
+			for (var j in blogs) {
+				if (j != i && blogs[j].url == blogs[i].url) {
+					label = blogs[i].name + " ("+blogs[i].username + " @ " + blogs[i].url+")";
+					break;
+				}
+			}
+			
+			blog.html(label);
 			
 			for (var x in blogs[i]) {
 				blog.data(x, blogs[i][x]);
@@ -188,7 +199,7 @@ var SCRIBEFIRE = {
 			
 			$("#list-blogs").append(blog);
 			
-			if (blogs[i].url == oldSelectedBlog) {
+			if (i == oldSelectedBlog) {
 				newSelectedBlog = oldSelectedBlog;
 			}
 			
@@ -314,29 +325,20 @@ var SCRIBEFIRE = {
 		);
 	},
 	
-	removeBlog : function (url) {
+	removeBlog : function (blogKey) {
 		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 		
-		if (url in blogs) {
-			delete blogs[url];
-			
-			SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
-			
-			SCRIBEFIRE.populateBlogsList();
-		}
-/*		
-		$("#list-blogs option[value='"+url+"']").remove();
-		*/
+		delete blogs[blogKey];
+		
+		SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
+		
+		SCRIBEFIRE.populateBlogsList();
 	},
 	
-	getBlog : function (url) {
+	getBlog : function (blogKey) {
 		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 		
-		if (url in blogs) {
-			return blogs[url];
-		}
-		
-		return false;
+		return blogs[blogKey];
 	},
 	
 	getAPI : function () {
@@ -687,16 +689,27 @@ var SCRIBEFIRE = {
 		);
 	},
 	
-	setBlogProperty : function (blogUrl, property, value) {
+	setBlogProperty : function (blogUrl, username, property, value) {
+		// Not used. Referenced from a theoretical ATOM method.
 		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 		
-		var blog = blogs[blogUrl];
+		if (blogUrl in blogs) {
+			var blog = blogs[blogUrl];
+		}
+		else if ((username + "@" + blogUrl) in blogs) {
+			var blog = blogs[username + "@" + blogUrl];
+		}
 		
-		blog[property] = value;
+		if (blog) {
+			blog[property] = value;
 		
-		blogs[blogUrl] = blog;
+			blogs[blogUrl] = blog;
 		
-		SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
+			SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
+		}
+		else {
+			throw new Exception("BlogNotFound");
+		}
 	},
 	
 	getBlogs : function (params, callbackSuccess, callbackFailure) {
@@ -717,7 +730,7 @@ var SCRIBEFIRE = {
 						blog[x] = rv[i][x];
 					}
 					
-					blogs[blog.url] = blog;
+					blogs[blog.username + "@" + blog.url] = blog;
 				}
 				
 				SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);

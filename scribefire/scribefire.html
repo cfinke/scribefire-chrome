@@ -583,7 +583,7 @@
 						function (rv) {
 							button.removeClass("busy");
 							
-							$("#list-blogs").val(rv[0].url).change();
+							$("#list-blogs").val(rv[0].username + "@" + rv[0].url).change();
 							$("#dialog-blog-add").hide();
 							SCRIBEFIRE.clearData();
 							

@@ -935,7 +935,7 @@ var genericAtomAPI = function () {
 													self.atomAPIs["service.categories"] = false;
 												}
 												
-												SCRIBEFIRE.setBlogProperty(self.url, "atomAPIs", self.atomAPIs);
+												SCRIBEFIRE.setBlogProperty(self.url, self.username, "atomAPIs", self.atomAPIs);
 												self.getCategories(params, success, failure);
 											}
 										};
@@ -946,7 +946,7 @@ var genericAtomAPI = function () {
 							}
 							else {
 								self.atomAPIs["service.categories"] = false;
-								SCRIBEFIRE.setBlogProperty(self.url, "atomAPIs", self.atomAPIs);
+								SCRIBEFIRE.setBlogProperty(self.url, self.username, "atomAPIs", self.atomAPIs);
 								self.getCategories(params, success, failure);
 							}
 						}
