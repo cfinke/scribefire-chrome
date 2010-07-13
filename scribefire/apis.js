@@ -513,6 +513,13 @@ var wordpressAPI = function () {
 	this.ui.slug = true;
 	this.ui.private = true;
 	this.ui["text-content_wp_more"] = true;
+
+	this.publish = function (params, success, failure) {
+		// Some Wordpress plugins apparently rely on linebreaks being \n and not <br />. This is dumb.
+		params.content = params.content.replace(/<br\s*\/?>/g, "\n");
+		params.content = params.content.replace(/<\/p>\s*<p>/g, "\n\n");
+		this.doPublish(params, success, failure);
+	}
 	
 	this.getBlogs = function (params, success, failure) {
 		var args = [params.apiUrl, params.username, params.password];
