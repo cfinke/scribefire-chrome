@@ -165,8 +165,8 @@
 					<a href="#" id="toggle-schedule">Schedule</a>:
 					<span id="toggle-schedule-immediately">Right now</span>
 					<span id="toggle-schedule-scheduled" style="display:none; border: 2px inset; padding: 1px;">
-						<input type="number" id="text-timestamp-year" style="width: 3em; border: 0;" placeholder="YYYY" />/<input type="number" id="text-timestamp-month" style="width: 2em; border: 0;" placeholder="MM" />/<input type="number" id="text-timestamp-day" style="width: 2em; border: 0;" placeholder="DD" />
-						<input type="number" id="text-timestamp-hour" style="width: 2em; border: 0;" placeholder="HH" />:<input type="number" id="text-timestamp-minute" style="width: 2em; border: 0;" placeholder="mm" />
+						<input type="number" id="text-timestamp-year" size="5" style="border: 0;" placeholder="YYYY" min="0000" max="99999" />/<input type="number" id="text-timestamp-month" size="3" style="border: 0;" placeholder="MM" min="01" max="12" />/<input type="number" id="text-timestamp-day" size="3" style="border: 0;" placeholder="DD" min="01" max="31"/>
+						<input type="number" id="text-timestamp-hour" size="3" style="border: 0;" placeholder="HH" min="00" max="23" />:<input type="number" id="text-timestamp-minute" size="3" style="border: 0;" placeholder="mm" min="00" max="59" />
 					</span>
 				</span>
 				<button id="button-publish" style="margin-left: 1em;">Publish Post</button>
