@@ -646,7 +646,7 @@ var SCRIBEFIRE = {
 			$("#toggle-schedule-scheduled").hide();
 		$("#checkbox-draft").attr("checked", false).change();
 		$("#list-categories").val("").change();
-		$("#text-slug").val("");
+		$("#text-slug").val("").change();
 		
 		editor.val('');
 		
@@ -749,13 +749,21 @@ var SCRIBEFIRE = {
 		var api = SCRIBEFIRE.getAPI();
 		
 		for (x in api.ui) {
-			//console.log(x + ": " + api.ui[x]);
+			var id = "#ui-" + x;
+			var widget = $(id);
 			
-			if (!api.ui[x]) {
-				$("#ui-" + x).hide();
+			if (!widget.length) {
+				id = "#" + x;
+				widget = $(id);
 			}
-			else {
-				$("#ui-" + x).show();
+			
+			if (widget.length) {
+				if (!api.ui[x]) {
+					widget.hide();
+				}
+				else {
+					widget.show();
+				}
 			}
 		}
 	},

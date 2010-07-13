@@ -1,5 +1,3 @@
-var JUMP_BREAK_REGEX = /<hr\s*class=['"]jump['"]\s*\/?>/g;
-
 var blogApis = {
 };
 
@@ -53,6 +51,7 @@ var blogAPI = function () {
 	this.ui.timestamp = true;
 	this.ui.slug = false;
 	this.ui.private = false;
+	this.ui["text-content_wp_more"] = false;
 };
 
 blogAPI.prototype = {
@@ -205,7 +204,7 @@ var genericMetaWeblogAPI = function () {
 						rv[i].content = rv[i].description;
 						
 						if (("mt_text_more" in rv[i]) && rv[i].mt_text_more) {
-							rv[i].content += '<hr class="jump" />';
+							rv[i].content += '<!--more-->';
 							rv[i].content += rv[i].mt_text_more;
 						}
 						
@@ -260,7 +259,7 @@ var genericMetaWeblogAPI = function () {
 		}
 
 		if ("content" in params) {
-			contentStruct.description = params.content.replace(JUMP_BREAK_REGEX, "<!--more-->");;
+			contentStruct.description = params.content;
 		}
 
 		if ("categories" in params) {
@@ -513,6 +512,7 @@ var wordpressAPI = function () {
 	this.ui.categories = true;
 	this.ui.slug = true;
 	this.ui.private = true;
+	this.ui["text-content_wp_more"] = true;
 	
 	this.getBlogs = function (params, success, failure) {
 		var args = [params.apiUrl, params.username, params.password];
@@ -621,7 +621,7 @@ var genericAtomAPI = function () {
 								//console.log(req.responseText);
 								//console.log(req.status);
 								
-								failure({"status": req.status, "msg": "Incomplete response"});
+								failure({"status": req.status, "msg": req.responseText});
 							}
 							else {
 								
@@ -801,7 +801,6 @@ var genericAtomAPI = function () {
 		body += '<content type="html"><![CDATA['
 		
 		var content = params.content;
-		content = content.replace(JUMP_BREAK_REGEX, "<!-- more -->");
 		
 		body += content;
 		body += ']]></content>';
