@@ -20,7 +20,7 @@
 
 			// Register buttons
 			ed.addButton('wp_more', {
-				title : 'wordpress.wp_more_desc',
+				title : 'Insert post splitter',
 				image : url + '/img/more.gif',
 				cmd : 'WP_More'
 			});
