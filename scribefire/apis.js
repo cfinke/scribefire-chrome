@@ -631,7 +631,6 @@ var genericAtomAPI = function () {
 								failure({"status": req.status, "msg": req.responseText});
 							}
 							else {
-								
 								var jxml = $(xml);
 								
 								var blogs = [];
@@ -993,7 +992,9 @@ var genericAtomAPI = function () {
 
 	this.buildRequest = function (method, url, callback) {
 		var req = new XMLHttpRequest();
-		req.open(method, url, true, this.username, this.password);
+		// encodeURIComponent is used here because otherwise some requests were failing
+		// when the password contains special characters like "@"
+		req.open(method, url, true, encodeURIComponent(this.username), encodeURIComponent(this.password));
 		req.setRequestHeader("Content-Type", "application/atom+xml");
 		
 		callback(req);
@@ -1146,7 +1147,9 @@ var bloggerAPI = function () {
 		
 		function build(token) {
 			var req = new XMLHttpRequest();
-			req.open(method, url, true, self.username, self.password);
+			// encodeURIComponent is used here because otherwise some requests were failing
+			// when the password contains special characters like "@"
+			req.open(method, url, true, encodeURIComponent(self.username), encodeURIComponent(self.password));
 			req.setRequestHeader("Authorization", "GoogleLogin auth=" + token);
 			req.setRequestHeader("Content-Type", "application/atom+xml");
 			
