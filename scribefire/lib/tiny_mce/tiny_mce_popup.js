@@ -29,6 +29,11 @@ tinyMCEPopup = {
 
 		// Find window & API
 		w = t.getWin();
+		
+		try {
+			w = w.wrappedJSObject;
+		} catch (notFirefox) { }
+		
 		tinymce = w.tinymce;
 		tinyMCE = w.tinyMCE;
 		t.editor = tinymce.EditorManager.activeEditor;
@@ -242,7 +247,11 @@ tinyMCEPopup = {
 	 * Closes the current window.
 	 */
 	close : function() {
-		parent.$(parent.document).trigger("close.facebox");
+		var p = parent;
+		
+		try { p = p.wrappedJSObject; } catch (notFirefox) { }
+		
+		p.$(p.document).trigger("close.facebox");
 	},
 
 	// Internal functions	
@@ -314,7 +323,7 @@ tinyMCEPopup = {
 
 		// Patch for accessibility
 		tinymce.each(t.dom.select('select'), function(e) {
-			e.onkeydown = tinyMCEPopup._accessHandler;
+//			e.onkeydown = tinyMCEPopup._accessHandler; // @todo Doesn't work in Firefox.
 		});
 
 		// Call onInit

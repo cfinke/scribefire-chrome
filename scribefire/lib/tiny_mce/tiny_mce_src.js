@@ -9467,8 +9467,11 @@ tinymce.create('tinymce.ui.Toolbar:tinymce.ui.Container', {
 
 
 			// User specified a document.domain value
-			if (document.domain && location.hostname != document.domain)
-				tinymce.relaxedDomain = document.domain;
+			try {
+				if (document.domain && location.hostname != document.domain)
+					tinymce.relaxedDomain = document.domain;
+			} catch (e) {
+			}
 
 			// Resize editor
 			DOM.setStyles(o.sizeContainer || o.editorContainer, {
