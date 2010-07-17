@@ -1594,6 +1594,7 @@ var posterousAPI = function () {
 	this.ui.timestamp = false;
 	this.ui.private = true;
 	this.ui.upload = (typeof Components != 'undefined');
+	this.ui.draft = false;
 	
 	this.getBlogs = function (params, success, failure) {
 		var url = "http://posterous.com/api/getsites";
