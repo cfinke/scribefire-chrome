@@ -38,6 +38,7 @@
 			t._handleMoreBreak(ed, url);
 			
 			setTimeout(SCRIBEFIRE.updateOptionalUI, 0);
+			setTimeout(SCRIBEFIRE.updateOptionalUI, 1000);
 		},
 
 		getInfo : function() {
