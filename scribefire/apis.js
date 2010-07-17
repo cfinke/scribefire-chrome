@@ -1726,9 +1726,7 @@ var posterousAPI = function () {
 		
 		var images = args.body.match(/(<img[^>]+>)/g);
 		
-		if (this.ui.upload && images.length > 0) {
-			alert(images);
-		
+		if (this.ui.upload && images) {
 			if (images.length > 0) {
 				var ios = Components.classes["@mozilla.org/network/io-service;1"]. getService(Components.interfaces.nsIIOService);  
 			
