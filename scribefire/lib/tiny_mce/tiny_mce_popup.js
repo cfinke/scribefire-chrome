@@ -31,10 +31,19 @@ tinyMCEPopup = {
 		w = t.getWin();
 		
 		try {
+			tinymce = w.tinymce;
+		} catch (firefoxChrome) {
+			// This gets tripped in split-screen and window modes.
 			w = w.wrappedJSObject;
-		} catch (notFirefox) { }
+			tinymce = w.tinymce;
+		}
 		
-		tinymce = w.tinymce;
+		if (!tinymce) {
+			// This is the case in tab mode in Firefox.
+			w = w.wrappedJSObject;
+			tinymce = w.tinymce;
+		}
+		
 		tinyMCE = w.tinyMCE;
 		t.editor = tinymce.EditorManager.activeEditor;
 		t.params = t.editor.windowManager.params;
@@ -249,9 +258,11 @@ tinyMCEPopup = {
 	close : function() {
 		var p = parent;
 		
-		try { p = p.wrappedJSObject; } catch (notFirefox) { }
-		
-		p.$(p.document).trigger("close.facebox");
+		try {
+			p.$(p.document).trigger("close.facebox");
+		} catch (firefoxChrome) {
+			p.wrappedJSObject.$(p.wrappedJSObject.document).trigger("close.facebox");
+		}
 	},
 
 	// Internal functions	

@@ -60,14 +60,18 @@ var SCRIBEFIRE = {
 			var existing = this.getPref(prefName);
 			
 			if (existing !== prefVal) {
-				if (typeof prefVal == 'undefined') {
+				if (typeof prefVal == 'undefined' || prefVal === null) {
 					prefVal = "";
 				}
 				
 				if (typeof Components != 'undefined') {
 					var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch(this.namespace);
 					
-					prefs.setCharPref(prefName, prefVal);
+					try {
+						prefs.setCharPref(prefName, prefVal);
+					} catch (e) {
+						alert("Invalid pref: " + prefName + " " + prefVal);
+					}
 				}
 				else {
 					localStorage[this.namespace + prefName] = prefVal;
