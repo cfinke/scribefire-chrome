@@ -52,6 +52,7 @@ var blogAPI = function () {
 	this.ui.slug = false;
 	this.ui.private = false;
 	this.ui["text-content_wp_more"] = false;
+	this.ui.upload = false;
 };
 
 blogAPI.prototype = {
@@ -133,6 +134,10 @@ blogAPI.prototype = {
 		failure({ "status": 0, "msg": "This blog does not support adding categories."});
 	},
 	
+	upload : function () {
+		failure({ "status": 0, "msg": "This blog does not support uploading files."});
+	},
+	
 	getPostCategories : function (params, success, failure) {
 		success($("#list-entries option[value='"+params.id+"']:first").data("categories"));
 	}
@@ -142,6 +147,7 @@ var genericMetaWeblogAPI = function () {
 	this.ui.categories = false;
 	this.ui.timestamp = true;
 	this.ui.slug = true;
+	this.ui.upload = true;
 	
 	this.getBlogs = function (params, success, failure) {
 		// How safe is it to assume that MetaWeblog APIs implement the blogger_ methods?
@@ -347,6 +353,26 @@ var genericMetaWeblogAPI = function () {
 			}
 		);
 	};
+
+	this.upload = function (params, success, failure) {
+		var args = [this.apiUrl, this.id, this.username, this.password, { name : params.name, type : params.type, bits : params.bits.toString() } ];
+		var xml = performancingAPICalls.metaWeblog_newMediaObject(args);
+		
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml, 
+			function (rv) {
+				if (success) {
+					success( { "url" : rv.url } );
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	}
 };
 genericMetaWeblogAPI.prototype = new blogAPI();
 
@@ -513,7 +539,7 @@ var wordpressAPI = function () {
 	this.ui.slug = true;
 	this.ui.private = true;
 	this.ui["text-content_wp_more"] = true;
-
+	
 	this.publish = function (params, success, failure) {
 		// Some Wordpress plugins apparently rely on linebreaks being \n and not <br />. This is dumb.
 		params.content = params.content.replace(/<br\s*\/?>/g, "\n");

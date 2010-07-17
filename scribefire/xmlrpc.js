@@ -152,7 +152,7 @@ var XMLRPC_LIB = {
 					if (typeof myParams[x] != 'undefined') {
 						if (myParams[x].constructor.name == 'String') {
 							if (x == "bits") {
-								tempVal += "<member><name>" + x + "</name><value><base64>" +XMLRPC_LIB.convertToXML(myParams[x]) + "</base64></value></member>";
+								tempVal += "<member><name>" + x + "</name><value><base64>" +myParams[x] + "</base64></value></member>";
 							}
 							else{
 								tempVal += "<member><name>" + x + "</name><value>" +XMLRPC_LIB.convertToXML(myParams[x]) + "</value></member>";

@@ -1,79 +1,127 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>Insert/edit image</title>
-	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
-	<script type="text/javascript" src="../../utils/mctabs.js"></script>
-	<script type="text/javascript" src="../../utils/form_utils.js"></script>
-	<script type="text/javascript" src="js/image.js"></script>
-	<script type="text/javascript" src="../../../../lib/jquery.js"></script>
-	<link rel="stylesheet" type="text/css" href="../../../../skin/base.css" />
-	<link rel="stylesheet" type="text/css" href="../../../../skin/widgets.css" />
-	<link rel="stylesheet" type="text/css" href="../../../../skin/dialog.css" />
-</head>
-<body id="image" style="display: none">
-<form onsubmit="ImageDialog.update();return false;" action="#">
-	<h2>Insert/edit image</h2>
+	<head>
+		<title>Insert/edit image</title>
+		<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+		<script type="text/javascript" src="../../utils/mctabs.js"></script>
+		<script type="text/javascript" src="../../utils/form_utils.js"></script>
+		<script type="text/javascript" src="js/image.js"></script>
+		<script type="text/javascript" src="../../../../lib/jquery.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../../../skin/base.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../skin/widgets.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../skin/dialog.css" />
+	</head>
+	<body id="image" style="display: none">
+		<form onsubmit="ImageDialog.update(); return false;" action="#">
+			<h2>Insert/Edit image</h2>
+			
+			<div id="ui-upload" style="padding-bottom: 10px;">
+				<button id="upload-file">Upload an image</button> or enter the details for an image already on the Web.
+			</div>
 	
-	<p>The ability to upload images from your computer will be coming soon.</p>
-	
-	<div class="panel_wrapper">
-		<div id="general_panel" class="panel current">
-     <table border="0" cellpadding="4" cellspacing="0" style="width: 100%;">
-          <tr>
-            <td class="nowrap" style="width: 30%;"><label for="src">Image URL</label></td>
-            <td><table border="0" cellspacing="0" cellpadding="0" style="width: 100%;">
-                <tr>
-                  <td ><input id="src" name="src" type="url" class="mceFocus" value="" onchange="ImageDialog.getImageData();" placeholder="http://" /></td>
-                  <td id="srcbrowsercontainer">&nbsp;</td>
-                </tr>
-              </table></td>
-          </tr>
-		  <tr>
-			<td><label for="image_list">Image list</label></td>
-			<td><select id="image_list" name="image_list" onchange="document.getElementById('src').value=this.options[this.selectedIndex].value;document.getElementById('alt').value=this.options[this.selectedIndex].text;"></select></td>
-		  </tr>
-          <tr>
-            <td class="nowrap"><label for="alt">Image description</label></td>
-            <td><input id="alt" name="alt" type="text" value="" /></td>
-          </tr>
-          <tr>
-            <td class="nowrap"><label for="align">Alignment</label></td>
-            <td>
-				<select id="align" name="align" onchange="ImageDialog.updateStyle();">
-                <option value="">-- Not Set --</option>
-                <option value="baseline">Baseline</option>
-                <option value="top">Top</option>
-                <option value="middle">Middle</option>
-                <option value="bottom">Bottom</option>
-                <option value="text-top">Text top</option>
-                <option value="text-bottom">Text bottom</option>
-                <option value="left">Left</option>
-                <option value="right">Right</option>
-              </select></td>
-          </tr>
-          <tr>
-            <td class="nowrap"><label for="width">Dimensions</label></td>
-            <td><input id="width" name="width" type="number" value="" size="3" maxlength="5" placeholder="w" />
-              x
-              <input id="height" name="height" type="number" value="" size="3" maxlength="5" placeholder="h" /></td>
-          </tr>
-          <tr>
-            <td class="nowrap"><label for="border">Border</label></td>
-            <td><input id="border" name="border" type="number" value="" size="3" maxlength="3" onchange="ImageDialog.updateStyle();" placeholder="0"/></td>
-          </tr>
-        </table>
-		</div>
-	</div>
+			<div class="panel_wrapper">
+				<div id="general_panel" class="panel current">
+			 <table border="0" cellpadding="4" cellspacing="0" style="width: 100%;">
+				  <tr>
+					<td class="nowrap" style="width: 30%;"><label for="src">Image URL</label></td>
+					<td><table border="0" cellspacing="0" cellpadding="0" style="width: 100%;">
+						<tr>
+						  <td ><input id="src" name="src" type="url" class="mceFocus" value="" onchange="ImageDialog.getImageData();" placeholder="http://" /></td>
+						  <td id="srcbrowsercontainer">&nbsp;</td>
+						</tr>
+					  </table></td>
+				  </tr>
+				  <tr>
+					<td><label for="image_list">Image list</label></td>
+					<td><select id="image_list" name="image_list" onchange="document.getElementById('src').value=this.options[this.selectedIndex].value;document.getElementById('alt').value=this.options[this.selectedIndex].text;"></select></td>
+				  </tr>
+				  <tr>
+					<td class="nowrap"><label for="alt">Image description</label></td>
+					<td><input id="alt" name="alt" type="text" value="" /></td>
+				  </tr>
+				  <tr>
+					<td class="nowrap"><label for="align">Alignment</label></td>
+					<td>
+						<select id="align" name="align" onchange="ImageDialog.updateStyle();">
+						<option value="">-- Not Set --</option>
+						<option value="baseline">Baseline</option>
+						<option value="top">Top</option>
+						<option value="middle">Middle</option>
+						<option value="bottom">Bottom</option>
+						<option value="text-top">Text top</option>
+						<option value="text-bottom">Text bottom</option>
+						<option value="left">Left</option>
+						<option value="right">Right</option>
+					  </select></td>
+				  </tr>
+				  <tr>
+					<td class="nowrap"><label for="width">Dimensions</label></td>
+					<td><input id="width" name="width" type="number" value="" size="3" maxlength="5" placeholder="w" />
+					  x
+					  <input id="height" name="height" type="number" value="" size="3" maxlength="5" placeholder="h" /></td>
+				  </tr>
+				  <tr>
+					<td class="nowrap"><label for="border">Border</label></td>
+					<td><input id="border" name="border" type="number" value="" size="3" maxlength="3" onchange="ImageDialog.updateStyle();" placeholder="0"/></td>
+				  </tr>
+				</table>
+				</div>
+			</div>
+			
+			<input type="hidden" name="vspace" value="" />
+			<input type="hidden" name="hspace" value="" />
+			
+			<div class="mceActionPanel">
+				<button id="insert" name="insert">Insert</button>
+				<button id="cancel" name="cancel" onclick="event.preventDefault(); tinyMCEPopup.close();">Cancel</button>
+			</div>
+		</form>
+		<script type="text/javascript" src="../../../../lib/platform.js"></script>
+		<script type="text/javascript" src="../../../../scribefire.js"></script>
+		<script>
+			$(document).ready(function () {
+				tinyMCEPopup.getWin().SCRIBEFIRE.updateOptionalUI(document);
+				
+				$("#upload-file").click(function (e) {
+					var button = $(this).addClass("busy");
+					
+					e.preventDefault();
+					
+					var nsIFilePicker = Components.interfaces.nsIFilePicker;
+					var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+					fp.init(window, "Select an Image", nsIFilePicker.modeOpen);
+					var res = fp.show();
+					
+					if (res == nsIFilePicker.returnOK){
+						var theFile = fp.file;
+						
+						var params = {};
+						
+						var fileInStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream); 
+						fileInStream.init(theFile, 0x01, 0644, false);
+						var binaryInStream = Components.classes["@mozilla.org/binaryinputstream;1"] .createInstance(Components.interfaces.nsIBinaryInputStream); 
+						binaryInStream.setInputStream(fileInStream); 
+						params.bits = btoa(binaryInStream.readBytes(binaryInStream.available()));
+						
+						var mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
+						params.type = mimeSvc.getTypeFromFile(theFile);
+						params.name = theFile.leafName;
 
-	<input type="hidden" name="vspace" value="" />
-	<input type="hidden" name="hspace" value="" />
+						tinyMCEPopup.getWin().SCRIBEFIRE.getAPI().upload(params,
+							function success (rv) {
+								button.removeClass("busy");
 
-	<div class="mceActionPanel">
-		<button id="insert" name="insert">Insert</button>
-		<button id="cancel" name="cancel" onclick="event.preventDefault(); tinyMCEPopup.close();">Cancel</button>
-	</div>
-</form>
-<script type="text/javascript" src="../../../../lib/platform.js"></script>
-</body>
+								$("#src").val(rv.url).change();
+							},
+							function (rv) {
+								button.removeClass("busy");
+
+								SCRIBEFIRE.error("ScribeFire couldn't upload your file. Here's the error message that bubbled up:\n\n"+rv.msg);
+							}
+						);
+					}
+				});
+			});
+		</script>
+	</body>
 </html>

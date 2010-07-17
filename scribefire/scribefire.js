@@ -752,16 +752,18 @@ var SCRIBEFIRE = {
 		);
 	},
 	
-	updateOptionalUI : function () {
+	updateOptionalUI : function (doc) {
+		if (!doc) doc = document;
+		
 		var api = SCRIBEFIRE.getAPI();
 		
 		for (x in api.ui) {
 			var id = "#ui-" + x;
-			var widget = $(id);
+			var widget = $(doc).find(id);
 			
 			if (!widget.length) {
 				id = "#" + x;
-				widget = $(id);
+				widget = $(doc).find(id);
 			}
 			
 			if (widget.length) {

@@ -29,21 +29,7 @@ tinyMCEPopup = {
 
 		// Find window & API
 		w = t.getWin();
-		
-		try {
-			tinymce = w.tinymce;
-		} catch (firefoxChrome) {
-			// This gets tripped in split-screen and window modes.
-			w = w.wrappedJSObject;
-			tinymce = w.tinymce;
-		}
-		
-		if (!tinymce) {
-			// This is the case in tab mode in Firefox.
-			w = w.wrappedJSObject;
-			tinymce = w.tinymce;
-		}
-		
+		tinymce = w.tinymce;
 		tinyMCE = w.tinyMCE;
 		t.editor = tinymce.EditorManager.activeEditor;
 		t.params = t.editor.windowManager.params;
@@ -75,7 +61,24 @@ tinyMCEPopup = {
 	 * @return {Window} Reference to the parent window that opened the dialog.
 	 */
 	getWin : function() {
-		return window.dialogArguments || opener || parent || top;
+		var w = window.dialogArguments || opener || parent || top;
+		
+		var foo = null;
+		
+		try {
+			foo = w.tinymce;
+		} catch (firefoxChrome) {
+			// This gets tripped in split-screen and window modes.
+			w = w.wrappedJSObject;
+			foo = w.tinymce;
+		}
+		
+		if (!foo) {
+			// This is the case in tab mode in Firefox.
+			w = w.wrappedJSObject;
+		}
+		
+		return w;
 	},
 
 	/**
