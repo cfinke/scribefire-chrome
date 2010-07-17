@@ -93,21 +93,7 @@
 					var res = fp.show();
 					
 					if (res == nsIFilePicker.returnOK){
-						var theFile = fp.file;
-						
-						var params = {};
-						
-						var fileInStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream); 
-						fileInStream.init(theFile, 0x01, 0644, false);
-						var binaryInStream = Components.classes["@mozilla.org/binaryinputstream;1"] .createInstance(Components.interfaces.nsIBinaryInputStream); 
-						binaryInStream.setInputStream(fileInStream); 
-						params.bits = btoa(binaryInStream.readBytes(binaryInStream.available()));
-						
-						var mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
-						params.type = mimeSvc.getTypeFromFile(theFile);
-						params.name = theFile.leafName;
-
-						tinyMCEPopup.getWin().SCRIBEFIRE.getAPI().upload(params,
+						tinyMCEPopup.getWin().SCRIBEFIRE.getAPI().upload(fp.file,
 							function success (rv) {
 								button.removeClass("busy");
 

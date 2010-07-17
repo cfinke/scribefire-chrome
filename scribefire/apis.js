@@ -147,7 +147,7 @@ var genericMetaWeblogAPI = function () {
 	this.ui.categories = false;
 	this.ui.timestamp = true;
 	this.ui.slug = true;
-	this.ui.upload = true;
+	this.ui.upload = (typeof Components != 'undefined');
 	
 	this.getBlogs = function (params, success, failure) {
 		// How safe is it to assume that MetaWeblog APIs implement the blogger_ methods?
@@ -354,7 +354,20 @@ var genericMetaWeblogAPI = function () {
 		);
 	};
 
-	this.upload = function (params, success, failure) {
+	this.upload = function (file, success, failure) {
+		var params = {};
+		
+		var fileInStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream); 
+		fileInStream.init(file, 0x01, 0644, false);
+		
+		var binaryInStream = Components.classes["@mozilla.org/binaryinputstream;1"] .createInstance(Components.interfaces.nsIBinaryInputStream); 
+		binaryInStream.setInputStream(fileInStream); 
+		params.bits = btoa(binaryInStream.readBytes(binaryInStream.available()));
+		
+		var mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
+		params.type = mimeSvc.getTypeFromFile(file);
+		params.name = file.leafName;
+		
 		var args = [this.apiUrl, this.id, this.username, this.password, { name : params.name, type : params.type, bits : params.bits.toString() } ];
 		var xml = performancingAPICalls.metaWeblog_newMediaObject(args);
 		
@@ -1032,6 +1045,7 @@ var bloggerAPI = function () {
 	this.authToken = null;
 	
 	this.ui.categories = true;
+	this.ui.upload = (typeof Components != 'undefined');
 	
 	this.getCategories = function (params, success, failure) {
 		this.getPosts(
@@ -1193,6 +1207,147 @@ var bloggerAPI = function () {
 			});
 		}
 	};
+
+	this.upload = function (file, success, failure) {
+		var self = this;
+		
+		var invalidTokens = 0;
+		
+		function doUpload(token) {
+			var mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
+			var theMimeType = mimeSvc.getTypeFromFile(file);
+			
+			const MULTI = "@mozilla.org/io/multiplex-input-stream;1";
+			const FINPUT = "@mozilla.org/network/file-input-stream;1";
+			const BUFFERED = "@mozilla.org/network/buffered-input-stream;1";
+			
+			const nsIMultiplexInputStream = Components.interfaces.nsIMultiplexInputStream;
+			const nsIFileInputStream = Components.interfaces.nsIFileInputStream;
+			const nsIBufferedInputStream = Components.interfaces.nsIBufferedInputStream;
+			
+			var buf = null;
+			var fin = null;
+			
+			var fpLocal  = Components.classes['@mozilla.org/file/local;1'].createInstance(Components.interfaces.nsILocalFile);
+			fpLocal.initWithFile(file);
+			
+			fin = Components.classes[FINPUT].createInstance(nsIFileInputStream);
+			fin.init(fpLocal, 1, 0, false); 
+			
+			buf = Components.classes[BUFFERED].createInstance(nsIBufferedInputStream);
+			buf.init(fin, 9000000);
+			
+			var uploadStream = Components.classes[MULTI].createInstance(nsIMultiplexInputStream);
+			uploadStream.appendStream(buf);
+			
+			var upreq = new XMLHttpRequest();
+			upreq.open("POST", "http://picasaweb.google.com/data/feed/api/user/default/albumid/default", true);
+			upreq.setRequestHeader("Authorization","AuthSub token="+token);
+			upreq.setRequestHeader("Content-Type", theMimeType);
+			upreq.setRequestHeader("Content-Length", (uploadStream.available()));
+			upreq.overrideMimeType("text/xml");
+			
+			upreq.onreadystatechange = function () {
+				if (upreq.readyState == 4) {
+					if (upreq.status < 300) {
+						invalidTokens = 0;
+						
+						try {
+							var imageUrl = $(upreq.responseXML).find("content:first").attr("src");
+							success( { "url" : imageUrl } );
+						} catch (e) {
+							failure( { "status" : upreq.status, "msg" : upreq.responseText });
+						}
+					}
+					else {
+						if (upreq.status == 403 && upreq.responseText.match(/Token invalid/)) {
+							invalidTokens++;
+							
+							if (invalidTokens > 1) {
+								failure( { "status" : upreq.status, "msg" : "Could not acquire an authentication token." });
+							}
+							else {
+								delete tokens_json[self.username];
+								
+								SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
+								SCRIBEFIRE.prefs.setCharPref("google_token", "");
+								
+								self.upload(file, success, failure);
+							}
+						}
+						else if (upreq.responseText.match(/Must sign terms/i)) {
+							// @todo gOpener.parent.getWebBrowser().selectedTab = gOpener.parent.getWebBrowser().addTab("http://picasaweb.google.com/");
+							failure( { "status" : upreq.status, "msg" : upreq.responseText });
+						}
+						else {
+							failure( { "status" : upreq.status, "msg" : "Could not contact the image upload API." } );
+						}
+					}
+				}
+			};
+			
+			upreq.send(uploadStream);
+		}
+		
+		var prefObserver = {
+			observe : function (subject, topic, data) {
+				if (topic == 'nsPref:changed') {
+					if (data == 'google_token') {
+						// When it appears, do this:
+						
+						var token = SCRIBEFIRE.prefs.getCharPref("google_token");
+						
+						if (!token) {
+							return;
+						}
+						
+						var req = new XMLHttpRequest();
+						req.open("GET", "https://www.google.com/accounts/AuthSubSessionToken", true);
+						req.setRequestHeader("Authorization","AuthSub token=\""+token+"\"");
+						
+						req.onreadystatechange = function () {
+							if (req.readyState == 4) {
+								if (req.status == 200) {
+									var lines = req.responseText.split("\n");
+									var newTokenLine = lines[0];
+									var newToken = newTokenLine.split("=")[1];
+									
+									var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+									
+									tokens_json[self.username] = newToken;
+									SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
+									
+									doUpload(newToken);
+								}
+								else {
+									failure( { "status" : req.status, "msg" : "Could not acquire an authentication token." } );
+								}
+							}
+						};
+						
+						req.send(null);
+					}
+				}
+			}
+		};
+		
+		SCRIBEFIRE.prefs.addObserver(prefObserver);
+		
+		var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+		
+		if (self.username in tokens_json) {
+			doUpload(tokens_json[self.username]);
+		}
+		else {
+			invalidTokens++;
+		
+			window.open("https://www.google.com/accounts/AuthSubRequest"
+					+ "?scope="+encodeURIComponent('http://picasaweb.google.com/data/')
+					+ "&next="+ encodeURIComponent('http://www.scribefire.com/token.php') +"&session=1", 
+				"sf-google-token", 
+				"height=400,width=600,menubar=no,toolbar=no,location=no,personalbar=no,status=no");
+		}
+	}
 };
 bloggerAPI.prototype = new genericAtomAPI();
 
@@ -1438,6 +1593,7 @@ var posterousAPI = function () {
 	this.ui.deleteEntry = false;
 	this.ui.timestamp = false;
 	this.ui.private = true;
+	this.ui.upload = (typeof Components != 'undefined');
 	
 	this.getBlogs = function (params, success, failure) {
 		var url = "http://posterous.com/api/getsites";
@@ -1564,18 +1720,48 @@ var posterousAPI = function () {
 		args.source = "ScribeFire";
 		args.sourceLink = "http://www.scribefire.com/";
 		
-		var argstring = "";
-
-		for (var i in args) {
-			argstring += encodeURIComponent(i) + "=" + encodeURIComponent(args[i]) + "&";
-		}
-
-		argstring = argstring.substr(0, argstring.length - 1);
-		
 		var req = new XMLHttpRequest();
 		req.open("POST", url, true);
 		req.setRequestHeader("Authorization", "Basic " + btoa(this.username + ":" + this.password));
-		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		var images = args.body.match(/(<img[^>]+>)/g);
+		
+		if (this.ui.upload && images.length > 0) {
+			alert(images);
+		
+			if (images.length > 0) {
+				var ios = Components.classes["@mozilla.org/network/io-service;1"]. getService(Components.interfaces.nsIIOService);  
+			
+				for (var i = 0; i < images.length; i++) {
+					var src = images[i].match(/\ssrc=['"]([^'"]+)['"]/i)[1];
+					
+					var url = ios.newURI(src, null, null);  
+					var theFile = url.QueryInterface(Components.interfaces.nsIFileURL).file;
+					
+					args["media["+i+"]"] = {
+						"file" : theFile,
+					};
+				}
+			}
+			
+			var postRequest = createScribeFirePostRequest(args);
+			
+			req.setRequestHeader("Content-Length", (postRequest.requestBody.available()));
+			req.setRequestHeader("Content-Type","multipart/form-data; boundary="+postRequest.boundary);
+			
+			var argstring = postRequest.requestBody;
+		}
+		else {
+			var argstring = "";
+			
+			for (var i in args) {
+				argstring += encodeURIComponent(i) + "=" + encodeURIComponent(args[i]) + "&";
+			}
+			
+			argstring = argstring.substr(0, argstring.length - 1);
+			
+			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		}
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
@@ -1597,6 +1783,10 @@ var posterousAPI = function () {
 	this.deletePost = function (params, success, failure) {
 		failure({"status": 0, "msg": "Posterous does not support post deletion at this time."});
 	};
+	
+	this.upload = function (file, success, failure) {
+		success( { "url" : "file://" + file.path } );
+	}
 };
 posterousAPI.prototype = new blogAPI();
 
@@ -1711,3 +1901,113 @@ var performancingAPICalls = {
 		return XMLRPC_LIB.makeXML("wp.getUsersBlogs", myParams);
 	}
 };
+
+function createScribeFirePostRequest(args) {
+	/**
+	 * Generates a POST request body for uploading.
+	 *
+	 * args is an associative array of the form fields.
+	 *
+	 * Example:
+	 * var args = { "field1": "abc", "field2" : "def", "fileField" : { "file": theFile, "headers" : [ "X-Fake-Header: foo" ] } };
+	 * 
+	 * theFile is an nsILocalFile; the headers param for the file field is optional.
+	 *
+	 * This function returns an array like this:
+	 * { "requestBody" : uploadStream, "boundary" : BOUNDARY }
+	 * 
+	 * To upload:
+	 *
+	 * var postRequest = createPostRequest(args);
+	 * var req = new XMLHttpRequest();
+	 * req.open("POST", ...);
+	 * req.setRequestHeader("Content-Type","multipart/form-data; boundary="+postRequest.boundary);
+	 * req.setRequestHeader("Content-Length", (postRequest.requestBody.available()));
+	 * req.send(postRequest.requestBody);
+	 */
+	
+	if (typeof Components != 'undefined') {
+		function stringToStream(str) {
+			function encodeToUtf8(oStr) {
+				var utfStr = oStr;
+				var uConv = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+				uConv.charset = "UTF-8";
+				utfStr = uConv.ConvertFromUnicode(oStr);
+
+				return utfStr;
+			}
+		
+			str = encodeToUtf8(str);
+		
+			var stream = Components.classes["@mozilla.org/io/string-input-stream;1"].createInstance(Components.interfaces.nsIStringInputStream);
+			stream.setData(str, str.length);
+		
+			return stream;
+		}
+	
+		function fileToStream(file) {
+			var fpLocal  = Components.classes['@mozilla.org/file/local;1'].createInstance(Components.interfaces.nsILocalFile);
+			fpLocal.initWithFile(file);
+
+			var finStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);                
+			finStream.init(fpLocal, 1, 0, false);
+
+			var bufStream = Components.classes["@mozilla.org/network/buffered-input-stream;1"].createInstance(Components.interfaces.nsIBufferedInputStream);
+			bufStream.init(finStream, 9000000);
+		
+			return bufStream;
+		}
+	
+		var mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
+		const BOUNDARY = "---------------------------32191240128944"; 
+	
+		var streams = [];
+	
+		for (var i in args) {
+			var buffer = "--" + BOUNDARY + "\r\n";
+			buffer += "Content-Disposition: form-data; name=\"" + i + "\"";
+			streams.push(stringToStream(buffer));
+		
+			if (typeof args[i] == "object") {
+				buffer = "; filename=\"" + args[i].file.leafName + "\"";
+			
+				if ("headers" in args[i]) {
+					if (args[i].headers.length > 0) {
+						for (var q = 0; q < args[i].headers.length; q++){
+							buffer += "\r\n" + args[i].headers[q];
+						}
+					}
+				}
+			
+				var theMimeType = mimeSvc.getTypeFromFile(args[i].file);
+			
+				buffer += "\r\nContent-Type: " + theMimeType;
+				buffer += "\r\n\r\n";
+			
+				streams.push(stringToStream(buffer));
+			
+				streams.push(fileToStream(args[i].file));
+			}
+			else {
+				buffer = "\r\n\r\n";
+				buffer += args[i];
+				buffer += "\r\n";
+				streams.push(stringToStream(buffer));
+			}
+		}
+	
+		var buffer = "--" + BOUNDARY + "--\r\n";
+		streams.push(stringToStream(buffer));
+	
+		var uploadStream = Components.classes["@mozilla.org/io/multiplex-input-stream;1"].createInstance(Components.interfaces.nsIMultiplexInputStream);
+	
+		for (var i = 0; i < streams.length; i++) {
+			uploadStream.appendStream(streams[i]);
+		}
+	
+		return { "requestBody" : uploadStream, "boundary": BOUNDARY };
+	}
+	else {
+		throw new Exception("MethodNotSupported");
+	}
+}

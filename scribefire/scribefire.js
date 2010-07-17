@@ -1,7 +1,19 @@
 var SCRIBEFIRE = {
 	prefs : {
 		namespace : "extensions.scribefire.",
-
+		
+		_observers : {},
+		
+		addObserver : function (observer) {
+			var key = Math.random();
+			
+			this._observers[key] = observer;
+		},
+		
+		removeObserver : function (key) {
+			delete this._observers[key];
+		},
+		
 		getPref : function (prefName) {
 			var key = this.namespace + prefName;
 			
@@ -77,7 +89,11 @@ var SCRIBEFIRE = {
 					localStorage[this.namespace + prefName] = prefVal;
 				}
 				
-				SCRIBEFIRE.observe(null, null, prefName);
+				SCRIBEFIRE.observe(null, "nsPref:changed", prefName);
+				
+				for (var i in this._observers) {
+					this._observers[i].observe(null, "nsPref:changed", prefName);
+				}
 			}
 		},
 
