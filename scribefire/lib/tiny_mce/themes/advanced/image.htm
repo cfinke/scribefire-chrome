@@ -82,7 +82,7 @@
 			$(document).ready(function () {
 				tinyMCEPopup.getWin().SCRIBEFIRE.updateOptionalUI(document);
 				
-				$("#upload-file").click(function (e) {
+				$("#upload-file").live("click", function (e) {
 					var button = $(this).addClass("busy");
 					
 					e.preventDefault();

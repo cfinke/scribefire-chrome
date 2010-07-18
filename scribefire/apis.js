@@ -1151,7 +1151,7 @@ var bloggerAPI = function () {
 								
 								$.facebox("<div><h4>Google requires that you complete this CAPTCHA in order to continue:</h4><p><img src='"+imgUrl+"' /><p><input type='text' id='google-captcha' /><input type='submit' value='Continue' id='captcha-continue' /></div>");
 								
-								$("#captcha-continue").click(function (e) {
+								$("#captcha-continue").live("click", function (e) {
 									var captcha = $("#google-captcha").val();
 									
 									$(document).trigger("close.facebox");

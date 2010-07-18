@@ -122,3 +122,7 @@ html[platform='firefox'] .bar-busy {
 	/* Hides the path stuff below Tiny MCE */
     display: none;
 }
+
+#sidebar {
+	border-left: #d1d1d1 2px solid;
+}

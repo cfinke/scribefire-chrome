@@ -162,7 +162,7 @@ var SCRIBEFIRE = {
 				}
 			}
 		
-			button.click(function (e) {
+			button.live("click", function (e) {
 				e.preventDefault();
 			
 				buttonCallback($(this));
