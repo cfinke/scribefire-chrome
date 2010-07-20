@@ -762,7 +762,7 @@ var SCRIBEFIRE = {
 				callbackSuccess(rv);
 			},
 			function failure (rv) {
-				SCRIBEFIRE.error("Sigh... ScribeFire couldn't get the information it needed about your blog. Helpfully, your blog returned this message:\n\n" + rv.msg);
+				SCRIBEFIRE.error("ScribeFire couldn't get the information it needed about your blog. Helpfully, your blog returned this message:\n\n" + rv.msg);
 				callbackFailure(rv);
 			}
 		);

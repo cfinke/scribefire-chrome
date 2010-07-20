@@ -40,7 +40,7 @@
 							</p>
 							<div id="dialog-blog-add" style="display:none;">
 								<div class="step-1">
-									<div class="subbar subbar-selected">
+									<div id="bar-add-blog-url" class="subbar subbar-selected">
 										<label>URL: <span id="label-add-blog-url"></span></label>
 									</div>
 									<div class="subunderbar subunderbar-selected">
@@ -52,7 +52,7 @@
 									</div>
 								</div>
 								<div class="step-2">
-									<div class="subbar">
+									<div id="bar-add-blog-type" class="subbar">
 										<label>Blog Type: <span id="label-add-blog-type"></span></label>
 									</div>
 									<div class="subunderbar">
@@ -69,14 +69,14 @@
 									</div>
 								</div>
 								<div class="step-2">
-									<div class="subbar">
+									<div id="bar-add-blog-apiurl" class="subbar">
 										<label>API URL: <span id="label-add-blog-apiurl"></span></label>
 									</div>
 									<div class="subunderbar">
 										<input type="url" id="text-blog-api-url" value="" />
 									</div>
-									<div id="text-addblog-id-container" style="display: none;">
-										<div class="subbar">
+									<div id="text-add-blog-id-container" style="display: none;">
+										<div id="bar-add-blog-id" class="subbar">
 											<label>Blog ID: <span id="label-add-blog-blogid"></span><label>
 										</div>
 										<div class="subunderbar">
@@ -257,7 +257,7 @@
 			}
 			
 			$(document).ready(function () {
-				$("#text-slug").change(function () {
+				$("#text-slug").live("change", function () {
 					if ($(this).val()) {
 						$("#slug-display").html($(this).val());
 					}
@@ -297,14 +297,14 @@
 					$("#toggle-schedule-scheduled").toggle();
 				});
 				
-				$("#list-blog-types").change(function (e) {
+				$("#list-blog-types").live("change", function (e) {
 					var option = $(this).find("option:selected");
 					
 					if (option.attr("requires_id") == "true") {
-						$("#text-addblog-id-container").show();
+						$("#text-add-blog-id-container").show();
 					}
 					else {
-						$("#text-addblog-id-container").hide();
+						$("#text-add-blog-id-container").hide();
 					}
 				});
 				
@@ -407,15 +407,15 @@
 					}
 				});
 				
-				$("#text-title").change(function () {
+				$("#text-title").live("change", function () {
 					$("#label-current-title").html($(this).val());
 				});
 				
-				$("#text-tags").change(function () {
+				$("#text-tags").live("change", function () {
 					$("#label-current-tags").html($(this).val());
 				});
 				
-				$("#list-blogs").change(function () {
+				$("#list-blogs").live("change", function () {
 					$("#button-inlinks").hide();
 					
 					if (!$(this).val()) {
@@ -437,7 +437,7 @@
 					SCRIBEFIRE.updateOptionalUI();
 				});
 				
-				$("#list-entries").change(function () {
+				$("#list-entries").live("change", function () {
 					var postId = $(this).val();
 					
 					if (!postId) {
@@ -489,7 +489,7 @@
 					$("#label-current-entry").html($(this).find("option:selected").text());
 				});
 				
-				$("#list-categories").change(function (e) {
+				$("#list-categories").live("change", function (e) {
 					if (!$(this).val()) {
 						$("#label-current-categories").html("(none)");
 					}
@@ -511,10 +511,10 @@
 					
 					$("#text-blog-url").val("").change();
 					$("#list-blog-types").val("").change();
-					$("#text-blog-api-url").val("");
+					$("#text-blog-api-url").val("").change();
 					$("#text-blog-username").val("");
 					$("#text-blog-password").val("");
-					$("#text-addblog-id").val("");
+					$("#text-addblog-id").val("").change();
 					
 					$("#dialog-blog-add .step-2 .subbar").removeClass("subbar-selected");
 					$("#dialog-blog-add .step-2 .subunderbar").removeClass("subunderbar-selected");
@@ -524,43 +524,68 @@
 					$("#text-blog-url").focus();
 				});
 				
+				$("#text-blog-url").live("change", function () {
+					$("#label-add-blog-url").html($(this).val());
+				});
+				
+				$("#list-blog-types").live("change", function () {
+					$("#label-add-blog-type").html($(this).find("option:selected").html());
+				});
+				
+				$("#text-blog-api-url").live("change", function () {
+					$("#label-add-blog-apiurl").html($(this).val());
+				});
+				
+				$("#text-addblog-id").live("change", function () {
+					$("#label-add-blog-blogid").html($(this).val());
+				});
+				
 				$("#button-blog-urlcheck").live("click", function (e) {
 					var button = $(this);
 					
 					button.addClass("busy");
 					
 					$("#list-blog-types").val("").change();
-					$("#text-blog-api-url").val("");
+					$("#text-blog-api-url").val("").change();
 					$("#text-blog-username").val("");
 					$("#text-blog-password").val("");
-					$("#text-addblog-id").val("");
+					$("#text-addblog-id").val("").change();
 					
 					SCRIBEFIRE.getBlogMetaData(
 						$("#text-blog-url").val(),
 						function (metaData) {
 							button.removeClass("busy");
 							
-							$("#text-addblog-id-container").hide();
+							$("#text-add-blog-id-container").hide();
 							
 							accountWizardBlog = metaData;
 							
 							$("#list-blog-types").val(metaData.type).change();
 							$("#list-blog-types").removeAttr("disabled");
 							
-							$("#text-blog-api-url").val(metaData.apiUrl);
+							$("#text-blog-api-url").val(metaData.apiUrl).change();
 							$("#text-blog-api-url").removeAttr("disabled");
 							
 							if (metaData.id) {
-								$("#text-addblog-id").val(metaData.id);
+								$("#text-addblog-id").val(metaData.id).change();
 							}
 							else {
-								$("#text-addblog-id").val("");
+								$("#text-addblog-id").val("").change();
 							}
 							
 							$("#dialog-blog-add .step-2 *[disabled]").removeAttr("disabled");
 							
 							$("#dialog-blog-add .step-2 .subbar").each(function () {
 								if (!$(this).hasClass("subbar-selected")) {
+									$(this).click();
+								}
+							});
+							
+							// Collapse the URL container
+							// Collapse the blog type container
+							// Collapse the API URL container.
+							$("#bar-add-blog-url, #bar-add-blog-type, #bar-add-blog-apiurl").each(function () {
+								if ($(this).hasClass("subbar-selected")) {
 									$(this).click();
 								}
 							});
