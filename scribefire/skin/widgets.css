@@ -10,12 +10,12 @@ button, input[type="submit"] {
 	padding-right: 15px;
 }
 
-html[platform='webkit'] button, html[platform='firefox'] input[type='submit'] {
+html[platform='webkit'] button, html[platform='gecko'] input[type='submit'] {
 	-webkit-border-radius: 10px;
 	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc));
 }
 
-html[platform='firefox'] button, html[platform='firefox'] input[type='submit'] {
+html[platform='gecko'] button, html[platform='gecko'] input[type='submit'] {
 	-moz-border-radius: 10px;
 	background: -moz-linear-gradient(bottom, #dfdfdf, #fcfcfc);
 }
@@ -24,7 +24,7 @@ html[platform='webkit'] button:active, html[platform='webkit'] input[type="submi
 	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
 }
 
-html[platform='firefox'] button:active, html[platform='firefox'] input[type="submit"]:active {
+html[platform='gecko'] button:active, html[platform='gecko'] input[type="submit"]:active {
 	background: -moz-linear-gradient(bottom, #c3c3c3, #eeeeee);
 }
 
@@ -37,7 +37,7 @@ html[platform='webkit'] button.busy, html[platform='webkit'] input[type="submit"
 	background: url(throbber-16.png) 8px 3px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc));
 }
 
-html[platform='firefox'] button.busy, html[platform='firefox'] input[type="submit"].busy {
+html[platform='gecko'] button.busy, html[platform='gecko'] input[type="submit"].busy {
 	background: url(throbber-16.png) 8px 2px no-repeat, -moz-linear-gradient(bottom, #dfdfdf, #fcfcfc);
 	-moz-background-size: 12px, auto;
 }
@@ -46,6 +46,6 @@ html[platform='webkit'] button.busy:active, html[platform='webkit'] input[type="
 	background: url(throbber-16.png) 8px 3px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
 }
 
-html[platform='firefox'] button.busy:active, html[platform='firefox'] input[type="submit"].busy:active {
+html[platform='gecko'] button.busy:active, html[platform='gecko'] input[type="submit"].busy:active {
 	background: url(throbber-16.png) 8px 2px no-repeat, -moz-linear-gradient(bottom, #c3c3c3, #eeeeee);
 }

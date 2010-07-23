@@ -19,7 +19,7 @@ html[platform='webkit'] .bar, html[platform='webkit'] .subbar {
 	background: url(arrow-right.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); 
 }
 
-html[platform='firefox'] .bar, html[platform='firefox'] .subbar {
+html[platform='gecko'] .bar, html[platform='gecko'] .subbar {
 	background: url(arrow-right.png) 8px 4px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1);
 }
 
@@ -33,35 +33,35 @@ html[platform='webkit'] .subbar {
 	background: url(arrow-right-blue.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf));
 }
 
-html[platform='firefox'] .subbar {
+html[platform='gecko'] .subbar {
 	background: url(arrow-right-blue.png) 8px 4px no-repeat, -moz-linear-gradient(bottom, #798bb2, #a2b1cf);
 }
 
-html[platform='webkit'] .bar-selected {
+html[platform='webkit'] .bar[open="true"] {
 	background: url(arrow-down.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
 }
 
-html[platform='firefox'] .bar-selected {
+html[platform='gecko'] .bar[open="true"] {
 	background: url(arrow-down.png) 7px 5px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1) !important;
 }
 
-html[platform='webkit'] .subbar-selected {
+html[platform='webkit'] .subbar[open="true"] {
 	background: url(arrow-down-blue.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf)) !important;
 }
 
-html[platform='firefox'] .subbar-selected {
+html[platform='gecko'] .subbar[open="true"] {
 	background: url(arrow-down-blue.png) 7px 5px no-repeat, -moz-linear-gradient(bottom, #798bb2, #a2b1cf) !important;
 }
 
-.bar-busy {
+.bar[busy="true"] {
 	background-size: 12px 12px, auto;
 }
 
-html[platform='webkit'] .bar-busy {
+html[platform='webkit'] .bar[busy="true"] {
 	background: url(throbber-16.png) 5px 2px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
 }
 
-html[platform='firefox'] .bar-busy {
+html[platform='gecko'] .bar[busy="true"] {
 	background: url(throbber-16.png) 5px 2px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1) !important;
 	-moz-background-size: 12px, auto;
 }
@@ -76,8 +76,20 @@ html[platform='firefox'] .bar-busy {
 	border-bottom: #bdbdbd 1px solid;
 }
 
-.underbar-selected, .subunderbar-selected {
+.underbar[open="true"], .subunderbar[open="true"] {
 	display: block;
+}
+
+html[platform='webkit'] .underbar[open="true"].flex-box, html[platform='webkit'] .subunderbar[open="true"].flex-box {
+	display: -webkit-box;
+}
+
+.underbar[open="false"].flex-box, .subunderbar[open="false"].flex-box {
+	display: none;
+}
+
+html[platform='gecko'] .underbar[open="true"].flex-box, html[platform='webkit'] .subunderbar[open="true"].flex-box {
+	display: -moz-box;
 }
 
 #dialog-blog-add {
@@ -114,7 +126,7 @@ html[platform='firefox'] .bar-busy {
 	display: none;
 }
 
-.bar-selected #editor-toggles {
+.bar[open="true"] #editor-toggles {
 	display: block;
 }
 

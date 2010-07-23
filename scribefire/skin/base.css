@@ -9,3 +9,41 @@ body {
 td {
 	vertical-align: top;
 }
+
+html[platform='webkit'] .flex-box {
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+}
+
+html[platform='gecko'] .flex-box {
+	display: -moz-box;
+	-moz-box-orient: horizontal;
+}
+
+.flex-box > * {
+	display: block;
+}
+
+html[platform='webkit'] .flex-vertical {
+	-webkit-box-orient: vertical;
+}
+
+html[platform='gecko'] .flex-vertical {
+	-moz-box-orient: vertical;
+}
+
+html[platform='webkit'] .flex-1 {
+	-webkit-box-flex: 1;
+}
+
+html[platform='gecko'] .flex-1 {
+	-moz-box-flex: 1;
+}
+
+html[platform='webkit'] .flex-0 {
+	-webkit-box-flex: 0;
+}
+
+html[platform='gecko'] .flex-0 {
+	-moz-box-flex: 0;
+}
