@@ -1,6 +1,6 @@
 jQuery.fn.persist = function (property) {
 	return this.each(function () {
-		if (platform == 'firefox') {
+		if (platform == 'gecko') {
 			// @see https://bugzilla.mozilla.org/show_bug.cgi?id=495747
 			return;
 		}
@@ -31,7 +31,7 @@ jQuery.fn.persist = function (property) {
 };
 
 jQuery(document).ready(function () {
-	if (platform == 'firefox') {
+	if (platform == 'gecko') {
 		// @see https://bugzilla.mozilla.org/show_bug.cgi?id=495747
 		return;
 	}

@@ -1,5 +1,5 @@
 if (typeof Components != 'undefined') {
-	var platform = "firefox";
+	var platform = "gecko";
 	var browser = 'firefox';
 }
 else {
@@ -13,7 +13,7 @@ else {
 	}
 }
 
-if (platform == 'firefox' && typeof console == 'undefined') {
+if (platform == 'gecko' && typeof console == 'undefined') {
 	var console = {
 		log : function (msg) {
 			var consoleService = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
