@@ -247,7 +247,7 @@ var SCRIBEFIRE = {
 	populateEntriesList : function () {
 		$("#list-entries").html('<option value="">(new)</option>');
 		
-		$("#bar-entries").addClass("bar-busy");
+		$("#bar-entries").attr("busy", "true");
 		
 		SCRIBEFIRE.getAPI().getPosts(
 			{ },
@@ -276,11 +276,11 @@ var SCRIBEFIRE = {
 				
 				$("#list-entries").change();
 				$("#list-entries").removeAttr("ignoreContent")
-				$("#bar-entries").removeClass("bar-busy");
+				$("#bar-entries").removeAttr("busy");
 			},
 			function failure(rv) {
 				rv.func = "getPosts";
-				$("#bar-entries").removeClass("bar-busy");
+				$("#bar-entries").removeAttr("busy");
 				
 				SCRIBEFIRE.genericError(rv);
 			}
@@ -679,7 +679,7 @@ var SCRIBEFIRE = {
 	populateCategoriesList : function () {
 		$("#list-categories").html("").change();
 		
-		$("#bar-categories").addClass("bar-busy");
+		$("#bar-categories").attr("busy", "true");
 		
 		SCRIBEFIRE.getAPI().getCategories(
 			{ },
@@ -700,12 +700,12 @@ var SCRIBEFIRE = {
 					SCRIBEFIRE.prefs.setJSONPref("state.categories", []);
 				}
 				
-				$("#bar-categories").removeClass("bar-busy");
+				$("#bar-categories").removeAttr("busy");
 			},
 			function failure(rv) {
 				rv.func = "getCategories";
 				
-				$("#bar-categories").removeClass("bar-busy");
+				$("#bar-categories").removeAttr("busy");
 				
 				SCRIBEFIRE.genericError(rv);
 			}
