@@ -162,7 +162,7 @@ var SCRIBEFIRE = {
 				}
 			}
 		
-			button.live("click", function (e) {
+			button.click(function (e) {
 				e.preventDefault();
 			
 				buttonCallback($(this));
@@ -673,7 +673,7 @@ var SCRIBEFIRE = {
 		
 		editor.val('');
 		
-		$("#button-publish").html("Publish Post");
+		$("#button-publish").html("Send to Blog");
 	},
 	
 	populateCategoriesList : function () {

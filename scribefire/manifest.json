@@ -4,6 +4,7 @@
 	"description": "A full-featured blog editor lets you easily post to all of your blogs.",
 	
 	"icons": {
+		"16": "skin/icon-16.png",
 		"48": "skin/icon-48.png",
 		"128": "skin/icon.png"
 	},

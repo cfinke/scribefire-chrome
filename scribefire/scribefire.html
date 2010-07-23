@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="skin/widgets.css" />
 		<link rel="stylesheet" type="text/css" href="skin/style.css" />
 		<link rel="stylesheet" type="text/css" href="skin/facebox.css" />
+		<link rel="icon" type="image/png" href="skin/icon-16.png" />
 		<script type="text/javascript" src="util.js"></script>
 		<script type="text/javascript" src="xmlrpc.js"></script>
 		<script type="text/javascript" src="apis.js"></script>
@@ -178,7 +179,7 @@
 						<input type="number" id="text-timestamp-hour" size="3" style="border: 0;" placeholder="HH" min="00" max="23" />:<input type="number" id="text-timestamp-minute" size="3" style="border: 0;" placeholder="mm" min="00" max="59" />
 					</span>
 				</span>
-				<button id="button-publish" style="margin-left: 1em;">Publish Post</button>
+				<button id="button-publish" style="margin-left: 1em;">Send to Blog</button>
 			</div>
 		</div>
 		<div id="panel-inlinks" style="display: none;">
@@ -442,11 +443,11 @@
 					
 					if (!postId) {
 						$("#button-entry-remove").hide();
-						$("#button-publish").html("Publish Post");
+						$("#button-publish").html("Send to Blog");
 					}
 					else {
 						$("#button-entry-remove").show();
-						$("#button-publish").html("Publish Edited Post");
+						$("#button-publish").html("Send Edited Post to Blog");
 						
 						if (!$(this).attr("ignoreContent")) {
 							var entry = $(this).find("option:selected");
@@ -454,9 +455,11 @@
 							$("#text-title").val(entry.data("title")).change();
 							
 							editor.val(entry.data("content"));
-						
-							// $("#text-content").val(entry.data("content"));
-							$("#checkbox-draft").attr("checked", entry.data("published") == "false");
+							
+							console.log(entry.data("title"));
+							
+							$("#checkbox-draft").attr("checked", !entry.data("published"));
+							
 							$("#text-tags").val(entry.data("tags"));
 							
 							if (entry.data("timestamp") instanceof Date) {
@@ -669,14 +672,16 @@
 						function success(rv) {
 							button.removeClass("busy");
 							SCRIBEFIRE.notify(
-								"Post published successfully!", 
+								"Sent to blog successfully!", 
 								"Open blog in a new tab",
 								function (button) { 
+									var url = SCRIBEFIRE.getAPI().url;
+									
 									if (typeof chrome != 'undefined') {
-										chrome.tabs.create({ "url": rv.url });
+										chrome.tabs.create({ "url": url });
 									}
 									else {
-										window.open(rv.url);
+										window.open(url);
 									}
 								}
 							);
