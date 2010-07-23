@@ -52,7 +52,11 @@ jQuery(document).ready(function () {
 	
 	for (var id in persistence) {
 		for (var property in persistence[id]) {
-			$("#" + id).attr(property, persistence[id][property]);
+			try {
+				$("#" + id).attr(property, persistence[id][property]);
+			} catch (e) {
+				console.log(e);
+			}
 		}
 	}
 });
