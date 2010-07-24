@@ -2,7 +2,7 @@ var editor = {
 	val : function (new_val) {
 		if (typeof new_val != 'undefined') {
 			if (switchEditors.mode == 'tinymce') {
-				tinyMCE.get('text-content').setContent(new_val);
+				tinyMCE.get('text-content').setContent(switchEditors._wp_Autop(new_val));
 			}
 			else {
 				$("#text-content").val(switchEditors._wp_Nop(new_val));
