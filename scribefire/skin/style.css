@@ -6,13 +6,25 @@ a {
 	color: #00f;
 }
 
-.bar, .subbar {
+.bar, .subbar, .bar-fixed {
 	color: #5d5d5d;
 	font-weight: bold;
 	font-size: 12px;
 	padding: 2px 0 2px 20px;
 	border-top: #f3f3f3 1px solid;
 	text-shadow: 1px 1px #f5f5f5;
+}
+
+.bar-fixed {
+	padding-left: 8px;
+}
+
+html[platform='webkit'] .bar-fixed {
+	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); 
+}
+
+html[platform='gecko'] .bar-fixed {
+	background: -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1);
 }
 
 html[platform='webkit'] .bar, html[platform='webkit'] .subbar {
@@ -70,6 +82,7 @@ html[platform='gecko'] .bar[busy="true"] {
 	background-color: #fff;
 	padding: 10px;
 	display: none;
+	width: 100%;
 }
 
 .bar, .underbar, .subbar, .subunderbar {
@@ -126,7 +139,7 @@ html[platform='gecko'] .underbar[open="true"].flex-box, html[platform='webkit'] 
 	display: none;
 }
 
-.bar[open="true"] #editor-toggles {
+#editor-toggles {
 	display: block;
 }
 
