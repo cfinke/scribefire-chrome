@@ -551,20 +551,24 @@ $(document).ready(function () {
 			theme_advanced_buttons2 : "", theme_advanced_buttons3 : "", theme_advanced_buttons4 : "",
 			theme_advanced_toolbar_location : "top",
 			theme_advanced_toolbar_align : "left",
-			//theme_advanced_statusbar_location : "bottom",
-			theme_advanced_resizing : false,
+			theme_advanced_statusbar_location : "bottom",
+			theme_advanced_resizing : true,
 			more_colors_func : false,
 			
 			// Example content CSS (should be your site CSS)
 			content_css : "skin/editor_content.css",
 		});
 		
+		/*
 		adjustForSize();
 		
 		// We use .parent() here because putting an id on the element breaks the flex box model someho
 		$("#text-content").parent().resize();
+		*/
 	});
 	
+	
+	/*
 	$(window).resize(function () {
 		clearTimeout(resize_timeout);
 		
@@ -572,26 +576,30 @@ $(document).ready(function () {
 	});
 	
 	$("#text-content").parent().resize(function () {
-		if (switchEditors.mode == 'tinymce') {
-			if ("activeEditor" in tinyMCE && tinyMCE.activeEditor) {
-				tinyMCE.activeEditor.theme.resizeTo($("#text-content").parent().width() - 10, $("#text-content").parent().height() - 40);
+		clearTimeout(editor_resize_timeout);
+		
+		editor_resize_timeout = setTimeout(function () {
+			if (switchEditors.mode == 'tinymce') {
+				if ("activeEditor" in tinyMCE && tinyMCE.activeEditor) {
+					tinyMCE.activeEditor.theme.resizeTo($("#text-content").parent().width() - 10, $("#text-content").parent().height() - 40);
+				}
 			}
-		}
+		}, 100);
 	});
+	*/
 });
 
-tinyMCE.execCommand("mceRemoveControl", true, "text-content");
-
+/*
 var resize_timeout = null;
+var editor_resize_timeout = null;
 
 function adjustForSize() {
-	$("body").height( $(window).height() );
+//	$("body").height( $(window).height() );
 	
 	if (platform != "gecko") {
 	//	return;
 	}
 	
-	/*
 	var movableElementsTop = [ "entries", "blogs" ];
 	var movableElementsBottom = [ "categories", "tags" ];
 	
@@ -632,6 +640,5 @@ function adjustForSize() {
 	
 		$("#" + container).prepend(e);
 	}
-	
-	*/
 }
+*/

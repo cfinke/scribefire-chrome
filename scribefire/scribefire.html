@@ -21,20 +21,20 @@
 		<script type="text/javascript" src="lib/wordpress.js"></script>
 		<script type="text/javascript" src="migrate.js"></script>
 	</head>
-	<body class="flex-box flex-vertical">
+	<body>
 		<div id="ui-blogs">
 			<div class="bar" open="true" id="bar-blog">
 				<label>Blog: <span id="label-current-blog"></span></label>
 				<a href="#" style="float: right; padding-right: 1ex;" class="trap" id="link-help">HELP!</a>
 			</div>
 			<div class="underbar" open="true" id="underbar-blog">
-				<div>
-					<select id="list-blogs"></select>
+				<div class="flex-box">
+					<select id="list-blogs" class="flex-1"></select>
+					<button id="button-blog-remove" style="margin-left: 10px;">Remove</button>
 				</div>
 				<p>
 					<button id="button-blog-add">Add a New Blog</button>
-					<button id="button-blog-remove">Remove</button>
-					<button id="button-inlinks">$$$</button>
+					<button id="button-inlinks">Make money with this blog</button>
 				</p>
 				<div id="dialog-blog-add" style="display:none;">
 					<div class="step-1">
@@ -147,7 +147,7 @@
 				<input type="text" id="text-tags" placeholder="Comma-separated"/>
 			</div>
 		</div>
-		<div id="ui-publish" class="flex-box flex-vertical">
+		<div id="ui-publish"><!-- class="flex-box flex-vertical">-->
 			<div class="bar" open="true" id="bar-publish">
 				<label>Publish</label>
 			</div>
@@ -178,8 +178,8 @@
 		<div id="panel-inlinks" style="display: none;">
 			<image src="skin/inlinks.png" />
 
-			<p>ScribeFire has partnered with <a href="http://www.inlinks.com/?ref=240364" target="_blank">InLinks.com</a> to provide you with an easy-to-use monetization solution for your blog. Out of the blogs you have set up in ScribeFire, the following may be compatible with InLinks:</p>
-			<ul id="list-inlinks-blogs"></ul>
+			<p>ScribeFire has partnered with <a href="http://www.inlinks.com/?ref=240364" target="_blank">InLinks.com</a> to provide you with an easy-to-use monetization solution for your blog.</p>
+			
 
 			<h3>What are InLinks?</h3>
 			<p>InLinks are static HTML advertisements located within content areas of websites.  It is simply the most natural paid link on the market.  The benefits for you are:</p>
@@ -190,6 +190,9 @@
 				<li>Blog-friendly. Install our simple plugin and we take care of the rest.  Just sit back and collect your monthly earnings.</li>
 			</ul>
 
+			<p>Out of the blogs you have set up in ScribeFire, the following may be compatible with InLinks:</p>
+			<ul id="list-inlinks-blogs"></ul>
+			
 			<p>(For now, InLinks only works on blogs using Wordpress.org, Drupal, or MovableType.)</p>
 			<p><a href="http://www.inlinks.com/?ref=240364" target="_blank">Visit InLinks.com</a> to download the InLinks plugin and start earning money on your blogs today!</p>
 		</div>

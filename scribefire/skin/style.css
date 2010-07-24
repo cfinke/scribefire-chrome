@@ -82,7 +82,6 @@ html[platform='gecko'] .bar[busy="true"] {
 	background-color: #fff;
 	padding: 10px;
 	display: none;
-	width: 100%;
 }
 
 .bar, .underbar, .subbar, .subunderbar {
@@ -129,10 +128,6 @@ html[platform='gecko'] .underbar[open="true"].flex-box, html[platform='webkit'] 
 	position: absolute;
 	right: 20px;
 	top: 0px;
-}
-
-#button-inlinks {
-	float: right;
 }
 
 #editor-toggles {
