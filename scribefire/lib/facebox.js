@@ -135,7 +135,7 @@
         append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
 
       $('#facebox').css({
-        top:	getPageScroll()[1] + Math.round(getPageHeight() / 5),
+        top:	50,//getPageScroll()[1] + Math.round(getPageHeight() / 5),
         left:	385.5
       }).show()
 
