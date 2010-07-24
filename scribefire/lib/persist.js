@@ -2,6 +2,18 @@ jQuery.fn.persist = function (property) {
 	return this.each(function () {
 		if (platform == 'gecko') {
 			// @see https://bugzilla.mozilla.org/show_bug.cgi?id=495747
+			var id = $(this).attr("id");
+
+			var persistence = SCRIBEFIRE.prefs.getJSONPref("persist", {});
+			
+			if (!(id in persistence)) {
+				persistence[id] = {};
+			}
+			
+			persistence[id][property] = $(this).attr(property);
+			
+			SCRIBEFIRE.prefs.setJSONPref("persist", persistence);
+			
 			return;
 		}
 		
@@ -33,6 +45,19 @@ jQuery.fn.persist = function (property) {
 jQuery(document).ready(function () {
 	if (platform == 'gecko') {
 		// @see https://bugzilla.mozilla.org/show_bug.cgi?id=495747
+		
+		var persistence = SCRIBEFIRE.prefs.getJSONPref("persist", {});
+		
+		for (var id in persistence) {
+			for (var property in persistence[id]) {
+				try {
+					$("#" + id).attr(property, persistence[id][property]);
+				} catch (e) {
+					console.log(e);
+				}
+			}
+		}
+		
 		return;
 	}
 	
