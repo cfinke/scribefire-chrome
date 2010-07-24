@@ -35,7 +35,7 @@ var LinkDialog = {
 
 		tinyMCEPopup.restoreSelection();
 		e = ed.dom.getParent(ed.selection.getNode(), 'A');
-		console.log(ed);
+		//console.log(ed);
 		
 		// Remove element if there is no href
 		if (!f.href.value) {

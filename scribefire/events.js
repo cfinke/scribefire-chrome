@@ -254,7 +254,7 @@ $(document).ready(function () {
 				
 				editor.val(entry.data("content"));
 				
-				console.log(entry.data("title"));
+				//console.log(entry.data("title"));
 				
 				$("#checkbox-draft").attr("checked", !entry.data("published"));
 				
@@ -271,13 +271,28 @@ $(document).ready(function () {
 					$("#toggle-schedule-scheduled").hide();
 				}
 				
-				$("#text-slug").val(entry.data("slug")).change();
+				$("#text-slug").val(entry.data("slug"));
 				$("#checkbox-private").attr("checked", entry.data("private"));
 				
 				SCRIBEFIRE.getAPI().getPostCategories(
 					{ "id" : postId },
-					function success (categories) {
-						$("#list-categories").val(categories).change();
+					function success (categories, key) {
+						if (key == "value") {
+							$("#list-categories").val(categories).change();
+						}
+						else {
+							var vals = [];
+							
+							for (var i = 0; i < categories.length; i++) {
+								var val = $("#list-categories option[categoryId='"+categories[i]+"']").attr("value");
+								
+								if (val) {
+									vals.push(val);
+								}
+							}
+							
+							$("#list-categories").val(vals).change();
+						}
 					},
 					function failure(rv) {
 						rv.func = "getPostCategories";
@@ -317,10 +332,8 @@ $(document).ready(function () {
 		$("#text-blog-password").val("");
 		$("#text-addblog-id").val("").change();
 		
-		$("#dialog-blog-add .step-2 .subbar").attr("open", "false");
-		$("#dialog-blog-add .step-2 .subunderbar").attr("open", "false");
-		$("#dialog-blog-add .step-2").find("input, select");
-		$("#dialog-blog-add .step-2 .subunderbar").hide();
+		$("#dialog-blog-add .subbar[open='true']").click();
+		$("#bar-add-blog-url").click();
 		
 		$("#text-blog-url").focus();
 	});
@@ -387,6 +400,12 @@ $(document).ready(function () {
 				// Collapse the API URL container.
 				$("#bar-add-blog-url, #bar-add-blog-type, #bar-add-blog-apiurl").each(function () {
 					if ($(this).attr("open") == "true") {
+						$(this).click();
+					}
+				});
+				
+				$("#bar-add-blog-credentials").each(function () {
+					if (!$(this).attr("open") || $(this).attr("open") == "false") {
 						$(this).click();
 					}
 				});

@@ -56,8 +56,8 @@ var XMLRPC_LIB = {
 						}
 					}
 					else {
-						var parsedObject = XMLRPC_LIB.XMLToObject(jDoc.find("fault:first > value:first > *")[0]);
-					
+						var parsedObject = XMLRPC_LIB.XMLToObject(jDoc.find("fault:first > value:first > *:first"));
+						
 						if (callbackFailure) {
 							callbackFailure(parsedObject.faultCode, parsedObject.faultString);
 						}

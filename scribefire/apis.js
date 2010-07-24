@@ -45,6 +45,7 @@ function getBlogAPI(type, apiUrl) {
 var blogAPI = function () {
 	this.ui = {};
 	this.ui.categories = true;
+	this.ui["add-category"] = true;
 	this.ui.tags = true;
 	this.ui.draft = true;
 	this.ui.deleteEntry = true;	
@@ -139,7 +140,7 @@ blogAPI.prototype = {
 	},
 	
 	getPostCategories : function (params, success, failure) {
-		success($("#list-entries option[value='"+params.id+"']:first").data("categories"));
+		success($("#list-entries option[value='"+params.id+"']:first").data("categories"), "value");
 	}
 };
 
@@ -391,6 +392,7 @@ genericMetaWeblogAPI.prototype = new blogAPI();
 
 var genericMovableTypeAPI = function () {
 	this.ui.categories = true;
+	this.ui["add-category"] = false;
 	
 	this.publish = function (params, success, failure) {
 		// MovableType is hacky about publishing and categories.
@@ -413,9 +415,23 @@ var genericMovableTypeAPI = function () {
 					var postId = rv;
 				}
 				
+				var categories = [];
+				
+				$("#list-categories option").each(function () {
+					var value = $(this).attr("value");
+					var categoryId = $(this).attr("categoryId");
+					
+					for (var i = 0; i < params.categories.length; i++) {
+						if (params.categories[i] == value) {
+							categories.push( categoryId );
+							break;
+						}
+					}
+				});
+				
 				var newParams = {
 					"id": postId,
-					"categories": params.categories
+					"categories": categories
 				};
 				
 				self.setCategories(newParams,
@@ -430,8 +446,8 @@ var genericMovableTypeAPI = function () {
 							}
 						);
 					},
-					function categoryFailure(status, msg) {
-						failure({"status": status, "msg": msg});
+					function categoryFailure(rv) {
+						failure(rv);
 					}
 				);
 			},
@@ -479,7 +495,8 @@ var genericMovableTypeAPI = function () {
 		var args = [this.apiUrl, params.id, this.username, this.password, categories];
 		
 		var xml = performancingAPICalls.mt_setPostCategories(args);
-		
+		//console.log("settingg cats");
+		//console.log(xml);
 		XMLRPC_LIB.doCommand(
 			this.apiUrl,
 			xml, 
@@ -512,7 +529,7 @@ var genericMovableTypeAPI = function () {
 						categories.push(rv[i].categoryId);
 					}
 					
-					success(categories);
+					success(categories, "categoryId");
 				}
 			},
 			function (status, msg) {

@@ -6215,9 +6215,9 @@ window.tinymce.dom.Sizzle = Sizzle;
 			});
 			t.validElementsRE = new RegExp('^(' + wildcardToRE(s.toLowerCase()) + ')$');
 
-			//console.debug(t.validElementsRE.toString());
-			//console.dir(t.rules);
-			//console.dir(t.wildRules);
+			console.debug(t.validElementsRE.toString());
+			console.dir(t.rules);
+			console.dir(t.wildRules);
 		},
 
 		findRule : function(n) {
@@ -12101,7 +12101,7 @@ tinymce.create('tinymce.ui.Toolbar:tinymce.ui.Container', {
 			try {
 				ra.setEndAfter(ec);
 			} catch(ex) {
-				//console.debug(s.focusNode, s.focusOffset);
+				console.debug(s.focusNode, s.focusOffset);
 			}
 
 			ra.setStart(en, eo);
@@ -12205,7 +12205,7 @@ tinymce.create('tinymce.ui.Toolbar:tinymce.ui.Container', {
 			// Is element within viewport
 			if (y < vp.y || y + ch > vp.y + vp.h) {
 				ed.getWin().scrollTo(0, y < vp.y ? y : y - vp.h + 25); // Needs to be hardcoded to roughly one line of text if a huge text block is broken into two blocks
-				//console.debug('SCROLL!', 'vp.y: ' + vp.y, 'y' + y, 'vp.h' + vp.h, 'clientHeight' + aft.clientHeight, 'yyy: ' + (y < vp.y ? y : y - vp.h + aft.clientHeight));
+				console.debug('SCROLL!', 'vp.y: ' + vp.y, 'y' + y, 'vp.h' + vp.h, 'clientHeight' + aft.clientHeight, 'yyy: ' + (y < vp.y ? y : y - vp.h + aft.clientHeight));
 			}
 
 			return FALSE;
