@@ -572,8 +572,14 @@ $(document).ready(function () {
 		SCRIBEFIRE.addCustomField(custom_fields[i].id, custom_fields[i].key, custom_fields[i].value);
 	}
 	
+	$(".custom_field input[name='key']").live("focus", function () {
+		$(this).autocomplete(customFieldAutocompleteData);
+	});
+	
 	$("#text-tags").val(SCRIBEFIRE.prefs.getCharPref("state.tags"));
 	SCRIBEFIRE.prefs.setCharPref("state.tags", "");
+	
+	$("#text-tags").autocomplete(tagsAutocompleteData);
 	
 	SCRIBEFIRE.load();
 	
@@ -630,6 +636,43 @@ $(document).ready(function () {
 	});
 	*/
 });
+
+var customFieldAutocompleteData = {
+	minLength : 0,
+	
+	source : function (request, response) {
+		var toMatch = request.term;
+		
+		response($.ui.autocomplete.filter(SCRIBEFIRE.getAPI().custom_field_keys, toMatch));
+	}
+};
+
+var tagsAutocompleteData = {
+	minLength : 0,
+	source : function (request, response) {
+		var toMatch = "";
+		
+		if (request.term) {
+			toMatch = request.term.split(/,\s*/).pop();
+		}
+		
+		response($.ui.autocomplete.filter(SCRIBEFIRE.getAPI().tags, toMatch));
+	},
+	focus : function () {
+		return false;
+	},
+	select: function(event, ui) {
+		var terms = this.value.split(/,\s*/);
+		// remove the current input
+		terms.pop();
+		// add the selected item
+		terms.push( ui.item.value );
+		// add placeholder to get the comma-and-space at the end
+		terms.push("");
+		this.value = terms.join(", ");
+		return false;
+	}
+};
 
 /*
 var resize_timeout = null;
