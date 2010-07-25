@@ -193,6 +193,10 @@ var SCRIBEFIRE = {
 		});
 	},
 	
+	blogThis : function (html) {
+		// @todo
+	},
+	
 	populateBlogsList : function () {
 		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 		

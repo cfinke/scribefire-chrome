@@ -10,10 +10,10 @@ var editor = {
 		}
 		else {
 			if (switchEditors.mode == 'tinymce') {
-				return tinyMCE.get('text-content').getContent();
+				return tinyMCE.get('text-content').getContent().replace(/^\s+|\s+$/g, "");
 			}
 			else {
-				return switchEditors._wp_Autop($("#text-content").val());
+				return switchEditors._wp_Autop($("#text-content").val().replace(/^\s+|\s+$/g, ""));
 			}
 		}
 	}
@@ -584,8 +584,20 @@ $(document).ready(function () {
 	SCRIBEFIRE.load();
 	
 	$(window).load(function () {
-		$("#text-content").val(SCRIBEFIRE.prefs.getCharPref("state.content"));
+		var editorContent = SCRIBEFIRE.prefs.getCharPref("state.content");
 		SCRIBEFIRE.prefs.setCharPref("state.content", "");
+		
+		var blogThisText = "";
+		
+		if (blogThisText = SCRIBEFIRE.prefs.getCharPref("blogThis")) {
+			editorContent += blogThisText;
+			
+			SCRIBEFIRE.prefs.setCharPref("blogThis", "");
+		}
+		
+		editorContent = editorContent.replace(/^\s+|\s+$/g, "");
+		
+		$("#text-content").val(editorContent);
 		
 		tinyMCE.init({
 			// General options
