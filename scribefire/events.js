@@ -643,7 +643,7 @@ var customFieldAutocompleteData = {
 	source : function (request, response) {
 		var toMatch = request.term;
 		
-		response($.ui.autocomplete.filter(SCRIBEFIRE.getAPI().custom_field_keys, toMatch));
+		response($.ui.autocomplete.filter(SCRIBEFIRE.autocomplete.custom_field_keys, toMatch));
 	}
 };
 
@@ -656,7 +656,7 @@ var tagsAutocompleteData = {
 			toMatch = request.term.split(/,\s*/).pop();
 		}
 		
-		response($.ui.autocomplete.filter(SCRIBEFIRE.getAPI().tags, toMatch));
+		response($.ui.autocomplete.filter(SCRIBEFIRE.autocomplete.tags, toMatch));
 	},
 	focus : function () {
 		return false;

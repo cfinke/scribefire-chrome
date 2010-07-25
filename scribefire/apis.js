@@ -151,8 +151,6 @@ var genericMetaWeblogAPI = function () {
 	this.ui.slug = true;
 	this.ui.upload = (typeof Components != 'undefined');
 	
-	this.custom_field_keys = [];
-	
 	this.getBlogs = function (params, success, failure) {
 		// How safe is it to assume that MetaWeblog APIs implement the blogger_ methods?
 		
@@ -201,9 +199,6 @@ var genericMetaWeblogAPI = function () {
 		
 		var xml = performancingAPICalls.metaWeblog_getRecentPosts(args);
 		
-		var self = this;
-		self.custom_field_keys = [];
-		
 		XMLRPC_LIB.doCommand(
 			this.apiUrl,
 			xml, 
@@ -241,23 +236,6 @@ var genericMetaWeblogAPI = function () {
 							delete rv[i].dateCreated;
 						}
 						
-						if ("custom_fields" in rv[i]) {
-							// Nothing special to do; just cache the keys for autocomplete.
-							outerLoop : for (var j = 0; j < rv[i].custom_fields.length; j++) {
-								var custom_field_key = rv[i].custom_fields[j].key;
-								
-								if (custom_field_key[0] == "_") continue;
-								
-								for (var jj = 0; jj < self.custom_field_keys.length; jj++) {
-									if (self.custom_field_keys[jj] == custom_field_key) {
-										continue outerLoop;
-									}
-								}
-								
-								self.custom_field_keys.push(custom_field_key);
-							}
-						}
-						
 						delete rv[i].postid;
 						delete rv[i].mt_keywords;
 						delete rv[i].post_status;
@@ -265,7 +243,7 @@ var genericMetaWeblogAPI = function () {
 						delete rv[i].description;
 						delete rv[i].permaLink;
 					}
-
+					
 					success(rv);
 				}
 			},

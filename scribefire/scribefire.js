@@ -1,4 +1,9 @@
 var SCRIBEFIRE = {
+	autocomplete : {
+		tags : [],
+		custom_field_keys : []
+	},
+	
 	prefs : {
 		namespace : "extensions.scribefire.",
 		
@@ -249,10 +254,17 @@ var SCRIBEFIRE = {
 		
 		$("#bar-entries").attr("busy", "true");
 		
+		for (var i in SCRIBEFIRE.autocomplete) {
+			SCRIBEFIRE.autocomplete[i] = [];
+		}
+		
 		SCRIBEFIRE.getAPI().getPosts(
 			{ },
 			function success(rv) {
 				$("#list-entries").attr("ignoreContent", "true");
+				
+				var tags = [];
+				var custom_field_keys = [];
 				
 				var selectedEntry = SCRIBEFIRE.prefs.getCharPref("state.entryId");
 				
@@ -271,8 +283,33 @@ var SCRIBEFIRE = {
 						SCRIBEFIRE.prefs.setCharPref("state.entryId", "");
 					}
 					
+					if ("tags" in rv[i]) {
+						var tag_parts = rv[i].tags.split(",");
+						
+						for (var j = 0; j < tag_parts.length; j++) {
+							var tag = tag_parts[j].replace(/^\s+|\s+$/g, "");
+
+							if (tag) {
+								tags.push(tag);
+							}
+						}
+					}
+					
+					if ("custom_fields" in rv[i]) {
+						for (var j = 0; j < rv[i].custom_fields.length; j++) {
+							var custom_field_key = rv[i].custom_fields[j].key;
+							
+							if (custom_field_key[0] == "_") continue;
+							
+							custom_field_keys.push(custom_field_key);
+						}
+					}
+					
 					$("#list-entries").append(entry);
 				}
+				
+				SCRIBEFIRE.autocomplete.tags = tags.unique();
+				SCRIBEFIRE.autocomplete.custom_field_keys = custom_field_keys.unique();
 				
 				$("#list-entries").change();
 				$("#list-entries").removeAttr("ignoreContent")
