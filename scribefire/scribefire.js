@@ -194,7 +194,7 @@ var SCRIBEFIRE = {
 	},
 	
 	blogThis : function (html) {
-		// @todo
+		editor.val(editor.val() + html);
 	},
 	
 	populateBlogsList : function () {
