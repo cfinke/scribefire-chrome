@@ -6,6 +6,10 @@ body {
 	margin: 0;
 }
 
+html[platform='gecko'] body {
+	width: 99.9%;
+}
+
 td {
 	vertical-align: top;
 }
@@ -18,6 +22,9 @@ html[platform='webkit'] .flex-box {
 html[platform='gecko'] .flex-box {
 	display: -moz-box;
 	-moz-box-orient: horizontal;
+	width: 100%;
+	padding: 0;
+	margin: 0;
 }
 
 .flex-box > * {

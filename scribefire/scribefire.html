@@ -105,11 +105,13 @@
 			<div class="bar" id="bar-entries">
 				<label>Entry: <span id="label-current-entry"></span></label>
 			</div>
-			<div class="underbar flex-box" id="underbar-entries">
-				<select id="list-entries" class="flex-1" style="display: block;"><option value="">(new)</option></select>
-				<span id="ui-deleteEntry" style="display: block; margin-left: 10px;">
-					<button id="button-entry-remove" style="display: none;">Delete Post</button>
-				</span>
+			<div class="underbar" id="underbar-entries">
+				<div class="flex-box">
+					<select id="list-entries" class="flex-1" style="display: block;"><option value="">(new)</option></select>
+					<span id="ui-deleteEntry" style="display: block; margin-left: 10px;">
+						<button id="button-entry-remove" style="display: none;">Delete Post</button>
+					</span>
+				</div>
 			</div>
 		</div>
 		<div id="ui-title">
@@ -120,7 +122,7 @@
 				<input type="text" id="text-title" />
 			</div>
 		</div>
-		<div id="ui-content" class="flex-box flex-vertical flex-1" style="min-height: 300px;">
+		<div id="ui-content">
 			<div class="bar-fixed" open="true" id="bar-content">
 				<label>Post Content</label>
 				<div id="editor-toggles" style="float: right; padding-right: 1ex; cursor: pointer;" class="trap">
@@ -128,7 +130,7 @@
 					<a id="edButtonPreview" style="display: none;" onclick="event.stopPropagation(); switchEditors.go('text-content', 'tinymce');">Switch to Visual Editor</a>
 				</div>
 			</div>
-			<div class="underbar flex-box flex-vertical flex-1" open="true">
+			<div class="underbar" open="true">
 				<textarea rows="10" name="text-content" id="text-content" class="flex-1" style="margin-bottom: 40px;"></textarea>
 			</div>
 		</div>

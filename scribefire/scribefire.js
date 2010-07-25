@@ -757,6 +757,8 @@ var SCRIBEFIRE = {
 		
 		editor.val('');
 		
+		SCRIBEFIRE.clearCustomFields();
+		
 		$("#button-publish").html("Send to Blog");
 	},
 	
