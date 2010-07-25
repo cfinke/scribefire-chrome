@@ -146,3 +146,17 @@ html[platform='gecko'] .underbar[open="true"].flex-box, html[platform='webkit'] 
 #sidebar {
 	border-left: #d1d1d1 2px solid;
 }
+
+#custom-fields input {
+	width: 30%;
+	float: left;
+}
+
+#custom-fields textarea {
+	width: 65%;
+	margin-left: 1%;
+}
+
+#custom-fields > div {
+	clear: both;
+}

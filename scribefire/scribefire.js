@@ -287,6 +287,51 @@ var SCRIBEFIRE = {
 		);
 	},
 	
+	clearCustomFields : function () {
+		var template = $(".custom_field:first").clone(true);
+		template.find("input, textarea").val("");
+		
+		$(".custom_field").remove();
+		
+		$("#custom-fields").append(template);
+	},
+	
+	addCustomField : function (id, key, val, force) {
+		if (key && key[0] == "_") return;
+		
+		var template = $(".custom_field:first").clone(true);
+		template.find("input, textarea").val("");
+		template.find("*[name='id']").val(id);
+		template.find("*[name='key']").val(key);
+		template.find("*[name='value']").val(val);
+		
+		if (!force && $(".custom_field").length == 1 && !$(".custom_field:first *[name='key']").val() && !$(".custom_field:first *[name='value']").val()) {
+			$(".custom_field:first").remove();
+		}
+		
+		$("#custom-fields").append(template);
+	},
+	
+	getCustomFields : function (fullSet) {
+		var custom_fields = [];
+		
+		$(".custom_field").each(function () { 
+			var field = { };
+			field.id = $(this).find("*[name='id']").val();
+			
+			if (!field.id) delete field.id;
+			
+			field.key = $(this).find("*[name='key']").val();
+			field.value = $(this).find("*[name='value']").val();
+			
+			if (field.key || fullSet) {
+				custom_fields.push(field);
+			}
+		});
+		
+		return custom_fields;
+	},
+	
 	deletePost : function (postId, callbackSuccess, callbackFailure) {
 		var params = { "id": postId };
 		
@@ -587,6 +632,8 @@ var SCRIBEFIRE = {
 		params.draft = $("#checkbox-draft").is(":checked");
 		params.slug = $("#text-slug").val();
 		params.private = $("#checkbox-private").is(":checked");
+		
+		params.custom_fields = SCRIBEFIRE.getCustomFields();
 		
 		if ($("#toggle-schedule-scheduled").is(":visible")) {
 			var timestamp = getTimestamp();

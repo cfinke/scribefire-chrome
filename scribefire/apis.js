@@ -54,6 +54,7 @@ var blogAPI = function () {
 	this.ui.private = false;
 	this.ui["text-content_wp_more"] = false;
 	this.ui.upload = false;
+	this.ui["custom-fields"] = false;
 };
 
 blogAPI.prototype = {
@@ -304,6 +305,10 @@ var genericMetaWeblogAPI = function () {
 		else {
 			var publish = "bool1";
 		}
+		
+		if ("custom_fields" in params) {
+			contentStruct.custom_fields = params.custom_fields;
+		}
 
 		if (("id" in params) && params.id) {
 			var args = [this.apiUrl, params.id, this.username, this.password, contentStruct, publish];
@@ -313,7 +318,7 @@ var genericMetaWeblogAPI = function () {
 			var args = [this.apiUrl, this.id, this.username, this.password, contentStruct, publish];
 			var xml = performancingAPICalls.metaWeblog_newPost(args);
 		}
-
+		
 		XMLRPC_LIB.doCommand(
 			this.apiUrl,
 			xml, 
@@ -569,6 +574,7 @@ var wordpressAPI = function () {
 	this.ui.slug = true;
 	this.ui.private = true;
 	this.ui["text-content_wp_more"] = true;
+	this.ui["custom-fields"] = true;
 	
 	this.publish = function (params, success, failure) {
 		// Some Wordpress plugins apparently rely on linebreaks being \n and not <br />. This is dumb.

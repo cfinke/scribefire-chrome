@@ -254,8 +254,6 @@ $(document).ready(function () {
 				
 				editor.val(entry.data("content"));
 				
-				//console.log(entry.data("title"));
-				
 				$("#checkbox-draft").attr("checked", !entry.data("published"));
 				
 				$("#text-tags").val(entry.data("tags"));
@@ -273,6 +271,14 @@ $(document).ready(function () {
 				
 				$("#text-slug").val(entry.data("slug"));
 				$("#checkbox-private").attr("checked", entry.data("private"));
+				
+				SCRIBEFIRE.clearCustomFields();
+				
+				if (custom_fields = entry.data("custom_fields")) {
+					for (var i = 0; i < custom_fields.length; i++) {
+						SCRIBEFIRE.addCustomField(custom_fields[i].id, custom_fields[i].key, custom_fields[i].value);
+					}
+				}
 				
 				SCRIBEFIRE.getAPI().getPostCategories(
 					{ "id" : postId },
@@ -515,6 +521,12 @@ $(document).ready(function () {
 		$("#panel-inlinks").show();
 	});
 	
+	$("#button-add-custom-field").live("click", function (e) {
+		e.preventDefault();
+		
+		SCRIBEFIRE.addCustomField(null, null, null, true);
+	});
+	
 	$(window).bind("beforeunload", function (e) {
 		// Grab all of the input values for state persistence.
 		SCRIBEFIRE.prefs.setCharPref("state.entryId", $("#list-entries").val());
@@ -525,6 +537,7 @@ $(document).ready(function () {
 		SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#checkbox-draft").is(":checked"));
 		SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());
 		SCRIBEFIRE.prefs.setCharPref("state.slug", $("#text-slug").val());
+		SCRIBEFIRE.prefs.setJSONPref("state.customFields", SCRIBEFIRE.getCustomFields(true));
 	});
 	
 	$("#text-title").val(SCRIBEFIRE.prefs.getCharPref("state.title"));
@@ -551,6 +564,16 @@ $(document).ready(function () {
 	
 	$("#text-slug").val(SCRIBEFIRE.prefs.getCharPref("state.slug")).change();
 	SCRIBEFIRE.prefs.setCharPref("state.slug", "");
+	
+	var custom_fields = SCRIBEFIRE.prefs.getJSONPref("state.customFields", []);
+	SCRIBEFIRE.prefs.setJSONPref("state.customFields", []);
+	
+	for (var i = 0; i < custom_fields.length; i++) {
+		SCRIBEFIRE.addCustomField(custom_fields[i].id, custom_fields[i].key, custom_fields[i].value);
+	}
+	
+	$("#text-tags").val(SCRIBEFIRE.prefs.getCharPref("state.tags"));
+	SCRIBEFIRE.prefs.setCharPref("state.tags", "");
 	
 	SCRIBEFIRE.load();
 	
