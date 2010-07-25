@@ -26,8 +26,7 @@ var SCRIBEFIRE = {
 				var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch(this.namespace);
 				
 				try {
-					var rv = prefs.getCharPref(prefName);
-					return rv;
+					return prefs.getComplexValue(prefName, Components.interfaces.nsISupportsString).data;
 				} catch (e) {
 					return null;
 				}
@@ -84,8 +83,11 @@ var SCRIBEFIRE = {
 				if (typeof Components != 'undefined') {
 					var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch(this.namespace);
 					
+					var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+					str.data = prefVal;
+					
 					try {
-						prefs.setCharPref(prefName, prefVal);
+						prefs.setComplexValue(prefName, Components.interfaces.nsISupportsString, str);
 					} catch (e) {
 						alert("Invalid pref: " + prefName + " " + prefVal);
 					}
