@@ -7,7 +7,7 @@ body {
 }
 
 html[platform='gecko'] body {
-	width: 99.9%;
+	width: 100;
 }
 
 td {
@@ -45,6 +45,7 @@ html[platform='webkit'] *[flex="1"] {
 
 html[platform='gecko'] *[flex="1"] {
 	-moz-box-flex: 1;
+	width: 99%;
 }
 
 html[platform='webkit'] *[flex="0"] {

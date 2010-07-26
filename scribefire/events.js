@@ -622,7 +622,7 @@ $(document).ready(function () {
 		adjustForSize();
 		
 		// We use .parent() here because putting an id on the element breaks the flex box model someho
-		$("#text-content").parent().resize();
+		// $("#text-content").parent().resize();
 	});
 	
 	$(window).resize(function () {
@@ -631,6 +631,7 @@ $(document).ready(function () {
 		resize_timeout = setTimeout(adjustForSize, 100);
 	});
 	
+	/*
 	$("#text-content").parent().resize(function () {
 		clearTimeout(editor_resize_timeout);
 		
@@ -643,6 +644,7 @@ $(document).ready(function () {
 			}
 		}, 100);
 	});
+	*/
 });
 
 var customFieldAutocompleteData = {
@@ -683,11 +685,12 @@ var tagsAutocompleteData = {
 };
 
 var resize_timeout = null;
-var editor_resize_timeout = null;
+// var editor_resize_timeout = null;
 
 function adjustForSize() {
-//	$("body").width( $(window).width() ).height( Math.max( $("body").height(), $(window).height() ));
+	$("body").width( $(window).width() - 3 );//.height( Math.max( $("body").height(), $(window).height() ));
 	
+	return;
 	if (platform != "gecko") {
 	//	return;
 	}
