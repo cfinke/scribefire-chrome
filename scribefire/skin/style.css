@@ -92,15 +92,15 @@ html[platform='gecko'] .bar[busy="true"] {
 	display: block;
 }
 
-html[platform='webkit'] .underbar[open="true"].flex-box, html[platform='webkit'] .subunderbar[open="true"].flex-box {
+html[platform='webkit'] .underbar[open="true"][orient], html[platform='webkit'] .subunderbar[open="true"][orient] {
 	display: -webkit-box;
 }
 
-.underbar[open="false"].flex-box, .subunderbar[open="false"].flex-box {
+.underbar[open="false"][orient], .subunderbar[open="false"][orient] {
 	display: none;
 }
 
-html[platform='gecko'] .underbar[open="true"].flex-box, html[platform='webkit'] .subunderbar[open="true"].flex-box {
+html[platform='gecko'] .underbar[open="true"][orient], html[platform='webkit'] .subunderbar[open="true"][orient] {
 	display: -moz-box;
 }
 

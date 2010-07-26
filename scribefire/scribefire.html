@@ -24,179 +24,194 @@
 		<script type="text/javascript" src="migrate.js"></script>
 	</head>
 	<body>
-		<div id="ui-blogs">
-			<div class="bar" open="true" id="bar-blog">
-				<label>Blog: <span id="label-current-blog"></span></label>
-				<a href="#" style="float: right; padding-right: 1ex;" class="trap" id="link-help">HELP!</a>
-			</div>
-			<div class="underbar" open="true" id="underbar-blog">
-				<div class="flex-box">
-					<select id="list-blogs" class="flex-1"></select>
-					<button id="button-blog-remove" style="margin-left: 10px;">Remove</button>
-				</div>
-				<p>
-					<button id="button-blog-add">Add a New Blog</button>
-					<button id="button-inlinks">Make money with this blog</button>
-				</p>
-				<div id="dialog-blog-add" style="display:none;">
-					<div class="step-1">
-						<div id="bar-add-blog-url" class="subbar" open="true">
-							<label>URL: <span id="label-add-blog-url"></span></label>
+		<div orient="vertical">
+			<div orient="horizontal" flex="1">
+				<div id="main" flex="1">
+					<div id="ui-blogs">
+						<div class="bar" open="true" id="bar-blog">
+							<label>Blog: <span id="label-current-blog"></span></label>
+							<a href="#" style="float: right; padding-right: 1ex;" class="trap" id="link-help">HELP!</a>
 						</div>
-						<div class="subunderbar" open="true">
-							<input type="url" id="text-blog-url" accept="button-blog-urlcheck" cancel="button-addblog-cancel" />
-							<p>
-								<button id="button-blog-urlcheck">Next</button>
-								<button id="button-addblog-cancel">Cancel</button>
-							</p>
-						</div>
-					</div>
-					<div class="step-2">
-						<div id="bar-add-blog-type" class="subbar">
-							<label>Blog Type: <span id="label-add-blog-type"></span></label>
-						</div>
-						<div class="subunderbar">
-							<select id="list-blog-types">
-								<option vlaue="">(select)</option>
-								<option value="atom">Atom</option>
-								<option value="blogger">Blogger</option>
-								<option value="wordpress">Wordpress</option>
-								<option value="tumblr">Tumblr</option>
-								<option value="metaweblog" requires_id="true">MetaWeblog</option>
-								<option value="movabletype" requires_id="true">MovableType</option>
-								<option value="posterous">Posterous</option>
-							</select>
-						</div>
-					</div>
-					<div class="step-2">
-						<div id="bar-add-blog-apiurl" class="subbar">
-							<label>API URL: <span id="label-add-blog-apiurl"></span></label>
-						</div>
-						<div class="subunderbar">
-							<input type="url" id="text-blog-api-url" value="" />
-						</div>
-						<div id="text-add-blog-id-container" style="display: none;">
-							<div id="bar-add-blog-id" class="subbar">
-								<label>Blog ID: <span id="label-add-blog-blogid"></span><label>
+						<div class="underbar" open="true" id="underbar-blog">
+							<div orient="horizontal">
+								<select id="list-blogs" flex="1"></select>
+								<button id="button-blog-remove" style="margin-left: 10px;">Remove</button>
 							</div>
-							<div class="subunderbar">
-								<input type="text" id="text-addblog-id" />
+							<p>
+								<button id="button-blog-add">Add a New Blog</button>
+								<button id="button-inlinks">Make money with this blog</button>
+							</p>
+							<div id="dialog-blog-add" style="display:none;">
+								<div class="step-1">
+									<div id="bar-add-blog-url" class="subbar" open="true">
+										<label>URL: <span id="label-add-blog-url"></span></label>
+									</div>
+									<div class="subunderbar" open="true">
+										<input type="url" id="text-blog-url" accept="button-blog-urlcheck" cancel="button-addblog-cancel" />
+										<p>
+											<button id="button-blog-urlcheck">Next</button>
+											<button id="button-addblog-cancel">Cancel</button>
+										</p>
+									</div>
+								</div>
+								<div class="step-2">
+									<div id="bar-add-blog-type" class="subbar">
+										<label>Blog Type: <span id="label-add-blog-type"></span></label>
+									</div>
+									<div class="subunderbar">
+										<select id="list-blog-types">
+											<option vlaue="">(select)</option>
+											<option value="atom">Atom</option>
+											<option value="blogger">Blogger</option>
+											<option value="wordpress">Wordpress</option>
+											<option value="tumblr">Tumblr</option>
+											<option value="metaweblog" requires_id="true">MetaWeblog</option>
+											<option value="movabletype" requires_id="true">MovableType</option>
+											<option value="posterous">Posterous</option>
+										</select>
+									</div>
+								</div>
+								<div class="step-2">
+									<div id="bar-add-blog-apiurl" class="subbar">
+										<label>API URL: <span id="label-add-blog-apiurl"></span></label>
+									</div>
+									<div class="subunderbar">
+										<input type="url" id="text-blog-api-url" value="" />
+									</div>
+									<div id="text-add-blog-id-container" style="display: none;">
+										<div id="bar-add-blog-id" class="subbar">
+											<label>Blog ID: <span id="label-add-blog-blogid"></span><label>
+										</div>
+										<div class="subunderbar">
+											<input type="text" id="text-addblog-id" />
+										</div>
+									</div>
+								</div>
+								<div class="step-2">
+									<div class="subbar" id="bar-add-blog-credentials">
+										<label>Login Credentials</label>
+									</div>
+									<div class="subunderbar">
+										<label>Username</label>
+										<input type="text" id="text-blog-username" accept="button-blog-logincheck" />
+										<label>Password</label>
+										<input type="password" id="text-blog-password" accept="button-blog-logincheck" />
+										<p>
+											<button id="button-blog-logincheck">Finish</button>
+										</p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="step-2">
-						<div class="subbar" id="bar-add-blog-credentials">
-							<label>Login Credentials</label>
+					<div id="ui-entries">
+						<div class="bar" id="bar-entries">
+							<label>Entry: <span id="label-current-entry"></span></label>
 						</div>
-						<div class="subunderbar">
-							<label>Username</label>
-							<input type="text" id="text-blog-username" accept="button-blog-logincheck" />
-							<label>Password</label>
-							<input type="password" id="text-blog-password" accept="button-blog-logincheck" />
-							<p>
-								<button id="button-blog-logincheck">Finish</button>
-							</p>
+						<div class="underbar" id="underbar-entries">
+							<div orient="horizontal">
+								<select id="list-entries" flex="1" style="display: block;"><option value="">(new)</option></select>
+								<span id="ui-deleteEntry" style="display: block; margin-left: 10px;">
+									<button id="button-entry-remove" style="display: none;">Delete Post</button>
+								</span>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		<div id="ui-entries">
-			<div class="bar" id="bar-entries">
-				<label>Entry: <span id="label-current-entry"></span></label>
-			</div>
-			<div class="underbar" id="underbar-entries">
-				<div class="flex-box">
-					<select id="list-entries" class="flex-1" style="display: block;"><option value="">(new)</option></select>
-					<span id="ui-deleteEntry" style="display: block; margin-left: 10px;">
-						<button id="button-entry-remove" style="display: none;">Delete Post</button>
-					</span>
-				</div>
-			</div>
-		</div>
-		<div id="ui-title">
-			<div class="bar" open="true" id="bar-title">
-				<label>Title: <span id="label-current-title"></span></label>
-			</div>
-			<div class="underbar" open="true" id="underbar-title">
-				<input type="text" id="text-title" />
-			</div>
-		</div>
-		<div id="ui-content">
-			<div class="bar-fixed" open="true" id="bar-content">
-				<label>Post Content</label>
-				<div id="editor-toggles" style="float: right; padding-right: 1ex; cursor: pointer;" class="trap">
-					<a id="edButtonHTML" onclick="event.stopPropagation(); switchEditors.go('text-content', 'html');">Switch to HTML Mode</a>
-					<a id="edButtonPreview" style="display: none;" onclick="event.stopPropagation(); switchEditors.go('text-content', 'tinymce');">Switch to Visual Editor</a>
-				</div>
-			</div>
-			<div class="underbar" open="true">
-				<textarea rows="10" name="text-content" id="text-content" class="flex-1" style="margin-bottom: 40px;"></textarea>
-			</div>
-		</div>
-		<div id="ui-categories">
-			<div class="bar" id="bar-categories">
-				<label>Categories: <span id="label-current-categories"></span></label>
-			</div>
-			<div class="underbar" id="underbar-categories">
-				<select id="list-categories" multiple="true"></select>
-				<span id="ui-add-category">
-					<button id="button-category-add">New Category</button>
-				</span>
-			</div>
-		</div>
-		<div id="ui-tags">
-			<div class="bar" id="bar-tags">
-				<label>Tags: <span id="label-current-tags"></span></label>
-			</div>
-			<div class="underbar" id="underbar-tags">
-				<input type="text" id="text-tags" placeholder="Comma-separated"/>
-			</div>
-		</div>
-		<div id="ui-custom-fields">
-			<div class="bar" id="bar-custom-fields">
-				<label>Custom Fields</label>
-			</div>
-			<div class="underbar" id="underbar-custom-fields">
-				<div id="custom-fields">
-					<div class="custom_field">
-						<input type="hidden" name="id" />
-						<input type="text" name="key" placeholder="Name" />
-						<textarea name="value" placeholder="Value"></textarea>
+					<div id="ui-title">
+						<div class="bar" open="true" id="bar-title">
+							<label>Title: <span id="label-current-title"></span></label>
+						</div>
+						<div class="underbar" open="true" id="underbar-title">
+							<input type="text" id="text-title" />
+						</div>
 					</div>
-				</div>
+					<div id="ui-content">
+						<div class="bar-fixed" open="true" id="bar-content">
+							<label>Post Content</label>
+							<div id="editor-toggles" style="float: right; padding-right: 1ex; cursor: pointer;" class="trap">
+								<a id="edButtonHTML" onclick="event.stopPropagation(); switchEditors.go('text-content', 'html');">Switch to HTML Mode</a>
+								<a id="edButtonPreview" style="display: none;" onclick="event.stopPropagation(); switchEditors.go('text-content', 'tinymce');">Switch to Visual Editor</a>
+							</div>
+						</div>
+						<div class="underbar" open="true">
+							<textarea rows="10" name="text-content" id="text-content"></textarea>
+						</div>
+					</div>
+					<div id="ui-categories">
+						<div class="bar" id="bar-categories">
+							<label>Categories: <span id="label-current-categories"></span></label>
+						</div>
+						<div class="underbar" id="underbar-categories">
+							<select id="list-categories" multiple="true"></select>
+							<span id="ui-add-category">
+								<button id="button-category-add">New Category</button>
+							</span>
+						</div>
+					</div>
+					<div id="ui-tags">
+						<div class="bar" id="bar-tags">
+							<label>Tags: <span id="label-current-tags"></span></label>
+						</div>
+						<div class="underbar" id="underbar-tags">
+							<input type="text" id="text-tags" placeholder="Comma-separated"/>
+						</div>
+					</div>
+					<div id="ui-custom-fields">
+						<div class="bar" id="bar-custom-fields">
+							<label>Custom Fields</label>
+						</div>
+						<div class="underbar" id="underbar-custom-fields">
+							<div id="custom-fields">
+								<div class="custom_field">
+									<input type="hidden" name="id" />
+									<input type="text" name="key" placeholder="Name" />
+									<textarea name="value" placeholder="Value"></textarea>
+								</div>
+							</div>
 				
-				<button id="button-add-custom-field">Add Custom Field</button>
-			</div>
-		</div>
-		<div id="ui-publish"><!-- class="flex-box flex-vertical">-->
-			<div class="bar" open="true" id="bar-publish">
-				<label>Publish</label>
-			</div>
-			<div class="underbar" open="true" id="underbar-publish">
-				<div style="text-align: right; float: right;">
-					<button id="reset-button">Clear All Fields</button>
+							<button id="button-add-custom-field">Add Custom Field</button>
+						</div>
+					</div>
 				</div>
-				<input type="checkbox" id="checkbox-draft" /> <label>Draft</label>
-				<span id="ui-private" style="padding: 0 0 0 1em;">
-					<input type="checkbox" id="checkbox-private" /> <label>Private</label>
-				</span>
-				<span id="ui-slug" style="padding: 0 0 0 1em;">
-					<a href="#" id="slug-toggle">Permalink</a>: 
-					<input type="url" style="width: 15em; display: none;" id="text-slug" />
-					<span id="slug-display"></span>
-				</span>
-				<span id="ui-timestamp" style="padding: 0 0 0 1em;">
-					<a href="#" id="toggle-schedule">Schedule</a>:
-					<span id="toggle-schedule-immediately">Right now</span>
-					<span id="toggle-schedule-scheduled" style="display:none; border: 2px inset; padding: 1px;">
-						<input type="number" id="text-timestamp-year" size="5" style="border: 0;" placeholder="YYYY" min="0000" max="99999" />/<input type="number" id="text-timestamp-month" size="3" style="border: 0;" placeholder="MM" min="01" max="12" />/<input type="number" id="text-timestamp-day" size="3" style="border: 0;" placeholder="DD" min="01" max="31"/>
-						<input type="number" id="text-timestamp-hour" size="3" style="border: 0;" placeholder="HH" min="00" max="23" />:<input type="number" id="text-timestamp-minute" size="3" style="border: 0;" placeholder="mm" min="00" max="59" />
-					</span>
-				</span>
-				<button id="button-publish" style="margin-left: 1em;">Send to Blog</button>
+				<div id="sidebar" flex="0"></div>
 			</div>
+		
+			<div id="ui-publish">
+				<div class="bar" open="true" id="bar-publish">
+					<label>Publish</label>
+				</div>
+				<div class="underbar" open="true" id="underbar-publish">
+					<div style="text-align: right; float: right;">
+						<button id="reset-button">Clear All Fields</button>
+					</div>
+					<input type="checkbox" id="checkbox-draft" /> <label>Draft</label>
+					<span id="ui-private" style="padding: 0 0 0 1em;">
+						<input type="checkbox" id="checkbox-private" /> <label>Private</label>
+					</span>
+					<span id="ui-slug" style="padding: 0 0 0 1em;">
+						<a href="#" id="slug-toggle">Permalink</a>: 
+						<input type="url" style="width: 15em; display: none;" id="text-slug" />
+						<span id="slug-display"></span>
+					</span>
+					<span id="ui-timestamp" style="padding: 0 0 0 1em;">
+						<a href="#" id="toggle-schedule">Schedule</a>:
+						<span id="toggle-schedule-immediately">Right now</span>
+						<span id="toggle-schedule-scheduled" style="display:none; border: 2px inset; padding: 1px;">
+							<input type="number" id="text-timestamp-year" size="5" style="border: 0;" placeholder="YYYY" min="0000" max="99999" />/<input type="number" id="text-timestamp-month" size="3" style="border: 0;" placeholder="MM" min="01" max="12" />/<input type="number" id="text-timestamp-day" size="3" style="border: 0;" placeholder="DD" min="01" max="31"/>
+							<input type="number" id="text-timestamp-hour" size="3" style="border: 0;" placeholder="HH" min="00" max="23" />:<input type="number" id="text-timestamp-minute" size="3" style="border: 0;" placeholder="mm" min="00" max="59" />
+						</span>
+					</span>
+					<button id="button-publish" style="margin-left: 1em;">Send to Blog</button>
+				</div>
+			</div>
+		
+		
+		
+		
 		</div>
+		
+		
+		
 		<div id="panel-inlinks" style="display: none;">
 			<image src="skin/inlinks.png" />
 

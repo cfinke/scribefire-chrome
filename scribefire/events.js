@@ -619,16 +619,12 @@ $(document).ready(function () {
 			content_css : "skin/editor_content.css",
 		});
 		
-		/*
 		adjustForSize();
 		
 		// We use .parent() here because putting an id on the element breaks the flex box model someho
 		$("#text-content").parent().resize();
-		*/
 	});
 	
-	
-	/*
 	$(window).resize(function () {
 		clearTimeout(resize_timeout);
 		
@@ -641,12 +637,12 @@ $(document).ready(function () {
 		editor_resize_timeout = setTimeout(function () {
 			if (switchEditors.mode == 'tinymce') {
 				if ("activeEditor" in tinyMCE && tinyMCE.activeEditor) {
-					tinyMCE.activeEditor.theme.resizeTo($("#text-content").parent().width() - 10, $("#text-content").parent().height() - 40);
+					tinyMCE.activeEditor.theme.resizeTo($("#text-content").parent().width(), $("#text-content").parent().height() - 51);
+					$("#text-content").width( $("#text-content").parent().width() - 4);
 				}
 			}
 		}, 100);
 	});
-	*/
 });
 
 var customFieldAutocompleteData = {
@@ -686,12 +682,11 @@ var tagsAutocompleteData = {
 	}
 };
 
-/*
 var resize_timeout = null;
 var editor_resize_timeout = null;
 
 function adjustForSize() {
-//	$("body").height( $(window).height() );
+//	$("body").width( $(window).width() ).height( Math.max( $("body").height(), $(window).height() ));
 	
 	if (platform != "gecko") {
 	//	return;
@@ -702,8 +697,8 @@ function adjustForSize() {
 	
 	var container = "main";
 	
-	// 915 is the width of the toolbar of the editor.
-	if ($(window).width() > 915 && $(window).width() > $(window).height()) {
+	// 740 is the width of the toolbar of the editor.
+	if ($(window).width() > (740 * 10 / 7) && $(window).width() > $(window).height()) {
 		// Only add the sidebar when the window is wide enough to show the full editor toolbar
 		// and sidebar without a horizontal scroll (and only if it's wider than it is tall).
 		container = "sidebar";
@@ -714,12 +709,16 @@ function adjustForSize() {
 	}
 	
 	if (container == "sidebar") {
-		$("#sidebar").css("width", "30%");
-		$("#main").css("width", "65%");
+		$("#main").attr("flex", "7");
+		$("#sidebar").attr("flex", "3");
 	}
 	else {
-		$("#sidebar").css("width", "0%");
-		$("#main").css("width", "100%");
+		$("#sidebar").attr("flex", "0");
+		$("#main").attr("flex", "1");
+	}
+	
+	if (container == "main") {
+		$("#sidebar select").css( { "max-width" : null } );
 	}
 	
 	for (var i = 0; i < movableElementsBottom.length; i++) {
@@ -738,4 +737,22 @@ function adjustForSize() {
 		$("#" + container).prepend(e);
 	}
 }
-*/
+
+if (typeof safari != 'undefined') {
+	// BlogThis listener
+	function handleSafariMessages(msgEvent) {
+		if (msgEvent.name == "blog-this") {
+			var responseParts = msgEvent.message.split("\t");
+
+			var title = responseParts.shift();
+			var url = responseParts.shift();
+			var selection = responseParts.join("\t");
+			
+			var html = '<p><a href="' + url + '">' + title + '</a></p><p>' + selection + '</p>';
+			
+			SCRIBEFIRE.blogThis(html);
+		}
+	}
+	
+	safari.self.addEventListener("message", handleSafariMessages, false);
+}

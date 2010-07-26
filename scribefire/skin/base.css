@@ -14,43 +14,63 @@ td {
 	vertical-align: top;
 }
 
-html[platform='webkit'] .flex-box {
+html[platform='webkit'] *[orient] {
 	display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+
+html[platform='webkit'] *[orient="horizontal"] {
 	-webkit-box-orient: horizontal;
 }
 
-html[platform='gecko'] .flex-box {
+html[platform='gecko'] *[orient] {
 	display: -moz-box;
+	-moz-box-orient: vertical;
+}
+
+html[platform='gecko'] *[orient="horizontal"] {
 	-moz-box-orient: horizontal;
 	width: 100%;
 	padding: 0;
 	margin: 0;
 }
 
-.flex-box > * {
+*[orient] > * {
 	display: block;
 }
 
-html[platform='webkit'] .flex-vertical {
-	-webkit-box-orient: vertical;
-}
-
-html[platform='gecko'] .flex-vertical {
-	-moz-box-orient: vertical;
-}
-
-html[platform='webkit'] .flex-1 {
+html[platform='webkit'] *[flex="1"] {
 	-webkit-box-flex: 1;
 }
 
-html[platform='gecko'] .flex-1 {
+html[platform='gecko'] *[flex="1"] {
 	-moz-box-flex: 1;
 }
 
-html[platform='webkit'] .flex-0 {
+html[platform='webkit'] *[flex="0"] {
 	-webkit-box-flex: 0;
+	display: none;
 }
 
-html[platform='gecko'] .flex-0 {
+html[platform='gecko'] *[flex="0"] {
 	-moz-box-flex: 0;
+	display: none;
+}
+
+html[platform='webkit'] *[flex="7"] {
+	-webkit-box-flex: 7;
+}
+
+html[platform='gecko'] *[flex="7"] {
+	-moz-box-flex: 7;
+}
+
+html[platform='webkit'] *[flex="3"] {
+	-webkit-box-flex: 3;
+	max-width: 30%;
+}
+
+html[platform='gecko'] *[flex="3"] {
+	-moz-box-flex: 3;
+	max-width: 30%;
 }
