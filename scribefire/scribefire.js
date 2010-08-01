@@ -289,7 +289,7 @@ var SCRIBEFIRE = {
 						SCRIBEFIRE.prefs.setCharPref("state.entryId", "");
 					}
 					
-					if ("tags" in rv[i]) {
+					if ("tags" in rv[i] && rv[i].tags) {
 						var tag_parts = rv[i].tags.split(",");
 						
 						for (var j = 0; j < tag_parts.length; j++) {
@@ -309,6 +309,10 @@ var SCRIBEFIRE = {
 							
 							custom_field_keys.push(custom_field_key);
 						}
+					}
+					
+					if (!entry.data("published")) {
+						entry.html("[Draft] " + entry.html());
 					}
 					
 					$("#list-entries").append(entry);
@@ -672,7 +676,7 @@ var SCRIBEFIRE = {
 		params.content = editor.val();
 		params.categories = $("#list-categories").val() || [];
 		params.tags = $("#text-tags").val();
-		params.draft = $("#checkbox-draft").is(":checked");
+		params.draft = $("#status-draft").val() == "1";
 		params.slug = $("#text-slug").val();
 		params.private = $("#checkbox-private").is(":checked");
 		
@@ -734,9 +738,16 @@ var SCRIBEFIRE = {
 		SCRIBEFIRE.getAPI().publish(
 			params,
 			function success(rv) {
+				if (params.draft) {
+					SCRIBEFIRE.prefs.setCharPref("state.entryId", rv.id);
+				}
+				
 				$("#list-entries").val("").change();
 				SCRIBEFIRE.populateEntriesList();
-				SCRIBEFIRE.clearData();
+				
+				if (!params.draft) {
+					SCRIBEFIRE.clearData();
+				}
 				
 				if (callbackSuccess) {
 					rv.url = SCRIBEFIRE.getAPI().url;
@@ -757,15 +768,13 @@ var SCRIBEFIRE = {
 		setTimestamp();
 			$("#toggle-schedule-immediately").show();
 			$("#toggle-schedule-scheduled").hide();
-		$("#checkbox-draft").attr("checked", false).change();
+		$("#status-draft").val("0").change();
 		$("#list-categories").val("").change();
 		$("#text-slug").val("").change();
 		
 		editor.val('');
 		
 		SCRIBEFIRE.clearCustomFields();
-		
-		$("#button-publish").html("Send to Blog");
 	},
 	
 	populateCategoriesList : function () {
@@ -866,10 +875,12 @@ var SCRIBEFIRE = {
 		var api = SCRIBEFIRE.getAPI();
 		
 		for (x in api.ui) {
-			var id = "#ui-" + x;
+			// x refers to a classname: ui-draft, ui-tags, etc.
+			var id = ".ui-" + x;
 			var widget = $(doc).find(id);
 			
 			if (!widget.length) {
+				// x is really an ID (because we can't help it)
 				id = "#" + x;
 				widget = $(doc).find(id);
 			}

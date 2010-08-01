@@ -239,13 +239,14 @@ $(document).ready(function () {
 	$("#list-entries").live("change", function () {
 		var postId = $(this).val();
 		
+		$("#buttons-publish-published").hide();
+		$("#buttons-publish-draft").show();
+		
 		if (!postId) {
 			$("#button-entry-remove").hide();
-			$("#button-publish").html("Send to Blog");
 		}
 		else {
 			$("#button-entry-remove").show();
-			$("#button-publish").html("Send Edited Post to Blog");
 			
 			if (!$(this).attr("ignoreContent")) {
 				var entry = $(this).find("option:selected");
@@ -254,7 +255,10 @@ $(document).ready(function () {
 				
 				editor.val(entry.data("content"));
 				
-				$("#checkbox-draft").attr("checked", !entry.data("published"));
+				if (entry.data("published")) {
+					$("#buttons-publish-published").show();
+					$("#buttons-publish-draft").hide();
+				}
 				
 				$("#text-tags").val(entry.data("tags"));
 				
@@ -308,7 +312,7 @@ $(document).ready(function () {
 			}
 		}
 		
-		$("#label-current-entry").html($(this).find("option:selected").text());
+		$("#label-current-entry").html($(this).find("option:selected").data("title"));
 	});
 	
 	$("#list-categories").live("change", function (e) {
@@ -469,11 +473,14 @@ $(document).ready(function () {
 			function (rv) {
 				button.removeClass("busy");
 				
-				$("#list-blogs").val(rv[0].username + "@" + rv[0].url).change();
 				$("#dialog-blog-add").hide();
-				SCRIBEFIRE.clearData();
 				
 				SCRIBEFIRE.notify("Your blog was added successfully!");
+				
+				if (!$("#list-entries").val()) {
+					// Only select a new blog if the user wasn't working on an entry from another blog.
+					$("#list-blogs").val(rv[0].username + "@" + rv[0].url).change();
+				}
 			},
 			function (rv) {
 				button.removeClass("busy");
@@ -481,25 +488,23 @@ $(document).ready(function () {
 		);
 	});
 	
-	$("#button-publish").live("click", function (e) {
+	$("#button-publish-draft").live("click", function (e) {
 		e.preventDefault();
+		
+		$("#status-draft").val("0");
 		
 		var button = $(this);
 		button.addClass("busy");
 		
-		function callback() {
-			button.removeClass("busy");
-		}
-
 		SCRIBEFIRE.publish(
 			function success(rv) {
 				button.removeClass("busy");
 				SCRIBEFIRE.notify(
-					"Sent to blog successfully!", 
+					"Published successfully!", 
 					"Open blog in a new tab",
 					function (button) { 
 						var url = SCRIBEFIRE.getAPI().url;
-						
+
 						if (typeof chrome != 'undefined') {
 							chrome.tabs.create({ "url": url });
 						}
@@ -513,7 +518,56 @@ $(document).ready(function () {
 				button.removeClass("busy");
 			});
 	});
+	
+	$("#button-publish").live("click", function (e) {
+		e.preventDefault();
+		
+		var button = $(this);
+		button.addClass("busy");
+		
+		SCRIBEFIRE.publish(
+			function success(rv) {
+				button.removeClass("busy");
+				SCRIBEFIRE.notify(
+					"Updated successfully!", 
+					"Open blog in a new tab",
+					function (button) { 
+						var url = SCRIBEFIRE.getAPI().url;
 
+						if (typeof chrome != 'undefined') {
+							chrome.tabs.create({ "url": url });
+						}
+						else {
+							window.open(url);
+						}
+					}
+				);
+			},
+			function error(rv) {
+				button.removeClass("busy");
+			});
+	});
+	
+	$("#button-save-progress").live("click", function (e) {
+		e.preventDefault();
+		
+		$("#status-draft").val("1");
+		
+		var button = $(this);
+		button.addClass("busy");
+		
+		SCRIBEFIRE.publish(
+			function success(rv) {
+				button.removeClass("busy");
+				SCRIBEFIRE.notify(
+					"Draft saved."
+				);
+			},
+			function error(rv) {
+				button.removeClass("busy");
+			});
+	});
+	
 	$("#button-inlinks").live("click", function (e) {
 		e.preventDefault();
 		
@@ -527,6 +581,17 @@ $(document).ready(function () {
 		SCRIBEFIRE.addCustomField(null, null, null, true);
 	});
 	
+	$(".button-remove-custom-field").live("click", function (e) {
+		e.preventDefault();
+		
+		if ($(".custom_field").length == 1) {
+			SCRIBEFIRE.clearCustomFields();
+		}
+		else {
+			$(this).parent(".custom_field").remove();
+		}
+	});
+	
 	$(window).bind("beforeunload", function (e) {
 		// Grab all of the input values for state persistence.
 		SCRIBEFIRE.prefs.setCharPref("state.entryId", $("#list-entries").val());
@@ -534,7 +599,7 @@ $(document).ready(function () {
 		SCRIBEFIRE.prefs.setCharPref("state.content", editor.val());
 		SCRIBEFIRE.prefs.setCharPref("state.tags",	$("#text-tags").val());
 		SCRIBEFIRE.prefs.setCharPref("state.timestamp",getTimestamp());
-		SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#checkbox-draft").is(":checked"));
+		SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#status-draft").val() == "1");
 		SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());
 		SCRIBEFIRE.prefs.setCharPref("state.slug", $("#text-slug").val());
 		SCRIBEFIRE.prefs.setJSONPref("state.customFields", SCRIBEFIRE.getCustomFields(true));
@@ -559,7 +624,7 @@ $(document).ready(function () {
 	
 	SCRIBEFIRE.prefs.setCharPref("state.timestamp");
 	
-	$("#checkbox-draft").attr("checked", SCRIBEFIRE.prefs.getBoolPref("state.draft"));
+	$("#status-draft").val(SCRIBEFIRE.prefs.getBoolPref("state.draft") ? "1" : "0").change();
 	SCRIBEFIRE.prefs.setBoolPref("state.draft", false);
 	
 	$("#text-slug").val(SCRIBEFIRE.prefs.getCharPref("state.slug")).change();
@@ -691,6 +756,7 @@ function adjustForSize() {
 	$("body").width( $(window).width() - 3 );//.height( Math.max( $("body").height(), $(window).height() ));
 	
 	return;
+	/*
 	if (platform != "gecko") {
 	//	return;
 	}
@@ -739,6 +805,7 @@ function adjustForSize() {
 	
 		$("#" + container).prepend(e);
 	}
+	*/
 }
 
 if (typeof safari != 'undefined') {

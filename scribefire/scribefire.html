@@ -27,7 +27,7 @@
 		<div orient="vertical" flex="1">
 			<div orient="horizontal" flex="1">
 				<div id="main" flex="1">
-					<div id="ui-blogs">
+					<div class="ui-blogs">
 						<div class="bar" open="true" id="bar-blog">
 							<label>Blog: <span id="label-current-blog"></span></label>
 							<a href="#" style="float: right; padding-right: 1ex;" class="trap" id="link-help">HELP!</a>
@@ -104,20 +104,20 @@
 							</div>
 						</div>
 					</div>
-					<div id="ui-entries">
+					<div>
 						<div class="bar" id="bar-entries">
 							<label>Entry: <span id="label-current-entry"></span></label>
 						</div>
 						<div class="underbar" id="underbar-entries">
 							<div orient="horizontal">
 								<select id="list-entries" flex="1" style="display: block;"><option value="">(new)</option></select>
-								<span id="ui-deleteEntry" style="display: block; margin-left: 10px;">
+								<span class="ui-deleteEntry" style="display: block; margin-left: 10px;">
 									<button id="button-entry-remove" style="display: none;">Delete Post</button>
 								</span>
 							</div>
 						</div>
 					</div>
-					<div id="ui-title">
+					<div>
 						<div class="bar" open="true" id="bar-title">
 							<label>Title: <span id="label-current-title"></span></label>
 						</div>
@@ -125,7 +125,7 @@
 							<input type="text" id="text-title" />
 						</div>
 					</div>
-					<div id="ui-content">
+					<div>
 						<div class="bar-fixed" open="true" id="bar-content">
 							<label>Post Content</label>
 							<div id="editor-toggles" style="float: right; padding-right: 1ex; cursor: pointer;" class="trap">
@@ -137,18 +137,16 @@
 							<textarea rows="10" name="text-content" id="text-content"></textarea>
 						</div>
 					</div>
-					<div id="ui-categories">
+					<div class="ui-categories">
 						<div class="bar" id="bar-categories">
 							<label>Categories: <span id="label-current-categories"></span></label>
 						</div>
 						<div class="underbar" id="underbar-categories">
 							<select id="list-categories" multiple="true"></select>
-							<span id="ui-add-category">
-								<button id="button-category-add">New Category</button>
-							</span>
+							<button id="button-category-add" class="ui-add-category">New Category</button>
 						</div>
 					</div>
-					<div id="ui-tags">
+					<div class="ui-tags">
 						<div class="bar" id="bar-tags">
 							<label>Tags: <span id="label-current-tags"></span></label>
 						</div>
@@ -156,7 +154,7 @@
 							<input type="text" id="text-tags" placeholder="Comma-separated"/>
 						</div>
 					</div>
-					<div id="ui-custom-fields">
+					<div class="ui-custom-fields">
 						<div class="bar" id="bar-custom-fields">
 							<label>Custom Fields</label>
 						</div>
@@ -164,6 +162,7 @@
 							<div id="custom-fields">
 								<div class="custom_field">
 									<input type="hidden" name="id" />
+									<button class="button-remove-custom-field">-</button>
 									<input type="text" name="key" placeholder="Name" />
 									<textarea name="value" placeholder="Value"></textarea>
 								</div>
@@ -176,41 +175,42 @@
 				<div id="sidebar" flex="0"></div>
 			</div>
 		
-			<div id="ui-publish">
+			<div>
 				<div class="bar" open="true" id="bar-publish">
 					<label>Publish</label>
 				</div>
 				<div class="underbar" open="true" id="underbar-publish">
+					<input type="hidden" id="status-draft" value="0" />
+					
 					<div style="text-align: right; float: right;">
 						<button id="reset-button">Clear All Fields</button>
 					</div>
-					<input type="checkbox" id="checkbox-draft" /> <label>Draft</label>
-					<span id="ui-private" style="padding: 0 0 0 1em;">
+					<span class="ui-private">
 						<input type="checkbox" id="checkbox-private" /> <label>Private</label>
 					</span>
-					<span id="ui-slug" style="padding: 0 0 0 1em;">
+					<span class="ui-slug">
 						<a href="#" id="slug-toggle">Permalink</a>: 
 						<input type="url" style="width: 15em; display: none;" id="text-slug" />
 						<span id="slug-display"></span>
 					</span>
-					<span id="ui-timestamp" style="padding: 0 0 0 1em;">
+					<span class="ui-timestamp">
 						<a href="#" id="toggle-schedule">Schedule</a>:
 						<span id="toggle-schedule-immediately">Right now</span>
-						<span id="toggle-schedule-scheduled" style="display:none; border: 2px inset; padding: 1px;">
+						<span id="toggle-schedule-scheduled" style="display: none; border: 2px inset; padding: 1px;">
 							<input type="number" id="text-timestamp-year" size="5" style="border: 0;" placeholder="YYYY" min="0000" max="99999" />/<input type="number" id="text-timestamp-month" size="3" style="border: 0;" placeholder="MM" min="01" max="12" />/<input type="number" id="text-timestamp-day" size="3" style="border: 0;" placeholder="DD" min="01" max="31"/>
 							<input type="number" id="text-timestamp-hour" size="3" style="border: 0;" placeholder="HH" min="00" max="23" />:<input type="number" id="text-timestamp-minute" size="3" style="border: 0;" placeholder="mm" min="00" max="59" />
 						</span>
 					</span>
-					<button id="button-publish" style="margin-left: 1em;">Send to Blog</button>
+					<span id="buttons-publish-draft">
+						<button id="button-save-progress" class="ui-draft">Save Progress</button>
+						<button id="button-publish-draft">Publish</button>
+					</span>
+					<span id="buttons-publish-published" style="display: none;">
+						<button id="button-publish">Update Post</button>
+					</span>
 				</div>
 			</div>
-		
-		
-		
-		
 		</div>
-		
-		
 		
 		<div id="panel-inlinks" style="display: none;">
 			<image src="skin/inlinks.png" />

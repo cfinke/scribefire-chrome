@@ -801,6 +801,7 @@ var genericAtomAPI = function () {
 								});
 								
 								//var postUrl = $(this).find("id:first").text();
+								
 								post.id = $(this).find("id:first").text();//postUrl.match( /(?:\/|post-)(\d{5,})(?!\d*\/)/)[1];
 								
 								if ($(this).find("link[rel='service.edit']:first").length > 0) {
@@ -902,7 +903,7 @@ var genericAtomAPI = function () {
 							var xml = req.responseXML;
 							var jxml = $(xml);
 							
-							var postId = jxml.find("id:first").text().split(".post-")[1];
+							var postId = jxml.find("id:first").text();//.split(".post-")[1];
 							success({ "id": postId });
 						}
 						else {
