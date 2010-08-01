@@ -258,6 +258,9 @@ var SCRIBEFIRE = {
 	populateEntriesList : function () {
 		$("#list-entries").html('<option value="">(new)</option>');
 		
+		$("#buttons-publish-published").hide();
+		$("#buttons-publish-draft").show();
+		
 		$("#bar-entries").attr("busy", "true");
 		
 		for (var i in SCRIBEFIRE.autocomplete) {
@@ -313,6 +316,13 @@ var SCRIBEFIRE = {
 					
 					if (!entry.data("published")) {
 						entry.html("[Draft] " + entry.html());
+					}
+					else if (entry.data("timestamp")) {
+						var publishDate = entry.data("timestamp");
+						
+						if (publishDate.getTime() > (new Date().getTime())) {
+							entry.html("[Scheduled] " + entry.html());
+						}
 					}
 					
 					$("#list-entries").append(entry);
