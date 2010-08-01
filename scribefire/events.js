@@ -1,3 +1,9 @@
+var windowWidth = 0;
+
+$(window).load(function () {
+	windowWidth = $(window).width();
+});
+
 var editor = {
 	val : function (new_val) {
 		if (typeof new_val != 'undefined') {
@@ -695,21 +701,6 @@ $(document).ready(function () {
 		
 		resize_timeout = setTimeout(adjustForSize, 100);
 	});
-	
-	/*
-	$("#text-content").parent().resize(function () {
-		clearTimeout(editor_resize_timeout);
-		
-		editor_resize_timeout = setTimeout(function () {
-			if (switchEditors.mode == 'tinymce') {
-				if ("activeEditor" in tinyMCE && tinyMCE.activeEditor) {
-					tinyMCE.activeEditor.theme.resizeTo($("#text-content").parent().width(), $("#text-content").parent().height() - 51);
-					$("#text-content").width( $("#text-content").parent().width() - 4);
-				}
-			}
-		}, 100);
-	});
-	*/
 });
 
 var customFieldAutocompleteData = {
@@ -753,6 +744,29 @@ var resize_timeout = null;
 // var editor_resize_timeout = null;
 
 function adjustForSize() {
+	// Resize the editor proportionally to how wide the window was made.
+	editorWidth = $("#text-content_ifr").width();
+	editorHeight = $("#text-content_ifr").height();
+	
+	var newWindowWidth = $(window).width();
+	
+	var difference = newWindowWidth - windowWidth;
+	windowWidth = newWindowWidth;
+	
+	if (difference != 0) {
+		if (switchEditors.mode == 'tinymce') {
+			if ("activeEditor" in tinyMCE && tinyMCE.activeEditor) {
+				var newEditorWidth = editorWidth + difference;
+				if (newEditorWidth > windowWidth) {
+					newEditorWidth = windowWidth - 20;
+				}
+
+				tinyMCE.activeEditor.theme.resizeTo(newEditorWidth, editorHeight);
+			}
+		}
+	}
+	
+	// Ensure that the body doesn't exceed the window.  Mainly a hack for Firefox and scroll bars.
 	$("body").width( $(window).width() - 3 );//.height( Math.max( $("body").height(), $(window).height() ));
 	
 	return;
