@@ -94,25 +94,12 @@
       <div class="popup"> \
         <table> \
           <tbody> \
-            <!--<tr> \
-              <td class="tl"/><td class="b"/><td class="tr"/> \
-            </tr> \
-            --><tr> \
-              <!--<td class="b"/> \
-              --><td class="body"> \
+              <td class="body"> \
                 <div class="content"> \
-                </div><div style="text-align: right;"><button class="modal_close">Close</button></div> \
-                <!--<div class="footer"> \
-                  <a href="#" class="close"> \
-                    <img src="/content/images/facebox/closelabel.gif" title="close" class="close_image" /> \
-                  </a> \
                 </div> \
-              --></td> \
-              <!-- <td class="b"/> --> \
+                <div class="facebox-close-button"><button class="modal_close">Close</button></div> \
+              </td> \
             </tr> \
-            <!--<tr> \
-              <td class="bl"/><td class="b"/><td class="br"/> \
-            </tr>--> \
           </tbody> \
         </table> \
       </div> \
@@ -154,6 +141,12 @@
       $('#facebox .body').children().fadeIn('normal')
       $('#facebox').css('left', $(window).width() / 2 - ($('#facebox table').width() / 2))
       $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
+
+      // Hide the close button if the dialog has its own close buttons.
+      $("#facebox .facebox-close-button").show();
+      if ($("#facebox .buttons").length > 0) {
+        $("#facebox .facebox-close-button").hide();
+      }
     },
 
     close: function() {
@@ -200,7 +193,8 @@
     $.facebox.settings.imageTypesRegexp = new RegExp('\.' + imageTypes + '$', 'i')
 
     if (settings) $.extend($.facebox.settings, settings)
-    $('body').append($.facebox.settings.faceboxHtml)
+    $('body').append($.facebox.settings.faceboxHtml);
+
   }
   
   // getPageScroll() by quirksmode.com
@@ -288,7 +282,8 @@
     $('#facebox_overlay').hide().addClass("facebox_overlayBG")
       .css('opacity', $.facebox.settings.opacity)
       .click(function() { $(document).trigger('close.facebox') })
-      .fadeIn(200)
+      .fadeIn(200);
+	
     return false
   }
 

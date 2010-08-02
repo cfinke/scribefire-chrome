@@ -458,9 +458,57 @@ var SCRIBEFIRE = {
 	},
 	
 	getBlog : function (blogKey) {
+		if (!blogKey) {
+			blogKey = $("#list-blogs").val();
+		}
+		
 		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 		
 		return blogs[blogKey];
+	},
+	
+	setBlog : function (blog, blogKey) {
+		if (!blogKey) {
+			blogKey = $("#list-blogs").val();
+		}
+		
+		var newBlogKey = blog.username + "@" + blog.url;
+		
+		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
+		
+		if (blogKey in blogs) delete blogs[blogKey];
+		blogs[newBlogKey] = blog;
+		
+		SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
+		
+		// Check if there is another blog at this URL.
+		var count = 0;
+		
+		for (var i in blogs) {
+			if (blogs[i].url == blog.url) {
+				count++;
+				
+				if (count >= 2) {
+					break;
+				}
+			}
+		}
+		
+		var label = blog.name;
+		
+		if (count >= 2) {
+			label += " (" + blog.username + " @ " + blog.url + ")";
+		}
+		else {
+			label += " (" + blog.url + ")";
+		}
+		
+		// Set the new label and the new blogKey
+		$("#list-blogs option[value='" + blogKey + "']").html(label).val(newBlogKey);
+		
+		if (blog.url in blogApis) {
+			delete blogApis[blog.url];
+		}
 	},
 	
 	getAPI : function () {

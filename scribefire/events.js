@@ -137,7 +137,7 @@ $(document).ready(function () {
 		SCRIBEFIRE.clearData();
 	});
 	
-	$("#button-addblog-cancel").live("click", function (e) {
+	$(".button-addblog-cancel").live("click", function (e) {
 		e.preventDefault();
 		
 		$("#dialog-blog-add").hide();	
@@ -572,6 +572,33 @@ $(document).ready(function () {
 			function error(rv) {
 				button.removeClass("busy");
 			});
+	});
+	
+	$("#button-blog-edit").live("click", function (e) {
+		e.preventDefault();
+		
+		var blog = SCRIBEFIRE.getBlog();
+		
+		$("#panel-blog-edit .blog-edit-field").each(function () {
+			$(this).val(blog[$(this).attr("name")]);
+		});
+		
+		$.facebox($("#panel-blog-edit"));
+		$("#panel-blog-edit").show();
+	});
+	
+	$("#button-blog-edit-finish").live("click", function (e) {
+		e.preventDefault();
+		
+		var blog = SCRIBEFIRE.getBlog();
+		
+		$("#panel-blog-edit .blog-edit-field").each(function () {
+			blog[$(this).attr("name")] = $(this).val();
+		});
+		
+		SCRIBEFIRE.setBlog(blog);
+		
+		$.facebox.close();
 	});
 	
 	$("#button-inlinks").live("click", function (e) {

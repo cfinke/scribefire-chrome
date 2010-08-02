@@ -68,3 +68,8 @@
   background-color: #000;
   z-index: 999999998;
 }
+
+#facebox .facebox-close-button, #facebox .buttons {
+	text-align: right;
+	margin-top: 10px;
+}

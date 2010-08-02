@@ -36,6 +36,7 @@
 							<div orient="horizontal">
 								<select id="list-blogs" flex="1"></select>
 								<button id="button-blog-remove" style="margin-left: 10px;">Remove</button>
+								<button id="button-blog-edit" style="margin-left: 10px;">Edit</button>
 							</div>
 							<p>
 								<button id="button-blog-add">Add a New Blog</button>
@@ -50,7 +51,7 @@
 										<input type="url" id="text-blog-url" accept="button-blog-urlcheck" cancel="button-addblog-cancel" />
 										<p>
 											<button id="button-blog-urlcheck">Next</button>
-											<button id="button-addblog-cancel">Cancel</button>
+											<button class="button-addblog-cancel cancel-button">Cancel</button>
 										</p>
 									</div>
 								</div>
@@ -98,6 +99,7 @@
 										<input type="password" id="text-blog-password" accept="button-blog-logincheck" />
 										<p>
 											<button id="button-blog-logincheck">Finish</button>
+											<button class="button-addblog-cancel cancel-button">Cancel</button>
 										</p>
 									</div>
 								</div>
@@ -183,7 +185,14 @@
 					<input type="hidden" id="status-draft" value="0" />
 					
 					<div style="text-align: right; float: right;">
-						<button id="reset-button">Clear All Fields</button>
+						<button id="reset-button" class="text-button">Clear All Fields</button>
+						<span id="buttons-publish-draft">
+							<button id="button-save-progress" class="ui-draft">Save Progress</button>
+							<button id="button-publish-draft">Publish</button>
+						</span>
+						<span id="buttons-publish-published" style="display: none;">
+							<button id="button-publish">Update Post</button>
+						</span>
 					</div>
 					<span class="ui-private">
 						<input type="checkbox" id="checkbox-private" /> <label>Private</label>
@@ -200,13 +209,6 @@
 							<input type="number" id="text-timestamp-year" size="5" style="border: 0;" placeholder="YYYY" min="0000" max="99999" />/<input type="number" id="text-timestamp-month" size="3" style="border: 0;" placeholder="MM" min="01" max="12" />/<input type="number" id="text-timestamp-day" size="3" style="border: 0;" placeholder="DD" min="01" max="31"/>
 							<input type="number" id="text-timestamp-hour" size="3" style="border: 0;" placeholder="HH" min="00" max="23" />:<input type="number" id="text-timestamp-minute" size="3" style="border: 0;" placeholder="mm" min="00" max="59" />
 						</span>
-					</span>
-					<span id="buttons-publish-draft">
-						<button id="button-save-progress" class="ui-draft">Save Progress</button>
-						<button id="button-publish-draft">Publish</button>
-					</span>
-					<span id="buttons-publish-published" style="display: none;">
-						<button id="button-publish">Update Post</button>
 					</span>
 				</div>
 			</div>
@@ -232,6 +234,30 @@
 			
 			<p>(For now, InLinks only works on blogs using Wordpress.org, Drupal, or MovableType.)</p>
 			<p><a href="http://www.inlinks.com/?ref=240364" target="_blank">Visit InLinks.com</a> to download the InLinks plugin and start earning money on your blogs today!</p>
+		</div>
+		
+		<div id="panel-blog-edit" style="display: none;">
+			<h3>Blog Properties</h3>
+			<p>You can edit the name and URL of your blog here.  To update your username, password, API URL, or blog ID, click the "Remove" button to remove the blog and then re-add it by clicking the "Add a New Blog" button.</p>
+			<div>
+				<div>
+					<div class="bar-fixed"><label>Name</label></div>
+					<div class="underbar" open="true">
+						<input type="text" class="blog-edit-field" name="name" />
+					</div>
+				</div>
+				<div>
+					<div class="bar-fixed"><label>URL</label></div>
+					<div class="underbar" open="true" last="true">
+						<input type="text" class="blog-edit-field" name="url" />
+					</div>
+				</div>
+			</div>
+			
+			<div class="buttons">
+				<button id="button-blog-edit-cancel" class="modal_close cancel-button">Cancel</button>
+				<button id="button-blog-edit-finish">Save</button>
+			</div>
 		</div>
 		<script type="text/javascript" src="events.js"></script>
 		<script type="text/javascript" src="lib/platform.js"></script>

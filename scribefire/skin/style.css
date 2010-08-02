@@ -1,12 +1,13 @@
 body {
 	background-color: #f5f5f5;
+	border-bottom: #bdbdbd 1px solid;
 }
 
 a {
 	color: #00f;
 }
 
-.bar, .subbar, .bar-fixed {
+.bar, .subbar, .bar-fixed, .subbar-fixed {
 	color: #5d5d5d;
 	font-weight: bold;
 	font-size: 12px;
@@ -84,12 +85,19 @@ html[platform='gecko'] .bar[busy="true"] {
 	display: none;
 }
 
-.bar, .underbar, .subbar, .subunderbar {
-	border-bottom: #bdbdbd 1px solid;
+.bar, .subbar, .bar-fixed {
+	border: #bdbdbd 1px solid;
 }
 
 .underbar[open="true"], .subunderbar[open="true"] {
 	display: block;
+	border-width: 0 1px 0 1px;
+	border-style: solid;
+	border-color: #bdbdbd;
+}
+
+.underbar[open="true"][last], .subunderbar[open="true"][last] {
+	border-width: 0 1px 1px 1px;
 }
 
 html[platform='webkit'] .underbar[open="true"][orient], html[platform='webkit'] .subunderbar[open="true"][orient] {
