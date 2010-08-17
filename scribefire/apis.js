@@ -146,6 +146,10 @@ blogAPI.prototype = {
 };
 
 var genericMetaWeblogAPI = function () {
+	var newUi = {};
+	for (var x in this.ui) newUi[x] = this.ui[x];
+	this.ui = newUi;
+
 	this.ui.categories = false;
 	this.ui.timestamp = true;
 	this.ui.slug = true;
@@ -396,6 +400,10 @@ var genericMetaWeblogAPI = function () {
 genericMetaWeblogAPI.prototype = new blogAPI();
 
 var genericMovableTypeAPI = function () {
+	var newUi = {};
+	for (var x in this.ui) newUi[x] = this.ui[x];
+	this.ui = newUi;
+	
 	this.ui.categories = true;
 	this.ui["add-category"] = false;
 	
@@ -570,6 +578,10 @@ var genericMovableTypeAPI = function () {
 genericMovableTypeAPI.prototype = new genericMetaWeblogAPI();
 
 var wordpressAPI = function () {
+	var newUi = {};
+	for (var x in this.ui) newUi[x] = this.ui[x];
+	this.ui = newUi;
+	
 	this.ui.categories = true;
 	this.ui.slug = true;
 	this.ui.private = true;
@@ -669,6 +681,10 @@ var wordpressAPI = function () {
 wordpressAPI.prototype = new genericMetaWeblogAPI();
 
 var genericAtomAPI = function () {
+	var newUi = {};
+	for (var x in this.ui) newUi[x] = this.ui[x];
+	this.ui = newUi;
+
 	this.ui.tags = false;
 	this.ui.categories = false;
 	
@@ -1066,10 +1082,14 @@ var genericAtomAPI = function () {
 genericAtomAPI.prototype = new blogAPI();
 
 var bloggerAPI = function () {
-	this.authToken = null;
+	var newUi = {};
+	for (var x in this.ui) newUi[x] = this.ui[x];
+	this.ui = newUi;
 	
 	this.ui.categories = true;
 	this.ui.upload = (typeof Components != 'undefined');
+	
+	this.authToken = null;
 	
 	this.getCategories = function (params, success, failure) {
 		this.getPosts(
@@ -1376,6 +1396,10 @@ var bloggerAPI = function () {
 bloggerAPI.prototype = new genericAtomAPI();
 
 var tumblrAPI = function () {
+	var newUi = {};
+	for (var x in this.ui) newUi[x] = this.ui[x];
+	this.ui = newUi;
+	
 	this.ui.categories = false;
 	this.ui.timestamp = false;
 	this.ui.slug = true;
@@ -1612,6 +1636,10 @@ var tumblrAPI = function () {
 tumblrAPI.prototype = new blogAPI();
 
 var posterousAPI = function () {
+	var newUi = {};
+	for (var x in this.ui) newUi[x] = this.ui[x];
+	this.ui = newUi;
+	
 	//this.ui.tags = false;
 	this.ui.categories = false;
 	this.ui.deleteEntry = false;
