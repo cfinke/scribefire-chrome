@@ -160,7 +160,7 @@ $(document).ready(function () {
 		var button = $(this);
 		button.addClass("busy");
 		
-		if (confirm("Are you sure?")) {
+		if (confirm("Are you sure you want to delete this post? It will be removed from your blog's server, and it will no longer appear on your blog.")) {
 			function callback() {
 				button.removeClass("busy");
 			}
@@ -224,10 +224,10 @@ $(document).ready(function () {
 		$("#button-inlinks").hide();
 		
 		if (!$(this).val()) {
-			$("#button-blog-edit, #button-blog-remove").hide();
+			$(".button-blog-meta").hide();
 		}
 		else {
-			$("#button-blog-edit, #button-blog-remove").show();
+			$(".button-blog-meta").show();
 			SCRIBEFIRE.populateEntriesList();
 			SCRIBEFIRE.populateCategoriesList();
 			
@@ -240,6 +240,12 @@ $(document).ready(function () {
 		$("#label-current-blog").html($(this).find("option:selected").text());
 		
 		SCRIBEFIRE.updateOptionalUI();
+	});
+	
+	$("#button-update-auth").live("click", function (e) {
+		e.preventDefault();
+		
+		alert("@Todo");
 	});
 	
 	$("#list-entries").live("change", function () {
@@ -585,6 +591,19 @@ $(document).ready(function () {
 		
 		$.facebox($("#panel-blog-edit"));
 		$("#panel-blog-edit").show();
+	});
+	
+	$("#button-blog-view").live("click", function (e) {
+		e.preventDefault();
+		
+		var url = SCRIBEFIRE.getAPI().url;
+
+		if (typeof chrome != 'undefined') {
+			chrome.tabs.create({ "url": url });
+		}
+		else {
+			window.open(url);
+		}
 	});
 	
 	$("#button-blog-edit-finish").live("click", function (e) {

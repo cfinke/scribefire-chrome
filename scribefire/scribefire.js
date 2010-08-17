@@ -954,9 +954,15 @@ var SCRIBEFIRE = {
 		}
 	},
 	
-	error : function (msg) {
+	error : function (msg, errorCode) {
 		msg = msg.replace(/</g, "&lt;").replace(/\n/g, "<br />");
 		
-		$.facebox("<div class='error'><h3>Well, this is embarrassing...</h3><p>"+msg+"</p></div>");
+		var errorHTML = "<h3>Well, this is embarrassing...</h3><p>"+msg+"</p>";
+		
+		if (errorCode == 'BadAuthentication') {
+			errorHTML += '<p><a href="#" id="button-update-auth">Click here to update your username and password.</a></p>';
+		}
+		
+		$.facebox("<div class='error'>" + errorHTML + "</div>");
 	}
 };

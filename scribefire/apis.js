@@ -1147,7 +1147,7 @@ var bloggerAPI = function () {
 					else {
 						switch (returnValues["Error"]) {
 							case 'BadAuthentication':
-								SCRIBEFIRE.error("Blogger says that you entered the wrong username or password.");
+								SCRIBEFIRE.error("Blogger says that you entered the wrong username or password.", "BadAuthentication");
 								return;
 							break;
 							case 'NotVerified':
