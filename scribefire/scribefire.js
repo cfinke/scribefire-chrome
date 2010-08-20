@@ -959,9 +959,11 @@ var SCRIBEFIRE = {
 		
 		var errorHTML = "<h3>Well, this is embarrassing...</h3><p>"+msg+"</p>";
 		
+		/*
 		if (errorCode == 'BadAuthentication') {
 			errorHTML += '<p><a href="#" id="button-update-auth">Click here to update your username and password.</a></p>';
 		}
+		*/
 		
 		$.facebox("<div class='error'>" + errorHTML + "</div>");
 	}
