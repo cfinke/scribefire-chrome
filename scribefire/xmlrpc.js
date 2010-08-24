@@ -19,47 +19,74 @@ var XMLRPC_LIB = {
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
-				//console.log("Receiving: " + req.responseText);
-				var jDoc = $(req.responseXML);
+				//console.log("Receiving: " + req.status + " " + req.responseText);
+				//console.log(req.responseXML);
 				
-				if (req.status < 300 && (jDoc.find("fault").length == 0)) {
-					var returnValue = jDoc.find("params:first > param:first > value:first > *:first");
-					
-					if (returnValue.length == 0) {
-						// Instead of <value><string>data</string></value>, it's
-						// <value>data</value>
-						
-						returnValueText = jDoc.find("params:first > param:first > value:first").text();
-						returnValue = $("<string />");
-						returnValue.html(returnValueText);
-					}
-					var parsedObject = XMLRPC_LIB.XMLToObject(returnValue);
-					
-					//console.log("Parsed: ");
-					//console.log(parsedObject);
-					
-					callback(parsedObject);
-				}
-				else {
-					if (!jDoc.find("fault:first > value:first > *")[0]) {
-						if (callbackFailure) {
-							switch (req.status) {
-								case 412:
-									var error = "The blog returned a 412 error code. You may be able to fix this by following the instructions at http://wordpress.org/support/topic/130095";
-								break;
-								default:
-									var error = "The blog returned a "+req.status+" error code, but no error message could be found.";
-								break;
+				if (!req.responseXML) {
+					// Improper encoding or some other server-side problem results in no XML response.
+					if (req.responseText) {
+						if (req.responseText.indexOf("faultString") != -1) {
+							var faultCode = -1;
+							
+							if (req.responseText.indexOf("faultCode") != -1) {
+								var start = req.responseText.indexOf("<int>", req.responseText.indexOf("faultCode")) + 5;
+								faultCode = req.responseText.substr(start, req.responseText.indexOf("<", start) - start);
 							}
 							
-							callbackFailure(req.status, error);
+							var start = req.responseText.indexOf("<string>", req.responseText.indexOf("faultString")) + 8;
+							var faultString = req.responseText.substr(start, req.responseText.indexOf("<", start) - start);
+							callbackFailure(faultCode, faultString);
+							
+							return;
 						}
 					}
-					else {
-						var parsedObject = XMLRPC_LIB.XMLToObject(jDoc.find("fault:first > value:first > *:first"));
+					
+					callbackFailure(req.status, "The blog returned an invalid XML response.");
+				}
+				else {
+					var jDoc = $(req.responseXML);
+				
+					//console.log(jDoc.find("fault").length);
+				
+					if (req.status < 300 && (jDoc.find("fault").length == 0)) {
+						var returnValue = jDoc.find("params:first > param:first > value:first > *:first");
+					
+						if (returnValue.length == 0) {
+							// Instead of <value><string>data</string></value>, it's
+							// <value>data</value>
 						
-						if (callbackFailure) {
-							callbackFailure(parsedObject.faultCode, parsedObject.faultString);
+							returnValueText = jDoc.find("params:first > param:first > value:first").text();
+							returnValue = $("<string />");
+							returnValue.html(returnValueText);
+						}
+						var parsedObject = XMLRPC_LIB.XMLToObject(returnValue);
+					
+						//console.log("Parsed: ");
+						//console.log(parsedObject);
+					
+						callback(parsedObject);
+					}
+					else {
+						if (!jDoc.find("fault:first > value:first > *")[0]) {
+							if (callbackFailure) {
+								switch (req.status) {
+									case 412:
+										var error = "The blog returned a 412 error code. You may be able to fix this by following the instructions at http://wordpress.org/support/topic/130095";
+									break;
+									default:
+										var error = "The blog returned a "+req.status+" error code, but no error message could be found.";
+									break;
+								}
+							
+								callbackFailure(req.status, error);
+							}
+						}
+						else {
+							var parsedObject = XMLRPC_LIB.XMLToObject(jDoc.find("fault:first > value:first > *:first"));
+						
+							if (callbackFailure) {
+								callbackFailure(parsedObject.faultCode, parsedObject.faultString);
+							}
 						}
 					}
 				}
