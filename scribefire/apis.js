@@ -165,8 +165,6 @@ var genericMetaWeblogAPI = function () {
 			params.apiUrl,
 			xml,
 			function (rv) {
-				//console.log("in success");
-				//console.log(rv);
 				if (success) {
 					var blogs = [];
 				
@@ -179,8 +177,6 @@ var genericMetaWeblogAPI = function () {
 						blog.type = params.type;
 						blog.username = params.username;
 						blog.password = params.password;
-						
-						//console.log(blog);
 						
 						blogs.push(blog);
 					}
@@ -420,7 +416,6 @@ var genericMovableTypeAPI = function () {
 		
 		this.doPublish(params, 
 			function newSuccess(rv) {
-				//console.log(rv);
 				if (("id" in rv) && rv.id) {
 					var postId = rv.id;
 				}
@@ -508,8 +503,7 @@ var genericMovableTypeAPI = function () {
 		var args = [this.apiUrl, params.id, this.username, this.password, categories];
 		
 		var xml = performancingAPICalls.mt_setPostCategories(args);
-		//console.log("settingg cats");
-		//console.log(xml);
+		
 		XMLRPC_LIB.doCommand(
 			this.apiUrl,
 			xml, 
@@ -703,9 +697,6 @@ var genericAtomAPI = function () {
 							var xml = req.responseXML;
 							
 							if (!xml) {
-								//console.log(req.responseText);
-								//console.log(req.status);
-								
 								failure({"status": req.status, "msg": req.responseText});
 							}
 							else {
@@ -749,8 +740,6 @@ var genericAtomAPI = function () {
 					if (req.readyState == 4) {
 						if (req.status < 300) {
 							var xml = req.responseXML;
-							
-							//console.log(xml);
 							
 							var jxml = $(xml);
 						
@@ -1333,12 +1322,13 @@ var bloggerAPI = function () {
 			upreq.send(uploadStream);
 		}
 		
+		var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).QueryInterface(Components.interfaces.nsIPrefBranch).getBranch("extensions.scribefire.");
+		prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
+		
 		var prefObserver = {
 			observe : function (subject, topic, data) {
 				if (topic == 'nsPref:changed') {
 					if (data == 'google_token') {
-						// When it appears, do this:
-						
 						var token = SCRIBEFIRE.prefs.getCharPref("google_token");
 						
 						if (!token) {
@@ -1375,7 +1365,7 @@ var bloggerAPI = function () {
 			}
 		};
 		
-		SCRIBEFIRE.prefs.addObserver(prefObserver);
+		prefs.addObserver("", prefObserver, false);
 		
 		var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
 		
@@ -1384,7 +1374,7 @@ var bloggerAPI = function () {
 		}
 		else {
 			invalidTokens++;
-		
+			
 			window.open("https://www.google.com/accounts/AuthSubRequest"
 					+ "?scope="+encodeURIComponent('http://picasaweb.google.com/data/')
 					+ "&next="+ encodeURIComponent('http://www.scribefire.com/token.php') +"&session=1", 
@@ -1492,8 +1482,6 @@ var tumblrAPI = function () {
 		
 		argstring = argstring.substr(0, argstring.length - 1);
 		
-		//console.log(argstring);
-		
 		var req = new XMLHttpRequest();
 		req.open("POST", url, true);
 		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -1501,7 +1489,6 @@ var tumblrAPI = function () {
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
-					//console.log(req.responseText);
 					var xml = req.responseXML;
 					var jxml = $(xml);
 				
@@ -1575,8 +1562,6 @@ var tumblrAPI = function () {
 		}
 		
 		argstring = argstring.substr(0, argstring.length - 1);
-		
-		//console.log(argstring);
 		
 		var req = new XMLHttpRequest();
 		req.open("POST", "http://www.tumblr.com/api/write", true);
@@ -1713,7 +1698,6 @@ var posterousAPI = function () {
 
 					var xml = req.responseXML;
 					
-					//console.log(xml);
 					var jxml = $(xml);
 					
 					var rv = [];
