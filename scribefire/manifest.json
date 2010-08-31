@@ -22,6 +22,10 @@
 		{
 			"matches": ["http://*/", "https://*/"],
 			"js": ["content_helper.js"]
+		},
+		{
+			"matches": ["http://www.scribefire.com/token.php*"],
+			"js" : ["token_listener.js"]
 		}
 	]
 }

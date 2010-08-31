@@ -968,3 +968,13 @@ var SCRIBEFIRE = {
 		$.facebox("<div class='error'>" + errorHTML + "</div>");
 	}
 };
+
+if (typeof chrome != 'undefined') {
+	chrome.extension.onRequest.addListener(
+		function (request, sender, sendResponse) {
+			if ("token" in request) {
+				SCRIBEFIRE.prefs.setCharPref("google_token", request.token);
+			}
+		}
+	);
+}
