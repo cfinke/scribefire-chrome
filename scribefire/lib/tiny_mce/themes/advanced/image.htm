@@ -15,7 +15,13 @@
 		<h2>Insert/Edit image</h2>
 		
 		<div class="ui-upload" style="padding-bottom: 10px;">
-			<button id="upload-file">Upload an image</button> or enter the details for an image already on the Web.
+			<span id="upload-components"><button id="upload-file">Upload an image</button> or enter the details for an image already on the Web.</span>
+			<div id="upload-drag" style="display: none;">
+				<input type="file" id="image_upload" onchange="handleFileSelect(this.files);" />
+			</div>
+			<div id="upload-working" style="display:none;">
+				Uploading...
+			</div>
 		</div>
 		
 		<form onsubmit="ImageDialog.update(); return false;" action="#">
@@ -56,9 +62,9 @@
 				  </tr>
 				  <tr>
 					<td class="nowrap"><label for="width">Dimensions</label></td>
-					<td><input id="width" name="width" type="number" value="" size="3" maxlength="5" placeholder="w" />
+					<td><input id="width" name="width" type="number" value="" size="5" maxlength="5" placeholder="w" />
 					  x
-					  <input id="height" name="height" type="number" value="" size="3" maxlength="5" placeholder="h" /></td>
+					  <input id="height" name="height" type="number" value="" size="5" maxlength="5" placeholder="h" /></td>
 				  </tr>
 				  <tr>
 					<td class="nowrap"><label for="border">Border</label></td>
@@ -93,7 +99,20 @@
 					var res = fp.show();
 					
 					if (res == nsIFilePicker.returnOK){
-						tinyMCEPopup.getWin().SCRIBEFIRE.getAPI().upload(fp.file,
+						var file = fp.file;
+						
+						var fileInStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream); 
+						fileInStream.init(file, 0x01, 0644, false);
+						
+						var binaryInStream = Components.classes["@mozilla.org/binaryinputstream;1"] .createInstance(Components.interfaces.nsIBinaryInputStream); 
+						binaryInStream.setInputStream(fileInStream); 
+						
+						var mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
+						
+						tinyMCEPopup.getWin().SCRIBEFIRE.getAPI().upload(
+							file.leafName,
+							mimeSvc.getTypeFromFile(file),
+							binaryInStream.readBytes(binaryInStream.available()),
 							function success (rv) {
 								button.removeClass("busy");
 
@@ -107,7 +126,67 @@
 						);
 					}
 				});
+				
+				if (typeof Components == 'undefined' && (window.File && window.FileReader && window.FileList && window.Blob)) {
+					$("#upload-components").hide();
+					$("#upload-drag").show();
+				}
 			});
+			
+			function handleFileSelect (files) {
+				$("#upload-drag").hide();
+				$("#upload-working").show();
+				
+				var button = $("#image_upload").addClass("busy");
+				
+				var f = files[0];
+				
+				var reader = new FileReader();
+				reader.onload = (function (theFile) {
+					return function (e) {
+						var binaryData = e.target.result;
+						var filename = theFile.name;
+						
+						var fileType = theFile.type;
+						
+						if (!fileType) {
+							fileType = "image/";
+						
+							var extension = filename.split(".").pop();
+						
+							if (extension) {
+								fileType += extension.toLowerCase();
+							}
+							else {
+								fileType += "jpg";
+							}
+						}
+						
+						tinyMCEPopup.getWin().SCRIBEFIRE.getAPI().upload(
+							filename,
+							fileType,
+							binaryData,
+							function success (rv) {
+								$("#image_upload").val("");
+								$("#upload-drag").show();
+								$("#upload-working").hide();
+								
+								$("#src").val(rv.url).change();
+							},
+							function (rv) {
+								$("#image_upload").val("");
+								$("#upload-drag").show();
+								$("#upload-working").hide();
+
+								tinyMCEPopup.getWin().SCRIBEFIRE.error("ScribeFire couldn't upload your file. Here's the error message that bubbled up:\n\n"+rv.msg);
+							}
+						);
+					};
+				})(f);
+				
+				reader.readAsBinaryString(f);
+			}
+			
 		</script>
 	</body>
 </html>

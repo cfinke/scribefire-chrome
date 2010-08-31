@@ -153,7 +153,7 @@ var genericMetaWeblogAPI = function () {
 	this.ui.categories = false;
 	this.ui.timestamp = true;
 	this.ui.slug = true;
-	this.ui.upload = (typeof Components != 'undefined');
+	this.ui.upload = (window.File && window.FileReader && window.FileList && window.Blob);
 	
 	this.getBlogs = function (params, success, failure) {
 		// How safe is it to assume that MetaWeblog APIs implement the blogger_ methods?
@@ -360,21 +360,10 @@ var genericMetaWeblogAPI = function () {
 		);
 	};
 
-	this.upload = function (file, success, failure) {
-		var params = {};
+	this.upload = function (fileName, fileType, fileData, success, failure) {
+		var bits = btoa(fileData);
 		
-		var fileInStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream); 
-		fileInStream.init(file, 0x01, 0644, false);
-		
-		var binaryInStream = Components.classes["@mozilla.org/binaryinputstream;1"] .createInstance(Components.interfaces.nsIBinaryInputStream); 
-		binaryInStream.setInputStream(fileInStream); 
-		params.bits = btoa(binaryInStream.readBytes(binaryInStream.available()));
-		
-		var mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
-		params.type = mimeSvc.getTypeFromFile(file);
-		params.name = file.leafName;
-		
-		var args = [this.apiUrl, this.id, this.username, this.password, { name : params.name, type : params.type, bits : params.bits.toString() } ];
+		var args = [this.apiUrl, this.id, this.username, this.password, { name : fileName, type : fileType, bits : bits } ];
 		var xml = performancingAPICalls.metaWeblog_newMediaObject(args);
 		
 		XMLRPC_LIB.doCommand(
