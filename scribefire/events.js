@@ -28,12 +28,14 @@ var editor = {
 var accountWizardBlog = {};
 
 function getTimestamp() {
-	if ($("#text-timestamp-year").val() === "" || $("#text-timestamp-month").val() === "" || $("#text-timestamp-day").val() === "" || $("#text-timestamp-hour").val() === "" || $("#text-timestamp-minute").val() === "") {
+	if ($("#text-datestamp-year").val() === "" || !$("#text-datestamp-day").val() || $("#text-timestamp-hour").val() === "" || $("#text-timestamp-minute").val() === "") {
 		return false;
 	}
-	else {
-		return Math.max(1000, $("#text-timestamp-year").val()) + "-" + pad(Math.max(1, $("#text-timestamp-month").val())) + "-" + pad(Math.max(1, $("#text-timestamp-day").val())) + " " + pad(Math.max(0, $("#text-timestamp-hour").val())) + ":" + pad(Math.max(0, $("#text-timestamp-minute").val())) + ":00";
-	}
+	
+	var datestamp = $("#text-datestamp-year").val() + "-" + $("#list-datestamp-month").val() + "-" + $("#text-datestamp-day").val();
+	var timestamp = pad(Math.max(0, $("#text-timestamp-hour").val())) + ":" + pad(Math.max(0, $("#text-timestamp-minute").val())) + ":00";
+	
+	return datestamp + " " + timestamp;
 }
 
 function setTimestamp(date) {
@@ -44,16 +46,16 @@ function setTimestamp(date) {
 	if (date) {
 		var parts = date.split(/[^0-9]/);
 		
-		$("#text-timestamp-year").val(parts[0]);
-		$("#text-timestamp-month").val(parts[1]);
-		$("#text-timestamp-day").val(parts[2]);
+		$("#text-datestamp-year").val(parts[0]);
+		$("#list-datestamp-month").val(parts[1]);
+		$("#text-datestamp-day").val(parts[2]);
 		$("#text-timestamp-hour").val(parts[3]);
 		$("#text-timestamp-minute").val(parts[4]);
 	}
 	else {
-		$("#text-timestamp-year").val("");
-		$("#text-timestamp-month").val("");
-		$("#text-timestamp-day").val("");
+		$("#text-datestamp-year").val("");
+		$("#text-datestamp-month").val("");
+		$("#text-datestamp-day").val("");
 		$("#text-timestamp-hour").val("");
 		$("#text-timestamp-minute").val("");
 	}
@@ -95,6 +97,10 @@ $(document).ready(function () {
 	
 	$("#toggle-schedule").live("click", function (e) {
 		e.preventDefault();
+		
+		if (!$("#toggle-schedule-scheduled").is(":visible") && !$("#text-datestamp-day").val()) {
+			setTimestamp(new Date());
+		}
 		
 		$("#toggle-schedule-immediately").toggle();
 		$("#toggle-schedule-scheduled").toggle();
@@ -260,17 +266,17 @@ $(document).ready(function () {
 		else {
 			$("#button-entry-remove").show();
 			
-			if (!$(this).attr("ignoreContent")) {
-				var entry = $(this).find("option:selected");
+			var entry = $(this).find("option:selected");
+		
+			if (entry.data("published")) {
+				$("#buttons-publish-published").show();
+				$("#buttons-publish-draft").hide();
+			}
 			
+			if (!$(this).attr("ignoreContent")) {
 				$("#text-title").val(entry.data("title")).change();
 				
 				editor.val(entry.data("content"));
-				
-				if (entry.data("published")) {
-					$("#buttons-publish-published").show();
-					$("#buttons-publish-draft").hide();
-				}
 				
 				$("#text-tags").val(entry.data("tags"));
 				
