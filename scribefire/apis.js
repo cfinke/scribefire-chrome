@@ -391,8 +391,10 @@ var genericMovableTypeAPI = function () {
 	
 	this.ui.categories = true;
 	this.ui["add-category"] = false;
+	this.ui.draft = false;
 	
 	this.publish = function (params, success, failure) {
+		/*
 		// MovableType is hacky about publishing and categories.
 		
 		// MT supposedly uses the "draft" setting to determine whether
@@ -400,6 +402,7 @@ var genericMovableTypeAPI = function () {
 
 		var trueDraft = params.draft;
 		params.draft = false;
+		*/
 		
 		var self = this;
 		
