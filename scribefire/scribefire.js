@@ -740,6 +740,8 @@ var SCRIBEFIRE = {
 		
 		params.custom_fields = SCRIBEFIRE.getCustomFields();
 		
+		var timestampObject = new Date();
+		
 		if ($("#toggle-schedule-scheduled").is(":visible")) {
 			var timestamp = getTimestamp();
 		
@@ -754,10 +756,10 @@ var SCRIBEFIRE = {
 				timestampObject.setHours(timestampParts[3]);
 				timestampObject.setMinutes(timestampParts[4]);
 				timestampObject.setSeconds(0);
-			
-				params.timestamp = timestampObject;
 			}
 		}
+		
+		params.timestamp = timestampObject;
 		
 		// Not sure if this section is needed now with the Wordpress JavaScript.
 		// Preserve newlines and angle brackets in <pre>
