@@ -796,16 +796,10 @@ var SCRIBEFIRE = {
 		SCRIBEFIRE.getAPI().publish(
 			params,
 			function success(rv) {
-				if (params.draft) {
-					SCRIBEFIRE.prefs.setCharPref("state.entryId", rv.id);
-				}
+				SCRIBEFIRE.prefs.setCharPref("state.entryId", rv.id);
 				
 				$("#list-entries").val("").change();
 				SCRIBEFIRE.populateEntriesList();
-				
-				if (!params.draft) {
-					SCRIBEFIRE.clearData();
-				}
 				
 				if (callbackSuccess) {
 					rv.url = SCRIBEFIRE.getAPI().url;
