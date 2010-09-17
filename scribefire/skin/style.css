@@ -4,7 +4,8 @@ body {
 }
 
 a {
-	color: #00f;
+	text-decoration: underline;
+	color: inherit;
 }
 
 .bar, .subbar, .bar-fixed, .subbar-fixed {
