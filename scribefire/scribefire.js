@@ -277,6 +277,20 @@ var SCRIBEFIRE = {
 				
 				var selectedEntry = SCRIBEFIRE.prefs.getCharPref("state.entryId");
 				
+				for (var i = 0, _len = rv.length; i < _len; i++) {
+					if (!rv[i].published) {
+						var entry = rv[i];
+						rv.splice(i, 1);
+						rv.unshift(entry);
+					}
+				}
+				
+				var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
+				
+				for (var i in notes) {
+					rv.unshift(notes[i]);
+				}
+				
 				for (var i = 0; i < rv.length; i++) {
 					var entry = $("<option/>");
 					
@@ -315,7 +329,12 @@ var SCRIBEFIRE = {
 					}
 					
 					if (!entry.data("published")) {
-						entry.html("[Draft] " + entry.html());
+						if (rv[i].id.indexOf("local:") == 0) {
+							entry.html("[Local Draft] " + entry.html());
+						}
+						else {
+							entry.html("[Draft] " + entry.html());
+						}
 					}
 					else if (entry.data("timestamp")) {
 						var publishDate = entry.data("timestamp");
@@ -709,6 +728,8 @@ var SCRIBEFIRE = {
 	},
 	
 	publish : function (callbackSuccess, callbackFailure) {
+		var localDraft = false;
+		
 		var params = {};
 		
 		params.id = $("#list-entries").val();
@@ -795,19 +816,53 @@ var SCRIBEFIRE = {
 		// Get rid of MS Word stuff.
 		params.content = params.content.replace(/<[^>\s]+:[^\s>]+[^>]*>/g, " ");
 		
+		function success(rv) {
+			SCRIBEFIRE.prefs.setCharPref("state.entryId", rv.id);
+			
+			$("#list-entries").val("").change();
+			
+			if (localDraft && rv.id.indexOf("local:") == -1) {
+				// Delete a local draft once it is published.
+				var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
+				delete notes[localDraft];
+				SCRIBEFIRE.prefs.setJSONPref("notes", notes);
+			}
+			
+			SCRIBEFIRE.populateEntriesList();
+			
+			if (callbackSuccess) {
+				rv.url = SCRIBEFIRE.getAPI().url;
+				callbackSuccess(rv);
+			}
+		}
+		
+		if (params.draft && !SCRIBEFIRE.getAPI().ui.draft) {
+			// The Blog API doesn't support drafts, so we'll save it locally.
+			var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
+			
+			if (!params.id) {
+				localDraft = "local:" + (new Date().getTime());
+				params.id = localDraft;
+			}
+			else {
+				localDraft = params.id;
+			}
+			
+			notes[params.id] = params;
+			SCRIBEFIRE.prefs.setJSONPref("notes", notes);
+			
+			success( { "id" : params.id } );
+			
+			return;
+		}
+		else if (!params.draft && params.id && params.id.indexOf("local:") == 0) {
+			localDraft = params.id;
+			params.id = "";
+		}
+		
 		SCRIBEFIRE.getAPI().publish(
 			params,
-			function success(rv) {
-				SCRIBEFIRE.prefs.setCharPref("state.entryId", rv.id);
-				
-				$("#list-entries").val("").change();
-				SCRIBEFIRE.populateEntriesList();
-				
-				if (callbackSuccess) {
-					rv.url = SCRIBEFIRE.getAPI().url;
-					callbackSuccess(rv);
-				}
-			},
+			success,
 			function (rv) {
 				SCRIBEFIRE.error("ScribeFire couldn't publish your post. Here's the error message that bubbled up:\n\n"+rv.msg);
 				callbackFailure();
