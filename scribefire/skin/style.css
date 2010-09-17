@@ -84,6 +84,9 @@ html[platform='gecko'] .bar[busy="true"] {
 	background-color: #fff;
 	padding: 10px;
 	display: none;
+	border-width: 0 1px 0 1px;
+	border-style: solid;
+	border-color: #bdbdbd;
 }
 
 .bar, .subbar, .bar-fixed {
@@ -92,12 +95,9 @@ html[platform='gecko'] .bar[busy="true"] {
 
 .underbar[open="true"], .subunderbar[open="true"] {
 	display: block;
-	border-width: 0 1px 0 1px;
-	border-style: solid;
-	border-color: #bdbdbd;
 }
 
-.underbar[open="true"][last], .subunderbar[open="true"][last] {
+.underbar[last], .subunderbar[last] {
 	border-width: 0 1px 1px 1px;
 }
 

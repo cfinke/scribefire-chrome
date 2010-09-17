@@ -226,6 +226,20 @@ $(document).ready(function () {
 		$("#label-current-tags").html($(this).val());
 	});
 	
+	$("#text-excerpt").live("change", function () {
+		var excerpt = $(this).val();
+		if (excerpt) {
+			if (excerpt.length > 100) {
+				excerpt = excerpt.substring(0, 100) + "...";
+			}
+			
+			$("#label-current-excerpt").text(excerpt);
+		}
+		else {
+			$("#label-current-excerpt").text("");
+		}
+	});
+	
 	$("#list-blogs").live("change", function () {
 		$("#button-inlinks").hide();
 		
@@ -293,6 +307,7 @@ $(document).ready(function () {
 				
 				$("#text-slug").val(entry.data("slug"));
 				$("#checkbox-private").attr("checked", entry.data("private"));
+				$("#text-excerpt").val(entry.data("excerpt")).change();
 				
 				SCRIBEFIRE.clearCustomFields();
 				
@@ -661,6 +676,7 @@ $(document).ready(function () {
 		SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());
 		SCRIBEFIRE.prefs.setCharPref("state.slug", $("#text-slug").val());
 		SCRIBEFIRE.prefs.setJSONPref("state.customFields", SCRIBEFIRE.getCustomFields(true));
+		SCRIBEFIRE.prefs.setCharPref("state.excerpt", $("#text-excerpt").val());
 	});
 	
 	$("#text-title").val(SCRIBEFIRE.prefs.getCharPref("state.title"));
@@ -668,6 +684,9 @@ $(document).ready(function () {
 	
 	$("#text-tags").val(SCRIBEFIRE.prefs.getCharPref("state.tags"));
 	SCRIBEFIRE.prefs.setCharPref("state.tags", "");
+	
+	$("#text-excerpt").val(SCRIBEFIRE.prefs.getCharPref("state.excerpt")).change();
+	SCRIBEFIRE.prefs.setCharPref("state.excerpt", "");
 	
 	setTimestamp(SCRIBEFIRE.prefs.getCharPref("state.timestamp"));
 	

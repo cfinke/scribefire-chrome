@@ -758,6 +758,7 @@ var SCRIBEFIRE = {
 		params.draft = $("#status-draft").val() == "1";
 		params.slug = $("#text-slug").val();
 		params.private = $("#checkbox-private").is(":checked");
+		params.excerpt = $("#text-excerpt").val();
 		
 		params.custom_fields = SCRIBEFIRE.getCustomFields();
 		

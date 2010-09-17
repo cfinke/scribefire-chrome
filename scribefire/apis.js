@@ -55,6 +55,7 @@ var blogAPI = function () {
 	this.ui["text-content_wp_more"] = false;
 	this.ui.upload = false;
 	this.ui["custom-fields"] = false;
+	this.ui.excerpt = false;
 };
 
 blogAPI.prototype = {
@@ -232,6 +233,11 @@ var genericMetaWeblogAPI = function () {
 							delete rv[i].wp_slug;
 						}
 						
+						if ("mt_excerpt" in rv[i]) {
+							rv[i].excerpt = rv[i].mt_excerpt;
+							delete rv[i].mt_excerpt;
+						}
+						
 						rv[i].permalink = rv[i].permaLink;
 						
 						if ("date_created_gmt" in rv[i]) {
@@ -316,6 +322,12 @@ var genericMetaWeblogAPI = function () {
 		if ("custom_fields" in params) {
 			contentStruct.custom_fields = params.custom_fields;
 		}
+		
+		if (this.ui.excerpt) {
+			if ("excerpt" in params) {
+				contentStruct.mt_excerpt = params.excerpt;
+			}
+		}
 
 		if (("id" in params) && params.id) {
 			var args = [this.apiUrl, params.id, this.username, this.password, contentStruct, publish];
@@ -399,6 +411,7 @@ var genericMovableTypeAPI = function () {
 	this.ui.categories = true;
 	this.ui["add-category"] = false;
 	this.ui.draft = false;
+	this.ui.excerpt = true;
 	
 	this.publish = function (params, success, failure) {
 		/*
@@ -580,6 +593,7 @@ var wordpressAPI = function () {
 	this.ui.private = true;
 	this.ui["text-content_wp_more"] = true;
 	this.ui["custom-fields"] = true;
+	this.ui.excerpt = true;
 	
 	this.publish = function (params, success, failure) {
 		// Some Wordpress plugins apparently rely on linebreaks being \n and not <br />. This is dumb.
