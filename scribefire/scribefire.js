@@ -875,6 +875,7 @@ var SCRIBEFIRE = {
 		$("#list-entries").val("").change();
 		$("#text-title").val("").change();
 		$("#text-tags").val("").change();
+		$("#text-excerpt").val("").change();
 		setTimestamp();
 			$("#toggle-schedule-immediately").show();
 			$("#toggle-schedule-scheduled").hide();
