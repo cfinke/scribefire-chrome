@@ -166,22 +166,29 @@ var genericMetaWeblogAPI = function () {
 			xml,
 			function (rv) {
 				if (success) {
-					var blogs = [];
-				
-					for (var i = 0; i < rv.length; i++) {
-						var blog = {};
-						blog.url = rv[i].url;
-						blog.id = rv[i].blogid;
-						blog.name = rv[i].blogName;
-						blog.apiUrl = params.apiUrl;
-						blog.type = params.type;
-						blog.username = params.username;
-						blog.password = params.password;
+					if (rv.length) {
+						var blogs = [];
 						
-						blogs.push(blog);
-					}
+						for (var i = 0, _len = rv.length; i < _len; i++) {
+							var blog = {};
+							blog.url = rv[i].url;
+							blog.id = rv[i].blogid;
+							blog.name = rv[i].blogName;
+							blog.apiUrl = params.apiUrl;
+							blog.type = params.type;
+							blog.username = params.username;
+							blog.password = params.password;
+						
+							blogs.push(blog);
+						}
 					
-					success(blogs);
+						success(blogs);
+					}
+					else {
+						if (failure) {
+							failure( {"status" : 200, "msg" : "ScribeFire could not successfully connect to your blog."});
+						}
+					}
 				}
 			},
 			function (status, msg) {
@@ -590,22 +597,29 @@ var wordpressAPI = function () {
 			xml,
 			function (rv) {
 				if (success) {
-					var blogs = [];
+					if (rv.length) {
+						var blogs = [];
 				
-					for (var i = 0; i < rv.length; i++) {
-						var blog = {};
-						blog.url = rv[i].url;
-						blog.id = rv[i].blogid;
-						blog.name = rv[i].blogName;
-						blog.apiUrl = rv[i].xmlrpc;
-						blog.type = params.type;
-						blog.username = params.username;
-						blog.password = params.password;
+						for (var i = 0, _len = rv.length; i < _len; i++) {
+							var blog = {};
+							blog.url = rv[i].url;
+							blog.id = rv[i].blogid;
+							blog.name = rv[i].blogName;
+							blog.apiUrl = rv[i].xmlrpc;
+							blog.type = params.type;
+							blog.username = params.username;
+							blog.password = params.password;
 					
-						blogs.push(blog);
+							blogs.push(blog);
+						}
+					
+						success(blogs);
 					}
-					
-					success(blogs);
+					else {
+						if (failure) {
+							failure( {"status" : 200, "msg" : "ScribeFire could not successfully connect to your blog."});
+						}
+					}
 				}
 			},
 			function (status, msg) {
@@ -689,7 +703,9 @@ var genericAtomAPI = function () {
 							var xml = req.responseXML;
 							
 							if (!xml) {
-								failure({"status": req.status, "msg": req.responseText});
+								if (failure) {
+									failure({"status": req.status, "msg": req.responseText});
+								}
 							}
 							else {
 								var jxml = $(xml);
@@ -713,7 +729,9 @@ var genericAtomAPI = function () {
 							}
 						}
 						else {
-							failure({"status": req.status, "msg": req.responseText});
+							if (failure) {
+								failure({"status": req.status, "msg": req.responseText});
+							}
 						}
 					}
 				};
@@ -1438,10 +1456,19 @@ var tumblrAPI = function () {
 						blogs.push(blog);
 					});
 					
-					success(blogs);
+					if (blogs.length == 0) {
+						success(blogs);
+					}
+					else {
+						if (failure) {
+							failure( {"status" : 200, "msg" : "ScribeFire could not successfully connect to your blog."});
+						}
+					}
 				}
 				else {
-					failure({"status": req.status, "msg": req.responseText});
+					if (failure) {
+						failure({"status": req.status, "msg": req.responseText});
+					}
 				}
 			}
 		};
@@ -1653,10 +1680,19 @@ var posterousAPI = function () {
 						blogs.push(blog);
 					});
 					
-					success(blogs);
+					if (blogs.length) {	
+						success(blogs);
+					}
+					else {
+						if (failure) {
+							failure( {"status" : 200, "msg" : "ScribeFire could not successfully connect to your blog."});
+						}
+					}
 				}
 				else {
-					failure({"status": req.status, "msg": req.responseText});
+					if (failure) {
+						failure({"status": req.status, "msg": req.responseText});
+					}
 				}
 			}
 		};
