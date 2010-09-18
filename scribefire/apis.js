@@ -701,6 +701,7 @@ var genericAtomAPI = function () {
 
 	this.ui.tags = false;
 	this.ui.categories = false;
+	this.ui.draft = false;
 	
 	this.getBlogs = function (params, success, failure) {
 		this.init(params);
@@ -1101,6 +1102,7 @@ var bloggerAPI = function () {
 	
 	this.ui.categories = true;
 	this.ui.upload = (typeof Components != 'undefined');
+	this.ui.draft = true;
 	
 	this.authToken = null;
 	
