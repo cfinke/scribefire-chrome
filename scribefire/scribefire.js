@@ -409,34 +409,45 @@ var SCRIBEFIRE = {
 	},
 	
 	deletePost : function (postId, callbackSuccess, callbackFailure) {
-		var params = { "id": postId };
-		
-		var option = $("#list-entries option[value='"+params.id+"']:first");
-		
-		// Pass along any custom post metadata that the API stored.
-		var attrs = option.data();
-		
-		for (var x in attrs) {
-			params[x] = attrs[x];
+		function success(rv) {
+			$("#list-entries option[value='"+postId+"']").remove();
+			
+			if (callbackSuccess) {
+				callbackSuccess(rv);
+			}
 		}
 		
-		SCRIBEFIRE.getAPI().deletePost(
-			params,
-			function success(rv) {
-				$("#list-entries option[value='"+postId+"']").remove();
-				
-				if (callbackSuccess) {
-					callbackSuccess(rv);
-				}
-			},
-			function failure(rv) {
-				SCRIBEFIRE.error("ScribeFire found this little error when trying to delete your post: " + rv.status + "\n\n" + rv.msg);
-				
-				if (callbackFailure) {
-					callbackFailure(rv);
-				}
+		if (postId.indexOf("local:") == 0) {
+			var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
+			delete notes[postId];
+			SCRIBEFIRE.prefs.setJSONPref("notes", notes);
+			
+			success({ "msg" : "Draft deleted." });
+		}
+		else {
+			var params = { "id": postId };
+		
+			var option = $("#list-entries option[value='"+params.id+"']:first");
+		
+			// Pass along any custom post metadata that the API stored.
+			var attrs = option.data();
+		
+			for (var x in attrs) {
+				params[x] = attrs[x];
 			}
-		);
+		
+			SCRIBEFIRE.getAPI().deletePost(
+				params,
+				success,
+				function failure(rv) {
+					SCRIBEFIRE.error("ScribeFire found this little error when trying to delete your post: " + rv.status + "\n\n" + rv.msg);
+				
+					if (callbackFailure) {
+						callbackFailure(rv);
+					}
+				}
+			);
+		}
 	},
 	
 	addCategory : function (categoryName, callbackSuccess, callbackFailure) {
