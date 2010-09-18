@@ -677,6 +677,8 @@ $(document).ready(function () {
 		SCRIBEFIRE.prefs.setCharPref("state.slug", $("#text-slug").val());
 		SCRIBEFIRE.prefs.setJSONPref("state.customFields", SCRIBEFIRE.getCustomFields(true));
 		SCRIBEFIRE.prefs.setCharPref("state.excerpt", $("#text-excerpt").val());
+		
+		SCRIBEFIRE.prefs.setCharPref("state.editor", switchEditors.mode);
 	});
 	
 	$("#text-title").val(SCRIBEFIRE.prefs.getCharPref("state.title"));
@@ -759,6 +761,11 @@ $(document).ready(function () {
 			
 			// Example content CSS (should be your site CSS)
 			content_css : "skin/editor_content.css",
+			oninit : function () {
+				if (SCRIBEFIRE.prefs.getCharPref("state.editor") == 'html') {
+					switchEditors.go('text-content', 'html');
+				}
+			}
 		});
 		
 		adjustForSize();
