@@ -22,7 +22,14 @@ var XMLRPC_LIB = {
 				//console.log("Receiving: " + req.status + " " + req.responseText);
 				//console.log(req.responseXML);
 				
-				if (!req.responseXML) {
+				var xml = req.responseXML;
+				
+				if (!xml) {
+					var text = req.responseText.replace(/<\?xml[^>]+>/, "").replace(/^\s+/g, "");
+					xml = $(text);
+				}
+				
+				if (!xml) {
 					// Improper encoding or some other server-side problem results in no XML response.
 					if (req.responseText) {
 						if (req.responseText.indexOf("faultString") != -1) {
@@ -44,25 +51,21 @@ var XMLRPC_LIB = {
 					callbackFailure(req.status, "The blog returned an invalid XML response.");
 				}
 				else {
-					var jDoc = $(req.responseXML);
-				
-					//console.log(jDoc.find("fault").length);
-				
+					var jDoc = $(xml);
+					
 					if (req.status < 300 && (jDoc.find("fault").length == 0)) {
-						var returnValue = jDoc.find("params:first > param:first > value:first > *:first");
+						var returnValue = jDoc.find("value:first > *:first");
 					
 						if (returnValue.length == 0) {
 							// Instead of <value><string>data</string></value>, it's
 							// <value>data</value>
 						
-							returnValueText = jDoc.find("params:first > param:first > value:first").text();
+							returnValueText = jDoc.find("value:first").text();
 							returnValue = $("<string />");
 							returnValue.html(returnValueText);
 						}
+						
 						var parsedObject = XMLRPC_LIB.XMLToObject(returnValue);
-					
-						//console.log("Parsed: ");
-						//console.log(parsedObject);
 					
 						callback(parsedObject);
 					}
@@ -83,7 +86,7 @@ var XMLRPC_LIB = {
 						}
 						else {
 							var parsedObject = XMLRPC_LIB.XMLToObject(jDoc.find("fault:first > value:first > *:first"));
-						
+							
 							if (callbackFailure) {
 								callbackFailure(parsedObject.faultCode, parsedObject.faultString);
 							}

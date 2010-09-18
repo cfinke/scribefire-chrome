@@ -144,7 +144,7 @@ var SCRIBEFIRE = {
 	genericError : function (rv) {
 		//console.log("Error ("+rv.status+"): " + rv.msg);
 		
-		SCRIBEFIRE.notify("Debugging error ("+rv.status+"): " + rv.func, null, null, null, "notifier-error");
+		SCRIBEFIRE.notify(/*"Debugging error ("+rv.status+"): " + rv.func*/rv.msg, null, null, null, "notifier-error");
 	},
 	
 	notify : function (msg, buttonLabel, buttonCallback, buttonProperties, notifyClass) {
