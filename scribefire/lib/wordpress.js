@@ -62,7 +62,11 @@ var switchEditors = {
 
 		// put back the line breaks in pre|script
 		content = content.replace(/<wp_temp>/g, '\n');
-
+		
+		// Keep <pre> tags on their own lines.
+		content = content.replace(/(<pre[^>]*>)([^\n])/g, "$1\n$2");
+		content = content.replace(/([^\n])<\/pre>/g, "$1\n</pre>");
+		
 		return content;
 	},
 

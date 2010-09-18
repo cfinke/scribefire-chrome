@@ -785,6 +785,7 @@ var SCRIBEFIRE = {
 		
 		// Not sure if this section is needed now with the Wordpress JavaScript.
 		// Preserve newlines and angle brackets in <pre>
+		
 		if (params.content.match(/<pre[^>]*>/i)) {
 			try {
 				var allMatches = params.content.match(/<pre[^>]*>([\s\S]+?)<\/pre>/img);
@@ -795,8 +796,8 @@ var SCRIBEFIRE = {
 					var toReplace = currentMatch.match(/<pre[^>]*>([\s\S]+?)<\/pre>/im)[1];
 					
 					var replaced = toReplace.replace(/\n/g, "SCRIBEFIRE_NEWLINE");
-					replaced = replaced.replace(/</g, "&lt;");
-					replaced = replaced.replace(/>/g, "&gt;");
+					//replaced = replaced.replace(/</g, "&lt;");
+					//replaced = replaced.replace(/>/g, "&gt;");
 					
 					// $ is a special backreference char.
 					replaced = replaced.replace(/\$/g, "$$$$");
