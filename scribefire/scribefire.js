@@ -1037,6 +1037,8 @@ var SCRIBEFIRE = {
 		exportComment += " * ScribeFire on another computer to transfer your blogs and settings.\n";
 		exportComment += " */\n\n";
 		
+		var formatComment = "/* format=application/json;base64 */";
+		
 		function chunk_split (body, chunklen, end) {
 			chunklen = parseInt(chunklen, 10) || 76;    end = end || '\r\n';
 
@@ -1047,11 +1049,39 @@ var SCRIBEFIRE = {
 			return body.match(new RegExp(".{0," + chunklen + "}", "g")).join(end);
 		}
 		
-		var exportFileText = exportComment + chunk_split(btoa(jsonText), 78, "\n");
+		var exportFileText = exportComment + chunk_split(btoa(jsonText), 78, "\n") + "\n" + formatComment;
 		
 		window.open("data:text/plain;base64,"+btoa(exportFileText));
 	},
 	
+	importHelper : function (files) {
+		var f = files[0];
+		
+		var reader = new FileReader();
+		
+		reader.onload = (function (theFile) {
+			return function (e) {
+				var binaryData = e.target.result;
+				
+				// File Format is: 
+				// Part 1: Comment to user.
+				// Part 2: base64-encoded JSON
+				// Part 3: Format comment
+				
+				// @todo Error handler.
+				
+				var base64 = binaryData.replace(/\/\*[\s\S]*?\*\//mg, "").replace(/\s/g, "");
+				var jsonText = atob(base64);
+				var json = JSON.parse(jsonText);
+				
+				// json.blogs
+				// json.notes
+				// json.google_tokens
+			};
+		})(f);
+		
+		reader.readAsBinaryString(f);
+	},
 	
 	import : function (json) {
 		if ("blogs" in json) {
