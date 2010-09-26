@@ -1029,7 +1029,29 @@ var SCRIBEFIRE = {
 			"google_tokens" : google_tokens,
 			"notes" : notes
 		};
+		
+		var jsonText = JSON.stringify(exportJSON);
+		
+		var exportComment = "/**\n";
+		exportComment += " * Save this file to your hard drive; you can import it into\n";
+		exportComment += " * ScribeFire on another computer to transfer your blogs and settings.\n";
+		exportComment += " */\n\n";
+		
+		function chunk_split (body, chunklen, end) {
+			chunklen = parseInt(chunklen, 10) || 76;    end = end || '\r\n';
+
+			if (chunklen < 1) {
+				return false;
+			} 
+
+			return body.match(new RegExp(".{0," + chunklen + "}", "g")).join(end);
+		}
+		
+		var exportFileText = exportComment + chunk_split(btoa(jsonText), 78, "\n");
+		
+		window.open("data:text/plain;base64,"+btoa(exportFileText));
 	},
+	
 	
 	import : function (json) {
 		if ("blogs" in json) {
