@@ -1019,6 +1019,56 @@ var SCRIBEFIRE = {
 		}
 	},
 	
+	export : function () {
+		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
+		var google_tokens = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+		var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
+		
+		var exportJSON = {
+			"blogs" : blogs,
+			"google_tokens" : google_tokens,
+			"notes" : notes
+		};
+	},
+	
+	import : function (json) {
+		if ("blogs" in json) {
+			var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
+			
+			for (var i in json.blogs) {
+				blogs[i] = json.blogs[i];
+			}
+			
+			SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
+		}
+		
+		if ("google_tokens" in json) {
+			var google_tokens = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+			
+			for (var i in json.google_tokens) {
+				google_tokens[i] = json.google_tokens[i];
+			}
+			
+			SCRIBEFIRE.prefs.setJSONPref("google_tokens", google_tokens);
+		}
+		
+		if ("notes" in json) {
+			var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
+			
+			for (var i in json.notes) {
+				var noteKey = i;
+				
+				while (noteKey in notes && (notes[noteKey] != json.notes[i])) {
+					noteKey += "" + Math.floor(Math.random() * 9);
+				}
+				
+				notes[noteKey] = json.notes[i];
+			}
+			
+			SCRIBEFIRE.prefs.setJSONPref("notes", notes);
+		}
+	},
+	
 	error : function (msg, errorCode) {
 		msg = msg.replace(/</g, "&lt;").replace(/\n/g, "<br />");
 		
