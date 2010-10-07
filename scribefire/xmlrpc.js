@@ -244,7 +244,7 @@ var XMLRPC_LIB = {
 			case 'datetime.iso8601':
 				var val = jNode.text().replace(/^\s+|\s+$/g, "");
 				
-				if (val.match(/z/i) || (nodeName && nodeName == 'date_created_gmt')) {
+				if (val.match(/z/i) || (nodeName && (nodeName == 'date_created_gmt' || nodeName == 'dateCreated'))) {
 					val = val.replace(/\-/gi, "");
 					val = val.replace(/\z/gi, "");
 					var dateutc = Date.UTC(val.slice(0, 4), val.slice(4, 6) - 1, 

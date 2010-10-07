@@ -113,13 +113,13 @@
 					</div>
 					<div>
 						<div class="bar" id="bar-entries">
-							<label>Entry: <span id="label-current-entry"></span></label>
+							<label><span class="entry-type-text">Entry</span>: <span id="label-current-entry"></span></label>
 						</div>
 						<div class="underbar" id="underbar-entries">
 							<div orient="horizontal">
-								<select id="list-entries" flex="1" style="display: block;"><option value="">(new)</option></select>
+								<select id="list-entries" flex="1" style="display: block;"><option value="scribefire:new:post">(new)</option></select>
 								<span class="ui-deleteEntry" style="display: block; margin-left: 10px;">
-									<button id="button-entry-remove" style="display: none;" class="text-button">Delete Post</button>
+									<button id="button-entry-remove" style="display: none;" class="text-button">Delete</button>
 								</span>
 							</div>
 						</div>
@@ -199,13 +199,13 @@
 					<input type="hidden" id="status-draft" value="0" />
 					
 					<div style="text-align: right; float: right;">
-						<button id="reset-button" class="text-button">Clear All Fields and Start a New Post</button>
+						<button id="reset-button" class="text-button">Clear All Fields and Start a New <span class="entry-type-text">Post</span></button>
 						<span id="buttons-publish-draft">
 							<button id="button-save-progress">Save Progress</button>
 							<button id="button-publish-draft">Publish</button>
 						</span>
 						<span id="buttons-publish-published">
-							<button id="button-publish">Update Post</button>
+							<button id="button-publish">Update <span class="entry-type-text">Post</span></button>
 						</span>
 					</div>
 					<span class="ui-private">

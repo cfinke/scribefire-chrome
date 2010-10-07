@@ -256,7 +256,7 @@ var SCRIBEFIRE = {
 	},
 	
 	populateEntriesList : function () {
-		$("#list-entries").html('<option value="">(new)</option>');
+		$("#list-entries").html('<option value="scribefire:new:posts">(new)</option>');
 		
 		$("#buttons-publish-published").hide();
 		$("#buttons-publish-draft").show();
@@ -270,6 +270,8 @@ var SCRIBEFIRE = {
 		SCRIBEFIRE.getAPI().getPosts(
 			{ },
 			function success(rv) {
+				$("#list-entries").html('');
+				
 				$("#list-entries").attr("ignoreContent", "true");
 				
 				var tags = [];
@@ -291,60 +293,98 @@ var SCRIBEFIRE = {
 					rv.unshift(notes[i]);
 				}
 				
-				for (var i = 0; i < rv.length; i++) {
-					var entry = $("<option/>");
+				var main_list = $("#list-entries");
+				var list = main_list;
+				
+				if ("length" in rv) {
+					var entry_lists = { "_" : rv };
+				}
+				else {
+					entry_lists = rv;
+				}
+				
+				for (var label in entry_lists) {
+					var postType = "post";
 					
-					for (var x in rv[i]) {
-						entry.data(x, rv[i][x]);
-					}
-					
-					entry.attr("value", rv[i].id);
-					entry.html(rv[i].title);
-					
-					if (selectedEntry && (entry.attr("value") == selectedEntry)) {
-						entry.attr("selected", "selected");
-						SCRIBEFIRE.prefs.setCharPref("state.entryId", "");
-					}
-					
-					if ("tags" in rv[i] && rv[i].tags) {
-						var tag_parts = rv[i].tags.split(",");
+					if (label != "_") {
+						var rv = entry_lists[label];
 						
-						for (var j = 0; j < tag_parts.length; j++) {
-							var tag = tag_parts[j].replace(/^\s+|\s+$/g, "");
+						var list = $("<optgroup />");
+						list.attr("label", label);
+					
+						main_list.append(list);
+						
+						postType = label.toLowerCase();
+					}
+					
+					var option = $("<option/>");
+					option.attr("value", "scribefire:new:" + postType);
+					option.text("(new)");
+					option.data("type", postType);
+					list.append(option);
+					
+					for (var i = 0; i < rv.length; i++) {
+						var entry = $("<option/>");
+						
+						for (var x in rv[i]) {
+							entry.data(x, rv[i][x]);
+						}
+						
+						entry.data("type", postType);
+						
+						entry.attr("value", rv[i].id);
+						entry.html(rv[i].title);
+					
+						if ("tags" in rv[i] && rv[i].tags) {
+							var tag_parts = rv[i].tags.split(",");
+						
+							for (var j = 0; j < tag_parts.length; j++) {
+								var tag = tag_parts[j].replace(/^\s+|\s+$/g, "");
 
-							if (tag) {
-								tags.push(tag);
+								if (tag) {
+									tags.push(tag);
+								}
 							}
 						}
-					}
 					
-					if ("custom_fields" in rv[i]) {
-						for (var j = 0; j < rv[i].custom_fields.length; j++) {
-							var custom_field_key = rv[i].custom_fields[j].key;
+						if ("custom_fields" in rv[i]) {
+							for (var j = 0; j < rv[i].custom_fields.length; j++) {
+								var custom_field_key = rv[i].custom_fields[j].key;
 							
-							if (custom_field_key[0] == "_") continue;
+								if (custom_field_key[0] == "_") continue;
 							
-							custom_field_keys.push(custom_field_key);
+								custom_field_keys.push(custom_field_key);
+							}
 						}
-					}
 					
-					if (!entry.data("published")) {
-						if (rv[i].id.indexOf("local:") == 0) {
-							entry.html("[Local Draft] " + entry.html());
+						if (!entry.data("published")) {
+							console.log(rv[i].title);
+							console.log(rv[i].id);
+							if (rv[i].id.toString().indexOf("local:") == 0) {
+								entry.html("[Local Draft] " + entry.html());
+							}
+							else {
+								entry.html("[Draft] " + entry.html());
+							}
 						}
-						else {
-							entry.html("[Draft] " + entry.html());
-						}
-					}
-					else if (entry.data("timestamp")) {
-						var publishDate = entry.data("timestamp");
+						else if (entry.data("timestamp")) {
+							var publishDate = entry.data("timestamp");
 						
-						if (publishDate.getTime() > (new Date().getTime())) {
-							entry.html("[Scheduled] " + entry.html());
+							if (publishDate.getTime() > (new Date().getTime())) {
+								entry.html("[Scheduled] " + entry.html());
+							}
 						}
-					}
 					
-					$("#list-entries").append(entry);
+						list.append(entry);
+					}
+				}
+				
+				if (selectedEntry) {
+					if ($("#list-entries option[value='" + selectedEntry + "']").length > 0) {
+						$("#list-entries").val(selectedEntry);
+					
+						SCRIBEFIRE.prefs.setCharPref("state.entryId", "");
+					}
 				}
 				
 				SCRIBEFIRE.autocomplete.tags = tags.unique();
@@ -745,7 +785,7 @@ var SCRIBEFIRE = {
 		
 		params.id = $("#list-entries").val();
 		
-		if (params.id) {
+		if (params.id.indexOf("scribefire:new") == -1) {
 			var option = $("#list-entries option[value='"+params.id+"']:first");
 			
 			// Pass along any custom post metadata that the API stored.
@@ -760,6 +800,9 @@ var SCRIBEFIRE = {
 			if (attrs.slug) {
 				params.slug = attrs.slug;
 			}
+		}
+		else {
+			params.id = "";
 		}
 		
 		params.title = $("#text-title").val();
@@ -832,7 +875,7 @@ var SCRIBEFIRE = {
 		function success(rv) {
 			SCRIBEFIRE.prefs.setCharPref("state.entryId", rv.id);
 			
-			$("#list-entries").val("").change();
+			$("#list-entries").val("scribefire:new:" + $("#list-entries option:selected").data("type")).change();
 			
 			if (localDraft && rv.id.indexOf("local:") == -1) {
 				// Delete a local draft once it is published.
@@ -868,23 +911,38 @@ var SCRIBEFIRE = {
 			
 			return;
 		}
-		else if (!params.draft && params.id && params.id.indexOf("local:") == 0) {
+		else if (!params.draft && params.id && params.id.toString().indexOf("local:") == 0) {
 			localDraft = params.id;
 			params.id = "";
 		}
 		
-		SCRIBEFIRE.getAPI().publish(
-			params,
-			success,
-			function (rv) {
-				SCRIBEFIRE.error("ScribeFire couldn't publish your post. Here's the error message that bubbled up:\n\n"+rv.msg);
-				callbackFailure();
-			}
-		);
+		if ($("#list-entries option:selected").data("type") == 'posts') {
+			SCRIBEFIRE.getAPI().publish(
+				params,
+				success,
+				function (rv) {
+					SCRIBEFIRE.error("ScribeFire couldn't publish your post. Here's the error message that bubbled up:\n\n"+rv.msg);
+					callbackFailure();
+				}
+			);
+		}
+		else if ($("#list-entries option:selected").data("type") == 'pages') {
+			SCRIBEFIRE.getAPI().publish(
+				params,
+				success,
+				function (rv) {
+					SCRIBEFIRE.error("ScribeFire couldn't publish your page. Here's the error message that bubbled up:\n\n"+rv.msg);
+					callbackFailure();
+				}
+			);
+		}
+		else {
+			alert("Invalid type: " + $("#list-entries option:selected").data("type") );
+		}
 	},
 	
 	clearData : function () {
-		$("#list-entries").val("").change();
+		$("#list-entries").val("scribefire:new:" + $("#list-entries option:selected").data("type")).change();
 		$("#text-title").val("").change();
 		$("#text-tags").val("").change();
 		$("#text-excerpt").val("").change();
@@ -996,6 +1054,7 @@ var SCRIBEFIRE = {
 		if (!doc) doc = document;
 		
 		var api = SCRIBEFIRE.getAPI();
+		var contentType = $("#list-entries option:selected").data("type");
 		
 		for (x in api.ui) {
 			// x refers to a classname: ui-draft, ui-tags, etc.
@@ -1009,11 +1068,22 @@ var SCRIBEFIRE = {
 			}
 			
 			if (widget.length) {
-				if (!api.ui[x]) {
-					widget.hide();
+				if (typeof api.ui[x] == 'object') {
+					// This UI is differentiated between content types.
+					if (!api.ui[x][contentType]) {
+						widget.hide();
+					}
+					else {
+						widget.show();
+					}
 				}
 				else {
-					widget.show();
+					if (!api.ui[x]) {
+						widget.hide();
+					}
+					else {
+						widget.show();
+					}
 				}
 			}
 		}

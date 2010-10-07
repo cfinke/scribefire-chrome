@@ -56,6 +56,7 @@ var blogAPI = function () {
 	this.ui.upload = false;
 	this.ui["custom-fields"] = false;
 	this.ui.excerpt = false;
+	this.ui.pages = false;
 };
 
 blogAPI.prototype = {
@@ -201,6 +202,8 @@ var genericMetaWeblogAPI = function () {
 	};
 	
 	this.getPosts = function (params, success, failure) {
+		var self = this;
+		
 		if (!("limit" in params)) params.limit = 20;
 		
 		var args = [this.apiUrl, this.id, this.username, this.password, params.limit];
@@ -257,7 +260,81 @@ var genericMetaWeblogAPI = function () {
 						delete rv[i].permaLink;
 					}
 					
-					success(rv);
+					// success(rv);
+					
+					if (self.ui.pages) {
+						var args = [self.apiUrl, self.id, self.username, self.password, 1000];
+						var xml = performancingAPICalls.wp_getPages(args);
+						
+						XMLRPC_LIB.doCommand(
+							self.apiUrl,
+							xml, 
+							function (pages_rv) {
+								//console.log(pages_rv);
+								
+								var true_rv = { "Posts" : rv, "Pages" : [] };
+								
+								for (var j = 0; j < pages_rv.length; j++) {
+									var i = true_rv.Pages.length;
+									
+									true_rv.Pages[i] = pages_rv[j];
+									
+									if ("page_id" in true_rv.Pages[i]) {
+										true_rv.Pages[i].id = true_rv.Pages[i].page_id;
+										delete true_rv.Pages[i].page_id;
+									}
+									
+									true_rv.Pages[i].published = (true_rv.Pages[i].page_status != "draft");
+									true_rv.Pages[i].private = (true_rv.Pages[i].page_status == "private");
+									delete true_rv.Pages[i].page_status;
+									
+									true_rv.Pages[i].content = true_rv.Pages[i].description;
+									delete true_rv.Pages[i].description;
+
+									if (("text_more" in true_rv.Pages[i]) && true_rv.Pages[i].text_more) {
+										true_rv.Pages[i].content += '<!--more-->';
+										true_rv.Pages[i].content += true_rv.Pages[i].text_more;
+									}
+									
+									delete true_rv.Pages[i].text_more;
+
+									if (!("categories" in true_rv.Pages[i])){
+										true_rv.Pages[i].categories = [];
+									}
+
+									if ("wp_slug" in true_rv.Pages[i]) {
+										true_rv.Pages[i].slug = true_rv.Pages[i].wp_slug;
+										delete true_rv.Pages[i].wp_slug;
+									}
+									
+									true_rv.Pages[i].permalink = true_rv.Pages[i].permaLink;
+									delete true_rv.Pages[i].permaLink;
+									
+									if ("date_created_gmt" in true_rv.Pages[i]) {
+										true_rv.Pages[i].timestamp = true_rv.Pages[i].date_created_gmt;
+										delete true_rv.Pages[i].date_created_gmt;
+									}
+									else if ("dateCreated" in true_rv.Pages[i]) {
+										true_rv.Pages[i].timestamp = true_rv.Pages[i].dateCreated;
+										delete true_rv.Pages[i].dateCreated;
+									}
+								}
+								
+								success(true_rv);
+							},
+							function (status, msg) {
+								success(rv);
+								/*
+								if (failure) {
+									failure({"status": status, "msg": msg});
+								}
+								*/
+							}
+						);
+					}
+					else {
+						success(rv);
+					}
 				}
 			},
 			function (status, msg) {
@@ -269,10 +346,6 @@ var genericMetaWeblogAPI = function () {
 	};
 
 	this.publish = function (params, success, failure) {
-		this.doPublish(params, success, failure);
-	};
-	
-	this.doPublish = function (params, success, failure) {
 		var contentStruct = { };
 
 		if ("title" in params) {
@@ -426,7 +499,7 @@ var genericMovableTypeAPI = function () {
 		
 		var self = this;
 		
-		this.doPublish(params, 
+		this.parent.publish(params, 
 			function newSuccess(rv) {
 				if (("id" in rv) && rv.id) {
 					var postId = rv.id;
@@ -582,25 +655,96 @@ var genericMovableTypeAPI = function () {
 	};
 };
 genericMovableTypeAPI.prototype = new genericMetaWeblogAPI();
+genericMovableTypeAPI.prototype.parent = genericMetaWeblogAPI.prototype;
 
 var wordpressAPI = function () {
 	var newUi = {};
 	for (var x in this.ui) newUi[x] = this.ui[x];
 	this.ui = newUi;
 	
-	this.ui.categories = true;
+	this.ui.categories = { "posts" : true, "pages" : false };
 	this.ui.slug = true;
-	this.ui.private = true;
+	this.ui.private = { "posts" : true, "pages" : false };
 	this.ui["text-content_wp_more"] = true;
 	this.ui["custom-fields"] = true;
+	this.ui["tags"] = { "posts" : true, "pages" : false };
 	this.ui.excerpt = true;
+	this.ui.pages = true;
 	
 	this.publish = function (params, success, failure) {
 		// Some Wordpress plugins apparently rely on linebreaks being \n and not <br />. This is dumb.
 		params.content = params.content.replace(/<br\s*\/?>/g, "\n");
 		params.content = params.content.replace(/<\/p>\s*<p>/g, "\n\n");
-		this.doPublish(params, success, failure);
-	}
+		
+		if (params.type == "posts") {
+			this.parent.publish(params, success, failure);
+		}
+		else {
+			var contentStruct = { };
+
+			if ("title" in params) {
+				contentStruct.title = params.title;
+			}
+
+			if ("content" in params) {
+				contentStruct.description = params.content;
+			}
+
+			if ("timestamp" in params && params.timestamp) {
+				contentStruct.dateCreated = params.timestamp;
+			}
+		
+			if ("slug" in params && params.slug) {
+				contentStruct.wp_slug = params.slug;
+			}
+
+			if ("draft" in params) {
+				var publish = params.draft ? "bool0" : "bool1";
+			}
+			else {
+				var publish = "bool1";
+			}
+		
+			if ("custom_fields" in params) {
+				contentStruct.custom_fields = params.custom_fields;
+			}
+		
+			if (this.ui.excerpt) {
+				if ("excerpt" in params) {
+					contentStruct.mt_excerpt = params.excerpt;
+				}
+			}
+
+			if (("id" in params) && params.id) {
+				var args = [this.apiUrl, params.id, this.username, this.password, contentStruct, publish];
+				var xml = performancingAPICalls.metaWeblog_editPost(args);
+			}
+			else {
+				var args = [this.apiUrl, this.id, this.username, this.password, contentStruct, publish];
+				var xml = performancingAPICalls.wp_newPage(args);
+			}
+		
+			XMLRPC_LIB.doCommand(
+				this.apiUrl,
+				xml, 
+				function (rv) {
+					if (success) {
+						if (("id" in params) && params.id) {
+							success({ "id" : params.id });
+						}
+						else {
+							success({ "id": rv });
+						}
+					}
+				},
+				function (status, msg) {
+					if (failure) {
+						failure({"status": status, "msg": msg});
+					}
+				}
+			);
+		}
+	};
 	
 	this.getBlogs = function (params, success, failure) {
 		var args = [params.apiUrl, params.username, params.password];
@@ -691,8 +835,34 @@ var wordpressAPI = function () {
 			}
 		);
 	}
+	
+	this.deletePost = function (params, success, failure) {
+		if (params.type == "posts") {
+			this.parent.deletePost(params, success, failure);
+		}
+		else {
+			var args = [this.apiUrl, params.id, this.username, this.password, params.id];
+			var xml = performancingAPICalls.wp_deletePage(args);
+
+			XMLRPC_LIB.doCommand(
+				this.apiUrl,
+				xml,
+				function (rv) {
+					if (success) {
+						success(rv);
+					}
+				},
+				function (status, msg) {
+					if (failure) {
+						failure({"status": status, "msg": msg});
+					}
+				}
+			);
+		}
+	}
 };
 wordpressAPI.prototype = new genericMetaWeblogAPI();
+wordpressAPI.prototype.parent = genericMetaWeblogAPI.prototype;
 
 var genericAtomAPI = function () {
 	var newUi = {};
@@ -1410,6 +1580,7 @@ var bloggerAPI = function () {
 	}
 };
 bloggerAPI.prototype = new genericAtomAPI();
+bloggerAPI.prototype.parent = genericAtomAPI.prototype;
 
 var tumblrAPI = function () {
 	var newUi = {};

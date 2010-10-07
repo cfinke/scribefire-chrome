@@ -274,7 +274,7 @@ $(document).ready(function () {
 		$("#buttons-publish-published").hide();
 		$("#buttons-publish-draft").show();
 		
-		if (!postId) {
+		if (postId.indexOf("scribefire:new") == 0) {
 			$("#button-entry-remove").hide();
 		}
 		else {
@@ -307,7 +307,10 @@ $(document).ready(function () {
 				
 				$("#text-slug").val(entry.data("slug"));
 				$("#checkbox-private").attr("checked", entry.data("private"));
-				$("#text-excerpt").val(entry.data("excerpt")).change();
+				
+				try { $("#text-excerpt").val(entry.data("excerpt")).change(); } catch (e) { 
+					console.log(e); 
+				}
 				
 				SCRIBEFIRE.clearCustomFields();
 				
@@ -345,7 +348,19 @@ $(document).ready(function () {
 			}
 		}
 		
-		$("#label-current-entry").html($(this).find("option:selected").data("title"));
+		$("#label-current-entry").text($(this).find("option:selected").data("title"));
+		
+		switch ($(this).find("option:selected").data("type")) {
+			case "pages":
+				$(".entry-type-text").text("Page");
+			break;
+			case "posts":
+			default:
+				$(".entry-type-text").text("Post");
+			break;
+		}
+		
+		SCRIBEFIRE.updateOptionalUI();
 	});
 	
 	$("#list-categories").live("change", function (e) {
@@ -510,7 +525,7 @@ $(document).ready(function () {
 				
 				SCRIBEFIRE.notify("Your blog was added successfully!");
 				
-				if (!$("#list-entries").val()) {
+				if ($("#list-entries").val().indexOf("scribefire:new") == 0) {
 					// Only select a new blog if the user wasn't working on an entry from another blog.
 					$("#list-blogs").val(rv[0].username + "@" + rv[0].url).change();
 				}
