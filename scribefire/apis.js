@@ -1615,6 +1615,7 @@ var tumblrAPI = function () {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
 					var xml = req.responseXML;
+					
 					var jxml = $(xml);
 					
 					var blogs = [];
@@ -1643,7 +1644,7 @@ var tumblrAPI = function () {
 						blogs.push(blog);
 					});
 					
-					if (blogs.length == 0) {
+					if (blogs.length > 0) {
 						success(blogs);
 					}
 					else {

@@ -304,7 +304,7 @@ var SCRIBEFIRE = {
 				}
 				
 				for (var label in entry_lists) {
-					var postType = "post";
+					var postType = "posts";
 					
 					if (label != "_") {
 						var rv = entry_lists[label];
@@ -358,8 +358,8 @@ var SCRIBEFIRE = {
 						}
 					
 						if (!entry.data("published")) {
-							console.log(rv[i].title);
-							console.log(rv[i].id);
+							//console.log(rv[i].title);
+							//console.log(rv[i].id);
 							if (rv[i].id.toString().indexOf("local:") == 0) {
 								entry.html("[Local Draft] " + entry.html());
 							}

@@ -309,7 +309,7 @@ $(document).ready(function () {
 				$("#checkbox-private").attr("checked", entry.data("private"));
 				
 				try { $("#text-excerpt").val(entry.data("excerpt")).change(); } catch (e) { 
-					console.log(e); 
+					//console.log(e); 
 				}
 				
 				SCRIBEFIRE.clearCustomFields();
