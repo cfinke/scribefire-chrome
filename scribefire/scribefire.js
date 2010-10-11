@@ -157,11 +157,11 @@ var SCRIBEFIRE = {
 			notifier.addClass(notifyClass);
 		}
 	
-		notifier.html(msg);
+		notifier.text(msg);
 	
 		if (buttonLabel) {
 			var button = $("<button />");
-			button.html(buttonLabel);
+			button.text(buttonLabel);
 		
 			if (buttonProperties) {
 				for (x in buttonProperties) {
@@ -222,7 +222,7 @@ var SCRIBEFIRE = {
 				}
 			}
 			
-			blog.html(label);
+			blog.text(label);
 			
 			for (var x in blogs[i]) {
 				blog.data(x, blogs[i][x]);
@@ -342,7 +342,7 @@ var SCRIBEFIRE = {
 						entry.data("type", postType);
 						
 						entry.attr("value", rv[i].id);
-						entry.html(rv[i].title);
+						entry.text(rv[i].title);
 					
 						if ("tags" in rv[i] && rv[i].tags) {
 							var tag_parts = rv[i].tags.split(",");
@@ -370,17 +370,17 @@ var SCRIBEFIRE = {
 							//console.log(rv[i].title);
 							//console.log(rv[i].id);
 							if (rv[i].id.toString().indexOf("local:") == 0) {
-								entry.html("[Local Draft] " + entry.html());
+								entry.text("[Local Draft] " + entry.text());
 							}
 							else {
-								entry.html("[Draft] " + entry.html());
+								entry.text("[Draft] " + entry.text());
 							}
 						}
 						else if (entry.data("timestamp")) {
 							var publishDate = entry.data("timestamp");
 						
 							if (publishDate.getTime() > (new Date().getTime())) {
-								entry.html("[Scheduled] " + entry.html());
+								entry.text("[Scheduled] " + entry.text());
 							}
 						}
 					
@@ -506,7 +506,7 @@ var SCRIBEFIRE = {
 			params,
 			function success(rv) {
 				var option = $("<option/>");
-				option.html(rv.name);
+				option.text(rv.name);
 				option.attr("value", rv.name);
 				option.attr("categoryId", rv.id);
 				option.attr("selected", "selected");
@@ -583,7 +583,7 @@ var SCRIBEFIRE = {
 		}
 		
 		// Set the new label and the new blogKey
-		$("#list-blogs option[value='" + blogKey + "']").html(label).val(newBlogKey);
+		$("#list-blogs option[value='" + blogKey + "']").text(label).val(newBlogKey);
 		
 		if (blog.url in blogApis) {
 			delete blogApis[blog.url];
@@ -979,7 +979,7 @@ var SCRIBEFIRE = {
 				
 				for (var i = 0; i < rv.length; i++) {
 					var option = $("<option/>");
-					option.html(rv[i].name);
+					option.text(rv[i].name);
 					option.attr("value", rv[i].name);
 					option.attr("categoryId", rv[i].id);
 					

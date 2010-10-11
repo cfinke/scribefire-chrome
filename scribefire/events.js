@@ -64,10 +64,10 @@ function setTimestamp(date) {
 $(document).ready(function () {
 	$("#text-slug").live("change", function () {
 		if ($(this).val()) {
-			$("#slug-display").html($(this).val());
+			$("#slug-display").text($(this).val());
 		}
 		else {
-			$("#slug-display").html("Automatic");
+			$("#slug-display").text("Automatic");
 		}
 	});
 	
@@ -219,11 +219,11 @@ $(document).ready(function () {
 	});
 	
 	$("#text-title").live("change", function () {
-		$("#label-current-title").html($(this).val());
+		$("#label-current-title").text($(this).val());
 	});
 	
 	$("#text-tags").live("change", function () {
-		$("#label-current-tags").html($(this).val());
+		$("#label-current-tags").text($(this).val());
 	});
 	
 	$("#text-excerpt").live("change", function () {
@@ -257,7 +257,7 @@ $(document).ready(function () {
 		}
 		
 		SCRIBEFIRE.prefs.setCharPref("selectedBlog", $(this).val());
-		$("#label-current-blog").html($(this).find("option:selected").text());
+		$("#label-current-blog").text($(this).find("option:selected").text());
 		
 		SCRIBEFIRE.updateOptionalUI();
 	});
@@ -365,7 +365,7 @@ $(document).ready(function () {
 	
 	$("#list-categories").live("change", function (e) {
 		if (!$(this).val()) {
-			$("#label-current-categories").html("(none)");
+			$("#label-current-categories").text("(none)");
 		}
 		else {
 			var categories = [];
@@ -374,7 +374,7 @@ $(document).ready(function () {
 				categories.push($(this).text());
 			});
 			
-			$("#label-current-categories").html(categories.join(", "));
+			$("#label-current-categories").text(categories.join(", "));
 		}
 	});
 	
@@ -397,19 +397,19 @@ $(document).ready(function () {
 	});
 	
 	$("#text-blog-url").live("change", function () {
-		$("#label-add-blog-url").html($(this).val());
+		$("#label-add-blog-url").text($(this).val());
 	});
 	
 	$("#list-blog-types").live("change", function () {
-		$("#label-add-blog-type").html($(this).find("option:selected").html());
+		$("#label-add-blog-type").text($(this).find("option:selected").text());
 	});
 	
 	$("#text-blog-api-url").live("change", function () {
-		$("#label-add-blog-apiurl").html($(this).val());
+		$("#label-add-blog-apiurl").text($(this).val());
 	});
 	
 	$("#text-addblog-id").live("change", function () {
-		$("#label-add-blog-blogid").html($(this).val());
+		$("#label-add-blog-blogid").text($(this).val());
 	});
 	
 	$("#button-blog-urlcheck").live("click", function (e) {
