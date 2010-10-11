@@ -269,7 +269,16 @@ var SCRIBEFIRE = {
 		
 		SCRIBEFIRE.getAPI().getPosts(
 			{ },
-			function success(rv) {
+			function success(rv_) {
+				if ("length" in rv_) {
+					var rv = { "Posts" : rv_ };
+				}
+				else {
+					var rv = rv_;
+				}
+				
+				console.log(rv);
+				
 				$("#list-entries").html('');
 				
 				$("#list-entries").attr("ignoreContent", "true");
@@ -279,43 +288,43 @@ var SCRIBEFIRE = {
 				
 				var selectedEntry = SCRIBEFIRE.prefs.getCharPref("state.entryId");
 				
-				for (var i = 0, _len = rv.length; i < _len; i++) {
-					if (!rv[i].published) {
-						var entry = rv[i];
-						rv.splice(i, 1);
-						rv.unshift(entry);
+				// Move drafts up to the top of the list.
+				for (var label in rv) {
+					for (var i = 0, _len = rv[label].length; i < _len; i++) {
+						if (!rv[label][i].published) {
+							var entry = rv[label][i];
+							rv[label].splice(i, 1);
+							rv[label].unshift(entry);
+						}
 					}
 				}
 				
 				var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
 				
+				if (!("Posts" in rv)) {
+					rv.Posts = [];
+				}
+				
 				for (var i in notes) {
-					rv.unshift(notes[i]);
+					rv.Posts.unshift(notes[i]);
 				}
 				
 				var main_list = $("#list-entries");
 				var list = main_list;
 				
-				if ("length" in rv) {
-					var entry_lists = { "_" : rv };
-				}
-				else {
-					entry_lists = rv;
-				}
+				var entry_lists = rv;
 				
 				for (var label in entry_lists) {
 					var postType = "posts";
 					
-					if (label != "_") {
-						var rv = entry_lists[label];
-						
-						var list = $("<optgroup />");
-						list.attr("label", label);
+					var rv = entry_lists[label];
 					
-						main_list.append(list);
-						
-						postType = label.toLowerCase();
-					}
+					var list = $("<optgroup />");
+					list.attr("label", label);
+				
+					main_list.append(list);
+					
+					postType = label.toLowerCase();
 					
 					var option = $("<option/>");
 					option.attr("value", "scribefire:new:" + postType);
@@ -1088,7 +1097,7 @@ var SCRIBEFIRE = {
 			}
 		}
 	},
-	
+	/*
 	export : function () {
 		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 		var google_tokens = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
@@ -1102,12 +1111,12 @@ var SCRIBEFIRE = {
 		
 		var jsonText = JSON.stringify(exportJSON);
 		
-		var exportComment = "/**\n";
+		var exportComment = "/" + "**\n";
 		exportComment += " * Save this file to your hard drive; you can import it into\n";
 		exportComment += " * ScribeFire on another computer to transfer your blogs and settings.\n";
-		exportComment += " */\n\n";
+		exportComment += " *" + "/\n\n";
 		
-		var formatComment = "/* format=application/json;base64 */";
+		var formatComment = "/" + "* format=application/json;base64 *" + "/";
 		
 		function chunk_split (body, chunklen, end) {
 			chunklen = parseInt(chunklen, 10) || 76;    end = end || '\r\n';
@@ -1123,6 +1132,7 @@ var SCRIBEFIRE = {
 		
 		window.open("data:text/plain;base64,"+btoa(exportFileText));
 	},
+	*/
 	
 	importHelper : function (files) {
 		var f = files[0];
@@ -1153,6 +1163,7 @@ var SCRIBEFIRE = {
 		reader.readAsBinaryString(f);
 	},
 	
+	/*
 	import : function (json) {
 		if ("blogs" in json) {
 			var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
@@ -1190,6 +1201,7 @@ var SCRIBEFIRE = {
 			SCRIBEFIRE.prefs.setJSONPref("notes", notes);
 		}
 	},
+	*/
 	
 	error : function (msg, errorCode) {
 		msg = msg.replace(/</g, "&lt;").replace(/\n/g, "<br />");
