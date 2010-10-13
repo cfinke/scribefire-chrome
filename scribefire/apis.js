@@ -346,6 +346,10 @@ var genericMetaWeblogAPI = function () {
 	};
 
 	this.publish = function (params, success, failure) {
+		this.doPublish(params, success, failure);
+	};
+	
+	this.doPublish = function (params, success, failure) {
 		var contentStruct = { };
 
 		if ("title" in params) {
@@ -373,7 +377,6 @@ var genericMetaWeblogAPI = function () {
 		if ("private" in params && params.private) {
 			contentStruct.post_status = "private";
 		}
-		
 		
 		/*
 		if ("custom_fields" in params && params.custom_fields.length > 0) {
@@ -432,7 +435,12 @@ var genericMetaWeblogAPI = function () {
 		);
 	};
 
+
 	this.deletePost = function (params, success, failure) {
+		this.doDeletePost(params, success, failure);
+	};
+	
+	this.doDeletePost = function (params, success, failure) {
 		var args = [this.apiUrl, "0123456789ABCDEF", params.id, this.username, this.password, true];
 		var xml = performancingAPICalls.blogger_deletePost(args);
 
@@ -499,7 +507,7 @@ var genericMovableTypeAPI = function () {
 		
 		var self = this;
 		
-		this.parent.publish(params, 
+		this.doPublish(params, 
 			function newSuccess(rv) {
 				if (("id" in rv) && rv.id) {
 					var postId = rv.id;
@@ -677,7 +685,7 @@ var wordpressAPI = function () {
 		params.content = params.content.replace(/<\/p>\s*<p>/g, "\n\n");
 		
 		if (params.type == "posts") {
-			this.parent.publish(params, success, failure);
+			this.doPublish(params, success, failure);
 		}
 		else {
 			var contentStruct = { };
@@ -838,7 +846,7 @@ var wordpressAPI = function () {
 	
 	this.deletePost = function (params, success, failure) {
 		if (params.type == "posts") {
-			this.parent.deletePost(params, success, failure);
+			this.doDeletePost(params, success, failure);
 		}
 		else {
 			var args = [this.apiUrl, params.id, this.username, this.password, params.id];
@@ -862,7 +870,6 @@ var wordpressAPI = function () {
 	}
 };
 wordpressAPI.prototype = new genericMetaWeblogAPI();
-wordpressAPI.prototype.parent = genericMetaWeblogAPI.prototype;
 
 var genericAtomAPI = function () {
 	var newUi = {};

@@ -256,7 +256,7 @@ var SCRIBEFIRE = {
 	},
 	
 	populateEntriesList : function () {
-		$("#list-entries").html('<option value="scribefire:new:posts">(new)</option>');
+		$("#list-entries").html('<option value="scribefire:new:posts" type="posts">(new)</option>');
 		
 		$("#buttons-publish-published").hide();
 		$("#buttons-publish-draft").show();
@@ -276,8 +276,6 @@ var SCRIBEFIRE = {
 				else {
 					var rv = rv_;
 				}
-				
-				console.log(rv);
 				
 				$("#list-entries").html('');
 				
@@ -315,8 +313,6 @@ var SCRIBEFIRE = {
 				var entry_lists = rv;
 				
 				for (var label in entry_lists) {
-					var postType = "posts";
-					
 					var rv = entry_lists[label];
 					
 					var list = $("<optgroup />");
@@ -324,7 +320,7 @@ var SCRIBEFIRE = {
 				
 					main_list.append(list);
 					
-					postType = label.toLowerCase();
+					var postType = label.toLowerCase();
 					
 					var option = $("<option/>");
 					option.attr("value", "scribefire:new:" + postType);
@@ -794,16 +790,16 @@ var SCRIBEFIRE = {
 		
 		params.id = $("#list-entries").val();
 		
+		var option = $("#list-entries option[value='"+params.id+"']:first");
+		
+		// Pass along any custom post metadata that the API stored.
+		var attrs = option.data();
+		
+		for (var x in attrs) {
+			params[x] = attrs[x];
+		}
+		
 		if (params.id.indexOf("scribefire:new") == -1) {
-			var option = $("#list-entries option[value='"+params.id+"']:first");
-			
-			// Pass along any custom post metadata that the API stored.
-			var attrs = option.data();
-			
-			for (var x in attrs) {
-				params[x] = attrs[x];
-			}
-			
 			// Wordpress resets the post slug if you send an edit request without the original.
 			// @bug-wordpress
 			if (attrs.slug) {

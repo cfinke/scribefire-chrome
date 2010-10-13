@@ -348,7 +348,7 @@ $(document).ready(function () {
 			}
 		}
 		
-		$("#label-current-entry").text($(this).find("option:selected").data("title"));
+		$("#label-current-entry").text(($(this).find("option:selected").data("title") || ""));
 		
 		switch ($(this).find("option:selected").data("type")) {
 			case "pages":
