@@ -763,10 +763,10 @@ $(document).ready(function () {
 			mode : "exact",
 			elements : "text-content",
 			theme : "advanced",
-			plugins : "wordpress,fullscreen",
+			plugins : "wordpress,fullscreen,sf_video_plugin",
 			
 			// Theme options
-			theme_advanced_buttons1 : "fontselect,fontsizeselect,bold,italic,underline,strikethrough,sub,sup,forecolor,blockquote,removeformat,|,link,unlink,image,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,wp_more,fullscreen",//,|,removeformat",//,|,tablecontrols",
+			theme_advanced_buttons1 : "fontselect,fontsizeselect,bold,italic,underline,strikethrough,sub,sup,forecolor,blockquote,removeformat,|,link,unlink,image,video,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,wp_more,fullscreen",//,|,removeformat",//,|,tablecontrols",
 			theme_advanced_buttons2 : "", theme_advanced_buttons3 : "", theme_advanced_buttons4 : "",
 			theme_advanced_toolbar_location : "top",
 			theme_advanced_toolbar_align : "left",

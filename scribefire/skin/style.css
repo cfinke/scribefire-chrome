@@ -177,3 +177,7 @@ html[platform='gecko'] .underbar[open="true"][orient], html[platform='webkit'] .
 #underbar-publish > * {
 	margin-left: 1em;
 }
+
+#error-video-insert {
+	color: #f00;
+}

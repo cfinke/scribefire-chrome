@@ -22,6 +22,7 @@
 		<script type="text/javascript" src="lib/keyboard.js"></script>
 		<script type="text/javascript" src="lib/wordpress.js"></script>
 		<script type="text/javascript" src="migrate.js"></script>
+		<script type="text/javascript" src="lib/jquery-oembed.js"></script>
 	</head>
 	<body orient="horizontal">
 		<div orient="vertical" flex="1">
@@ -289,6 +290,25 @@
 				<button id="button-blog-edit-finish">Save</button>
 			</div>
 		</div>
+		
+		<div id="panel-video-insert" style="display: none;">
+			<h3>Insert a Video</h3>
+			<p id="error-video-insert" style="display: none;"></p>
+			<p>
+				<label>Paste the URL of the video in the box below.</label>
+				<input type="text" id="text-video-insert-url" />
+				<label><small>e.g., http://www.youtube.com/watch?v=b_NVbDzsEuw</small>
+			</p>
+			<p>
+				<label>Or, copy the embed code provided for your video into this box:</label>
+				<textarea id="textarea-video-insert" rows="4" cols="40"></textarea>
+			</p>
+			<div class="buttons">
+				<button id="button-video-insert-cancel" class="modal_close cancel-button">Cancel</button>
+				<button id="button-video-insert">Insert</button>
+			</div>
+		</div>
+		
 		<script type="text/javascript" src="events.js"></script>
 		<script type="text/javascript" src="lib/platform.js"></script>
 	</body>
