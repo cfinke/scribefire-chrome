@@ -204,7 +204,7 @@ var genericMetaWeblogAPI = function () {
 	this.getPosts = function (params, success, failure) {
 		var self = this;
 		
-		if (!("limit" in params)) params.limit = 20;
+		if (!("limit" in params)) params.limit = 1000;
 		
 		var args = [this.apiUrl, this.id, this.username, this.password, params.limit];
 		
@@ -1672,7 +1672,7 @@ var tumblrAPI = function () {
 	};
 	
 	this.getPosts = function (params, success, failure) {
-		if (!("limit" in params)) params.limit = 30;
+		if (!("limit" in params)) params.limit = 50;
 		
 		if (this.isPrivate) {
 			var url = this.url;
@@ -1684,6 +1684,7 @@ var tumblrAPI = function () {
 		var args = {};
 		args.email = this.username;
 		args.password = this.password;
+		// @todo-more-posts
 		args.start = 0;
 		args.num = params.limit;
 		args.type = "regular";
@@ -1901,6 +1902,8 @@ var posterousAPI = function () {
 		var args = {};
 		args.site_id = this.id;
 		args.num_posts = 50;
+		
+		// @todo-more-posts args.page = 1
 		
 		var argstring = "";
 
