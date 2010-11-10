@@ -255,7 +255,9 @@ var SCRIBEFIRE = {
 		}
 	},
 	
-	populateEntriesList : function () {
+	entryListCache : null,
+	
+	populateEntriesList : function (filter, useCache) {
 		$("#list-entries").html('<option value="scribefire:new:posts" type="posts">(new)</option>');
 		
 		$("#buttons-publish-published").hide();
@@ -267,145 +269,239 @@ var SCRIBEFIRE = {
 			SCRIBEFIRE.autocomplete[i] = [];
 		}
 		
-		SCRIBEFIRE.getAPI().getPosts(
-			{ },
-			function success(rv_) {
-				if ("length" in rv_) {
-					var rv = { "Posts" : rv_ };
+		var filters = [];
+		
+		if (filter) {
+			var filterString = filter.toLowerCase().replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
+			var filterParts = [];
+
+			// We now have a space delimited filter string, but it may included quoted phrases
+			var currentFilter = "";
+			var inQuotes = 0;
+
+			for (var i = 0; i < filterString.length; i++) {
+				var theChar = filterString.charAt(i);
+
+				if (theChar == "'" || theChar == '"') {
+					if (inQuotes == theChar) {
+						inQuotes = false;
+					}
+					else if (currentFilter.length == 0 || (currentFilter.length == 1 && (currentFilter == "-"))){
+						inQuotes = theChar;
+					}
+					else {
+						currentFilter += theChar;
+					}
+				}
+				else if (theChar == "+" && currentFilter.length == 0) {
 				}
 				else {
-					var rv = rv_;
-				}
-				
-				$("#list-entries").html('');
-				
-				$("#list-entries").attr("ignoreContent", "true");
-				
-				var tags = [];
-				var custom_field_keys = [];
-				
-				var selectedEntry = SCRIBEFIRE.prefs.getCharPref("state.entryId");
-				
-				// Move drafts up to the top of the list.
-				for (var label in rv) {
-					for (var i = 0, _len = rv[label].length; i < _len; i++) {
-						if (!rv[label][i].published) {
-							var entry = rv[label][i];
-							rv[label].splice(i, 1);
-							rv[label].unshift(entry);
+					if (theChar == " "){ 
+						if (!inQuotes) {
+							filterParts.push(currentFilter);
+							currentFilter = "";
+							continue;
 						}
 					}
-				}
-				
-				var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
-				
-				if (!("Posts" in rv)) {
-					rv.Posts = [];
-				}
-				
-				for (var i in notes) {
-					rv.Posts.unshift(notes[i]);
-				}
-				
-				var main_list = $("#list-entries");
-				var list = main_list;
-				
-				var entry_lists = rv;
-				
-				for (var label in entry_lists) {
-					var rv = entry_lists[label];
-					
-					var list = $("<optgroup />");
-					list.attr("label", label);
-				
-					main_list.append(list);
-					
-					var postType = label.toLowerCase();
-					
-					var option = $("<option/>");
-					option.attr("value", "scribefire:new:" + postType);
-					option.text("(new)");
-					option.data("type", postType);
-					list.append(option);
-					
-					for (var i = 0; i < rv.length; i++) {
-						var entry = $("<option/>");
-						
-						for (var x in rv[i]) {
-							entry.data(x, rv[i][x]);
-						}
-						
-						entry.data("type", postType);
-						
-						entry.attr("value", rv[i].id);
-						entry.text(rv[i].title);
-					
-						if ("tags" in rv[i] && rv[i].tags) {
-							var tag_parts = rv[i].tags.split(",");
-						
-							for (var j = 0; j < tag_parts.length; j++) {
-								var tag = tag_parts[j].replace(/^\s+|\s+$/g, "");
 
-								if (tag) {
-									tags.push(tag);
-								}
-							}
-						}
-					
-						if ("custom_fields" in rv[i]) {
-							for (var j = 0; j < rv[i].custom_fields.length; j++) {
-								var custom_field_key = rv[i].custom_fields[j].key;
-							
-								if (custom_field_key[0] == "_") continue;
-							
-								custom_field_keys.push(custom_field_key);
-							}
-						}
-					
-						if (!entry.data("published")) {
-							//console.log(rv[i].title);
-							//console.log(rv[i].id);
-							if (rv[i].id.toString().indexOf("local:") == 0) {
-								entry.text("[Local Draft] " + entry.text());
-							}
-							else {
-								entry.text("[Draft] " + entry.text());
-							}
-						}
-						else if (entry.data("timestamp")) {
-							var publishDate = entry.data("timestamp");
-						
-							if (publishDate.getTime() > (new Date().getTime())) {
-								entry.text("[Scheduled] " + entry.text());
-							}
-						}
-					
-						list.append(entry);
-					}
+					currentFilter += filterString.charAt(i);
 				}
-				
-				if (selectedEntry) {
-					if ($("#list-entries option[value='" + selectedEntry + "']").length > 0) {
-						$("#list-entries").val(selectedEntry);
-					
-						SCRIBEFIRE.prefs.setCharPref("state.entryId", "");
-					}
-				}
-				
-				SCRIBEFIRE.autocomplete.tags = tags.unique();
-				SCRIBEFIRE.autocomplete.custom_field_keys = custom_field_keys.unique();
-				
-				$("#list-entries").change();
-				$("#list-entries").removeAttr("ignoreContent")
-				$("#bar-entries").removeAttr("busy");
-			},
-			function failure(rv) {
-				rv.func = "getPosts";
-				$("#bar-entries").removeAttr("busy");
-				
-				SCRIBEFIRE.genericError(rv);
 			}
-		);
+
+			if (currentFilter != "") filterParts.push(currentFilter);
+
+			for (var i = 0; i < filterParts.length; i++) {
+				var nomatch = false;
+
+				if (filterParts[i].charAt(0) == '-') {
+					filterParts[i] = filterParts[i].substring(1);
+					nomatch = true;
+				}
+
+				if (filterParts[i]) {
+					filters.push( { "nomatch" : nomatch, "regex" : new RegExp(filterParts[i], "i") } );
+				}
+			}
+		}
+		
+		function passesFilter(str, filters) {
+			if (filters.length == 0) {
+				return true;
+			}
+			else {
+				for (var i = 0, _len = filters.length; i < _len; i++) {
+					if (filters[i].nomatch) {
+						if (str.match(filters[i].regex)) {
+							return false;
+						}
+					}
+					else {
+						if (!str.match(filters[i].regex)) {
+							return false;
+						}
+					}
+				}
+			}
+			
+			return true;
+		}
+		
+		function success(rv_) {
+			SCRIBEFIRE.entryListCache = rv_;
+			
+			if ("length" in rv_) {
+				var rv = { "Posts" : rv_ };
+			}
+			else {
+				var rv = rv_;
+			}
+			
+			$("#list-entries").html('');
+			
+			$("#list-entries").attr("ignoreContent", "true");
+			
+			var tags = [];
+			var custom_field_keys = [];
+			
+			var selectedEntry = SCRIBEFIRE.prefs.getCharPref("state.entryId");
+			
+			// Move drafts up to the top of the list.
+			for (var label in rv) {
+				for (var i = 0, _len = rv[label].length; i < _len; i++) {
+					if (!rv[label][i].published) {
+						var entry = rv[label][i];
+						rv[label].splice(i, 1);
+						rv[label].unshift(entry);
+					}
+				}
+			}
+			
+			var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
+			
+			if (!("Posts" in rv)) {
+				rv.Posts = [];
+			}
+			
+			for (var i in notes) {
+				rv.Posts.unshift(notes[i]);
+			}
+			
+			var main_list = $("#list-entries");
+			var list = main_list;
+			
+			var entry_lists = rv;
+			
+			for (var label in entry_lists) {
+				var rv = entry_lists[label];
+				
+				var list = $("<optgroup />");
+				list.attr("label", label);
+			
+				main_list.append(list);
+				
+				var postType = label.toLowerCase();
+				
+				var option = $("<option/>");
+				option.attr("value", "scribefire:new:" + postType);
+				option.text("(new)");
+				option.data("type", postType);
+				list.append(option);
+				
+				for (var i = 0; i < rv.length; i++) {
+					var optionText = rv[i].title;
+					
+					if (!rv[i].published) {
+						if (rv[i].id.toString().indexOf("local:") == 0) {
+							optionText = "[Local Draft] " + optionText;
+						}
+						else {
+							optionText = "[Draft] " + optionText;
+						}
+					}
+					else if (rv[i].timestamp) {
+						var publishDate = rv[i].timestamp;
+					
+						if (publishDate.getTime() > (new Date().getTime())) {
+							optionText = "[Scheduled] " + optionText;
+						}
+					}
+					
+					if (filters.length > 0) {
+						if (!(selectedEntry && rv[i].id == selectedEntry)) {
+							if (!passesFilter(optionText.toLowerCase(), filters)) {
+								continue;
+							}
+						}
+					}
+					
+					var entry = $("<option/>");
+					
+					for (var x in rv[i]) {
+						entry.data(x, rv[i][x]);
+					}
+					
+					entry.data("type", postType);
+					
+					entry.attr("value", rv[i].id);
+					entry.text(optionText);
+					
+					if ("tags" in rv[i] && rv[i].tags) {
+						var tag_parts = rv[i].tags.split(",");
+					
+						for (var j = 0; j < tag_parts.length; j++) {
+							var tag = tag_parts[j].replace(/^\s+|\s+$/g, "");
+
+							if (tag) {
+								tags.push(tag);
+							}
+						}
+					}
+				
+					if ("custom_fields" in rv[i]) {
+						for (var j = 0; j < rv[i].custom_fields.length; j++) {
+							var custom_field_key = rv[i].custom_fields[j].key;
+						
+							if (custom_field_key[0] == "_") continue;
+						
+							custom_field_keys.push(custom_field_key);
+						}
+					}
+				
+					list.append(entry);
+				}
+			}
+			
+			if (selectedEntry) {
+				if ($("#list-entries option[value='" + selectedEntry + "']").length > 0) {
+					$("#list-entries").val(selectedEntry);
+				
+					SCRIBEFIRE.prefs.setCharPref("state.entryId", "");
+				}
+			}
+			
+			SCRIBEFIRE.autocomplete.tags = tags.unique();
+			SCRIBEFIRE.autocomplete.custom_field_keys = custom_field_keys.unique();
+			
+			$("#list-entries").change();
+			$("#list-entries").removeAttr("ignoreContent")
+			$("#bar-entries").removeAttr("busy");
+		}
+		
+		if (useCache && SCRIBEFIRE.entryListCache) {
+			success(SCRIBEFIRE.entryListCache);
+		}
+		else {
+			SCRIBEFIRE.getAPI().getPosts(
+				{ },
+				success,
+				function failure(rv) {
+					rv.func = "getPosts";
+					$("#bar-entries").removeAttr("busy");
+				
+					SCRIBEFIRE.genericError(rv);
+				}
+			);
+		}
 	},
 	
 	clearCustomFields : function () {

@@ -15,8 +15,7 @@
 				$("#textarea-video-insert").val("");
 				$("#text-video-insert-url").val("");
 				$("#error-video-insert").hide().text("");
-				$("#video-insert-button").removeClass("busy");
-				$("#button-video-insert").unbind("click");
+				$("#button-video-insert").die("click");
 				
 				$("#button-video-insert").live("click", function (e) {
 					e.preventDefault();
@@ -31,13 +30,20 @@
 					else {
 						$("#button-video-insert").addClass("busy");
 						
-						$(document).oembed($("#text-video-insert-url").val(), {}, function (a, b) { 
+						var url = $("#text-video-insert-url").val();
+						
+						if (url.indexOf("http://") == -1 && url.indexOf("https://") == -1) {
+							url = "http://" + url;
+						}
+						
+						$(document).oembed(url, {}, function (a, b) { 
+							$("#button-video-insert").removeClass("busy");
+							
 							if (b) {
 								ed.execCommand('mceInsertContent', 0, b.code);
 								$(document).trigger("close.facebox");
 							}
 							else {
-								$("#button-video-insert").removeClass("busy");
 								$("#error-video-insert").text("ScribeFire could not generate an embed code for this video URL. Please check the URL, or manually paste the embed code in the bottom box.").show();
 							}
 						});

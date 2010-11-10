@@ -740,6 +740,26 @@ $(document).ready(function () {
 	
 	$("#text-tags").autocomplete(tagsAutocompleteData);
 	
+	var entry_filter_timeout = null;
+	var last_filter = "";
+	
+	$("#filter-entries").live("keyup click", function (e) {
+		var filter = $(this).val();
+		
+		if (filter != last_filter) {
+			clearTimeout(entry_filter_timeout);
+		
+			entry_filter_timeout = setTimeout(
+				function (f) {
+					last_filter = f;
+					
+					SCRIBEFIRE.prefs.setCharPref("state.entryId", $("#list-entries").val());
+					
+					SCRIBEFIRE.populateEntriesList(f, true);
+				}, 500, filter);
+		}
+	});
+	
 	SCRIBEFIRE.load();
 	
 	$(window).load(function () {
