@@ -985,7 +985,7 @@ var SCRIBEFIRE = {
 				SCRIBEFIRE.prefs.setJSONPref("notes", notes);
 			}
 			
-			SCRIBEFIRE.populateEntriesList();
+			SCRIBEFIRE.populateEntriesList($("#filter-entries").val());
 			
 			if (callbackSuccess) {
 				rv.url = SCRIBEFIRE.getAPI().url;

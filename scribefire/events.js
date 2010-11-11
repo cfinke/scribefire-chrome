@@ -248,7 +248,7 @@ $(document).ready(function () {
 		}
 		else {
 			$(".button-blog-meta").show();
-			SCRIBEFIRE.populateEntriesList();
+			SCRIBEFIRE.populateEntriesList($("#filter-entries").val());
 			SCRIBEFIRE.populateCategoriesList();
 			
 			if ($(this).find("option:selected").data("type") == "wordpress") {
@@ -758,6 +758,8 @@ $(document).ready(function () {
 					SCRIBEFIRE.populateEntriesList(f, true);
 				}, 500, filter);
 		}
+		
+		$(this).persist("value");
 	});
 	
 	SCRIBEFIRE.load();
