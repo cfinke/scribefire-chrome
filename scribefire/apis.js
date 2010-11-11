@@ -1278,7 +1278,7 @@ var bloggerAPI = function () {
 	this.ui = newUi;
 	
 	this.ui.categories = true;
-	this.ui.upload = (typeof Components != 'undefined');
+	this.ui.upload = (typeof Components != 'undefined') || (window.File && window.FileReader && window.FileList && window.Blob);
 	this.ui.draft = true;
 	
 	this.authToken = null;
@@ -1444,145 +1444,258 @@ var bloggerAPI = function () {
 		}
 	};
 
-	this.upload = function (file, success, failure) {
-		var self = this;
+	this.upload = function (fileName, fileType, fileData, success, failure, file) {
+		if (typeof Components != 'undefined') { 
+			var self = this;
 		
-		var invalidTokens = 0;
+			var invalidTokens = 0;
 		
-		function doUpload(token) {
-			var mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
-			var theMimeType = mimeSvc.getTypeFromFile(file);
+			function doUpload(token) {
+				var mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
+				var theMimeType = mimeSvc.getTypeFromFile(file);
 			
-			const MULTI = "@mozilla.org/io/multiplex-input-stream;1";
-			const FINPUT = "@mozilla.org/network/file-input-stream;1";
-			const BUFFERED = "@mozilla.org/network/buffered-input-stream;1";
+				const MULTI = "@mozilla.org/io/multiplex-input-stream;1";
+				const FINPUT = "@mozilla.org/network/file-input-stream;1";
+				const BUFFERED = "@mozilla.org/network/buffered-input-stream;1";
 			
-			const nsIMultiplexInputStream = Components.interfaces.nsIMultiplexInputStream;
-			const nsIFileInputStream = Components.interfaces.nsIFileInputStream;
-			const nsIBufferedInputStream = Components.interfaces.nsIBufferedInputStream;
+				const nsIMultiplexInputStream = Components.interfaces.nsIMultiplexInputStream;
+				const nsIFileInputStream = Components.interfaces.nsIFileInputStream;
+				const nsIBufferedInputStream = Components.interfaces.nsIBufferedInputStream;
 			
-			var buf = null;
-			var fin = null;
+				var buf = null;
+				var fin = null;
 			
-			var fpLocal  = Components.classes['@mozilla.org/file/local;1'].createInstance(Components.interfaces.nsILocalFile);
-			fpLocal.initWithFile(file);
+				var fpLocal  = Components.classes['@mozilla.org/file/local;1'].createInstance(Components.interfaces.nsILocalFile);
+				fpLocal.initWithFile(file);
 			
-			fin = Components.classes[FINPUT].createInstance(nsIFileInputStream);
-			fin.init(fpLocal, 1, 0, false); 
+				fin = Components.classes[FINPUT].createInstance(nsIFileInputStream);
+				fin.init(fpLocal, 1, 0, false); 
 			
-			buf = Components.classes[BUFFERED].createInstance(nsIBufferedInputStream);
-			buf.init(fin, 9000000);
+				buf = Components.classes[BUFFERED].createInstance(nsIBufferedInputStream);
+				buf.init(fin, 9000000);
 			
-			var uploadStream = Components.classes[MULTI].createInstance(nsIMultiplexInputStream);
-			uploadStream.appendStream(buf);
+				var uploadStream = Components.classes[MULTI].createInstance(nsIMultiplexInputStream);
+				uploadStream.appendStream(buf);
 			
-			var upreq = new XMLHttpRequest();
-			upreq.open("POST", "http://picasaweb.google.com/data/feed/api/user/default/albumid/default", true);
-			upreq.setRequestHeader("Authorization","AuthSub token="+token);
-			upreq.setRequestHeader("Content-Type", theMimeType);
-			upreq.setRequestHeader("Content-Length", (uploadStream.available()));
-			upreq.overrideMimeType("text/xml");
+				var upreq = new XMLHttpRequest();
+				upreq.open("POST", "http://picasaweb.google.com/data/feed/api/user/default/albumid/default", true);
+				upreq.setRequestHeader("Authorization","AuthSub token="+token);
+				upreq.setRequestHeader("Content-Type", theMimeType);
+				upreq.setRequestHeader("Content-Length", (uploadStream.available()));
+				upreq.overrideMimeType("text/xml");
 			
-			upreq.onreadystatechange = function () {
-				if (upreq.readyState == 4) {
-					if (upreq.status < 300) {
-						invalidTokens = 0;
+				upreq.onreadystatechange = function () {
+					if (upreq.readyState == 4) {
+						if (upreq.status < 300) {
+							invalidTokens = 0;
 						
-						try {
-							var imageUrl = $(upreq.responseXML).find("content:first").attr("src");
-							success( { "url" : imageUrl } );
-						} catch (e) {
-							failure( { "status" : upreq.status, "msg" : upreq.responseText });
-						}
-					}
-					else {
-						if (upreq.status == 403 && upreq.responseText.match(/Token invalid/)) {
-							invalidTokens++;
-							
-							if (invalidTokens > 1) {
-								failure( { "status" : upreq.status, "msg" : "Could not acquire an authentication token." });
+							try {
+								var imageUrl = $(upreq.responseXML).find("content:first").attr("src");
+								success( { "url" : imageUrl } );
+							} catch (e) {
+								failure( { "status" : upreq.status, "msg" : upreq.responseText });
 							}
-							else {
-								delete tokens_json[self.username];
-								
-								SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
-								SCRIBEFIRE.prefs.setCharPref("google_token", "");
-								
-								self.upload(file, success, failure);
-							}
-						}
-						else if (upreq.responseText.match(/Must sign terms/i)) {
-							// @todo gOpener.parent.getWebBrowser().selectedTab = gOpener.parent.getWebBrowser().addTab("http://picasaweb.google.com/");
-							failure( { "status" : upreq.status, "msg" : upreq.responseText });
 						}
 						else {
-							failure( { "status" : upreq.status, "msg" : "Could not contact the image upload API." } );
+							if (upreq.status == 403 && upreq.responseText.match(/Token invalid/)) {
+								invalidTokens++;
+							
+								if (invalidTokens > 1) {
+									failure( { "status" : upreq.status, "msg" : "Could not acquire an authentication token." });
+								}
+								else {
+									delete tokens_json[self.username];
+								
+									SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
+									SCRIBEFIRE.prefs.setCharPref("google_token", "");
+								
+									self.upload(file, success, failure);
+								}
+							}
+							else if (upreq.responseText.match(/Must sign terms/i)) {
+								// @todo gOpener.parent.getWebBrowser().selectedTab = gOpener.parent.getWebBrowser().addTab("http://picasaweb.google.com/");
+								failure( { "status" : upreq.status, "msg" : upreq.responseText });
+							}
+							else {
+								failure( { "status" : upreq.status, "msg" : "Could not contact the image upload API." } );
+							}
+						}
+					}
+				};
+			
+				upreq.send(uploadStream);
+			}
+		
+			var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).QueryInterface(Components.interfaces.nsIPrefBranch).getBranch("extensions.scribefire.");
+			prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
+		
+			var prefObserver = {
+				observe : function (subject, topic, data) {
+					if (topic == 'nsPref:changed') {
+						if (data == 'google_token') {
+							var token = SCRIBEFIRE.prefs.getCharPref("google_token");
+						
+							if (!token) {
+								return;
+							}
+						
+							var req = new XMLHttpRequest();
+							req.open("GET", "https://www.google.com/accounts/AuthSubSessionToken", true);
+							req.setRequestHeader("Authorization","AuthSub token=\""+token+"\"");
+						
+							req.onreadystatechange = function () {
+								if (req.readyState == 4) {
+									if (req.status == 200) {
+										var lines = req.responseText.split("\n");
+										var newTokenLine = lines[0];
+										var newToken = newTokenLine.split("=")[1];
+									
+										var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+									
+										tokens_json[self.username] = newToken;
+										SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
+									
+										doUpload(newToken);
+									}
+									else {
+										failure( { "status" : req.status, "msg" : "Could not acquire an authentication token." } );
+									}
+								}
+							};
+						
+							req.send(null);
 						}
 					}
 				}
 			};
-			
-			upreq.send(uploadStream);
-		}
 		
-		var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).QueryInterface(Components.interfaces.nsIPrefBranch).getBranch("extensions.scribefire.");
-		prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
+			prefs.addObserver("", prefObserver, false);
 		
-		var prefObserver = {
-			observe : function (subject, topic, data) {
-				if (topic == 'nsPref:changed') {
-					if (data == 'google_token') {
-						var token = SCRIBEFIRE.prefs.getCharPref("google_token");
-						
-						if (!token) {
-							return;
-						}
-						
-						var req = new XMLHttpRequest();
-						req.open("GET", "https://www.google.com/accounts/AuthSubSessionToken", true);
-						req.setRequestHeader("Authorization","AuthSub token=\""+token+"\"");
-						
-						req.onreadystatechange = function () {
-							if (req.readyState == 4) {
-								if (req.status == 200) {
-									var lines = req.responseText.split("\n");
-									var newTokenLine = lines[0];
-									var newToken = newTokenLine.split("=")[1];
-									
-									var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
-									
-									tokens_json[self.username] = newToken;
-									SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
-									
-									doUpload(newToken);
-								}
-								else {
-									failure( { "status" : req.status, "msg" : "Could not acquire an authentication token." } );
-								}
-							}
-						};
-						
-						req.send(null);
-					}
-				}
+			var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+		
+			if (self.username in tokens_json) {
+				doUpload(tokens_json[self.username]);
 			}
-		};
-		
-		prefs.addObserver("", prefObserver, false);
-		
-		var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
-		
-		if (self.username in tokens_json) {
-			doUpload(tokens_json[self.username]);
+			else {
+				invalidTokens++;
+			
+				window.open("https://www.google.com/accounts/AuthSubRequest"
+						+ "?scope="+encodeURIComponent('http://picasaweb.google.com/data/')
+						+ "&next="+ encodeURIComponent('http://www.scribefire.com/token.php') +"&session=1", 
+					"sf-google-token", 
+					"height=400,width=600,menubar=no,toolbar=no,location=no,personalbar=no,status=no");
+			}
 		}
 		else {
-			invalidTokens++;
+			var self = this;
+		
+			var invalidTokens = 0;
+		
+			function doUpload(token) {
+				var upreq = new XMLHttpRequest();
+				upreq.open("POST", "http://picasaweb.google.com/data/feed/api/user/default/albumid/default", true);
+				upreq.setRequestHeader("Authorization","AuthSub token="+token);
+				upreq.setRequestHeader("Content-Type", fileType);
+				upreq.overrideMimeType("text/xml");
 			
-			window.open("https://www.google.com/accounts/AuthSubRequest"
-					+ "?scope="+encodeURIComponent('http://picasaweb.google.com/data/')
-					+ "&next="+ encodeURIComponent('http://www.scribefire.com/token.php') +"&session=1", 
-				"sf-google-token", 
-				"height=400,width=600,menubar=no,toolbar=no,location=no,personalbar=no,status=no");
+				upreq.onreadystatechange = function () {
+					if (upreq.readyState == 4) {
+						if (upreq.status < 300) {
+							invalidTokens = 0;
+						
+							try {
+								var imageUrl = $(upreq.responseXML).find("content:first").attr("src");
+								success( { "url" : imageUrl } );
+							} catch (e) {
+								failure( { "status" : upreq.status, "msg" : upreq.responseText });
+							}
+						}
+						else {
+							if (upreq.status == 403 && upreq.responseText.match(/Token invalid/)) {
+								invalidTokens++;
+							
+								if (invalidTokens > 1) {
+									failure( { "status" : upreq.status, "msg" : "Could not acquire an authentication token." });
+								}
+								else {
+									delete tokens_json[self.username];
+								
+									SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
+									SCRIBEFIRE.prefs.setCharPref("google_token", "");
+								
+									self.upload(fileName, fileType, fileData, success, failure);
+								}
+							}
+							else if (upreq.responseText.match(/Must sign terms/i)) {
+								// @todo gOpener.parent.getWebBrowser().selectedTab = gOpener.parent.getWebBrowser().addTab("http://picasaweb.google.com/");
+								failure( { "status" : upreq.status, "msg" : upreq.responseText });
+							}
+							else {
+								failure( { "status" : upreq.status, "msg" : "Could not contact the image upload API." } );
+							}
+						}
+					}
+				};
+			
+				upreq.send(file);
+			}
+		
+			var prefObserver = {
+				observe : function (subject, topic, data) {
+					if (topic == 'nsPref:changed') {
+						if (data == 'google_token') {
+							var token = SCRIBEFIRE.prefs.getCharPref("google_token");
+					
+							if (!token) {
+								return;
+							}
+					
+							var req = new XMLHttpRequest();
+							req.open("GET", "https://www.google.com/accounts/AuthSubSessionToken", true);
+							req.setRequestHeader("Authorization","AuthSub token=\""+token+"\"");
+					
+							req.onreadystatechange = function () {
+								if (req.readyState == 4) {
+									if (req.status == 200) {
+										var lines = req.responseText.split("\n");
+										var newTokenLine = lines[0];
+										var newToken = newTokenLine.split("=")[1];
+								
+										var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+								
+										tokens_json[self.username] = newToken;
+										SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
+								
+										doUpload(newToken);
+									}
+									else {
+										failure( { "status" : req.status, "msg" : "Could not acquire an authentication token." } );
+									}
+								}
+							};
+					
+							req.send(null);
+						}
+					}
+				}
+			};
+		
+			SCRIBEFIRE.prefs.addObserver(prefObserver);
+		
+			var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+		
+			if (self.username in tokens_json) {
+				doUpload(tokens_json[self.username]);
+			}
+			else {
+				invalidTokens++;
+			
+				window.open("https://www.google.com/accounts/AuthSubRequest"
+						+ "?scope="+encodeURIComponent('http://picasaweb.google.com/data/')
+						+ "&next="+ encodeURIComponent('http://www.scribefire.com/token.php') +"&session=1", 
+					"sf-google-token", 
+					"height=400,width=600,menubar=no,toolbar=no,location=no,personalbar=no,status=no");
+			}
 		}
 	}
 };

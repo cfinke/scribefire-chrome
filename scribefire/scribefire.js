@@ -1315,6 +1315,7 @@ if (typeof chrome != 'undefined') {
 		function (request, sender, sendResponse) {
 			if ("token" in request) {
 				SCRIBEFIRE.prefs.setCharPref("google_token", request.token);
+				chrome.tabs.remove(sender.tab.id);
 			}
 		}
 	);

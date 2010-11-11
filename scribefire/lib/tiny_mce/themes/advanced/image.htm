@@ -110,16 +110,22 @@
 						
 						var mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
 						
+						$("#insert").addClass("busy").text("Uploading...");
+						
 						tinyMCEPopup.getWin().SCRIBEFIRE.getAPI().upload(
 							file.leafName,
 							mimeSvc.getTypeFromFile(file),
 							binaryInStream.readBytes(binaryInStream.available()),
 							function success (rv) {
+								$("#insert").removeClass("busy").text("Insert");
+								
 								button.removeClass("busy");
 
 								$("#src").val(rv.url).change();
 							},
 							function (rv) {
+								$("#insert").removeClass("busy").text("Insert");
+								
 								button.removeClass("busy");
 
 								tinyMCEPopup.getWin().SCRIBEFIRE.error("ScribeFire couldn't upload your file. Here's the error message that bubbled up:\n\n"+rv.msg);
@@ -146,6 +152,8 @@
 				var reader = new FileReader();
 				reader.onload = (function (theFile) {
 					return function (e) {
+						$("#insert").addClass("busy").text("Uploading...");
+						
 						var binaryData = e.target.result;
 						var filename = theFile.name;
 						
@@ -169,6 +177,8 @@
 							fileType,
 							binaryData,
 							function success (rv) {
+								$("#insert").removeClass("busy").text("Insert");
+								
 								$("#image_upload").val("");
 								$("#upload-drag").show();
 								$("#upload-working").hide();
@@ -176,6 +186,8 @@
 								$("#src").val(rv.url).change();
 							},
 							function (rv) {
+								$("#insert").removeClass("busy").text("Insert");
+								
 								$("#image_upload").val("");
 								$("#upload-drag").show();
 								$("#upload-working").hide();
