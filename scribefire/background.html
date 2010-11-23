@@ -1,13 +1,6 @@
 <script>
-chrome.browserAction.onClicked.addListener(function(tab) {
-	/*
-	chrome.tabs.getSelected(null, function (tab) {
-		chrome.tabs.sendRequest(tab.id, { greeting : "meta"}, function (response) {
-			//console.log(response);
-		});
-	});
-	*/
-	
+
+function openScribeFire() {
 	var scribefireUrl = chrome.extension.getURL('scribefire.html');
 	
 	// Check for a tab already with this URL.
@@ -21,5 +14,53 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 		
 		chrome.tabs.create({"url": scribefireUrl});
 	});
+}
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+	openScribeFire();
 });
+
+function scribefireContextClick(info, tab) {
+	var htmlToInsert = "";
+	
+	if (info.selectionText) {
+		htmlToInsert = info.selectionText.replace(/\n/g, "<br/>");
+	}
+	else if (info.mediaType == "video") {
+		htmlToInsert = '<video src="' + info.srcUrl + '"></video>';
+	}
+	else if (info.mediaType == "audio") {
+		htmlToInsert = '<audio src="' + info.srcUrl + '"></audio>';
+	}
+	else if (info.mediaType == "image") {
+		htmlToInsert = '<img src="' + info.srcUrl + '" />';
+	}
+	else if (info.linkUrl) {
+		htmlToInsert = '<a href="' + info.linkUrl + '">Your link text here.</a>';
+	}
+	else if (info.pageUrl) {
+		htmlToInsert = '<a href="' + info.pageUrl + '">Your link text here.</a>';
+	}
+	
+	localStorage["extensions.scribefire.blogThis"] = htmlToInsert;
+	
+	openScribeFire();
+}
+
+var contexts = {
+	"page" : "Blog This Page",
+	"selection" : "Blog Selected Text",
+	"link" : "Blog This Link",
+	"image" : "Blog This Image",
+	"video" : "Blog This Video",
+	"audio" : "Blog This Audio"
+};
+
+for (var i in contexts) {
+	var context = i;
+	var title = contexts[i];
+	
+	var id = chrome.contextMenus.create( { "title" : title, "contexts" : [ context ], "onclick": scribefireContextClick } );
+}
+
 </script>

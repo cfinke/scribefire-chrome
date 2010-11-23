@@ -16,7 +16,8 @@
 	"permissions": [
 		"http://*/",
 		"https://*/",
-		"tabs"
+		"tabs",
+		"contextMenus"
 	],
 	"content_scripts": [
 		{
