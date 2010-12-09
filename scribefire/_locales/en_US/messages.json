@@ -80,6 +80,22 @@
 	"error_api_setup_unknownBlogType" : {
 		"message" : "You're welcome to try and configure your blog manually."
 	},
+	"error_api_code412" : {
+		"message" : "The blog returned a 412 error code. You may be able to fix this by following the instructions at $url$",
+		"placeholders" : {
+			"url" : {
+				"content" : "http://wordpress.org/support/topic/130095"
+			}
+		}
+	},
+	"error_api_noMessage" : {
+		"message" : "The blog returned a $code$ error code, but no error message could be found.",
+		"placeholders" : {
+			"code" : {
+				"content" : "$1"
+			}
+		}
+	},
 	"error_api_blogger_authentication" : {
 		"message" : "Blogger says that you entered the wrong username or password."
 	},

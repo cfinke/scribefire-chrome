@@ -74,10 +74,10 @@ var XMLRPC_LIB = {
 							if (callbackFailure) {
 								switch (req.status) {
 									case 412:
-										var error = "The blog returned a 412 error code. You may be able to fix this by following the instructions at http://wordpress.org/support/topic/130095";
+										var error = scribefire_string("error_api_code412");
 									break;
 									default:
-										var error = "The blog returned a "+req.status+" error code, but no error message could be found.";
+										var error = scribefire_string("error_api_noMessage", req.status);
 									break;
 								}
 							
