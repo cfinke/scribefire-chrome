@@ -558,7 +558,7 @@ var SCRIBEFIRE = {
 			}
 		}
 		
-		if (postId.indexOf("local:") == 0) {
+		if (postId.toString().indexOf("local:") == 0) {
 			var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
 			delete notes[postId];
 			SCRIBEFIRE.prefs.setJSONPref("notes", notes);
@@ -895,7 +895,7 @@ var SCRIBEFIRE = {
 			params[x] = attrs[x];
 		}
 		
-		if (params.id.indexOf("scribefire:new") == -1) {
+		if (params.id.toString().indexOf("scribefire:new") == -1) {
 			// Wordpress resets the post slug if you send an edit request without the original.
 			// @bug-wordpress
 			if (attrs.slug) {
@@ -978,7 +978,7 @@ var SCRIBEFIRE = {
 			
 			$("#list-entries").val("scribefire:new:" + $("#list-entries option:selected").data("type")).change();
 			
-			if (localDraft && rv.id.indexOf("local:") == -1) {
+			if (localDraft && rv.id.toString().indexOf("local:") == -1) {
 				// Delete a local draft once it is published.
 				var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
 				delete notes[localDraft];

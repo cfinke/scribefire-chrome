@@ -274,7 +274,7 @@ $(document).ready(function () {
 		$("#buttons-publish-published").hide();
 		$("#buttons-publish-draft").show();
 		
-		if (postId.indexOf("scribefire:new") == 0) {
+		if (postId.toString().indexOf("scribefire:new") == 0) {
 			$("#button-entry-remove").hide();
 		}
 		else {
