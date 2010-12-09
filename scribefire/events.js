@@ -40,7 +40,7 @@ function getTimestamp() {
 
 function setTimestamp(date) {
 	if (date instanceof Date) {
-		date = phpdate(date, "Y-m-d H:i");
+		date = date.getFullYear() + "-" + pad(date.getMonth() + 1) + "-" + pad(date.getDate()) + " " + pad(date.getHours()) + ":" + pad(date.getMinutes());
 	}
 	
 	if (date) {
