@@ -93,8 +93,10 @@ function scribefire_string(key, substitutions) {
 				}
 			}
 			
-			if (typeof substitutions == 'string') {
-				substitutions = [ substitutions ];
+			if (typeof substitutions != 'undefined') {
+				if (typeof substitutions != 'object') {
+					substitutions = [ substitutions ];
+				}
 			}
 			
 			if (substitutions) {

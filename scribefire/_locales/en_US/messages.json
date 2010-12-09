@@ -11,7 +11,7 @@
 	},
 	"entry_new_label" : {
 		"message" : "(new)",
-		"description" : "The label that appears in the entries list to designate a new post.",
+		"description" : "The label that appears in the entries list to designate a new post."
 	},
 	"entry_localDraft_label" : {
 		"message" : "Local Draft",
@@ -28,13 +28,33 @@
 	"notification_draft_delete" : {
 		"message" : "Draft deleted."
 	},
+	"notification_draft_save" : {
+		"message" : "Draft saved."
+	},
+	"notification_post_delete" : {
+		"message" : "Post deleted successfully."
+	},
+	"notification_blog_add" : {
+		"message" : "Your blog was added successfully!"
+	},
+	"notification_publish" : {
+		"message" : "Published successfully!"
+	},
+	"notification_publish_update" : {
+		"message" : "Updated successfully!"
+	},
+	"action_openBlogInTab" : {
+		"message" : "Open blog in a new tab"
+	},
 	"error_unknown" : {
 		"message" : "An unanticipated error occurred."
 	},
 	"error_api_invalid" : {
-		"message" : "It's not your fault, but ScribeFire is looking for an API ($type$) that doesn't exist.\n\nIf you're an alpha tester, you need to remove this blog and add it again.",
+		"message" : "It's not your fault, but ScribeFire is looking for an API ($api_type$) that doesn't exist.\n\nIf you're an alpha tester, you need to remove this blog and add it again.",
 		"placeholders" : {
-			"type" : "$1"
+			"api_type" : {
+				"content" : "$1"
+			}
 		}
 	},
 	"error_api_noBlog" : {
@@ -48,6 +68,17 @@
 	},
 	"error_api_cannotConnect" : {
 		"message" : "ScribeFire could not successfully connect to your blog."
+	},
+	"error_api_setup" : {
+		"message" : "While trying to determine your blog's settings, ScribeFire tripped over this code: $code$",
+		"placeholders" : {
+			"code" : {
+				"content" : "$1"
+			}
+		}
+	},
+	"error_api_setup_unknownBlogType" : {
+		"message" : "You're welcome to try and configure your blog manually."
 	},
 	"error_api_blogger_authentication" : {
 		"message" : "Blogger says that you entered the wrong username or password."
@@ -86,5 +117,12 @@
 	},
 	"error_api_posterous_noDeleteSupport" : {
 		"message" : "Posterous does not support post deletion at this time."
+	},
+	"prompt_newCategory" : {
+		"message" : "New category name:"
+	},
+	"confirm_deletePost" : {
+		"message" : "Are you sure you want to delete this post? It will be removed from your blog's server, and it will no longer appear on your blog."
 	}
+		
 }

@@ -92,6 +92,7 @@ $(document).ready(function () {
 	});
 	
 	$("#link-help").live("click", function (e) {
+		// @todo Localize
 		$.facebox("<div><h2>How can I help you?</h2><p>If you found a bug, <a href=\"https://code.google.com/p/scribefire-chrome/issues/entry?template=Defect%20report%20from%20user\" target=\"_blank\">fill out this form</a>.</p><p>If you want to request a feature, <a href=\"https://code.google.com/p/scribefire-chrome/issues/entry?template=Feature%20Request\" target=\"_blank\">fill out this form</a>.</p><p>If you need help using ScribeFire, you can <a href=\"mailto:chris@scribefire.com\">email chris@scribefire.com</a>.</p><p>If you just want to talk, you can ping <a href=\"http://twitter.com/scribefire\" target=\"_blank\">@scribefire</a> on Twitter.</p></div>");
 	});
 	
@@ -123,7 +124,7 @@ $(document).ready(function () {
 		var button = $(this);
 		button.addClass("busy");
 		
-		var categoryName = prompt("New category name:");
+		var categoryName = prompt(scribefire_string("prompt_newCategory"));
 		
 		if (categoryName) {
 			function callback() {
@@ -166,7 +167,7 @@ $(document).ready(function () {
 		var button = $(this);
 		button.addClass("busy");
 		
-		if (confirm("Are you sure you want to delete this post? It will be removed from your blog's server, and it will no longer appear on your blog.")) {
+		if (confirm(scribefire_string("confirm_deletePost"))) {
 			function callback() {
 				button.removeClass("busy");
 			}
@@ -174,7 +175,7 @@ $(document).ready(function () {
 			SCRIBEFIRE.deletePost(
 				$("#list-entries").val(),
 				function success() {
-					SCRIBEFIRE.notify("Post deleted successfully.");
+					SCRIBEFIRE.notify(scribefire_string("notification_delete_post"));
 					
 					SCRIBEFIRE.clearData();
 					
@@ -352,10 +353,12 @@ $(document).ready(function () {
 		
 		switch ($(this).find("option:selected").data("type")) {
 			case "pages":
+			// @todo localize
 				$(".entry-type-text").text("Page");
 			break;
 			case "posts":
 			default:
+			// @todo localize
 				$(".entry-type-text").text("Post");
 			break;
 		}
@@ -473,10 +476,10 @@ $(document).ready(function () {
 			function failure(code, status) {
 				button.removeClass("busy");
 				
-				var error = "While trying to determine your blog's settings, ScribeFire tripped over this code: " + code;
+				var error = scribefire_string("error_api_setup", code);
 				
 				if (code == "UNKNOWN_BLOG_TYPE") {
-					error += "\n\nYou're welcome to try and configure your blog manually.";
+					error += "\n\n" + scribefire_string("error_api_setup_unknownBlogType");
 					
 					$("#list-blog-types").removeAttr("disabled");
 					$("#text-blog-api-url").removeAttr("disabled");
@@ -523,7 +526,7 @@ $(document).ready(function () {
 				
 				$("#dialog-blog-add").hide();
 				
-				SCRIBEFIRE.notify("Your blog was added successfully!");
+				SCRIBEFIRE.notify(scribefire_string("notification_blog_add"));
 				
 				if ($("#list-entries").val().indexOf("scribefire:new") == 0) {
 					// Only select a new blog if the user wasn't working on an entry from another blog.
@@ -548,8 +551,8 @@ $(document).ready(function () {
 			function success(rv) {
 				button.removeClass("busy");
 				SCRIBEFIRE.notify(
-					"Published successfully!", 
-					"Open blog in a new tab",
+					scribefire_string("notification_publish"),
+					scribefire_string("action_openBlogInTab"),
 					function (button) { 
 						var url = SCRIBEFIRE.getAPI().url;
 
@@ -577,8 +580,8 @@ $(document).ready(function () {
 			function success(rv) {
 				button.removeClass("busy");
 				SCRIBEFIRE.notify(
-					"Updated successfully!", 
-					"Open blog in a new tab",
+					scribefire_string("notification_publish_update"),
+					scribefire_string("action_openBlogInTab"),
 					function (button) { 
 						var url = SCRIBEFIRE.getAPI().url;
 
@@ -608,7 +611,7 @@ $(document).ready(function () {
 			function success(rv) {
 				button.removeClass("busy");
 				SCRIBEFIRE.notify(
-					"Draft saved."
+					scribefire_string("notification_draft_save")
 				);
 			},
 			function error(rv) {
