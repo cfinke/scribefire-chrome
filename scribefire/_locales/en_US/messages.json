@@ -6,6 +6,9 @@
 	"extDescription" : {
 		"message" : "An easy-to-use blog editor lets you easily post to all of your blogs."
 	},
+	"continue" : {
+		"message" : "Continue"
+	},
 	"entry_new_label" : {
 		"message" : "(new)",
 		"description" : "The label that appears in the entries list to designate a new post.",
@@ -24,5 +27,64 @@
 	},
 	"notification_draft_delete" : {
 		"message" : "Draft deleted."
+	},
+	"error_unknown" : {
+		"message" : "An unanticipated error occurred."
+	},
+	"error_api_invalid" : {
+		"message" : "It's not your fault, but ScribeFire is looking for an API ($type$) that doesn't exist.\n\nIf you're an alpha tester, you need to remove this blog and add it again.",
+		"placeholders" : {
+			"type" : "$1"
+		}
+	},
+	"error_api_noBlog" : {
+		"message" : "Slow down... You need to add your blog before you can publish."
+	},
+	"error_api_noCategorySupport" : {
+		"message" : "This blog does not support adding categories."
+	},
+	"error_api_noUploadSupport" : {
+		"message" : "This blog does not support uploading files."
+	},
+	"error_api_cannotConnect" : {
+		"message" : "ScribeFire could not successfully connect to your blog."
+	},
+	"error_api_blogger_authentication" : {
+		"message" : "Blogger says that you entered the wrong username or password."
+	},
+	"error_api_blogger_verify" : {
+		"message" : "Blogger says that you need to verify your account's email address; log into your account directly to handle this."
+	},
+	"error_api_blogger_tos" : {
+		"message" : "Blogger says that you still need to agree to Google's Terms of Service; log into your account directly to handle this."
+	},
+	"error_api_blogger_deleted" : {
+		"message" : "Blogger says that the account you're using has been deleted."
+	},
+	"error_api_blogger_disabled" : {
+		"message" : "Blogger says that your access to Blogger has been disabled."
+	},
+	"error_api_blogger_unavailable" : {
+		"message" : "Blogger says that the Blogger service is temporarily unavailable."
+	},
+	"error_api_blogger_captcha" : {
+		"message" : "Google requires that you complete this CAPTCHA in order to continue:"
+	},
+	"error_api_blogger_unknown" : {
+		"message" : "Blogger isn't playing nicely; it's giving ScribeFire an error: $error$",
+		"placeholders" : {
+			"error" : {
+				"content" : "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_authToken" : {
+		"message" : "Could not acquire an authentication token."
+	},
+	"error_api_blogger_uploadAPIUnavailable" : {
+		"message" : "Could not contact the image upload API."
+	},
+	"error_api_posterous_noDeleteSupport" : {
+		"message" : "Posterous does not support post deletion at this time."
 	}
 }

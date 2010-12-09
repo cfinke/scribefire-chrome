@@ -32,7 +32,7 @@ function getBlogAPI(type, apiUrl) {
 			api = new posterousAPI();
 		break;
 		default:
-			SCRIBEFIRE.error("It's not your fault, but ScribeFire is looking for an API ("+type+") that doesn't exist.\n\nIf you're an alpha tester, you need to remove this blog and add it again.");
+			SCRIBEFIRE.error(scribefire_string("error_api_invalid", type));
 		break;
 	}
 	
@@ -101,7 +101,7 @@ blogAPI.prototype = {
 		 * success(params) = { "id": "123" }
 		 */
 		
-		failure({"status": 0, "msg": "Slow down... You need to add your blog before you can publish."});
+		failure({"status": 0, "msg": scribefire_string("error_api_noBlog")});
 	},
 	
 	deletePost : function (params, success, failure) {
@@ -135,11 +135,11 @@ blogAPI.prototype = {
 		 * success(params) = { "id": 1, "name": "Category" }
 		 */
 		
-		failure({ "status": 0, "msg": "This blog does not support adding categories."});
+		failure({ "status": 0, "msg": scribefire_string("error_api_noCategorySupport")});
 	},
 	
 	upload : function () {
-		failure({ "status": 0, "msg": "This blog does not support uploading files."});
+		failure({ "status": 0, "msg": scribefire_string("error_api_noUploadSupport")});
 	},
 	
 	getPostCategories : function (params, success, failure) {
@@ -188,7 +188,7 @@ var genericMetaWeblogAPI = function () {
 					}
 					else {
 						if (failure) {
-							failure( {"status" : 200, "msg" : "ScribeFire could not successfully connect to your blog."});
+							failure( {"status" : 200, "msg" : scribefire_string("error_api_cannotConnect")});
 						}
 					}
 				}
@@ -272,6 +272,7 @@ var genericMetaWeblogAPI = function () {
 							function (pages_rv) {
 								//console.log(pages_rv);
 								
+								// @todo Localize
 								var true_rv = { "Posts" : rv, "Pages" : [] };
 								
 								for (var j = 0; j < pages_rv.length; j++) {
@@ -783,7 +784,7 @@ var wordpressAPI = function () {
 					}
 					else {
 						if (failure) {
-							failure( {"status" : 200, "msg" : "ScribeFire could not successfully connect to your blog."});
+							failure( {"status" : 200, "msg" : scribefire_string("error_api_cannotConnect")});
 						}
 					}
 				}
@@ -1359,33 +1360,33 @@ var bloggerAPI = function () {
 					else {
 						switch (returnValues["Error"]) {
 							case 'BadAuthentication':
-								SCRIBEFIRE.error("Blogger says that you entered the wrong username or password.", "BadAuthentication");
+								SCRIBEFIRE.error(scribefire_string("error_api_blogger_authentication"), "BadAuthentication");
 								return;
 							break;
 							case 'NotVerified':
-								SCRIBEFIRE.error("Blogger says that you need to verify your account's email address; log into your account directly to handle this.");
+								SCRIBEFIRE.error(scribefire_string("error_api_blogger_verify"));
 								return;
 							break;
 							case 'TermsNotAgreed':
-								SCRIBEFIRE.error("Blogger says that you still need to agree to Google's Terms of Service; log into your account directly to handle this.");
+								SCRIBEFIRE.error(scribefire_string("error_api_blogger_tos"));
 								return;
 							break;
 							case 'AccountDeleted':
-								SCRIBEFIRE.error("Blogger says that the account you're using has been deleted.");
+								SCRIBEFIRE.error(scribefire_string("error_api_blogger_deleted"));
 								return;
 							break;
 							case 'ServiceDisabled':
-								SCRIBEFIRE.error("Blogger says that your access to Blogger has been disabled.");
+								SCRIBEFIRE.error(scribefire_string("error_api_blogger_disabled"));
 								return;
 							break;
 							case 'ServiceUnavailable':
-								SCRIBEFIRE.error("Blogger says that the Blogger service is temporarily unavailable.");
+								SCRIBEFIRE.error(scribefire_string("error_api_blogger_unavailable"));
 								return;
 							break;
 							case 'CaptchaRequired':
 								var imgUrl = "https://www.google.com/accounts/" + returnValues["CaptchaUrl"];
 								
-								$.facebox("<div><h4>Google requires that you complete this CAPTCHA in order to continue:</h4><p><img src='"+imgUrl+"' /><p><input type='text' id='google-captcha' /><input type='submit' value='Continue' id='captcha-continue' /></div>");
+								$.facebox("<div><h4>" + scribefire_string("error_api_blogger_captcha") + "</h4><p><img src='"+imgUrl+"' /><p><input type='text' id='google-captcha' /><input type='submit' value='" + scribefire_string("continue") +"' id='captcha-continue' /></div>");
 								
 								$("#captcha-continue").live("click", function (e) {
 									var captcha = $("#google-captcha").val();
@@ -1401,13 +1402,13 @@ var bloggerAPI = function () {
 								return;
 							break;
 							case 'Unknown':
-								returnValues["Error"] = "An unknown error occurred.";
+								returnValues["Error"] = scribefire_string("error_unknown");
 							break;
 							default:
 							break;
 						}
 					
-						SCRIBEFIRE.error("Blogger isn't playing nicely; it's giving ScribeFire an error:\n\n" + returnValues["Error"]);
+						SCRIBEFIRE.error(scribefire_string("error_api_blogger_unknown", returnValues["Error"]));
 					}
 				}
 			};
@@ -1501,7 +1502,7 @@ var bloggerAPI = function () {
 								invalidTokens++;
 							
 								if (invalidTokens > 1) {
-									failure( { "status" : upreq.status, "msg" : "Could not acquire an authentication token." });
+									failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_authToken") });
 								}
 								else {
 									delete tokens_json[self.username];
@@ -1517,7 +1518,7 @@ var bloggerAPI = function () {
 								failure( { "status" : upreq.status, "msg" : upreq.responseText });
 							}
 							else {
-								failure( { "status" : upreq.status, "msg" : "Could not contact the image upload API." } );
+								failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_uploadAPIUnavailable") } );
 							}
 						}
 					}
@@ -1558,7 +1559,7 @@ var bloggerAPI = function () {
 										doUpload(newToken);
 									}
 									else {
-										failure( { "status" : req.status, "msg" : "Could not acquire an authentication token." } );
+										failure( { "status" : req.status, "msg" : scribefire_string("error_api_blogger_authToken") } );
 									}
 								}
 							};
@@ -1615,7 +1616,7 @@ var bloggerAPI = function () {
 								invalidTokens++;
 							
 								if (invalidTokens > 1) {
-									failure( { "status" : upreq.status, "msg" : "Could not acquire an authentication token." });
+									failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_authToken") });
 								}
 								else {
 									delete tokens_json[self.username];
@@ -1631,7 +1632,7 @@ var bloggerAPI = function () {
 								failure( { "status" : upreq.status, "msg" : upreq.responseText });
 							}
 							else {
-								failure( { "status" : upreq.status, "msg" : "Could not contact the image upload API." } );
+								failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_uploadAPIUnavailable") } );
 							}
 						}
 					}
@@ -1669,7 +1670,7 @@ var bloggerAPI = function () {
 										doUpload(newToken);
 									}
 									else {
-										failure( { "status" : req.status, "msg" : "Could not acquire an authentication token." } );
+										failure( { "status" : req.status, "msg" : scribefire_string("error_api_blogger_authToken") } );
 									}
 								}
 							};
@@ -1769,7 +1770,7 @@ var tumblrAPI = function () {
 					}
 					else {
 						if (failure) {
-							failure( {"status" : 200, "msg" : "ScribeFire could not successfully connect to your blog."});
+							failure( {"status" : 200, "msg" : scribefire_string("error_api_cannotConnect")});
 						}
 					}
 				}
@@ -1994,7 +1995,7 @@ var posterousAPI = function () {
 					}
 					else {
 						if (failure) {
-							failure( {"status" : 200, "msg" : "ScribeFire could not successfully connect to your blog."});
+							failure( {"status" : 200, "msg" : scribefire_string("error_api_cannotConnect")});
 						}
 					}
 				}
@@ -2155,7 +2156,7 @@ var posterousAPI = function () {
 	};
 	
 	this.deletePost = function (params, success, failure) {
-		failure({"status": 0, "msg": "Posterous does not support post deletion at this time."});
+		failure({"status": 0, "msg": scribefire_string("error_api_posterous_noDeleteSupport")});
 	};
 	
 	this.upload = function (file, success, failure) {
