@@ -1,0 +1,28 @@
+{
+	"extName" : {
+		"message" : "ScribeFire",
+		"description" : "The name of the extension."
+	},
+	"extDescription" : {
+		"message" : "An easy-to-use blog editor lets you easily post to all of your blogs."
+	},
+	"entry_new_label" : {
+		"message" : "(new)",
+		"description" : "The label that appears in the entries list to designate a new post.",
+	},
+	"entry_localDraft_label" : {
+		"message" : "Local Draft",
+		"description" : "The label that is prepended to drafts that are saved on the user's computer."
+	},
+	"entry_draft_label" : {
+		"message" : "Draft",
+		"description" : "The label that is prepended to drafts that are saved on the user's blog."
+	},
+	"entry_scheduled_label" : {
+		"message" : "Scheduled",
+		"description" : "The label that is prepended to posts that have been scheduled but not yet published."
+	},
+	"notification_draft_delete" : {
+		"message" : "Draft deleted."
+	}
+}

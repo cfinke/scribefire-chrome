@@ -130,6 +130,7 @@ var SCRIBEFIRE = {
 		
 		if ($("#list-blogs option").length == 0) {
 			if (!SCRIBEFIRE.prefs.getBoolPref("firstrun")) {
+				// @todo localize
 				$.facebox($("<div><h2>Welcome to ScribeFire!</h2><p>The first thing you're probably going to want to do is add your blog.  Close this dialog and click 'Add a New Blog' to get started.</p></div>"));
 				SCRIBEFIRE.prefs.setBoolPref("firstrun", true);
 			}
@@ -258,7 +259,8 @@ var SCRIBEFIRE = {
 	entryListCache : null,
 	
 	populateEntriesList : function (filter, useCache) {
-		$("#list-entries").html('<option value="scribefire:new:posts" type="posts">(new)</option>');
+		// @todo localize
+		$("#list-entries").html('<option value="scribefire:new:posts" type="posts">' + scribefire_string("entry_new_label") + '</option>');
 		
 		$("#buttons-publish-published").hide();
 		$("#buttons-publish-draft").show();
@@ -349,6 +351,7 @@ var SCRIBEFIRE = {
 		function success(rv_) {
 			SCRIBEFIRE.entryListCache = rv_;
 			
+			// @todo localize
 			if ("length" in rv_) {
 				var rv = { "Posts" : rv_ };
 			}
@@ -378,6 +381,7 @@ var SCRIBEFIRE = {
 			
 			var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
 			
+			// @todo localize
 			if (!("Posts" in rv)) {
 				rv.Posts = [];
 			}
@@ -403,7 +407,7 @@ var SCRIBEFIRE = {
 				
 				var option = $("<option/>");
 				option.attr("value", "scribefire:new:" + postType);
-				option.text("(new)");
+				option.text(scribefire_string("entry_new_label"));
 				option.data("type", postType);
 				list.append(option);
 				
@@ -412,17 +416,17 @@ var SCRIBEFIRE = {
 					
 					if (!rv[i].published) {
 						if (rv[i].id.toString().indexOf("local:") == 0) {
-							optionText = "[Local Draft] " + optionText;
+							optionText = "[" + scribefire_string("entry_localDraft_label") + "] " + optionText;
 						}
 						else {
-							optionText = "[Draft] " + optionText;
+							optionText = "[" + scribefire_string("entry_draft_label") + "] " + optionText;
 						}
 					}
 					else if (rv[i].timestamp) {
 						var publishDate = rv[i].timestamp;
 					
 						if (publishDate.getTime() > (new Date().getTime())) {
-							optionText = "[Scheduled] " + optionText;
+							optionText = "[" + scribefire_string("entry_scheduled_label") + "] " + optionText;
 						}
 					}
 					
@@ -563,7 +567,7 @@ var SCRIBEFIRE = {
 			delete notes[postId];
 			SCRIBEFIRE.prefs.setJSONPref("notes", notes);
 			
-			success({ "msg" : "Draft deleted." });
+			success({ "msg" : scribefire_string("notification_delete_draft") });
 		}
 		else {
 			var params = { "id": postId };
@@ -581,6 +585,7 @@ var SCRIBEFIRE = {
 				params,
 				success,
 				function failure(rv) {
+					// @todo localize
 					SCRIBEFIRE.error("ScribeFire found this little error when trying to delete your post: " + rv.status + "\n\n" + rv.msg);
 				
 					if (callbackFailure) {
@@ -609,6 +614,7 @@ var SCRIBEFIRE = {
 				}
 			},
 			function failure(rv) {
+				// @localize
 				SCRIBEFIRE.error("ScribeFire really wanted to help, but something broke when trying to add a category.  The error code was "+rv.status+".");
 				
 				if (callbackFailure) {
@@ -1022,6 +1028,7 @@ var SCRIBEFIRE = {
 				params,
 				success,
 				function (rv) {
+					// @todo localize
 					SCRIBEFIRE.error("ScribeFire couldn't publish your post. Here's the error message that bubbled up:\n\n"+rv.msg);
 					callbackFailure();
 				}
@@ -1032,12 +1039,14 @@ var SCRIBEFIRE = {
 				params,
 				success,
 				function (rv) {
+					// @todo localize
 					SCRIBEFIRE.error("ScribeFire couldn't publish your page. Here's the error message that bubbled up:\n\n"+rv.msg);
 					callbackFailure();
 				}
 			);
 		}
 		else {
+			// @todo localize
 			alert("Invalid type: " + $("#list-entries option:selected").data("type") );
 		}
 	},
@@ -1145,6 +1154,7 @@ var SCRIBEFIRE = {
 				callbackSuccess(rv);
 			},
 			function failure (rv) {
+				// @todo Localize
 				SCRIBEFIRE.error("ScribeFire couldn't get the information it needed about your blog. Helpfully, your blog returned this message:\n\n" + rv.msg);
 				callbackFailure(rv);
 			}
@@ -1298,6 +1308,7 @@ var SCRIBEFIRE = {
 	error : function (msg, errorCode) {
 		msg = msg.replace(/</g, "&lt;").replace(/\n/g, "<br />");
 		
+		// @todo Localize
 		var errorHTML = "<h3>Well, this is embarrassing...</h3><p>"+msg+"</p>";
 		
 		/*

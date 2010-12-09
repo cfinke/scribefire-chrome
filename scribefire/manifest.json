@@ -1,7 +1,7 @@
 {
-	"name": "ScribeFire",
+	"name": "__MSG_extName__",
 	"version": "1.4.3.0",
-	"description": "A full-featured blog editor lets you easily post to all of your blogs.",
+	"description": "__MSG_extDescription__",
 	
 	"icons": {
 		"16": "skin/icon-16.png",
@@ -28,5 +28,7 @@
 			"matches": ["http://www.scribefire.com/token.php*"],
 			"js" : ["token_listener.js"]
 		}
-	]
+	],
+	
+	"default_locale" : "en_US"
 }
