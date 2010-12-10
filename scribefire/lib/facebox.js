@@ -97,7 +97,7 @@
               <td class="body"> \
                 <div class="content"> \
                 </div> \
-                <div class="facebox-close-button"><button class="modal_close">Close</button></div> \
+                <div class="facebox-close-button"><button class="modal_close">X</button></div> \
               </td> \
             </tr> \
           </tbody> \

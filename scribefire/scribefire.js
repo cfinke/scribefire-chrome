@@ -131,7 +131,7 @@ var SCRIBEFIRE = {
 		if ($("#list-blogs option").length == 0) {
 			if (!SCRIBEFIRE.prefs.getBoolPref("firstrun")) {
 				// @todo localize
-				$.facebox($("<div><h2>Welcome to ScribeFire!</h2><p>The first thing you're probably going to want to do is add your blog.  Close this dialog and click 'Add a New Blog' to get started.</p></div>"));
+				$.facebox($("<div><h2>" + scribefire_string("firsttime_header")+"</h2><p>" + scribefire_string("firsttime_text") + "</p></div>"));
 				SCRIBEFIRE.prefs.setBoolPref("firstrun", true);
 			}
 		}
@@ -585,9 +585,8 @@ var SCRIBEFIRE = {
 				params,
 				success,
 				function failure(rv) {
-					// @todo localize
-					SCRIBEFIRE.error("ScribeFire found this little error when trying to delete your post: " + rv.status + "\n\n" + rv.msg);
-				
+					SCRIBEFIRE.error(scribefire_string("error_post_delete", [ rv.status, rv.msg ]));
+					
 					if (callbackFailure) {
 						callbackFailure(rv);
 					}
@@ -615,7 +614,8 @@ var SCRIBEFIRE = {
 			},
 			function failure(rv) {
 				// @localize
-				SCRIBEFIRE.error("ScribeFire really wanted to help, but something broke when trying to add a category.  The error code was "+rv.status+".");
+				
+				SCRIBEFIRE.error(scribefire_string("error_category_add", rv.status));
 				
 				if (callbackFailure) {
 					callbackFailure(rv);
@@ -1028,8 +1028,7 @@ var SCRIBEFIRE = {
 				params,
 				success,
 				function (rv) {
-					// @todo localize
-					SCRIBEFIRE.error("ScribeFire couldn't publish your post. Here's the error message that bubbled up:\n\n"+rv.msg);
+					SCRIBEFIRE.error(scribefire_string("error_post_publish", rv.msg));
 					callbackFailure();
 				}
 			);
@@ -1039,8 +1038,7 @@ var SCRIBEFIRE = {
 				params,
 				success,
 				function (rv) {
-					// @todo localize
-					SCRIBEFIRE.error("ScribeFire couldn't publish your page. Here's the error message that bubbled up:\n\n"+rv.msg);
+					SCRIBEFIRE.error(scribefire_string("error_page_publish", rv.msg));
 					callbackFailure();
 				}
 			);
@@ -1154,8 +1152,7 @@ var SCRIBEFIRE = {
 				callbackSuccess(rv);
 			},
 			function failure (rv) {
-				// @todo Localize
-				SCRIBEFIRE.error("ScribeFire couldn't get the information it needed about your blog. Helpfully, your blog returned this message:\n\n" + rv.msg);
+				SCRIBEFIRE.error(scribefire_string("error_api_getBlogs", rv.msg));
 				callbackFailure(rv);
 			}
 		);
@@ -1309,7 +1306,7 @@ var SCRIBEFIRE = {
 		msg = msg.replace(/</g, "&lt;").replace(/\n/g, "<br />");
 		
 		// @todo Localize
-		var errorHTML = "<h3>Well, this is embarrassing...</h3><p>"+msg+"</p>";
+		var errorHTML = "<h3>" + scribefire_string("error_header") + "</h3><p>"+msg+"</p>";
 		
 		/*
 		if (errorCode == 'BadAuthentication') {

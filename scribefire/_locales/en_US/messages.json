@@ -9,6 +9,12 @@
 	"continue" : {
 		"message" : "Continue"
 	},
+	"firsttime_header" : {
+		"message" : "Welcome to ScribeFire!"
+	},
+	"firsttime_text" : {
+		"message" : "The first thing you're probably going to want to do is add your blog.  Close this dialog and click 'Add a New Blog' to get started."
+	},
 	"entry_new_label" : {
 		"message" : "(new)",
 		"description" : "The label that appears in the entries list to designate a new post."
@@ -46,8 +52,55 @@
 	"action_openBlogInTab" : {
 		"message" : "Open blog in a new tab"
 	},
+	"error_header" : {
+		"message" : "Well, this is embarrassing...",
+		"description" : "This string is used as the title for any major error that has to be shown. It should relay a sense of 'ScribeFire did something wrong, not you.'"
+	},
+	"error_post_delete" : {
+		"message" : "ScribeFire found this little error when trying to delete your post: $status$\n\n$msg$",
+		"placeholders" : {
+			"status" : {
+				"content" : "$1"
+			},
+			"msg" : {
+				"content" : "$2"
+			}
+		}
+	},
+	"error_category_add" : {
+		"message" : "ScribeFire really wanted to help, but something broke when trying to add a category.  The error code was $error_code$.",
+		"placeholders" : {
+			"error_code" : {
+				"content" : "$1"
+			}
+		}
+	},
+	"error_post_publish" : {
+		"message" : "ScribeFire couldn't publish your post. Here's the error message that bubbled up: $message$",
+		"placeholders" : {
+			"message" : {
+				"content" : "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish" : {
+		"message" : "ScribeFire couldn't publish your page. Here's the error message that bubbled up: $message$",
+		"placeholders" : {
+			"message" : {
+				"content" : "\n\n$1"
+			}
+		}
+	},
 	"error_unknown" : {
 		"message" : "An unanticipated error occurred."
+	},
+	"error_api_getBlogs" : {
+		"message" : "ScribeFire couldn't get the information it needed about your blog. Helpfully, your blog returned this message: $message$",
+		"placeholders" : {
+			"message" : {
+				"content" : "\n\n$1"
+			}
+		}
 	},
 	"error_api_invalid" : {
 		"message" : "It's not your fault, but ScribeFire is looking for an API ($api_type$) that doesn't exist.\n\nIf you're an alpha tester, you need to remove this blog and add it again.",
