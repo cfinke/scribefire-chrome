@@ -1,0 +1,461 @@
+{
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"extDescription": {
+		"message": "Un editor di blog di facile utilizzo che ti permette di pubblicare in tutti i tuoi blog."
+	},
+	"continue": {
+		"message": "Continua"
+	},
+	"firsttime_header": {
+		"message": "Benvenuto in ScribeFire!"
+	},
+	"firsttime_text": {
+		"message": "La prima cosa che probabilmente vuoi fare è aggiungere il tuo blog. Chiudi questa notifica e clicca su 'Aggiungi un nuovo Blog' per iniziare."
+	},
+	"entry_new_label": {
+		"message": "(nuovo)"
+	},
+	"entry_localDraft_label": {
+		"message": "Bozza locale"
+	},
+	"entry_draft_label": {
+		"message": "Bozza"
+	},
+	"entry_scheduled_label": {
+		"message": "Programmato"
+	},
+	"notification_draft_delete": {
+		"message": "Bozza cancellata."
+	},
+	"notification_draft_save": {
+		"message": "Bozza salvata."
+	},
+	"notification_post_delete": {
+		"message": "L'articolo è stato cancellato con successo."
+	},
+	"notification_blog_add": {
+		"message": "Il tuo blog è stato aggiunto con successo!"
+	},
+	"notification_publish": {
+		"message": "Pubbicazione avvenuta correttamente!"
+	},
+	"notification_publish_update": {
+		"message": "Aggiornamento avvenuto correttamente!"
+	},
+	"action_openBlogInTab": {
+		"message": "Apri il blog in una nuova scheda"
+	},
+	"action_view": {
+		"message": "Vedi"
+	},
+	"action_edit": {
+		"message": "Modifica"
+	},
+	"action_remove": {
+		"message": "Rimuovi"
+	},
+	"action_blog_add": {
+		"message": "Aggiungi un nuovo Blog"
+	},
+	"action_next": {
+		"message": "Successivo"
+	},
+	"action_cancel": {
+		"message": "Annulla"
+	},
+	"action_makeMoney": {
+		"message": "Guadagna con questo blog"
+	},
+	"action_finish": {
+		"message": "Finito"
+	},
+	"action_delete": {
+		"message": "Cancella"
+	},
+	"action_editHTML": {
+		"message": "Passa alla modalità HTML"
+	},
+	"action_editVisual": {
+		"message": "Passa alla modalità Editor Visuale"
+	},
+	"action_category_add": {
+		"message": "Nuova Categoria"
+	},
+	"action_customField_add": {
+		"message": "Aggiungi un campo personalizzato"
+	},
+	"action_draft_save": {
+		"message": "Salva aggiornamenti"
+	},
+	"action_publish": {
+		"message": "Pubblica"
+	},
+	"action_permalink_edit": {
+		"message": "Link permanente:"
+	},
+	"action_schedule": {
+		"message": "Programma:"
+	},
+	"action_save": {
+		"message": "Salva"
+	},
+	"action_insert": {
+		"message": "Inserisci"
+	},
+	"action_reset": {
+		"message": "Svuota tutti i campi e inizia un Nuovo $ignore1$ Articolo $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_publishUpdate": {
+		"message": "Aggiorna $ignore1$ Articolo $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_video_add": {
+		"message": "Inserisci un video"
+	},
+	"option_blogType_select": {
+		"message": "(seleziona)"
+	},
+	"option_blogType_atom": {
+		"message": "Atom"
+	},
+	"option_blogType_blogger": {
+		"message": "Blogger"
+	},
+	"option_blogType_wordpres": {
+		"message": "Wordpress"
+	},
+	"option_blogType_tumblr": {
+		"message": "Tumblr"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
+	},
+	"option_blogType_movabletype": {
+		"message": "MovableType"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous"
+	},
+	"option_publish_immediately": {
+		"message": "Pubblica immediatamente"
+	},
+	"option_publish_month1": {
+		"message": "Gen"
+	},
+	"option_publish_month2": {
+		"message": "Feb"
+	},
+	"option_publish_month3": {
+		"message": "Mar"
+	},
+	"option_publish_month4": {
+		"message": "Apr"
+	},
+	"option_publish_month5": {
+		"message": "Mag"
+	},
+	"option_publish_month6": {
+		"message": "Giu"
+	},
+	"option_publish_month7": {
+		"message": "Lug"
+	},
+	"option_publish_month8": {
+		"message": "Ago"
+	},
+	"option_publish_month9": {
+		"message": "Set"
+	},
+	"option_publish_month10": {
+		"message": "Ott"
+	},
+	"option_publish_month11": {
+		"message": "Nov"
+	},
+	"option_publish_month12": {
+		"message": "Dic"
+	},
+	"label_blog": {
+		"message": "Blog:"
+	},
+	"label_blog_type": {
+		"message": "Tipo Blog:"
+	},
+	"label_url": {
+		"message": "URL:"
+	},
+	"label_apiUrl": {
+		"message": "API URL:"
+	},
+	"label_blogId": {
+		"message": "ID del Blog"
+	},
+	"label_loginCredentials": {
+		"message": "Credenziali di accesso"
+	},
+	"label_username": {
+		"message": "Nome Utente"
+	},
+	"label_password": {
+		"message": "Password"
+	},
+	"label_entry": {
+		"message": "Conferma"
+	},
+	"label_help": {
+		"message": "AIUTO!"
+	},
+	"label_title": {
+		"message": "Titolo:"
+	},
+	"label_content": {
+		"message": "Pubblica contenuto:"
+	},
+	"label_excerpt": {
+		"message": "Estratto:"
+	},
+	"label_categories": {
+		"message": "Categorie:"
+	},
+	"label_tags": {
+		"message": "Tags:"
+	},
+	"label_customFields": {
+		"message": "Campi Personalizzati"
+	},
+	"label_publish": {
+		"message": "Pubblica"
+	},
+	"label_private": {
+		"message": "Privato"
+	},
+	"label_name": {
+		"message": "Nome:"
+	},
+	"error_header": {
+		"message": "Beh, questo è imbarazzante..."
+	},
+	"error_post_delete": {
+		"message": "ScribeFire è incorso in un errore di poco conto mentre tentava di cancellare il tuo articolo: $status$\n\n$msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
+			},
+			"msg": {
+				"content": "$2"
+			}
+		}
+	},
+	"error_category_add": {
+		"message": "ScribeFire vorrebe essere veramente di aiuto, ma qualcosa è andato storto mentre tentava di aggiungere una categoria. Il codice di errore è: $error_code$.",
+		"placeholders": {
+			"error_code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_post_publish": {
+		"message": "ScribeFire non riesce a pubblicare il tuo articolo. Questo è l'errore che è apparso: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish": {
+		"message": "ScribeFire non riesce a pubblicare la tua pagina. Questo è l'errore che è apparso: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_unknown": {
+		"message": "Si è incorsi in un errore inaspettato."
+	},
+	"error_api_getBlogs": {
+		"message": "ScribeFire non riesce ad ottenere le informazioni necessarie dal tuo blog. Fortunatamente, il blog ha restituito questo messaggio: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_invalid": {
+		"message": "Non è colpa tua, ma ScribeFire sta cercando un API ($api_type$) che non eisiste\n\nSe sei un alfa tester, devi rimuovere questo blog e aggiungerlo nuovamente..",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_noBlog": {
+		"message": "Frena.... è necessario aggiungere il tuo blog prima di poter pubblicare."
+	},
+	"error_api_noCategorySupport": {
+		"message": "Questo blog non consente l'aggiunga di categorie."
+	},
+	"error_api_noUploadSupport": {
+		"message": "Questo blog non consente il caricamento di file."
+	},
+	"error_api_cannotConnect": {
+		"message": "ScribeFire non riesce a connettersi con successo al tuo blog."
+	},
+	"error_api_setup": {
+		"message": "Mentre cercava di determinare le impostazioni del tuo blog, ScribeFire è incorso in questo codice $code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_setup_unknownBlogType": {
+		"message": "Puoi tentare di configurare il tuo blog manualmente."
+	},
+	"error_api_code412": {
+		"message": "Il blog ha restituito un codice errore 412. Puoi risolvere questo problema seguendo le istruzioni su $url$",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
+			}
+		}
+	},
+	"error_api_noMessage": {
+		"message": "Il blog ha ritornato codice errore $code$, ma nessun messaggio di errore può essere trovato.",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_blogger_authentication": {
+		"message": "Blogger dice che hai digitato username o password errati."
+	},
+	"error_api_blogger_verify": {
+		"message": "Blogger dice che devi verificare la tua mail dell'account; entra nel tuo account direttamente per gestire questa cosa."
+	},
+	"error_api_blogger_tos": {
+		"message": "Blogger dice che non hai ancora accettato i termini di servizio di Google; entra nel tuo account direttamente per gestire questa cosa."
+	},
+	"error_api_blogger_deleted": {
+		"message": "Blogger dice che l'account che stai usando è stato cancellato."
+	},
+	"error_api_blogger_disabled": {
+		"message": "Blogger dice che il tuo accesso è estato disabilitato."
+	},
+	"error_api_blogger_unavailable": {
+		"message": "Blogger dice che i suoi servizi sono temporaneamente non disponibili."
+	},
+	"error_api_blogger_captcha": {
+		"message": "Google richide che tu compliti questo CAPTCHA per poter continuare:"
+	},
+	"error_api_blogger_unknown": {
+		"message": "Blogger non funziona correttamente; sta dando questo errore: $error$",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_authToken": {
+		"message": "Non riesco ad ottenere un token di autenticazione."
+	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "Non riesco a raggiungere l'immgine da caricare della API."
+	},
+	"error_api_posterous_noDeleteSupport": {
+		"message": "Posterous non supporta al momento la cancellazione dell'articolo."
+	},
+	"error_video_noEmbed": {
+		"message": "ScribeFire non riesce a generare il codice da incorporare per questo indirizzo URL. Prego verficare l'URL o, manualmente, incollate il codice da incorporare in nel box in basso."
+	},
+	"prompt_newCategory": {
+		"message": "Nome nuova categoria:"
+	},
+	"confirm_deletePost": {
+		"message": "Sei sicuro di voler cancellare questo articolo? Verrà rimosso dal server del blog e non apparirà più sul tuo blog."
+	},
+	"text_inlinks1": {
+		"message": "ScibeFire è in contatto con $website$ per offrire una soluzione per guadagnare facilmente con il tuo blog.",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
+			}
+		}
+	},
+	"header_inlinks": {
+		"message": "Cosa sono gli InLinks?"
+	},
+	"text_inlinks2": {
+		"message": "Inlinks è pubblicità HTML statica, che si trova all'interno di aree dei siti web. E' semplicemente il collegamento più pagato sul mercato. I vantaggi per voi sono:"
+	},
+	"text_inlinksBenefit1": {
+		"message": "Annunci che sono belli da vedere. Nessun noioso pop-up!"
+	},
+	"text_inlinksBenefit2": {
+		"message": "Entrate previste. Fatti pagare una tariffa flat\/mensile\/per annuncio."
+	},
+	"text_inlinksBenefit3": {
+		"message": "Blog-firendly. Installa il nostro semplice plugin e noi pensiamo al resto. Siediti e raccogli il tuo guadagno mensile."
+	},
+	"text_inlinksBlogs": {
+		"message": "Fuori dai blog che hai impostato in ScribeFire, i seguenti possono essere compatibili con InLinks:"
+	},
+	"text_inlinksCompatibility": {
+		"message": "(Al momento, InLinks funziona solo con blog che usano Wordpress.org, Drupal o MovableType.)"
+	},
+	"text_inlinks3": {
+		"message": "$link_open$ Visita InLinks.com $link_close$ per scaricare il plugin InLinks e cominciare a guadagnare denaro già oggi con il tuo blog!",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
+			},
+			"link_close": {
+				"content": "<\/a>"
+			}
+		}
+	},
+	"header_blogProperties": {
+		"message": "Proprietà del Blog"
+	},
+	"text_blogProperties1": {
+		"message": "Puoi modificare il nome e l'URL del tuo blog qui. Per aggiornare i tuoi nome utente, password, URL API o ID del blog, clicca sul bottone 'Rimuovi' per cancellare il blog e quindi inseriscilo di nuovo cliccando il bottone 'Aggiungi nuovo blog'."
+	},
+	"header_video": {
+		"message": "Inserisci un video"
+	},
+	"text_video1": {
+		"message": "Incolla l'URL del video nel box sottostante."
+	},
+	"text_video2": {
+		"message": "es.: $url1$ oppure $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "Oppure incolla il codice da incorporare fornito dal tuo video in questo box:"
+	}
+}

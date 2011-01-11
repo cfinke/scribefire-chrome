@@ -1,0 +1,461 @@
+{
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"extDescription": {
+		"message": "En simpel, lettilgængelig blog edtior, der problemfrit lader dig styre alle dine blogs."
+	},
+	"continue": {
+		"message": "Fortsæt"
+	},
+	"firsttime_header": {
+		"message": "Velkommen til ScribeFire!"
+	},
+	"firsttime_text": {
+		"message": "Det første du ønsker, er at tilføje din blog. Luk denne dialogboks og klik på \"Tilføj ny blog\" for at komme igang."
+	},
+	"entry_new_label": {
+		"message": "(ny)"
+	},
+	"entry_localDraft_label": {
+		"message": "Lokal kladde"
+	},
+	"entry_draft_label": {
+		"message": "Kladde"
+	},
+	"entry_scheduled_label": {
+		"message": "Planlagte posts"
+	},
+	"notification_draft_delete": {
+		"message": "Kladde slettet"
+	},
+	"notification_draft_save": {
+		"message": "Kladde gemt"
+	},
+	"notification_post_delete": {
+		"message": "Post slettet"
+	},
+	"notification_blog_add": {
+		"message": "Blog tilføjet!"
+	},
+	"notification_publish": {
+		"message": "Offentliggjort!"
+	},
+	"notification_publish_update": {
+		"message": "Opdateret!"
+	},
+	"action_openBlogInTab": {
+		"message": "Åbn blog i en ny fane"
+	},
+	"action_view": {
+		"message": "Oversigt"
+	},
+	"action_edit": {
+		"message": "Redigér"
+	},
+	"action_remove": {
+		"message": "Slet"
+	},
+	"action_blog_add": {
+		"message": "Tilføj ny blog"
+	},
+	"action_next": {
+		"message": "Næste"
+	},
+	"action_cancel": {
+		"message": "Annuller"
+	},
+	"action_makeMoney": {
+		"message": "Tjen penge på din blog"
+	},
+	"action_finish": {
+		"message": "Afslut"
+	},
+	"action_delete": {
+		"message": "Slet"
+	},
+	"action_editHTML": {
+		"message": "Skift til HTML-visning"
+	},
+	"action_editVisual": {
+		"message": "Skift til almindelig visning"
+	},
+	"action_category_add": {
+		"message": "Ny kategori"
+	},
+	"action_customField_add": {
+		"message": "Tilføj brugerdefineret felt"
+	},
+	"action_draft_save": {
+		"message": "Gem ændringer"
+	},
+	"action_publish": {
+		"message": "Offentliggør"
+	},
+	"action_permalink_edit": {
+		"message": "Permalink:"
+	},
+	"action_schedule": {
+		"message": "Planlæg:"
+	},
+	"action_save": {
+		"message": "Gem"
+	},
+	"action_insert": {
+		"message": "Indsæt"
+	},
+	"action_reset": {
+		"message": "Nulstil alle felter og start en ny $ignore1$ post $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_publishUpdate": {
+		"message": "Opdater $ignore1$ Post $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_video_add": {
+		"message": "Indsæt video"
+	},
+	"option_blogType_select": {
+		"message": "Vælg"
+	},
+	"option_blogType_atom": {
+		"message": "Atom"
+	},
+	"option_blogType_blogger": {
+		"message": "Blogger"
+	},
+	"option_blogType_wordpres": {
+		"message": "Wordpress"
+	},
+	"option_blogType_tumblr": {
+		"message": "Tumblr"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
+	},
+	"option_blogType_movabletype": {
+		"message": "MovableType"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous"
+	},
+	"option_publish_immediately": {
+		"message": "Offentliggør med det samme"
+	},
+	"option_publish_month1": {
+		"message": "Jan"
+	},
+	"option_publish_month2": {
+		"message": "Feb"
+	},
+	"option_publish_month3": {
+		"message": "Mar"
+	},
+	"option_publish_month4": {
+		"message": "Apr"
+	},
+	"option_publish_month5": {
+		"message": "Maj"
+	},
+	"option_publish_month6": {
+		"message": "Jun"
+	},
+	"option_publish_month7": {
+		"message": "Jul"
+	},
+	"option_publish_month8": {
+		"message": "Aug"
+	},
+	"option_publish_month9": {
+		"message": "Sep"
+	},
+	"option_publish_month10": {
+		"message": "Okt"
+	},
+	"option_publish_month11": {
+		"message": "Nov"
+	},
+	"option_publish_month12": {
+		"message": "Dec"
+	},
+	"label_blog": {
+		"message": "Blog:"
+	},
+	"label_blog_type": {
+		"message": "Blogtype:"
+	},
+	"label_url": {
+		"message": "URL:"
+	},
+	"label_apiUrl": {
+		"message": "API URL:"
+	},
+	"label_blogId": {
+		"message": "Blog ID:"
+	},
+	"label_loginCredentials": {
+		"message": "Login-oplysninger"
+	},
+	"label_username": {
+		"message": "Brugernavn"
+	},
+	"label_password": {
+		"message": "Password"
+	},
+	"label_entry": {
+		"message": "Indtastning"
+	},
+	"label_help": {
+		"message": "HJÆLP!"
+	},
+	"label_title": {
+		"message": "Titel:"
+	},
+	"label_content": {
+		"message": "Post Indhold"
+	},
+	"label_excerpt": {
+		"message": "Uddrag:"
+	},
+	"label_categories": {
+		"message": "Kategorier:"
+	},
+	"label_tags": {
+		"message": "Tags:"
+	},
+	"label_customFields": {
+		"message": "Brugerdefinerede felter"
+	},
+	"label_publish": {
+		"message": "Indstillinger for offentliggørelse"
+	},
+	"label_private": {
+		"message": "Privat"
+	},
+	"label_name": {
+		"message": "Navn:"
+	},
+	"error_header": {
+		"message": "Okay, det her er en smule pinligt..."
+	},
+	"error_post_delete": {
+		"message": "ScribFire fandt en lille fejl, under forsøget på at slette din post: $status$\n\n$msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
+			},
+			"msg": {
+				"content": "$2"
+			}
+		}
+	},
+	"error_category_add": {
+		"message": "ScribeFire vil virkelig gerne hjælpe, men noget gik galt under forsøget på at tilføje en kategori. Fejlkoden var $error_code$",
+		"placeholders": {
+			"error_code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_post_publish": {
+		"message": "ScribeFire kunne desværre ikke offentliggøre din post. Fejlmeddelelsen $message$ kom op!",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish": {
+		"message": "ScribeFire kunne ikke offentliggøre din side. Fejlmeddelelsen $message$ kom op!",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_unknown": {
+		"message": "Uforudset fejl"
+	},
+	"error_api_getBlogs": {
+		"message": "ScribeFire kunne ikke rekvirere de nødvendige blogoplysninger. Din blog kom med følgende fejlmeddelelse: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_invalid": {
+		"message": "Det er ikke din skyld, men ScribeFire leder efter en API ($api_type$), som ikke findes.\n\nHvis du er alpha-tester, bedes du venligst fjerne din blog og tilføje den igen.",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_noBlog": {
+		"message": "Rolig nu - du er nødt til at tilføje din blog, før du kan offentliggøre!"
+	},
+	"error_api_noCategorySupport": {
+		"message": "Denne blog understøtter ikke nye kategorier."
+	},
+	"error_api_noUploadSupport": {
+		"message": "Denne blog understøtter ikke filuploads."
+	},
+	"error_api_cannotConnect": {
+		"message": "ScribeFire kunne ikke forbinde til din blog."
+	},
+	"error_api_setup": {
+		"message": "Under forsøge på at indstille din blog, snublede ScribeFire over følgende kode: $code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_setup_unknownBlogType": {
+		"message": "Du er velkommen til at indstille din blog manuelt."
+	},
+	"error_api_code412": {
+		"message": "Din blog gav en 412 fejlkode. Du kan muligvis løse dette problem, ved at følge instruktionerne på $url$",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
+			}
+		}
+	},
+	"error_api_noMessage": {
+		"message": "Bloggen returnede en $code$ fejlkode, men ingen fejlmeddelselse blev fundet.",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_blogger_authentication": {
+		"message": "Blogger siger at brugernavn eller password er forkert."
+	},
+	"error_api_blogger_verify": {
+		"message": "Blogger siger at du skal verificere din email-konto. Log ind via hjemmesiden for at gøre det."
+	},
+	"error_api_blogger_tos": {
+		"message": "Blogger siger at du skal acceptere Google's reglement. Log ind via hjemmesiden for at gøre dette."
+	},
+	"error_api_blogger_deleted": {
+		"message": "Blogger siger at den konto, du har angivet, er slettet."
+	},
+	"error_api_blogger_disabled": {
+		"message": "Blogger siger at den konto, du har angivet, er blevet deaktiveret."
+	},
+	"error_api_blogger_unavailable": {
+		"message": "Blogger siger at servicen er midlertidigt ude af drift."
+	},
+	"error_api_blogger_captcha": {
+		"message": "Google forudsætter at du udfylder denne CAPTCHA for at fortsætte."
+	},
+	"error_api_blogger_unknown": {
+		"message": "Blogger vil ikke lege med: Følgende fejlmeddelelse kommer op: $error$",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_authToken": {
+		"message": "Kunne ikke få godkendelse."
+	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "Kunne ikke kontakte billedeuploadings-API"
+	},
+	"error_api_posterous_noDeleteSupport": {
+		"message": "Posterous understøtter ikke sletning af posts endnu."
+	},
+	"error_video_noEmbed": {
+		"message": "ScribeFire kunne ikke generere kode til denne video-URL. Check venligst URL'en eller indtast den manuelt i boksen for neden."
+	},
+	"prompt_newCategory": {
+		"message": "Navn på ny kategori:"
+	},
+	"confirm_deletePost": {
+		"message": "Er du sikker på at du vil slette denne post? Den vil blive slettet fra din blogs server og vil ikke længere figurere på din blog."
+	},
+	"text_inlinks1": {
+		"message": "ScribeFire er gået sammen med $website$ for at gøre det lettere for dig at tjene penge på din blog.",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
+			}
+		}
+	},
+	"header_inlinks": {
+		"message": "Hvad er InLinks?"
+	},
+	"text_inlinks2": {
+		"message": "InLinks er stillestående HTML-reklamer, som findes i indholdet på websider. Det er ganske enkelt det mest naturlige, betalte link på markedet. Dine fordele er:"
+	},
+	"text_inlinksBenefit1": {
+		"message": "Diskrete reklamen, som ikke forstyrrer øjnene. Ingen irriterende pop-ups!"
+	},
+	"text_inlinksBenefit2": {
+		"message": "Forudsigelig omsætning. Få et fast beløb pr. måned\/solgt reklame."
+	},
+	"text_inlinksBenefit3": {
+		"message": "Blogvenlig. Installer vores simple plugin og vi tager os af resten. Bare læn dig tilbage og indkassér dit månedlige beløb."
+	},
+	"text_inlinksBlogs": {
+		"message": "Følgende blogs er kompatible med InLinks:"
+	},
+	"text_inlinksCompatibility": {
+		"message": "(InLinks virker for tiden kun med blogs fra Wordpress.org, Drupal og MovableType)"
+	},
+	"text_inlinks3": {
+		"message": "$link_open$ Besøg InLinks.com $link_close$ for at downloade InLinks-plugin og starte din indtjening i dag!",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
+			},
+			"link_close": {
+				"content": "<\/a>"
+			}
+		}
+	},
+	"header_blogProperties": {
+		"message": "Blog indstillinger"
+	},
+	"text_blogProperties1": {
+		"message": "Du kan redigere navnet og URL'en på din blog her. For at opdatere brugernavn, password, API URL eller blog ID, klik på \"slet\"-knappen for at fjerne bloggen og tilføj den igen ved at klikke på \"Tilføj ny blog\"."
+	},
+	"header_video": {
+		"message": "Indsæt video"
+	},
+	"text_video1": {
+		"message": "Indsæt videoens URL i boksen for neden"
+	},
+	"text_video2": {
+		"message": "f.eks. $url1$ eller $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "Eller kopier den tildelte kode i denne boks:"
+	}
+}

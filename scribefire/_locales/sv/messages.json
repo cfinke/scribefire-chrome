@@ -1,0 +1,293 @@
+{
+	"header_video": {
+		"message": "Lägg till en video"
+	},
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"extDescription": {
+		"message": "En lättanvänd bloggredigerare som enkelt låter dig posta till alla dina bloggar."
+	},
+	"continue": {
+		"message": "Fortsätt"
+	},
+	"firsttime_header": {
+		"message": "Välkommen till ScribeFire!"
+	},
+	"firsttime_text": {
+		"message": "Först vill du förmodligen lägga till din blogg. Stäng denna dialogrutan och klicka på 'Lägg till en blogg' för att komma igång."
+	},
+	"entry_new_label": {
+		"message": "(ny)"
+	},
+	"entry_localDraft_label": {
+		"message": "Lokalt utkast"
+	},
+	"entry_draft_label": {
+		"message": "Utkast"
+	},
+	"entry_scheduled_label": {
+		"message": "Schemalagt"
+	},
+	"notification_draft_delete": {
+		"message": "Utkastet borttaget."
+	},
+	"notification_draft_save": {
+		"message": "Utkastet sparat."
+	},
+	"notification_post_delete": {
+		"message": "Posten borttagen."
+	},
+	"notification_blog_add": {
+		"message": "Din blogg har lagts till!"
+	},
+	"notification_publish": {
+		"message": "Publicerat!"
+	},
+	"notification_publish_update": {
+		"message": "Uppdaterat!"
+	},
+	"action_openBlogInTab": {
+		"message": "Öppna bloggen på en ny flik"
+	},
+	"action_view": {
+		"message": "Se"
+	},
+	"action_edit": {
+		"message": "Ändra"
+	},
+	"action_remove": {
+		"message": "Ta bort"
+	},
+	"action_blog_add": {
+		"message": "Lägg till en ny blogg"
+	},
+	"action_next": {
+		"message": "Nästa"
+	},
+	"action_cancel": {
+		"message": "Avbryt"
+	},
+	"action_makeMoney": {
+		"message": "Tjäna pengar på den här bloggen"
+	},
+	"action_finish": {
+		"message": "Klar"
+	},
+	"action_delete": {
+		"message": "Ta bort"
+	},
+	"action_editHTML": {
+		"message": "Byt till HTML-läge"
+	},
+	"action_editVisual": {
+		"message": "Byt till den visuella editorn"
+	},
+	"action_category_add": {
+		"message": "Ny kategori"
+	},
+	"action_customField_add": {
+		"message": "Lägg till eget fält"
+	},
+	"action_draft_save": {
+		"message": "Spara ändringar"
+	},
+	"action_publish": {
+		"message": "Publicera"
+	},
+	"action_permalink_edit": {
+		"message": "Permalänk:"
+	},
+	"action_schedule": {
+		"message": "Schemaläggning:"
+	},
+	"action_save": {
+		"message": "Spara"
+	},
+	"action_insert": {
+		"message": "Infoga"
+	},
+	"action_reset": {
+		"message": "Töm alla fält och börja på ett nytt $ignore1$ inlägg $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_publishUpdate": {
+		"message": "Uppdatera $ignore1$ inlägge $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_video_add": {
+		"message": "Lägg till en video"
+	},
+	"option_blogType_select": {
+		"message": "(välj)"
+	},
+	"option_blogType_atom": {
+		"message": "Atom"
+	},
+	"option_blogType_blogger": {
+		"message": "Blogger"
+	},
+	"option_blogType_wordpres": {
+		"message": "Wordpress"
+	},
+	"option_blogType_tumblr": {
+		"message": "Tumblr"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
+	},
+	"option_blogType_movabletype": {
+		"message": "MovableType"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous"
+	},
+	"option_publish_immediately": {
+		"message": "Publicera omedelbart"
+	},
+	"option_publish_month1": {
+		"message": "jan"
+	},
+	"option_publish_month2": {
+		"message": "feb"
+	},
+	"option_publish_month3": {
+		"message": "mar"
+	},
+	"option_publish_month4": {
+		"message": "apr"
+	},
+	"option_publish_month5": {
+		"message": "maj"
+	},
+	"option_publish_month6": {
+		"message": "jun"
+	},
+	"option_publish_month7": {
+		"message": "jul"
+	},
+	"option_publish_month8": {
+		"message": "aug"
+	},
+	"option_publish_month9": {
+		"message": "sep"
+	},
+	"option_publish_month10": {
+		"message": "okt"
+	},
+	"option_publish_month11": {
+		"message": "nov"
+	},
+	"option_publish_month12": {
+		"message": "dec"
+	},
+	"label_blog": {
+		"message": "Blogg:"
+	},
+	"label_blog_type": {
+		"message": "Bloggtyp:"
+	},
+	"label_url": {
+		"message": "Webbadress:"
+	},
+	"label_apiUrl": {
+		"message": "API-webbadress:"
+	},
+	"label_blogId": {
+		"message": "Blogg-ID:"
+	},
+	"label_loginCredentials": {
+		"message": "Inloggningsuppgifter:"
+	},
+	"label_username": {
+		"message": "Användarnamn"
+	},
+	"label_password": {
+		"message": "Lösenord"
+	},
+	"label_help": {
+		"message": "HJÄLP!"
+	},
+	"label_title": {
+		"message": "Titel:"
+	},
+	"label_content": {
+		"message": "Postinnehåll"
+	},
+	"label_excerpt": {
+		"message": "Sammanfattning:"
+	},
+	"label_categories": {
+		"message": "Kategorier:"
+	},
+	"label_tags": {
+		"message": "Taggar:"
+	},
+	"label_customFields": {
+		"message": "Egna fält"
+	},
+	"label_publish": {
+		"message": "Publicera"
+	},
+	"label_private": {
+		"message": "Privat"
+	},
+	"label_name": {
+		"message": "Namn:"
+	},
+	"error_header": {
+		"message": "Alltså, det här är pinsamt..."
+	},
+	"error_post_delete": {
+		"message": "ScribeFire sprang på ett fel när din post skulle tas bort: $status$\n\n$msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
+			},
+			"msg": {
+				"content": "$2"
+			}
+		}
+	},
+	"error_category_add": {
+		"message": "ScribeFire försökte verkligen hjälpa till, men något gick fel när en kategori skulle läggas till. Felkoden var $error_code$.",
+		"placeholders": {
+			"error_code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_post_publish": {
+		"message": "ScribeFire kunde inte publicera din post. Här är felet som stöttes på: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish": {
+		"message": "ScribeFire kunde inte publicera din sida. Här är felet som stöttes på: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_unknown": {
+		"message": "Ett oväntat fel inträffade."
+	}
+}

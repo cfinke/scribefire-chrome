@@ -1,0 +1,170 @@
+{
+	"extName": {
+		"message": "స్రైబ్‌ఫైర్"
+	},
+	"continue": {
+		"message": "కొనసాగించు"
+	},
+	"firsttime_header": {
+		"message": "స్క్రైబ్ ఫైర్ కు స్వాగతం!"
+	},
+	"entry_new_label": {
+		"message": "(కొత్తది)"
+	},
+	"entry_localDraft_label": {
+		"message": "స్థానిక ప్రతి"
+	},
+	"entry_draft_label": {
+		"message": "ప్రతి"
+	},
+	"notification_draft_delete": {
+		"message": "ప్రతి తొలగించబడింది"
+	},
+	"notification_draft_save": {
+		"message": "ప్రతి దాచబడింది"
+	},
+	"notification_post_delete": {
+		"message": "విజయవంతంగా టపా తొలగించబడింది"
+	},
+	"notification_publish": {
+		"message": "విజయవంతంగా అచ్చువేయబడింది!"
+	},
+	"notification_publish_update": {
+		"message": "విజయవంతంగా మార్చబడింది!"
+	},
+	"action_remove": {
+		"message": "తొలగించు"
+	},
+	"action_blog_add": {
+		"message": "కొత్త బ్లాగుని చేర్చండి"
+	},
+	"action_next": {
+		"message": "తదుపరి"
+	},
+	"action_cancel": {
+		"message": "రద్దు"
+	},
+	"action_finish": {
+		"message": "ముగించు"
+	},
+	"action_delete": {
+		"message": "తొలగించు"
+	},
+	"action_category_add": {
+		"message": "కొత్త వర్గం"
+	},
+	"action_publish": {
+		"message": "ప్రచురించు"
+	},
+	"action_permalink_edit": {
+		"message": "స్థిరలంకె:"
+	},
+	"action_save": {
+		"message": "భద్రపరచు"
+	},
+	"option_blogType_atom": {
+		"message": "ఆటమ్"
+	},
+	"option_blogType_blogger": {
+		"message": "బ్లాగర్"
+	},
+	"option_blogType_wordpres": {
+		"message": "వర్డ్‌ప్రెస్"
+	},
+	"option_blogType_tumblr": {
+		"message": "టంబ్లర్"
+	},
+	"option_blogType_movabletype": {
+		"message": "మూవబుల్‌టైప్"
+	},
+	"option_publish_immediately": {
+		"message": "వెంటనే ప్రచురించు"
+	},
+	"option_publish_month1": {
+		"message": "జన"
+	},
+	"option_publish_month2": {
+		"message": "ఫిబ్ర"
+	},
+	"option_publish_month3": {
+		"message": "మార్చి"
+	},
+	"option_publish_month4": {
+		"message": "ఏప్రి"
+	},
+	"option_publish_month5": {
+		"message": "మే"
+	},
+	"option_publish_month6": {
+		"message": "జూన్"
+	},
+	"option_publish_month7": {
+		"message": "జూలై"
+	},
+	"option_publish_month8": {
+		"message": "ఆగ"
+	},
+	"option_publish_month9": {
+		"message": "సెప్టెం"
+	},
+	"option_publish_month10": {
+		"message": "అక్టో"
+	},
+	"option_publish_month11": {
+		"message": "నవం"
+	},
+	"option_publish_month12": {
+		"message": "డిసెం"
+	},
+	"label_blog": {
+		"message": "బ్లాగు:"
+	},
+	"label_blog_type": {
+		"message": "బ్లాగు రకం:"
+	},
+	"label_loginCredentials": {
+		"message": "ప్రవేశ వివరాలు"
+	},
+	"label_username": {
+		"message": "వాడుకరిపేరు"
+	},
+	"label_password": {
+		"message": "సంకేతపదం"
+	},
+	"label_help": {
+		"message": "సహాయం!"
+	},
+	"label_title": {
+		"message": "శీర్షిక:"
+	},
+	"label_excerpt": {
+		"message": "సంగ్రహం:"
+	},
+	"label_categories": {
+		"message": "వర్గాలు:"
+	},
+	"label_tags": {
+		"message": "ట్యాగులు:"
+	},
+	"label_publish": {
+		"message": "ప్రచురణ"
+	},
+	"label_private": {
+		"message": "అంతరంగికం"
+	},
+	"label_name": {
+		"message": "పేరు:"
+	},
+	"error_api_noCategorySupport": {
+		"message": "ఈ బ్లాగులో వర్గాలను చేర్చడం కుదరదు."
+	},
+	"error_api_noUploadSupport": {
+		"message": "ఈ బ్లాగులో దస్తరాలని ఎక్కించడం కుదరదు."
+	},
+	"prompt_newCategory": {
+		"message": "కొత్త వర్గం పేరు:"
+	},
+	"header_blogProperties": {
+		"message": "బ్లాగు లక్షణాలు"
+	}
+}

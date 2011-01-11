@@ -1,0 +1,128 @@
+{
+	"continue": {
+		"message": "Настави"
+	},
+	"firsttime_header": {
+		"message": "Добродошли у ScribeFire!"
+	},
+	"entry_new_label": {
+		"message": "(ново)"
+	},
+	"action_view": {
+		"message": "Поглед"
+	},
+	"action_edit": {
+		"message": "Промени"
+	},
+	"action_remove": {
+		"message": "Уклони"
+	},
+	"action_blog_add": {
+		"message": "Додај нови блог"
+	},
+	"action_next": {
+		"message": "Следећи"
+	},
+	"action_cancel": {
+		"message": "Поништи"
+	},
+	"action_makeMoney": {
+		"message": "Зарадите помоћу овог блога"
+	},
+	"action_finish": {
+		"message": "Готово"
+	},
+	"action_delete": {
+		"message": "Обриши"
+	},
+	"action_editHTML": {
+		"message": "Пребаците се у HTML поглед"
+	},
+	"action_category_add": {
+		"message": "Нова категорија"
+	},
+	"action_publish": {
+		"message": "Објави"
+	},
+	"action_schedule": {
+		"message": "Распоред:"
+	},
+	"action_save": {
+		"message": "Сачувај"
+	},
+	"action_insert": {
+		"message": "Убаци"
+	},
+	"action_video_add": {
+		"message": "Убаци филм"
+	},
+	"option_blogType_select": {
+		"message": "(означи)"
+	},
+	"option_publish_month1": {
+		"message": "Јан"
+	},
+	"option_publish_month2": {
+		"message": "Феб"
+	},
+	"option_publish_month3": {
+		"message": "Мар"
+	},
+	"option_publish_month4": {
+		"message": "Апр"
+	},
+	"option_publish_month5": {
+		"message": "Мај"
+	},
+	"option_publish_month6": {
+		"message": "Јун"
+	},
+	"option_publish_month7": {
+		"message": "Јул"
+	},
+	"option_publish_month8": {
+		"message": "Авг"
+	},
+	"option_publish_month9": {
+		"message": "Сеп"
+	},
+	"option_publish_month10": {
+		"message": "Окт"
+	},
+	"option_publish_month11": {
+		"message": "Нов"
+	},
+	"option_publish_month12": {
+		"message": "Дец"
+	},
+	"label_blog": {
+		"message": "Блог:"
+	},
+	"label_username": {
+		"message": "Корисничко име"
+	},
+	"label_password": {
+		"message": "Лозинка"
+	},
+	"label_help": {
+		"message": "ПОМОЋ!"
+	},
+	"label_title": {
+		"message": "Наслов:"
+	},
+	"label_excerpt": {
+		"message": "Исечак:"
+	},
+	"label_categories": {
+		"message": "Категорије:"
+	},
+	"label_publish": {
+		"message": "Објави"
+	},
+	"label_private": {
+		"message": "Лично"
+	},
+	"label_name": {
+		"message": "Име:"
+	}
+}

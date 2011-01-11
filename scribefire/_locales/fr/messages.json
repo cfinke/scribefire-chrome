@@ -1,0 +1,259 @@
+{
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"extDescription": {
+		"message": "Un éditeur de blog facile à prendre en mains et vous permettant de publier aisément vos billets sur tous vos blogs."
+	},
+	"continue": {
+		"message": "Continuer"
+	},
+	"firsttime_header": {
+		"message": "Bienvenue sur ScribeFire !"
+	},
+	"firsttime_text": {
+		"message": "Vous allez probablement vouloir d'abord ajouter votre blog. Fermez cette fenêtre et cliquez sur « Ajouter un nouveau blog » pour commencer."
+	},
+	"entry_new_label": {
+		"message": "(nouveau)"
+	},
+	"entry_localDraft_label": {
+		"message": "Brouillon local"
+	},
+	"entry_draft_label": {
+		"message": "Brouillon"
+	},
+	"entry_scheduled_label": {
+		"message": "Planifié"
+	},
+	"notification_draft_delete": {
+		"message": "Brouillon supprimé."
+	},
+	"notification_draft_save": {
+		"message": "Brouillon sauvegardé."
+	},
+	"notification_post_delete": {
+		"message": "Le billet a bien été supprimé."
+	},
+	"notification_blog_add": {
+		"message": "Votre blog a été ajouté avec succès !"
+	},
+	"notification_publish": {
+		"message": "Publié avec succès !"
+	},
+	"notification_publish_update": {
+		"message": "Mis à jour avec succès !"
+	},
+	"action_openBlogInTab": {
+		"message": "Ouvrir le blog dans un nouvel onglet"
+	},
+	"action_view": {
+		"message": "Voir"
+	},
+	"action_edit": {
+		"message": "Modifier"
+	},
+	"action_remove": {
+		"message": "Supprimer"
+	},
+	"action_blog_add": {
+		"message": "Ajouter un nouveau blog"
+	},
+	"action_next": {
+		"message": "Suivant"
+	},
+	"action_cancel": {
+		"message": "Annuler"
+	},
+	"action_makeMoney": {
+		"message": "Gagner de l'argent avec ce blog"
+	},
+	"action_finish": {
+		"message": "Terminer"
+	},
+	"action_delete": {
+		"message": "Supprimer"
+	},
+	"action_editHTML": {
+		"message": "Passer au mode HTML"
+	},
+	"action_editVisual": {
+		"message": "Passer au mode visuel"
+	},
+	"action_category_add": {
+		"message": "Nouvelle catégorie"
+	},
+	"action_customField_add": {
+		"message": "Ajouter un champ personnalisé"
+	},
+	"action_draft_save": {
+		"message": "Enregistrer l'avancement du billet"
+	},
+	"action_publish": {
+		"message": "Publier"
+	},
+	"action_permalink_edit": {
+		"message": "Lien permanent :"
+	},
+	"action_schedule": {
+		"message": "Planification :"
+	},
+	"action_save": {
+		"message": "Enregistrer"
+	},
+	"action_insert": {
+		"message": "Insérer"
+	},
+	"action_video_add": {
+		"message": "Insérer une vidéo"
+	},
+	"option_blogType_select": {
+		"message": "(choisir)"
+	},
+	"option_blogType_atom": {
+		"message": "Atom"
+	},
+	"option_blogType_blogger": {
+		"message": "Blogger"
+	},
+	"option_blogType_wordpres": {
+		"message": "Wordpress"
+	},
+	"option_blogType_tumblr": {
+		"message": "Tumblr"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
+	},
+	"option_blogType_movabletype": {
+		"message": "MovableType"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous"
+	},
+	"option_publish_immediately": {
+		"message": "Publier immédiatement"
+	},
+	"option_publish_month1": {
+		"message": "Jan"
+	},
+	"option_publish_month2": {
+		"message": "Fév"
+	},
+	"option_publish_month3": {
+		"message": "Mar"
+	},
+	"option_publish_month4": {
+		"message": "Avr"
+	},
+	"option_publish_month5": {
+		"message": "Mai"
+	},
+	"option_publish_month6": {
+		"message": "Jun"
+	},
+	"option_publish_month7": {
+		"message": "Jul"
+	},
+	"option_publish_month8": {
+		"message": "Aoû"
+	},
+	"option_publish_month9": {
+		"message": "Sep"
+	},
+	"option_publish_month10": {
+		"message": "Oct"
+	},
+	"option_publish_month11": {
+		"message": "Nov"
+	},
+	"option_publish_month12": {
+		"message": "Déc"
+	},
+	"label_blog": {
+		"message": "Blog :"
+	},
+	"label_blog_type": {
+		"message": "Type de blog :"
+	},
+	"label_url": {
+		"message": "URL :"
+	},
+	"label_apiUrl": {
+		"message": "API URL :"
+	},
+	"label_blogId": {
+		"message": "ID du blog :"
+	},
+	"label_loginCredentials": {
+		"message": "Identifiants de connexion"
+	},
+	"label_username": {
+		"message": "Nom d'utilisateur"
+	},
+	"label_password": {
+		"message": "Mot de passe"
+	},
+	"label_entry": {
+		"message": "Entrée"
+	},
+	"label_help": {
+		"message": "Aide !"
+	},
+	"label_title": {
+		"message": "Titre :"
+	},
+	"label_content": {
+		"message": "Contenu du billet"
+	},
+	"label_excerpt": {
+		"message": "Extrait :"
+	},
+	"label_categories": {
+		"message": "Catégories :"
+	},
+	"label_tags": {
+		"message": "Étiquettes :"
+	},
+	"label_customFields": {
+		"message": "Champs personnalisés"
+	},
+	"label_publish": {
+		"message": "Publier"
+	},
+	"label_private": {
+		"message": "Privé"
+	},
+	"label_name": {
+		"message": "Nom :"
+	},
+	"error_header": {
+		"message": "Mmmh, c'est embarrassant…"
+	},
+	"text_inlinksCompatibility": {
+		"message": "Dorénavant, seul Inlinks marche pour les blogs utilisant"
+	},
+	"text_inlinks3": {
+		"message": "$link_open$ Visit InLinks.com $link_close$ pour télécharger le plugin et commencer à gagner de l'argent avec votre blog de suite !",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
+			},
+			"link_close": {
+				"content": "<\/a>"
+			}
+		}
+	},
+	"header_blogProperties": {
+		"message": "Propriétés du blog"
+	},
+	"text_blogProperties1": {
+		"message": "Vous pouvez ajouter ici l'adresse URL de votre blog. Pour modifier votre nom, mot de passe, API ou ID de blog, cliquez sur le bouton « Effacer » et ensuite sur « Ajouter un nouveau blog »."
+	},
+	"header_video": {
+		"message": "Insérer une vidéo"
+	},
+	"text_video1": {
+		"message": "Coller ici l'URL de la vidéo"
+	}
+}

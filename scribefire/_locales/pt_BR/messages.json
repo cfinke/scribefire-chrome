@@ -1,0 +1,107 @@
+{
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"extDescription": {
+		"message": "Um editor de blogs muito fácil de usar para você postar em todos os seus blogs."
+	},
+	"continue": {
+		"message": "Continue"
+	},
+	"firsttime_header": {
+		"message": "Bem-vindo ao ScribeFire!"
+	},
+	"firsttime_text": {
+		"message": "A primeira coisa que você provavelmente vai querer fazer é adicionar o seu blog. Feche esta caixa de diálogo e clique em \"Adicionar um Novo Blog\" para começar."
+	},
+	"entry_new_label": {
+		"message": "(novo)"
+	},
+	"entry_localDraft_label": {
+		"message": "Rascunho Local"
+	},
+	"entry_draft_label": {
+		"message": "Rascunho"
+	},
+	"entry_scheduled_label": {
+		"message": "Agendado"
+	},
+	"notification_draft_delete": {
+		"message": "Rascunho deletado."
+	},
+	"notification_draft_save": {
+		"message": "Rascunho salvo."
+	},
+	"notification_post_delete": {
+		"message": "Post deletado com sucesso."
+	},
+	"notification_blog_add": {
+		"message": "Seu blog foi adicionado com sucesso!"
+	},
+	"notification_publish": {
+		"message": "Publicado com sucesso!"
+	},
+	"notification_publish_update": {
+		"message": "Atualizado com sucesso!"
+	},
+	"action_openBlogInTab": {
+		"message": "Abrir blog em uma nova aba"
+	},
+	"action_view": {
+		"message": "Visualizar"
+	},
+	"action_edit": {
+		"message": "Editar"
+	},
+	"action_remove": {
+		"message": "Remover"
+	},
+	"action_blog_add": {
+		"message": "Adicionar um Novo Blog"
+	},
+	"action_next": {
+		"message": "Próximo"
+	},
+	"action_cancel": {
+		"message": "Cancelar"
+	},
+	"action_makeMoney": {
+		"message": "Criar receita com este blog"
+	},
+	"action_finish": {
+		"message": "Finalizar"
+	},
+	"action_delete": {
+		"message": "Deletar"
+	},
+	"action_editHTML": {
+		"message": "Mudar para o modo HTML"
+	},
+	"action_editVisual": {
+		"message": "Mudar para o Editor Visual"
+	},
+	"action_category_add": {
+		"message": "Nova Categoria"
+	},
+	"action_customField_add": {
+		"message": "Adicionar Campo Personalizado"
+	},
+	"action_draft_save": {
+		"message": "Progresso de Gravação"
+	},
+	"action_publish": {
+		"message": "Publicar"
+	},
+	"action_permalink_edit": {
+		"message": "Permalink:"
+	},
+	"action_schedule": {
+		"message": "Agenda:"
+	},
+	"action_save": {
+		"message": "Salvar"
+	},
+	"action_insert": {
+		"message": "Inserir"
+	}
+}

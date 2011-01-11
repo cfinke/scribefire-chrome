@@ -1,0 +1,318 @@
+{
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"extDescription": {
+		"message": "Sebuah penyunting blog gampang-pakai yang memudahkan anda untuk mengirim tulisan ke semua blog Anda."
+	},
+	"continue": {
+		"message": "Lanjut"
+	},
+	"firsttime_header": {
+		"message": "Selamat Datang di ScribeFire!"
+	},
+	"firsttime_text": {
+		"message": "Hal pertama yang mungkin ingin Anda lakukan adalah menambahkan blog Anda. Silahkan tutup dialog ini dan klik 'Tambah Blog Baru' untuk memulai."
+	},
+	"entry_new_label": {
+		"message": "(baru)"
+	},
+	"entry_localDraft_label": {
+		"message": "Draft Lokal"
+	},
+	"entry_draft_label": {
+		"message": "Draft"
+	},
+	"entry_scheduled_label": {
+		"message": "Terjadwal"
+	},
+	"notification_draft_delete": {
+		"message": "Draft dihapus"
+	},
+	"notification_draft_save": {
+		"message": "Draft disimpan"
+	},
+	"notification_post_delete": {
+		"message": "Tulisan berhasil dihapus"
+	},
+	"notification_blog_add": {
+		"message": "Blog Anda berhasil dimasukkan"
+	},
+	"notification_publish": {
+		"message": "Penerbitan berhasil!"
+	},
+	"notification_publish_update": {
+		"message": "Pemutakhiran berhasil!"
+	},
+	"action_openBlogInTab": {
+		"message": "Buka blog pada tab baru"
+	},
+	"action_view": {
+		"message": "Tampilkan"
+	},
+	"action_edit": {
+		"message": "Edit"
+	},
+	"action_remove": {
+		"message": "Buang"
+	},
+	"action_blog_add": {
+		"message": "Tambah Blog Baru"
+	},
+	"action_next": {
+		"message": "Lanjut"
+	},
+	"action_cancel": {
+		"message": "Batal"
+	},
+	"action_makeMoney": {
+		"message": "Dapatkan penghasilan dari blog ini"
+	},
+	"action_finish": {
+		"message": "Selesai"
+	},
+	"action_delete": {
+		"message": "Hapus"
+	},
+	"action_editHTML": {
+		"message": "Pindah ke mode HTML"
+	},
+	"action_editVisual": {
+		"message": "Pindah ke Editor Visual"
+	},
+	"action_category_add": {
+		"message": "Kategori Baru"
+	},
+	"action_draft_save": {
+		"message": "Simpan Perubahan"
+	},
+	"action_publish": {
+		"message": "Terbitkan"
+	},
+	"action_permalink_edit": {
+		"message": "Taut Permanen"
+	},
+	"action_schedule": {
+		"message": "Jadwal:"
+	},
+	"action_save": {
+		"message": "Simpan"
+	},
+	"action_insert": {
+		"message": "Masukkan"
+	},
+	"action_reset": {
+		"message": "Bersihkan semua dan mulai $ignore1$ Tulisan $ignore2$  baru",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_publishUpdate": {
+		"message": "Perbaharui $ignore1$ Tulisan $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_video_add": {
+		"message": "Masukkan Video"
+	},
+	"option_blogType_select": {
+		"message": "(pilih)"
+	},
+	"option_blogType_atom": {
+		"message": "Atom"
+	},
+	"option_blogType_blogger": {
+		"message": "Blogger"
+	},
+	"option_blogType_wordpres": {
+		"message": "Wordpress"
+	},
+	"option_blogType_tumblr": {
+		"message": "Tumblr"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
+	},
+	"option_blogType_movabletype": {
+		"message": "MovableType"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous"
+	},
+	"option_publish_immediately": {
+		"message": "Terbitkan segera"
+	},
+	"option_publish_month1": {
+		"message": "Jan"
+	},
+	"option_publish_month2": {
+		"message": "Feb"
+	},
+	"option_publish_month3": {
+		"message": "Mar"
+	},
+	"option_publish_month4": {
+		"message": "Apr"
+	},
+	"option_publish_month5": {
+		"message": "Mei"
+	},
+	"option_publish_month6": {
+		"message": "Jun"
+	},
+	"option_publish_month7": {
+		"message": "Jul"
+	},
+	"option_publish_month8": {
+		"message": "Agt"
+	},
+	"option_publish_month9": {
+		"message": "Sep"
+	},
+	"option_publish_month10": {
+		"message": "Okt"
+	},
+	"option_publish_month11": {
+		"message": "Nov"
+	},
+	"option_publish_month12": {
+		"message": "Des"
+	},
+	"label_blog": {
+		"message": "Blog:"
+	},
+	"label_blog_type": {
+		"message": "Jenis Blog:"
+	},
+	"label_url": {
+		"message": "URL:"
+	},
+	"label_apiUrl": {
+		"message": "URL API:"
+	},
+	"label_blogId": {
+		"message": "ID Blog:"
+	},
+	"label_loginCredentials": {
+		"message": "Login Kredensial"
+	},
+	"label_username": {
+		"message": "Nama Pemakai"
+	},
+	"label_password": {
+		"message": "Kata Sandi"
+	},
+	"label_entry": {
+		"message": "Entri"
+	},
+	"label_help": {
+		"message": "BANTU!"
+	},
+	"label_title": {
+		"message": "Judul:"
+	},
+	"label_content": {
+		"message": "Konten Tulisan"
+	},
+	"label_excerpt": {
+		"message": "Kutipan:"
+	},
+	"label_categories": {
+		"message": "Kategori:"
+	},
+	"label_tags": {
+		"message": "Tag:"
+	},
+	"label_customFields": {
+		"message": "Kostum"
+	},
+	"label_publish": {
+		"message": "Terbitkan"
+	},
+	"label_private": {
+		"message": "Pribadi"
+	},
+	"label_name": {
+		"message": "Nama:"
+	},
+	"error_header": {
+		"message": "Wah, ada yang salah nih..."
+	},
+	"error_post_delete": {
+		"message": "ScribeFire menemukan kesalahan ini saat mencoba menghapus tulisan anda: $status$\n\n$msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
+			},
+			"msg": {
+				"content": "$2"
+			}
+		}
+	},
+	"error_category_add": {
+		"message": "ScribeFire sungguh ingin membantu, tetapi ada masalah ketika mencoba menambahkan kategori. Kode Error: $error_code$",
+		"placeholders": {
+			"error_code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_post_publish": {
+		"message": "ScribeFire tidak dapat menerbitkan tulisan Anda. Ini pesannya: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish": {
+		"message": "ScribeFire tidak dapat menerbitkan halaman Anda. Inilah pesannya: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_unknown": {
+		"message": "Terjadi kesalahan tak terduga."
+	},
+	"error_api_getBlogs": {
+		"message": "ScribeFire tidak menemukan informasi yang diperlukan mengenai blog Anda. Blog Anda mengirimkan pesan ini: $message$.",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"header_video": {
+		"message": "Masukkan Video"
+	},
+	"text_video1": {
+		"message": "Tempel URL video ke kotak di bawah."
+	},
+	"text_video2": {
+		"message": "contoh, $url1$ atau $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "Atau, salin kode embed untuk video Anda ke kotak ini:"
+	}
+}
