@@ -1,482 +1,481 @@
 {
-	"extName" : {
-		"message" : "ScribeFire"
+	"extName": {
+		"message": "ScribeFire"
 	},
-	"extDescription" : {
-		"message" : "An easy-to-use blog editor lets you easily post to all of your blogs.",
-		"description" : "One-line description of ScribeFire."
+	"extDescription": {
+		"message": "An easy-to-use blog editor lets you easily post to all of your blogs.",
+		"description": "One-line description of ScribeFire."
 	},
-	"continue" : {
-		"message" : "Continue"
+	"continue": {
+		"message": "Continue"
 	},
-	"firsttime_header" : {
-		"message" : "Welcome to ScribeFire!"
+	"firsttime_header": {
+		"message": "Welcome to ScribeFire!"
 	},
-	"firsttime_text" : {
-		"message" : "The first thing you're probably going to want to do is add your blog.  Close this dialog and click 'Add a New Blog' to get started."
+	"firsttime_text": {
+		"message": "The first thing you're probably going to want to do is add your blog.  Close this dialog and click 'Add a New Blog' to get started."
 	},
-	"entry_new_label" : {
-		"message" : "(new)",
-		"description" : "The label that appears in the entries list to designate a new post."
+	"entry_new_label": {
+		"message": "(new)",
+		"description": "The label that appears in the entries list to designate a new post."
 	},
-	"entry_localDraft_label" : {
-		"message" : "Local Draft",
-		"description" : "The label that is prepended to drafts that are saved on the user's computer."
+	"entry_localDraft_label": {
+		"message": "Local Draft",
+		"description": "The label that is prepended to drafts that are saved on the user's computer."
 	},
-	"entry_draft_label" : {
-		"message" : "Draft",
-		"description" : "The label that is prepended to drafts that are saved on the user's blog."
+	"entry_draft_label": {
+		"message": "Draft",
+		"description": "The label that is prepended to drafts that are saved on the user's blog."
 	},
-	"entry_scheduled_label" : {
-		"message" : "Scheduled",
-		"description" : "The label that is prepended to posts that have been scheduled but not yet published."
+	"entry_scheduled_label": {
+		"message": "Scheduled",
+		"description": "The label that is prepended to posts that have been scheduled but not yet published."
 	},
-	"notification_draft_delete" : {
-		"message" : "Draft deleted."
+	"notification_draft_delete": {
+		"message": "Draft deleted."
 	},
-	"notification_draft_save" : {
-		"message" : "Draft saved."
+	"notification_draft_save": {
+		"message": "Draft saved."
 	},
-	"notification_post_delete" : {
-		"message" : "Post deleted successfully."
+	"notification_post_delete": {
+		"message": "Post deleted successfully."
 	},
-	"notification_blog_add" : {
-		"message" : "Your blog was added successfully!"
+	"notification_blog_add": {
+		"message": "Your blog was added successfully!"
 	},
-	"notification_publish" : {
-		"message" : "Published successfully!"
+	"notification_publish": {
+		"message": "Published successfully!"
 	},
-	"notification_publish_update" : {
-		"message" : "Updated successfully!"
+	"notification_publish_update": {
+		"message": "Updated successfully!"
 	},
-	"action_openBlogInTab" : {
-		"message" : "Open blog in a new tab"
+	"action_openBlogInTab": {
+		"message": "Open blog in a new tab"
 	},
-	"action_view" : {
-		"message" : "View"
+	"action_view": {
+		"message": "View"
 	},
-	"action_edit" : {
-		"message" : "Edit"
+	"action_edit": {
+		"message": "Edit"
 	},
-	"action_remove" : {
-		"message" : "Remove"
+	"action_remove": {
+		"message": "Remove"
 	},
-	"action_blog_add" : {
-		"message" : "Add a New Blog"
+	"action_blog_add": {
+		"message": "Add a New Blog"
 	},
-	"action_next" : {
-		"message" : "Next"
+	"action_next": {
+		"message": "Next"
 	},
-	"action_cancel" : {
-		"message" : "Cancel"
+	"action_cancel": {
+		"message": "Cancel"
 	},
-	"action_makeMoney" : {
-		"message" : "Make money with this blog"
+	"action_makeMoney": {
+		"message": "Make money with this blog"
 	},
-	"action_finish" : {
-		"message" : "Finish"
+	"action_finish": {
+		"message": "Finish"
 	},
-	"action_delete" : {
-		"message" : "Delete"
+	"action_delete": {
+		"message": "Delete"
 	},
-	"action_editHTML" : {
-		"message" : "Switch to HTML Mode"
+	"action_editHTML": {
+		"message": "Switch to HTML Mode"
 	},
-	"action_editVisual" : {
-		"message" : "Switch to Visual Editor"
+	"action_editVisual": {
+		"message": "Switch to Visual Editor"
 	},
-	"action_category_add" : {
-		"message" : "New Category"
+	"action_category_add": {
+		"message": "New Category"
 	},
-	"action_customField_add" : {
-		"message" : "Add Custom Field"
+	"action_customField_add": {
+		"message": "Add Custom Field"
 	},
-
-	"action_draft_save" : {
-		"message" : "Save Progress"
+	"action_draft_save": {
+		"message": "Save Progress"
 	},
-	"action_publish" : {
-		"message" : "Publish"
+	"action_publish": {
+		"message": "Publish"
 	},
-	"action_permalink_edit" : {
-		"message" : "Permalink:"
+	"action_permalink_edit": {
+		"message": "Permalink:"
 	},
-	"action_schedule" : {
-		"message" : "Schedule:"
+	"action_schedule": {
+		"message": "Schedule:"
 	},
-	"action_save" : { 
-		"message" : "Save"
+	"action_save": {
+		"message": "Save"
 	},
-	"action_insert" : {
-		"message" : "Insert"
+	"action_insert": {
+		"message": "Insert"
 	},
-	"action_reset" : {
-		"message" : "Clear All Fields and Start a New $ignore1$ Post $ignore2$",
-		"placeholders" : {
-			"ignore1" : {
-				"content" : "<span class=\"entry-type-text\">"
+	"action_reset": {
+		"message": "Clear All Fields and Start a New $ignore1$ Post $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
 			},
-			"ignore2" : {
-				"content" : "</span>"
+			"ignore2": {
+				"content": "<\/span>"
 			}
 		}
 	},
-	"action_publishUpdate" : {
-		"message" : "Update $ignore1$ Post $ignore2$",
-		"placeholders" : {
-			"ignore1" : {
-				"content" : "<span class=\"entry-type-text\">"
+	"action_publishUpdate": {
+		"message": "Update $ignore1$ Post $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
 			},
-			"ignore2" : {
-				"content" : "</span>"
+			"ignore2": {
+				"content": "<\/span>"
 			}
 		}
 	},
-	"action_video_add" : {
-		"message" : "Insert a video"
+	"action_video_add": {
+		"message": "Insert a video"
 	},
-	"option_blogType_select" : {
-		"message" : "(select)"
+	"option_blogType_select": {
+		"message": "(select)"
 	},
-	"option_blogType_atom" : {
-		"message" : "Atom"
+	"option_blogType_atom": {
+		"message": "Atom"
 	},
-	"option_blogType_blogger" : {
-		"message" : "Blogger"
+	"option_blogType_blogger": {
+		"message": "Blogger"
 	},
-	"option_blogType_wordpres" : {
-		"message" : "Wordpress"
+	"option_blogType_wordpres": {
+		"message": "Wordpress"
 	},
-	"option_blogType_tumblr" : {
-		"message" : "Tumblr"
+	"option_blogType_tumblr": {
+		"message": "Tumblr"
 	},
-	"option_blogType_metaweblog" : {
-		"message" : "MetaWeblog"
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
 	},
-	"option_blogType_movabletype" : {
-		"message" : "MovableType"
+	"option_blogType_movabletype": {
+		"message": "MovableType"
 	},
-	"option_blogType_posterous" : {
-		"message" : "Posterous"
+	"option_blogType_posterous": {
+		"message": "Posterous"
 	},
-	"option_publish_immediately" :	{
-		"message" : "Publish Immediately"
+	"option_publish_immediately": {
+		"message": "Publish Immediately"
 	},
-	"option_publish_month1" : {
-		"message" : "Jan",
-		"description" : "A three-letter abbreviation of the first month of the year."
+	"option_publish_month1": {
+		"message": "Jan",
+		"description": "A three-letter abbreviation of the first month of the year."
 	},
-	"option_publish_month2" : {
-		"message" : "Feb",
-		"description" : "A three-letter abbreviation of the second month of the year."
+	"option_publish_month2": {
+		"message": "Feb",
+		"description": "A three-letter abbreviation of the second month of the year."
 	},
-	"option_publish_month3" : {
-		"message" : "Mar",
-		"description" : "A three-letter abbreviation of the third month of the year."
+	"option_publish_month3": {
+		"message": "Mar",
+		"description": "A three-letter abbreviation of the third month of the year."
 	},
-	"option_publish_month4" : {
-		"message" : "Apr",
-		"description" : "A three-letter abbreviation of the fourth month of the year."
+	"option_publish_month4": {
+		"message": "Apr",
+		"description": "A three-letter abbreviation of the fourth month of the year."
 	},
-	"option_publish_month5" : {
-		"message" : "May",
-		"description" : "A three-letter abbreviation of the fifth month of the year."
+	"option_publish_month5": {
+		"message": "May",
+		"description": "A three-letter abbreviation of the fifth month of the year."
 	},
-	"option_publish_month6" : {
-		"message" : "Jun",
-		"description" : "A three-letter abbreviation of the sixth month of the year."
+	"option_publish_month6": {
+		"message": "Jun",
+		"description": "A three-letter abbreviation of the sixth month of the year."
 	},
-	"option_publish_month7" : {
-		"message" : "Jul",
-		"description" : "A three-letter abbreviation of the seventh month of the year."
+	"option_publish_month7": {
+		"message": "Jul",
+		"description": "A three-letter abbreviation of the seventh month of the year."
 	},
-	"option_publish_month8" : {
-		"message" : "Aug",
-		"description" : "A three-letter abbreviation of the eighth month of the year."
+	"option_publish_month8": {
+		"message": "Aug",
+		"description": "A three-letter abbreviation of the eighth month of the year."
 	},
-	"option_publish_month9" : {
-		"message" : "Sep",
-		"description" : "A three-letter abbreviation of the ninth month of the year."
+	"option_publish_month9": {
+		"message": "Sep",
+		"description": "A three-letter abbreviation of the ninth month of the year."
 	},
-	"option_publish_month10" : {
-		"message" : "Oct",
-		"description" : "A three-letter abbreviation of the tenth month of the year."
+	"option_publish_month10": {
+		"message": "Oct",
+		"description": "A three-letter abbreviation of the tenth month of the year."
 	},
-	"option_publish_month11" : {
-		"message" : "Nov",
-		"description" : "A three-letter abbreviation of the eleventh month of the year."
+	"option_publish_month11": {
+		"message": "Nov",
+		"description": "A three-letter abbreviation of the eleventh month of the year."
 	},
-	"option_publish_month12" : {
-		"message" : "Dec",
-		"description" : "A three-letter abbreviation of the twelfth month of the year."
+	"option_publish_month12": {
+		"message": "Dec",
+		"description": "A three-letter abbreviation of the twelfth month of the year."
 	},
-	"label_blog" : {
-		"message" : "Blog:"
+	"label_blog": {
+		"message": "Blog:"
 	},
-	"label_blog_type" : {
-		"message" : "Blog Type:"
+	"label_blog_type": {
+		"message": "Blog Type:"
 	},
-	"label_url" : {
-		"message" : "URL:"
+	"label_url": {
+		"message": "URL:"
 	},
-	"label_apiUrl" : {
-		"message" : "API URL:"
+	"label_apiUrl": {
+		"message": "API URL:"
 	},
-	"label_blogId" : {
-		"message" : "Blog ID:"
+	"label_blogId": {
+		"message": "Blog ID:"
 	},
-	"label_loginCredentials" : {
-		"message" : "Login Credentials"
+	"label_loginCredentials": {
+		"message": "Login Credentials"
 	},
-	"label_username" : {
-		"message" : "Username"
+	"label_username": {
+		"message": "Username"
 	},
-	"label_password" : { 
-		"message" : "Password"
+	"label_password": {
+		"message": "Password"
 	},
-	"label_entry" : {
-		"message" : "Entry"
+	"label_entry": {
+		"message": "Entry"
 	},
-	"label_help" : {
-		"message" : "HELP!",
-		"description" : "The text that a user clicks on if they need help with ScribeFire."
+	"label_help": {
+		"message": "HELP!",
+		"description": "The text that a user clicks on if they need help with ScribeFire."
 	},
-	"label_title" : {
-		"message" : "Title:"
+	"label_title": {
+		"message": "Title:"
 	},
-	"label_content" : {
-		"message" : "Post Content"
+	"label_content": {
+		"message": "Post Content"
 	},
-	"label_excerpt" : {
-		"message" : "Excerpt:"
+	"label_excerpt": {
+		"message": "Excerpt:"
 	},
-	"label_categories" : {
-		"message" : "Categories:"
+	"label_categories": {
+		"message": "Categories:"
 	},
-	"label_tags" : {
-		"message" : "Tags:"
+	"label_tags": {
+		"message": "Tags:"
 	},
-	"label_customFields" : {
-		"message" : "Custom Fields"
+	"label_customFields": {
+		"message": "Custom Fields"
 	},
-	"label_publish" : {
-		"message" : "Publish",
-		"description" : "The label for the portion of the interface that contains publishing options."
+	"label_publish": {
+		"message": "Publish",
+		"description": "The label for the portion of the interface that contains publishing options."
 	},
-	"label_private" : {
-		"message" : "Private"
+	"label_private": {
+		"message": "Private"
 	},
-	"label_name" : { 
-		"message" : "Name:"
+	"label_name": {
+		"message": "Name:"
 	},
-	"error_header" : {
-		"message" : "Well, this is embarrassing...",
-		"description" : "This string is used as the title for any major error that has to be shown. It should relay a sense of 'ScribeFire did something wrong, not you.'"
+	"error_header": {
+		"message": "Well, this is embarrassing...",
+		"description": "This string is used as the title for any major error that has to be shown. It should relay a sense of 'ScribeFire did something wrong, not you.'"
 	},
-	"error_post_delete" : {
-		"message" : "ScribeFire found this little error when trying to delete your post: $status$\n\n$msg$",
-		"placeholders" : {
-			"status" : {
-				"content" : "$1"
+	"error_post_delete": {
+		"message": "ScribeFire found this little error when trying to delete your post: $status$\n\n$msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
 			},
-			"msg" : {
-				"content" : "$2"
+			"msg": {
+				"content": "$2"
 			}
 		}
 	},
-	"error_category_add" : {
-		"message" : "ScribeFire really wanted to help, but something broke when trying to add a category.  The error code was $error_code$.",
-		"placeholders" : {
-			"error_code" : {
-				"content" : "$1"
+	"error_category_add": {
+		"message": "ScribeFire really wanted to help, but something broke when trying to add a category.  The error code was $error_code$.",
+		"placeholders": {
+			"error_code": {
+				"content": "$1"
 			}
 		}
 	},
-	"error_post_publish" : {
-		"message" : "ScribeFire couldn't publish your post. Here's the error message that bubbled up: $message$",
-		"placeholders" : {
-			"message" : {
-				"content" : "\n\n$1"
+	"error_post_publish": {
+		"message": "ScribeFire couldn't publish your post. Here's the error message that bubbled up: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
 			}
 		}
 	},
-	"error_page_publish" : {
-		"message" : "ScribeFire couldn't publish your page. Here's the error message that bubbled up: $message$",
-		"placeholders" : {
-			"message" : {
-				"content" : "\n\n$1"
+	"error_page_publish": {
+		"message": "ScribeFire couldn't publish your page. Here's the error message that bubbled up: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
 			}
 		}
 	},
-	"error_unknown" : {
-		"message" : "An unanticipated error occurred."
+	"error_unknown": {
+		"message": "An unanticipated error occurred."
 	},
-	"error_api_getBlogs" : {
-		"message" : "ScribeFire couldn't get the information it needed about your blog. Helpfully, your blog returned this message: $message$",
-		"placeholders" : {
-			"message" : {
-				"content" : "\n\n$1"
+	"error_api_getBlogs": {
+		"message": "ScribeFire couldn't get the information it needed about your blog. Helpfully, your blog returned this message: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
 			}
 		}
 	},
-	"error_api_invalid" : {
-		"message" : "It's not your fault, but ScribeFire is looking for an API ($api_type$) that doesn't exist.\n\nIf you're an alpha tester, you need to remove this blog and add it again.",
-		"placeholders" : {
-			"api_type" : {
-				"content" : "$1"
+	"error_api_invalid": {
+		"message": "It's not your fault, but ScribeFire is looking for an API ($api_type$) that doesn't exist.\n\nIf you're an alpha tester, you need to remove this blog and add it again.",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
 			}
 		}
 	},
-	"error_api_noBlog" : {
-		"message" : "Slow down... You need to add your blog before you can publish."
+	"error_api_noBlog": {
+		"message": "Slow down... You need to add your blog before you can publish."
 	},
-	"error_api_noCategorySupport" : {
-		"message" : "This blog does not support adding categories."
+	"error_api_noCategorySupport": {
+		"message": "This blog does not support adding categories."
 	},
-	"error_api_noUploadSupport" : {
-		"message" : "This blog does not support uploading files."
+	"error_api_noUploadSupport": {
+		"message": "This blog does not support uploading files."
 	},
-	"error_api_cannotConnect" : {
-		"message" : "ScribeFire could not successfully connect to your blog."
+	"error_api_cannotConnect": {
+		"message": "ScribeFire could not successfully connect to your blog."
 	},
-	"error_api_setup" : {
-		"message" : "While trying to determine your blog's settings, ScribeFire tripped over this code: $code$",
-		"placeholders" : {
-			"code" : {
-				"content" : "$1"
+	"error_api_setup": {
+		"message": "While trying to determine your blog's settings, ScribeFire tripped over this code: $code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
 			}
 		}
 	},
-	"error_api_setup_unknownBlogType" : {
-		"message" : "You're welcome to try and configure your blog manually."
+	"error_api_setup_unknownBlogType": {
+		"message": "You're welcome to try and configure your blog manually."
 	},
-	"error_api_code412" : {
-		"message" : "The blog returned a 412 error code. You may be able to fix this by following the instructions at $url$",
-		"placeholders" : {
-			"url" : {
-				"content" : "http://wordpress.org/support/topic/130095"
+	"error_api_code412": {
+		"message": "The blog returned a 412 error code. You may be able to fix this by following the instructions at $url$",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
 			}
 		}
 	},
-	"error_api_noMessage" : {
-		"message" : "The blog returned a $code$ error code, but no error message could be found.",
-		"placeholders" : {
-			"code" : {
-				"content" : "$1"
+	"error_api_noMessage": {
+		"message": "The blog returned a $code$ error code, but no error message could be found.",
+		"placeholders": {
+			"code": {
+				"content": "$1"
 			}
 		}
 	},
-	"error_api_blogger_authentication" : {
-		"message" : "Blogger says that you entered the wrong username or password."
+	"error_api_blogger_authentication": {
+		"message": "Blogger says that you entered the wrong username or password."
 	},
-	"error_api_blogger_verify" : {
-		"message" : "Blogger says that you need to verify your account's email address; log into your account directly to handle this."
+	"error_api_blogger_verify": {
+		"message": "Blogger says that you need to verify your account's email address; log into your account directly to handle this."
 	},
-	"error_api_blogger_tos" : {
-		"message" : "Blogger says that you still need to agree to Google's Terms of Service; log into your account directly to handle this."
+	"error_api_blogger_tos": {
+		"message": "Blogger says that you still need to agree to Google's Terms of Service; log into your account directly to handle this."
 	},
-	"error_api_blogger_deleted" : {
-		"message" : "Blogger says that the account you're using has been deleted."
+	"error_api_blogger_deleted": {
+		"message": "Blogger says that the account you're using has been deleted."
 	},
-	"error_api_blogger_disabled" : {
-		"message" : "Blogger says that your access to Blogger has been disabled."
+	"error_api_blogger_disabled": {
+		"message": "Blogger says that your access to Blogger has been disabled."
 	},
-	"error_api_blogger_unavailable" : {
-		"message" : "Blogger says that the Blogger service is temporarily unavailable."
+	"error_api_blogger_unavailable": {
+		"message": "Blogger says that the Blogger service is temporarily unavailable."
 	},
-	"error_api_blogger_captcha" : {
-		"message" : "Google requires that you complete this CAPTCHA in order to continue:"
+	"error_api_blogger_captcha": {
+		"message": "Google requires that you complete this CAPTCHA in order to continue:"
 	},
-	"error_api_blogger_unknown" : {
-		"message" : "Blogger isn't playing nicely; it's giving ScribeFire an error: $error$",
-		"placeholders" : {
-			"error" : {
-				"content" : "\n\n$1"
+	"error_api_blogger_unknown": {
+		"message": "Blogger isn't playing nicely; it's giving ScribeFire an error: $error$",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
 			}
 		}
 	},
-	"error_api_blogger_authToken" : {
-		"message" : "Could not acquire an authentication token."
+	"error_api_blogger_authToken": {
+		"message": "Could not acquire an authentication token."
 	},
-	"error_api_blogger_uploadAPIUnavailable" : {
-		"message" : "Could not contact the image upload API."
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "Could not contact the image upload API."
 	},
-	"error_api_posterous_noDeleteSupport" : {
-		"message" : "Posterous does not support post deletion at this time."
+	"error_api_posterous_noDeleteSupport": {
+		"message": "Posterous does not support post deletion at this time."
 	},
-	"error_video_noEmbed" : {
-		"message" : "ScribeFire could not generate an embed code for this video URL. Please check the URL, or manually paste the embed code in the bottom box."
+	"error_video_noEmbed": {
+		"message": "ScribeFire could not generate an embed code for this video URL. Please check the URL, or manually paste the embed code in the bottom box."
 	},
-	"prompt_newCategory" : {
-		"message" : "New category name:"
+	"prompt_newCategory": {
+		"message": "New category name:"
 	},
-	"confirm_deletePost" : {
-		"message" : "Are you sure you want to delete this post? It will be removed from your blog's server, and it will no longer appear on your blog."
+	"confirm_deletePost": {
+		"message": "Are you sure you want to delete this post? It will be removed from your blog's server, and it will no longer appear on your blog."
 	},
-	"text_inlinks1" : {
-		"message" : "ScribeFire has partnered with $website$ to provide you with an easy-to-use monetization solution for your blog.",
-		"placeholders" : {
-			"website" : {
-				"content" : "<a href=\"http://www.inlinks.com/?ref=240364\" target=\"_blank\">InLinks.com</a>"
+	"text_inlinks1": {
+		"message": "ScribeFire has partnered with $website$ to provide you with an easy-to-use monetization solution for your blog.",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
 			}
 		}
 	},
-	"header_inlinks" : {
-		"message" : "What are InLinks?"
+	"header_inlinks": {
+		"message": "What are InLinks?"
 	},
-	"text_inlinks2" : {
-		"message" : "InLinks are static HTML advertisements located within content areas of websites.  It is simply the most natural paid link on the market.  The benefits for you are:"
+	"text_inlinks2": {
+		"message": "InLinks are static HTML advertisements located within content areas of websites.  It is simply the most natural paid link on the market.  The benefits for you are:"
 	},
-	"text_inlinksBenefit1" : {
-		"message" : "Ads that are easy on the eyes.  No annoying pop-ups!"
+	"text_inlinksBenefit1": {
+		"message": "Ads that are easy on the eyes.  No annoying pop-ups!"
 	},
-	"text_inlinksBenefit2" : {
-		"message" : "Predictable revenue. Get paid a flat rate/month/ad sold."
+	"text_inlinksBenefit2": {
+		"message": "Predictable revenue. Get paid a flat rate\/month\/ad sold."
 	},
-	"text_inlinksBenefit3" : {
-		"message" : "Blog-friendly. Install our simple plugin and we take care of the rest.  Just sit back and collect your monthly earnings."
+	"text_inlinksBenefit3": {
+		"message": "Blog-friendly. Install our simple plugin and we take care of the rest.  Just sit back and collect your monthly earnings."
 	},
-	"text_inlinksBlogs" : {
-		"message" : "Out of the blogs you have set up in ScribeFire, the following may be compatible with InLinks:"
+	"text_inlinksBlogs": {
+		"message": "Out of the blogs you have set up in ScribeFire, the following may be compatible with InLinks:"
 	},
-	"text_inlinksCompatibility" : {
-		"message" : "(For now, InLinks only works on blogs using Wordpress.org, Drupal, or MovableType.)"
+	"text_inlinksCompatibility": {
+		"message": "(For now, InLinks only works on blogs using Wordpress.org, Drupal, or MovableType.)"
 	},
-	"text_inlinks3" : {
-		"message" : "$link_open$ Visit InLinks.com $link_close$ to download the InLinks plugin and start earning money on your blogs today!",
-		"placeholders" : {
-			"link_open" : {
-				"content" : "<a href=\"http://www.inlinks.com/?ref=240364\" target=\"_blank\">"
+	"text_inlinks3": {
+		"message": "$link_open$ Visit InLinks.com $link_close$ to download the InLinks plugin and start earning money on your blogs today!",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
 			},
-			"link_close" : {
-				"content" : "</a>"
+			"link_close": {
+				"content": "<\/a>"
 			}
 		}
 	},
-	"header_blogProperties" : { 
-		"message" : "Blog Properties"
+	"header_blogProperties": {
+		"message": "Blog Properties"
 	},
-	"text_blogProperties1" : { 
-		"message" : "You can edit the name and URL of your blog here.  To update your username, password, API URL, or blog ID, click the \"Remove\" button to remove the blog and then re-add it by clicking the \"Add a New Blog\" button."
+	"text_blogProperties1": {
+		"message": "You can edit the name and URL of your blog here.  To update your username, password, API URL, or blog ID, click the \"Remove\" button to remove the blog and then re-add it by clicking the \"Add a New Blog\" button."
 	},
-	"header_video" : {
-		"message" : "Insert a Video"
+	"header_video": {
+		"message": "Insert a Video"
 	},
-	"text_video1" : {
-		"message" : "Paste the URL of the video in the box below."
+	"text_video1": {
+		"message": "Paste the URL of the video in the box below."
 	},
-	"text_video2" : {
-		"message" : "e.g., $url1$ or $url2$",
-		"placeholders" : {
-			"url1" : {
-				"content" : "youtube.com/watch?v=b_NVbDzsEuw"
+	"text_video2": {
+		"message": "e.g., $url1$ or $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
 			},
-			"url2" : {
-				"content" : "http://hulu.com/watch/191543"
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
 			}
 		}
 	},
-	"text_video3" : {
-		"message" : "Or, copy the embed code provided for your video into this box:"
+	"text_video3": {
+		"message": "Or, copy the embed code provided for your video into this box:"
 	}
 }
