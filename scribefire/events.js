@@ -62,6 +62,10 @@ function setTimestamp(date) {
 }
 
 $(document).ready(function () {
+	$("i18n").each(function () {
+		$(this).replaceWith(scribefire_string($(this).attr("data-key")));
+	});
+	
 	$("#text-slug").live("change", function () {
 		if ($(this).val()) {
 			$("#slug-display").text($(this).val());

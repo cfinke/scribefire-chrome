@@ -32,8 +32,8 @@
 				<div id="main" flex="1">
 					<div class="ui-blogs">
 						<div class="bar" open="true" id="bar-blog">
-							<label>Blog: <span id="label-current-blog"></span></label>
-							<a href="#" style="float: right; padding-right: 1ex;" class="trap" id="link-help">HELP!</a>
+							<label><i18n data-key="label_blog" /> <span id="label-current-blog"></span></label>
+							<a href="#" style="float: right; padding-right: 1ex;" class="trap" id="link-help"><i18n data-key="label_help" /></a>
 						</div>
 						<div class="underbar" open="true" id="underbar-blog">
 							<!--
@@ -42,54 +42,54 @@
 							-->
 							<div orient="horizontal">
 								<select id="list-blogs" flex="1"></select>
-								<button id="button-blog-view" class="button-blog-meta" style="margin-left: 10px;">View</button>
-								<button id="button-blog-edit" class="button-blog-meta" style="margin-left: 10px;">Edit</button>
-								<button id="button-blog-remove" class="button-blog-meta text-button">Remove</button>
+								<button id="button-blog-view" class="button-blog-meta" style="margin-left: 10px;"><i18n data-key="action_view" /></button>
+								<button id="button-blog-edit" class="button-blog-meta" style="margin-left: 10px;"><i18n data-key="action_edit" /></button>
+								<button id="button-blog-remove" class="button-blog-meta text-button"><i18n data-key="action_remove" /></button>
 							</div>
 							<p>
-								<button id="button-blog-add">Add a New Blog</button>
-								<button id="button-inlinks">Make money with this blog</button>
+								<button id="button-blog-add"><i18n data-key="action_blog_add" /></button>
+								<button id="button-inlinks"><i18n data-key="action_makeMoney" /></button>
 							</p>
 							<div id="dialog-blog-add" style="display:none;">
 								<div class="step-1">
 									<div id="bar-add-blog-url" class="subbar" open="true">
-										<label>URL: <span id="label-add-blog-url"></span></label>
+										<label><i18n data-key="label_url" /> <span id="label-add-blog-url"></span></label>
 									</div>
 									<div class="subunderbar" open="true">
 										<input type="url" id="text-blog-url" accept="button-blog-urlcheck" cancel="button-addblog-cancel" />
 										<p>
-											<button id="button-blog-urlcheck">Next</button>
-											<button class="button-addblog-cancel cancel-button">Cancel</button>
+											<button id="button-blog-urlcheck"><i18n data-key="action_next" /></button>
+											<button class="button-addblog-cancel cancel-button"><i18n data-key="action_cancel" /></button>
 										</p>
 									</div>
 								</div>
 								<div class="step-2">
 									<div id="bar-add-blog-type" class="subbar">
-										<label>Blog Type: <span id="label-add-blog-type"></span></label>
+										<label><i18n data-key="label_blog_type" /> <span id="label-add-blog-type"></span></label>
 									</div>
 									<div class="subunderbar">
 										<select id="list-blog-types">
-											<option value="">(select)</option>
-											<option value="atom">Atom</option>
-											<option value="blogger">Blogger</option>
-											<option value="wordpress">Wordpress</option>
-											<option value="tumblr">Tumblr</option>
-											<option value="metaweblog" requires_id="true">MetaWeblog</option>
-											<option value="movabletype" requires_id="true">MovableType</option>
-											<option value="posterous">Posterous</option>
+											<option value=""><i18n data-key="option_blogType_select" /></option>
+											<option value="atom"><i18n data-key="option_blogType_atom" /></option>
+											<option value="blogger"><i18n data-key="option_blogType_blogger" /></option>
+											<option value="wordpress"><i18n data-key="option_blogType_wordpress" /></option>
+											<option value="tumblr"><i18n data-key="option_blogType_tumblr" /></option>
+											<option value="metaweblog" requires_id="true"><i18n data-key="option_blogType_metaweblog" /></option>
+											<option value="movabletype" requires_id="true"><i18n data-key="option_blogType_movabletype" /></option>
+											<option value="posterous"><i18n data-key="option_blogType_posterous" /></option>
 										</select>
 									</div>
 								</div>
 								<div class="step-2">
 									<div id="bar-add-blog-apiurl" class="subbar">
-										<label>API URL: <span id="label-add-blog-apiurl"></span></label>
+										<label><i18n data-key="label_apiUrl" /> <span id="label-add-blog-apiurl"></span></label>
 									</div>
 									<div class="subunderbar">
 										<input type="url" id="text-blog-api-url" value="" />
 									</div>
 									<div id="text-add-blog-id-container" style="display: none;">
 										<div id="bar-add-blog-id" class="subbar">
-											<label>Blog ID: <span id="label-add-blog-blogid"></span><label>
+											<label><i18n data-key="label_blogId" /> <span id="label-add-blog-blogid"></span><label>
 										</div>
 										<div class="subunderbar">
 											<input type="text" id="text-addblog-id" />
@@ -98,16 +98,16 @@
 								</div>
 								<div class="step-2">
 									<div class="subbar" id="bar-add-blog-credentials">
-										<label>Login Credentials</label>
+										<label><i18n data-key="label_loginCredentials" /></label>
 									</div>
 									<div class="subunderbar">
-										<label>Username</label>
+										<label><i18n data-key="label_username" /></label>
 										<input type="text" id="text-blog-username" accept="button-blog-logincheck" />
-										<label>Password</label>
+										<label><i18n data-key="label_password" /></label>
 										<input type="password" id="text-blog-password" accept="button-blog-logincheck" />
 										<p>
-											<button id="button-blog-logincheck">Finish</button>
-											<button class="button-addblog-cancel cancel-button">Cancel</button>
+											<button id="button-blog-logincheck"><i18n data-key="action_finish" /></button>
+											<button class="button-addblog-cancel cancel-button"><i18n data-key="action_cancel" /></button>
 										</p>
 									</div>
 								</div>
@@ -116,13 +116,13 @@
 					</div>
 					<div>
 						<div class="bar" id="bar-entries">
-							<label><span class="entry-type-text">Entry</span>: <span id="label-current-entry"></span></label>
+							<label><span class="entry-type-text"><i18n data-key="label_entry" /></span>: <span id="label-current-entry"></span></label>
 						</div>
 						<div class="underbar" id="underbar-entries">
 							<div orient="horizontal">
-								<select id="list-entries" flex="1" style="display: block;"><option value="scribefire:new:post">(new)</option></select>
+								<select id="list-entries" flex="1" style="display: block;"><option value="scribefire:new:post"><i18n data-key="entry_new_label" /></option></select>
 								<span class="ui-deleteEntry" style="display: block; margin-left: 10px;">
-									<button id="button-entry-remove" style="display: none;" class="text-button">Delete</button>
+									<button id="button-entry-remove" style="display: none;" class="text-button"><i18n data-key="action_delete" /></button>
 								</span>
 								<input type="search" placeholder="Filter Entries List" style="width: 20em;" id="filter-entries" />
 							</div>
@@ -130,7 +130,7 @@
 					</div>
 					<div>
 						<div class="bar" open="true" id="bar-title">
-							<label>Title: <span id="label-current-title"></span></label>
+							<label><i18n data-key="label_title" /> <span id="label-current-title"></span></label>
 						</div>
 						<div class="underbar" open="true" id="underbar-title">
 							<input type="text" id="text-title" />
@@ -138,10 +138,10 @@
 					</div>
 					<div>
 						<div class="bar-fixed" open="true" id="bar-content">
-							<label>Post Content</label>
+							<label><i18n data-key="label_content" /></label>
 							<div id="editor-toggles" style="float: right; padding-right: 1ex; cursor: pointer;" class="trap">
-								<a id="edButtonHTML" onclick="event.stopPropagation(); switchEditors.go('text-content', 'html');">Switch to HTML Mode</a>
-								<a id="edButtonPreview" style="display: none;" onclick="event.stopPropagation(); switchEditors.go('text-content', 'tinymce');">Switch to Visual Editor</a>
+								<a id="edButtonHTML" onclick="event.stopPropagation(); switchEditors.go('text-content', 'html');"><i18n data-key="action_editHTML" /></a>
+								<a id="edButtonPreview" style="display: none;" onclick="event.stopPropagation(); switchEditors.go('text-content', 'tinymce');"><i18n data-key="action_editVisual" /></a>
 							</div>
 						</div>
 						<div class="underbar" open="true">
@@ -149,7 +149,7 @@
 							
 							<div class="ui-excerpt" style="margin-top: 1em;">
 								<div class="subbar" id="bar-excerpt">
-									<label>Excerpt: <span id="label-current-excerpt"></span></label>
+									<label><i18n data-key="label_excerpt" /> <span id="label-current-excerpt"></span></label>
 								</div>
 								<div class="subunderbar" last="true">
 									<textarea rows="5" name="text-excerpt" id="text-excerpt"></textarea>
@@ -159,24 +159,24 @@
 					</div>
 					<div class="ui-categories">
 						<div class="bar" id="bar-categories">
-							<label>Categories: <span id="label-current-categories"></span></label>
+							<label><i18n data-key="label_categories" /> <span id="label-current-categories"></span></label>
 						</div>
 						<div class="underbar" id="underbar-categories">
 							<select id="list-categories" multiple="true"></select>
-							<button id="button-category-add" class="ui-add-category">New Category</button>
+							<button id="button-category-add" class="ui-add-category"><i18n data-key="action_category_add" /></button>
 						</div>
 					</div>
 					<div class="ui-tags">
 						<div class="bar" id="bar-tags">
-							<label>Tags: <span id="label-current-tags"></span></label>
+							<label><i18n data-key="label_tags" /> <span id="label-current-tags"></span></label>
 						</div>
 						<div class="underbar" id="underbar-tags">
-							<input type="text" id="text-tags" placeholder="Comma-separated"/>
+							<input type="text" id="text-tags" placeholder="Comma-separated"/><!-- @todo localize -->
 						</div>
 					</div>
 					<div class="ui-custom-fields">
 						<div class="bar" id="bar-custom-fields">
-							<label>Custom Fields</label>
+							<label><i18n data-key="label_customFields" /></label>
 						</div>
 						<div class="underbar" id="underbar-custom-fields">
 							<div id="custom-fields">
@@ -188,7 +188,7 @@
 								</div>
 							</div>
 				
-							<button id="button-add-custom-field">Add Custom Field</button>
+							<button id="button-add-custom-field"><i18n data-key="action_customField_add" /></button>
 						</div>
 					</div>
 				</div>
@@ -197,46 +197,46 @@
 		
 			<div>
 				<div class="bar" open="true" id="bar-publish">
-					<label>Publish</label>
+					<label><i18n data-key="label_publish" /></label>
 				</div>
 				<div class="underbar" open="true" id="underbar-publish">
 					<input type="hidden" id="status-draft" value="0" />
 					
 					<div style="text-align: right; float: right;">
-						<button id="reset-button" class="text-button">Clear All Fields and Start a New <span class="entry-type-text">Post</span></button>
+						<button id="reset-button" class="text-button"><i18n data-key="action_reset" /></button>
 						<span id="buttons-publish-draft">
-							<button id="button-save-progress">Save Progress</button>
-							<button id="button-publish-draft">Publish</button>
+							<button id="button-save-progress"><i18n data-key="action_draft_save" /></button>
+							<button id="button-publish-draft"><i18n data-key="action_publish" /></button>
 						</span>
 						<span id="buttons-publish-published">
-							<button id="button-publish">Update <span class="entry-type-text">Post</span></button>
+							<button id="button-publish"><i18n data-key="action_publishUpdate" /></button>
 						</span>
 					</div>
 					<span class="ui-private">
-						<input type="checkbox" id="checkbox-private" /> <label>Private</label>
+						<input type="checkbox" id="checkbox-private" /> <label><i18n data-key="label_private" /></label>
 					</span>
 					<span class="ui-slug">
-						<a href="#" id="slug-toggle">Permalink</a>: 
+						<a href="#" id="slug-toggle"><i18n data-key="action_permalink_edit" /></a> 
 						<input type="url" style="width: 15em; display: none;" id="text-slug" />
 						<span id="slug-display"></span>
 					</span>
 					<span class="ui-timestamp">
-						<a href="#" id="toggle-schedule">Schedule</a>:
-						<span id="toggle-schedule-immediately">Publish Immediately</span>
+						<a href="#" id="toggle-schedule"><i18n data-key="action_schedule" /></a>
+						<span id="toggle-schedule-immediately"><i18n data-key="option_publish_immediately" /></span>
 						<span id="toggle-schedule-scheduled">
 							<select id="list-datestamp-month" style="width: auto;">
-								<option value="01">Jan</option>
-								<option value="02">Feb</option>
-								<option value="03">Mar</option>
-								<option value="04">Apr</option>
-								<option value="05">May</option>
-								<option value="06">Jun</option>
-								<option value="07">Jul</option>
-								<option value="08">Aug</option>
-								<option value="09">Sep</option>
-								<option value="10">Oct</option>
-								<option value="11">Nov</option>
-								<option value="12">Dec</option>
+								<option value="01"><i18n data-key="option_publish_month1" /></option>
+								<option value="02"><i18n data-key="option_publish_month2" /></option>
+								<option value="03"><i18n data-key="option_publish_month3" /></option>
+								<option value="04"><i18n data-key="option_publish_month4" /></option>
+								<option value="05"><i18n data-key="option_publish_month5" /></option>
+								<option value="06"><i18n data-key="option_publish_month6" /></option>
+								<option value="07"><i18n data-key="option_publish_month7" /></option>
+								<option value="08"><i18n data-key="option_publish_month8" /></option>
+								<option value="09"><i18n data-key="option_publish_month9" /></option>
+								<option value="10"><i18n data-key="option_publish_month10" /></option>
+								<option value="11"><i18n data-key="option_publish_month11" /></option>
+								<option value="12"><i18n data-key="option_publish_month12" /></option>
 							</select>
 							<input type="day" id="text-datestamp-day" size="2" placeholder="DD"/>,
 							<input type="year" id="text-datestamp-year" size="4" placeholder="YYYY"/>
@@ -251,37 +251,36 @@
 		<div id="panel-inlinks" style="display: none;">
 			<image src="skin/inlinks.png" />
 
-			<p>ScribeFire has partnered with <a href="http://www.inlinks.com/?ref=240364" target="_blank">InLinks.com</a> to provide you with an easy-to-use monetization solution for your blog.</p>
+			<p><i18n data-key="text_inlinks1" /></p>
+
+			<h3><i18n data-key="header_inlinks" /></h3>
+			<p><i18n data-key="text_inlinks2" /></p>
 			
-
-			<h3>What are InLinks?</h3>
-			<p>InLinks are static HTML advertisements located within content areas of websites.  It is simply the most natural paid link on the market.  The benefits for you are:</p>
-
 			<ul>
-				<li>Ads that are easy on the eyes.  No annoying pop-ups!</li>
-				<li>Predictable revenue. Get paid a flat rate/month/ad sold.</li>
-				<li>Blog-friendly. Install our simple plugin and we take care of the rest.  Just sit back and collect your monthly earnings.</li>
+				<li><i18n data-key="text_inlinksBenefit1" /></li>
+				<li><i18n data-key="text_inlinksBenefit2" /></li>
+				<li><i18n data-key="text_inlinksBenefit3" /></li>
 			</ul>
-
-			<p>Out of the blogs you have set up in ScribeFire, the following may be compatible with InLinks:</p>
+			
+			<p><i18n data-key="text_inlinksBlogs" /></p>
 			<ul id="list-inlinks-blogs"></ul>
 			
-			<p>(For now, InLinks only works on blogs using Wordpress.org, Drupal, or MovableType.)</p>
-			<p><a href="http://www.inlinks.com/?ref=240364" target="_blank">Visit InLinks.com</a> to download the InLinks plugin and start earning money on your blogs today!</p>
+			<p><i18n data-key="text_inlinksCompatibility" /></p>
+			<p><i18n data-key="text_inlinks3" /></p>
 		</div>
 		
 		<div id="panel-blog-edit" style="display: none;">
-			<h3>Blog Properties</h3>
-			<p>You can edit the name and URL of your blog here.  To update your username, password, API URL, or blog ID, click the "Remove" button to remove the blog and then re-add it by clicking the "Add a New Blog" button.</p>
+			<h3><i18n data-key="header_blogProperties" /></h3>
+			<p><i18n data-key="text_blogProperties1" /></p>
 			<div>
 				<div>
-					<div class="bar-fixed"><label>Name</label></div>
+					<div class="bar-fixed"><label><i18n data-key="label_name" /></label></div>
 					<div class="underbar" open="true">
 						<input type="text" class="blog-edit-field" name="name" />
 					</div>
 				</div>
 				<div>
-					<div class="bar-fixed"><label>URL</label></div>
+					<div class="bar-fixed"><label><i18n data-key="label_url" /></label></div>
 					<div class="underbar" open="true" last="true">
 						<input type="text" class="blog-edit-field" name="url" />
 					</div>
@@ -289,26 +288,26 @@
 			</div>
 			
 			<div class="buttons">
-				<button id="button-blog-edit-cancel" class="modal_close cancel-button">Cancel</button>
-				<button id="button-blog-edit-finish">Save</button>
+				<button id="button-blog-edit-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
+				<button id="button-blog-edit-finish"><i18n data-key="action_save" /></button>
 			</div>
 		</div>
 		
 		<div id="panel-video-insert" style="display: none;">
-			<h3>Insert a Video</h3>
+			<h3><i18n data-key="header_video" /></h3>
 			<p id="error-video-insert" style="display: none;"></p>
 			<p>
-				<label>Paste the URL of the video in the box below.</label>
+				<label><i18n data-key="text_video1" /></label>
 				<input type="text" id="text-video-insert-url" />
-				<label><small>e.g., youtube.com/watch?v=b_NVbDzsEuw or http://hulu.com/watch/191543</small>
+				<label><small><i18n data-key="text_video2" /></small>
 			</p>
 			<p>
-				<label>Or, copy the embed code provided for your video into this box:</label>
+				<label><i18n data-key="text_video3" /></label>
 				<textarea id="textarea-video-insert" rows="8" cols="40"></textarea>
 			</p>
 			<div class="buttons">
-				<button id="button-video-insert-cancel" class="modal_close cancel-button">Cancel</button>
-				<button id="button-video-insert">Insert</button>
+				<button id="button-video-insert-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
+				<button id="button-video-insert"><i18n data-key="action_insert" /></button>
 			</div>
 		</div>
 		
