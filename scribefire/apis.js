@@ -1279,7 +1279,7 @@ var bloggerAPI = function () {
 	this.ui = newUi;
 	
 	this.ui.categories = true;
-	this.ui.upload = (typeof Components != 'undefined') || (window.File && window.FileReader && window.FileList && window.Blob);
+	this.ui.upload = (platform == 'gecko') || (window.File && window.FileReader && window.FileList && window.Blob);
 	this.ui.draft = true;
 	
 	this.authToken = null;
@@ -1446,7 +1446,7 @@ var bloggerAPI = function () {
 	};
 
 	this.upload = function (fileName, fileType, fileData, success, failure, file) {
-		if (typeof Components != 'undefined') { 
+		if (platform == 'gecko') { 
 			var self = this;
 		
 			var invalidTokens = 0;
@@ -1959,7 +1959,7 @@ var posterousAPI = function () {
 	this.ui.deleteEntry = false;
 	this.ui.timestamp = false;
 	this.ui.private = true;
-	this.ui.upload = (typeof Components != 'undefined');
+	this.ui.upload = (platform == 'gecko');
 	this.ui.draft = false;
 	
 	this.getBlogs = function (params, success, failure) {
@@ -2301,7 +2301,7 @@ function createScribeFirePostRequest(args) {
 	 * req.send(postRequest.requestBody);
 	 */
 	
-	if (typeof Components != 'undefined') {
+	if (platform == 'gecko') {
 		function stringToStream(str) {
 			function encodeToUtf8(oStr) {
 				var utfStr = oStr;

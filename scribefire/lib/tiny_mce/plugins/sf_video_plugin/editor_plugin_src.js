@@ -44,7 +44,7 @@
 								$(document).trigger("close.facebox");
 							}
 							else {
-								$("#error-video-insert").text("ScribeFire could not generate an embed code for this video URL. Please check the URL, or manually paste the embed code in the bottom box.").show();
+								$("#error-video-insert").text(scribefire_string("error_video_noEmbed")).show();
 							}
 						});
 					}
@@ -56,7 +56,7 @@
 
 			// Register buttons
 			ed.addButton('video', {
-				title : 'Insert a video',
+				title : scribefire_string("action_video_add"),
 				image : url + "/img/video.png",
 				cmd : 'SF_Video'
 			});

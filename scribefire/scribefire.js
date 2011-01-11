@@ -22,7 +22,7 @@ var SCRIBEFIRE = {
 		getPref : function (prefName) {
 			var key = this.namespace + prefName;
 			
-			if (typeof Components != 'undefined') {
+			if (platform == 'gecko') {
 				var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch(this.namespace);
 				
 				try {
@@ -52,9 +52,9 @@ var SCRIBEFIRE = {
 		},
 
 		getCharPref : function (prefName) {
-			var rv = this.getPref(prefName) + "";
-
-			if (rv == "null") {
+			var rv = this.getPref(prefName);
+			
+			if (typeof rv == 'undefined' || rv == "null") {
 				rv = "";
 			}
 
@@ -80,7 +80,7 @@ var SCRIBEFIRE = {
 					prefVal = "";
 				}
 				
-				if (typeof Components != 'undefined') {
+				if (platform == 'gecko') {
 					var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch(this.namespace);
 					
 					var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
