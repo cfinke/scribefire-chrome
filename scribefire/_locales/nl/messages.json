@@ -1,0 +1,89 @@
+{
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"extDescription": {
+		"message": "Een makkelijk te gebruiken blog editor laat je eenvoudig berichten naar al je blogs sturen."
+	},
+	"continue": {
+		"message": "Doorgaan"
+	},
+	"firsttime_header": {
+		"message": "Welkom bij Scribefire!"
+	},
+	"firsttime_text": {
+		"message": "Waarschijnlijk het eerste dat je wilt doen is het toevoegen van je eigen blog. Sluit dit venster en klik op \"Voeg een Nieuw Blog toe\" om te beginnen."
+	},
+	"entry_new_label": {
+		"message": "(nieuw)"
+	},
+	"entry_localDraft_label": {
+		"message": "Lokale Schets"
+	},
+	"entry_draft_label": {
+		"message": "Schets"
+	},
+	"entry_scheduled_label": {
+		"message": "Geagendeerd"
+	},
+	"notification_draft_delete": {
+		"message": "Schets verwijderd."
+	},
+	"notification_draft_save": {
+		"message": "Schets opgeslagen."
+	},
+	"notification_post_delete": {
+		"message": "Bericht succesvol verwijderd."
+	},
+	"notification_blog_add": {
+		"message": "Het toevoegen van je blog is geslaagd!"
+	},
+	"notification_publish": {
+		"message": "Publikatie geslaagd!"
+	},
+	"notification_publish_update": {
+		"message": "Update geslaagd!"
+	},
+	"action_openBlogInTab": {
+		"message": "Open blog in een nieuwe tab."
+	},
+	"action_view": {
+		"message": "Bekijk"
+	},
+	"action_edit": {
+		"message": "Wijzig"
+	},
+	"action_remove": {
+		"message": "Verwijder"
+	},
+	"action_blog_add": {
+		"message": "Nieuw Blog toevoegen"
+	},
+	"action_next": {
+		"message": "Volgende"
+	},
+	"action_cancel": {
+		"message": "Afbreken"
+	},
+	"action_makeMoney": {
+		"message": "Verdien meer geld met dit blog"
+	},
+	"action_finish": {
+		"message": "Afbreken"
+	},
+	"action_delete": {
+		"message": "Verwijder"
+	},
+	"action_editHTML": {
+		"message": "Switch naar HTML Mode"
+	},
+	"action_editVisual": {
+		"message": "Switch naar Visuele Editor"
+	},
+	"action_category_add": {
+		"message": "Nieuwe Kategorie"
+	},
+	"action_customField_add": {
+		"message": "Voeg Custom Veld toe"
+	}
+}

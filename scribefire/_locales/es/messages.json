@@ -1,4 +1,131 @@
 {
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"extDescription": {
+		"message": "Un editor de blogs fácil de usar que le permite fácilmente escribir entradas en todos sus blogs."
+	},
+	"continue": {
+		"message": "Continuar"
+	},
+	"firsttime_header": {
+		"message": "¡Bienvenidos a ScribeFire!"
+	},
+	"firsttime_text": {
+		"message": "Lo primero que probablemente va a querer hacer es agregar su blog. Cierre este diálogo y haga clic en 'Agregar un Nuevo Blog' para empezar."
+	},
+	"entry_new_label": {
+		"message": "(nueva)"
+	},
+	"entry_localDraft_label": {
+		"message": "Borrador Local"
+	},
+	"entry_draft_label": {
+		"message": "Borrador"
+	},
+	"entry_scheduled_label": {
+		"message": "Programada"
+	},
+	"notification_draft_delete": {
+		"message": "Borrador eliminado."
+	},
+	"notification_draft_save": {
+		"message": "Borrador guardado."
+	},
+	"notification_post_delete": {
+		"message": "Entrada eliminada exitosamente."
+	},
+	"notification_blog_add": {
+		"message": "¡Su blog ha sido agregado exitosamente!"
+	},
+	"notification_publish": {
+		"message": "¡Publicado exitosamente!"
+	},
+	"notification_publish_update": {
+		"message": "¡Actualizado exitosamente!"
+	},
+	"action_openBlogInTab": {
+		"message": "Abrir blog en una nueva pestaña"
+	},
+	"action_view": {
+		"message": "Ver"
+	},
+	"action_edit": {
+		"message": "Editar"
+	},
+	"action_remove": {
+		"message": "Remover"
+	},
+	"action_blog_add": {
+		"message": "Agregar un Nuevo Blog"
+	},
+	"action_next": {
+		"message": "Siguiente"
+	},
+	"action_cancel": {
+		"message": "Cancelar"
+	},
+	"action_makeMoney": {
+		"message": "Hacer dinero con este blog"
+	},
+	"action_finish": {
+		"message": "Finalizar"
+	},
+	"action_delete": {
+		"message": "Eliminar"
+	},
+	"action_editHTML": {
+		"message": "Cambiar a Modo HTML"
+	},
+	"action_editVisual": {
+		"message": "Cambiar a Editor Visual"
+	},
+	"action_category_add": {
+		"message": "Nueva Categoría"
+	},
+	"action_customField_add": {
+		"message": "Agregar un Campo Personalizado"
+	},
+	"action_draft_save": {
+		"message": "Guardar Progreso"
+	},
+	"action_publish": {
+		"message": "Publicar"
+	},
+	"action_permalink_edit": {
+		"message": "Enlace Permanente:"
+	},
+	"action_schedule": {
+		"message": "Programar:"
+	},
+	"action_save": {
+		"message": "Guardar"
+	},
+	"action_insert": {
+		"message": "Insertar"
+	},
+	"action_reset": {
+		"message": "Borrar Todos los Campos y Empezar una Nueva $ignore1$ Entrada $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_publishUpdate": {
+		"message": "Actualizar $ignore1$ Entrada $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
 	"action_video_add": {
 		"message": "Insertar un video"
 	},
@@ -330,132 +457,5 @@
 	},
 	"text_video3": {
 		"message": "O bien, copie el código de inserción proveído del vídeo en este cuadro:"
-	},
-	"extName": {
-		"message": "ScribeFire"
-	},
-	"extDescription": {
-		"message": "Un editor de blogs fácil de usar que le permite fácilmente escribir entradas en todos sus blogs."
-	},
-	"continue": {
-		"message": "Continuar"
-	},
-	"firsttime_header": {
-		"message": "¡Bienvenidos a ScribeFire!"
-	},
-	"firsttime_text": {
-		"message": "La primero que probablemente va a querer hacer es agregar su blog. Cierre este diálogo y haga clic en 'Agregar un Nuevo Blog' para empezar."
-	},
-	"entry_new_label": {
-		"message": "(nueva)"
-	},
-	"entry_localDraft_label": {
-		"message": "Borrador Local"
-	},
-	"entry_draft_label": {
-		"message": "Borrador"
-	},
-	"entry_scheduled_label": {
-		"message": "Programada"
-	},
-	"notification_draft_delete": {
-		"message": "Borrador eliminado."
-	},
-	"notification_draft_save": {
-		"message": "Borrador guardado."
-	},
-	"notification_post_delete": {
-		"message": "Entrada eliminada exitosamente."
-	},
-	"notification_blog_add": {
-		"message": "¡Su blog ha sido agregado exitosamente!"
-	},
-	"notification_publish": {
-		"message": "¡Publicado exitosamente!"
-	},
-	"notification_publish_update": {
-		"message": "¡Actualizado exitosamente!"
-	},
-	"action_openBlogInTab": {
-		"message": "Abrir blog en una nueva pestaña"
-	},
-	"action_view": {
-		"message": "Ver"
-	},
-	"action_edit": {
-		"message": "Editar"
-	},
-	"action_remove": {
-		"message": "Remover"
-	},
-	"action_blog_add": {
-		"message": "Agregar un Nuevo Blog"
-	},
-	"action_next": {
-		"message": "Siguiente"
-	},
-	"action_cancel": {
-		"message": "Cancelar"
-	},
-	"action_makeMoney": {
-		"message": "Hacer dinero con este blog"
-	},
-	"action_finish": {
-		"message": "Finalizar"
-	},
-	"action_delete": {
-		"message": "Eliminar"
-	},
-	"action_editHTML": {
-		"message": "Cambiar a Modo HTML"
-	},
-	"action_editVisual": {
-		"message": "Cambiar a Editor Visual"
-	},
-	"action_category_add": {
-		"message": "Nueva Categoría"
-	},
-	"action_customField_add": {
-		"message": "Agregar un Campo Personalizado"
-	},
-	"action_draft_save": {
-		"message": "Guardar Progreso"
-	},
-	"action_publish": {
-		"message": "Publicar"
-	},
-	"action_permalink_edit": {
-		"message": "Enlace Permanente:"
-	},
-	"action_schedule": {
-		"message": "Programar:"
-	},
-	"action_save": {
-		"message": "Guardar"
-	},
-	"action_insert": {
-		"message": "Insertar"
-	},
-	"action_reset": {
-		"message": "Borrar Todos los Campos y Empezar una Nueva $ignore1$ Entrada $ignore2$",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
-	},
-	"action_publishUpdate": {
-		"message": "Actualizar $ignore1$ Entrada $ignore2$",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
 	}
 }

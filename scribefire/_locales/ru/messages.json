@@ -1,0 +1,461 @@
+{
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"extDescription": {
+		"message": "Легкий в использовании редактор блогов, позволяющий Вам писать во все свои блоги."
+	},
+	"continue": {
+		"message": "Продолжить"
+	},
+	"firsttime_header": {
+		"message": "Добро пожаловать в ScribeFire!"
+	},
+	"firsttime_text": {
+		"message": "Сперва Вы, наверное, захотите добавить свой блог. Закройте это диалоговое окно и нажмите \"Добавить новый блог\", чтобы начать работу."
+	},
+	"entry_new_label": {
+		"message": "(новый)"
+	},
+	"entry_localDraft_label": {
+		"message": "Локальный черновик"
+	},
+	"entry_draft_label": {
+		"message": "Черновик"
+	},
+	"entry_scheduled_label": {
+		"message": "Запланированный"
+	},
+	"notification_draft_delete": {
+		"message": "Черновик удален."
+	},
+	"notification_draft_save": {
+		"message": "Черновик сохранен."
+	},
+	"notification_post_delete": {
+		"message": "Сообщение успешно удалено."
+	},
+	"notification_blog_add": {
+		"message": "Ваш блог был успешно добавлен!"
+	},
+	"notification_publish": {
+		"message": "Опубликовано успешно!"
+	},
+	"notification_publish_update": {
+		"message": "Обновлено успешно!"
+	},
+	"action_openBlogInTab": {
+		"message": "Открыть блог в новой вкладке"
+	},
+	"action_view": {
+		"message": "Просмотр"
+	},
+	"action_edit": {
+		"message": "Редактировать"
+	},
+	"action_remove": {
+		"message": "Удалить"
+	},
+	"action_blog_add": {
+		"message": "Добавить новый блог"
+	},
+	"action_next": {
+		"message": "Следующий"
+	},
+	"action_cancel": {
+		"message": "Отмена"
+	},
+	"action_makeMoney": {
+		"message": "Зарабатывайте на этом блоге"
+	},
+	"action_finish": {
+		"message": "Готово"
+	},
+	"action_delete": {
+		"message": "Удалить"
+	},
+	"action_editHTML": {
+		"message": "Переключиться в режим HTML"
+	},
+	"action_editVisual": {
+		"message": "Переключиться на визуальный редактор"
+	},
+	"action_category_add": {
+		"message": "Новая категория"
+	},
+	"action_customField_add": {
+		"message": "Добавить клиентское поле"
+	},
+	"action_draft_save": {
+		"message": "Сохранить прогресс"
+	},
+	"action_publish": {
+		"message": "Опубликовать"
+	},
+	"action_permalink_edit": {
+		"message": "Постоянная ссылка:"
+	},
+	"action_schedule": {
+		"message": "Расписание:"
+	},
+	"action_save": {
+		"message": "Сохранить:"
+	},
+	"action_insert": {
+		"message": "Вставить"
+	},
+	"action_reset": {
+		"message": "Очистить все поля и начать новое $ignore1$ сообщение $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_publishUpdate": {
+		"message": "Обновить $ignore1$ сообщение $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_video_add": {
+		"message": "Вставить видео"
+	},
+	"option_blogType_select": {
+		"message": "(выбрать)"
+	},
+	"option_blogType_atom": {
+		"message": "Atom"
+	},
+	"option_blogType_blogger": {
+		"message": "Blogger"
+	},
+	"option_blogType_wordpres": {
+		"message": "Wordpress"
+	},
+	"option_blogType_tumblr": {
+		"message": "Tumblr"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
+	},
+	"option_blogType_movabletype": {
+		"message": "MovableType"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous"
+	},
+	"option_publish_immediately": {
+		"message": "Опубликовать немедленно"
+	},
+	"option_publish_month1": {
+		"message": "Янв"
+	},
+	"option_publish_month2": {
+		"message": "Фев"
+	},
+	"option_publish_month3": {
+		"message": "Мар"
+	},
+	"option_publish_month4": {
+		"message": "Апр"
+	},
+	"option_publish_month5": {
+		"message": "Май"
+	},
+	"option_publish_month6": {
+		"message": "Июн"
+	},
+	"option_publish_month7": {
+		"message": "Июл"
+	},
+	"option_publish_month8": {
+		"message": "Авг"
+	},
+	"option_publish_month9": {
+		"message": "Сен"
+	},
+	"option_publish_month10": {
+		"message": "Окт"
+	},
+	"option_publish_month11": {
+		"message": "Ноя"
+	},
+	"option_publish_month12": {
+		"message": "Дек"
+	},
+	"label_blog": {
+		"message": "Блог:"
+	},
+	"label_blog_type": {
+		"message": "Тип блога:"
+	},
+	"label_url": {
+		"message": "URL:"
+	},
+	"label_apiUrl": {
+		"message": "API URL:"
+	},
+	"label_blogId": {
+		"message": "ID блога:"
+	},
+	"label_loginCredentials": {
+		"message": "Опции входа"
+	},
+	"label_username": {
+		"message": "Имя пользователя:"
+	},
+	"label_password": {
+		"message": "Пароль"
+	},
+	"label_entry": {
+		"message": "Запись"
+	},
+	"label_help": {
+		"message": "ПОМОГИТЕ!"
+	},
+	"label_title": {
+		"message": "Заголовок:"
+	},
+	"label_content": {
+		"message": "Содержимое сообщения:"
+	},
+	"label_excerpt": {
+		"message": "Выдержки:"
+	},
+	"label_categories": {
+		"message": "Категории:"
+	},
+	"label_tags": {
+		"message": "Теги:"
+	},
+	"label_customFields": {
+		"message": "Клиентские поля"
+	},
+	"label_publish": {
+		"message": "Публикация"
+	},
+	"label_private": {
+		"message": "Частный"
+	},
+	"label_name": {
+		"message": "Имя:"
+	},
+	"error_header": {
+		"message": "Ох, как неловко..."
+	},
+	"error_post_delete": {
+		"message": "ScribeFire обнаружил эту маленькую ошибку, пытаясь удалить ваше сообщение: $status$\n$msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
+			},
+			"msg": {
+				"content": "$2"
+			}
+		}
+	},
+	"error_category_add": {
+		"message": "ScribeFire правда хотел помочь, но что-то сломалось при попытке добавить категорию. Код ошибки: $error_code$",
+		"placeholders": {
+			"error_code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_post_publish": {
+		"message": "ScribeFire не смог опубликовать ваше сообщение. Вот сообщение об ошибке: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish": {
+		"message": "ScribeFire не смог опубликовать вашу страницу. Вот сообщение об ошибке: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_unknown": {
+		"message": "Произошла непредвиденная ошибка."
+	},
+	"error_api_getBlogs": {
+		"message": "ScribeFire не смог получить необходимую информацию о вашем блоге. Ваш блог вернул это сообщение: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_invalid": {
+		"message": "ScribeFire ищет API ($api_type$), которого не существует, но это не ваша вина.\nЕсли вы альфа-тестировщик, то вам нужно удалить этот блог и добавить его заново.",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_noBlog": {
+		"message": "Притормозите... Вам нужно добавить блог, прежде чем публиковать сообщения."
+	},
+	"error_api_noCategorySupport": {
+		"message": "Этот блог не поддерживает добавление категорий."
+	},
+	"error_api_noUploadSupport": {
+		"message": "Этот блог не поддерживает заливку файлов."
+	},
+	"error_api_cannotConnect": {
+		"message": "ScribeFire не смог подключиться у вашему блогу."
+	},
+	"error_api_setup": {
+		"message": "Пытаясь узнать настройки вашего блога, ScribeFire наткнулся на этот код: $code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_setup_unknownBlogType": {
+		"message": "Вы можете попробовать вручную настроить свой блог."
+	},
+	"error_api_code412": {
+		"message": "Этот блог вернул код ошибки 412. Вы можете исправить это, следуя инструкциям по адресу $url$",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
+			}
+		}
+	},
+	"error_api_noMessage": {
+		"message": "Этот блог вернул код ошибки $code$, но сообщения об ошибке найдено не было.",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_blogger_authentication": {
+		"message": "Blogger говорит, что вы ввели ошибочное имя пользователя или пароль."
+	},
+	"error_api_blogger_verify": {
+		"message": "Blogger говорит, что вам нужно подтвердить e-mail своего аккаунта; войдите в свой аккаунт напрямую, чтобы разобраться с этим."
+	},
+	"error_api_blogger_tos": {
+		"message": "Blogger говорит, что вам все еще нужно подтвердить свое согласие с Условиями обслуживания Google;"
+	},
+	"error_api_blogger_deleted": {
+		"message": "Blogger говорит, что используемый вами аккаунт был удален."
+	},
+	"error_api_blogger_disabled": {
+		"message": "Blogger говорит, что ваш доступ к Blogger был отключен."
+	},
+	"error_api_blogger_unavailable": {
+		"message": "Blogger говорит, что сервис Blogger временно недоступен."
+	},
+	"error_api_blogger_captcha": {
+		"message": "Google требует, чтобы вы заполнили CAPTCHA, чтобы продолжить:"
+	},
+	"error_api_blogger_unknown": {
+		"message": "Blogger не в полном порядке; он возвращает в ScribeFire ошибку: $error$",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_authToken": {
+		"message": "Невозможно получить ключ аутентификации."
+	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "Невозможно связаться с API заливки изображений."
+	},
+	"error_api_posterous_noDeleteSupport": {
+		"message": "Posterous на данный момент не поддерживает удаление сообщений."
+	},
+	"error_video_noEmbed": {
+		"message": "ScribeFire не смог сгенерировать код для вставки этого видео. Пожалуйста, проверьте URL, или вручную вставьте код вставки в поле ниже."
+	},
+	"prompt_newCategory": {
+		"message": "Название новой категории:"
+	},
+	"confirm_deletePost": {
+		"message": "Вы уверены, что хотите удалить это сообщение? Оно будет удалено с сервера, на котором находится блог, и больше не появится в вашем блоге."
+	},
+	"text_inlinks1": {
+		"message": "ScribeFire стал партнером сайта $website$, чтобы предоставить вам легкие в использовании решения по монетизации вашего блога.",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
+			}
+		}
+	},
+	"header_inlinks": {
+		"message": "Что такое Inlinks?"
+	},
+	"text_inlinks2": {
+		"message": "InLinks - это статическая HTML-реклама, расположенная внутри областей сайтов с контентом. Это самая естественная платная ссылка на рынке. В чем заключается выгода для вас:"
+	},
+	"text_inlinksBenefit1": {
+		"message": "Реклама не давит на глаза. Нет раздражающих поп-апов!"
+	},
+	"text_inlinksBenefit2": {
+		"message": "Предсказуемый доход. Получайте деньги по единой ставке\/за месяц\/количество проданных объявлений."
+	},
+	"text_inlinksBenefit3": {
+		"message": "Интеграция с блогом. Установите наш простой плагин, и мы позаботимся об остальном. Просто откиньтесь на спику кресла и собирайте платежи."
+	},
+	"text_inlinksBlogs": {
+		"message": "Кроме добавленных в ScribeFire, следующие блоги могут быть совместимы с InlInks:"
+	},
+	"text_inlinksCompatibility": {
+		"message": "(Пока InLinks работает только с блогами, использующими Wordpress.org, Drupal или MovableType.)"
+	},
+	"text_inlinks3": {
+		"message": "$link_open$ Посетите InLinks.com $link_close$ , чтобы скачать плагин InLinks и начать зарабатывать деньги на ваших блогах уже сегодня!",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
+			},
+			"link_close": {
+				"content": "<\/a>"
+			}
+		}
+	},
+	"header_blogProperties": {
+		"message": "Свойства блога"
+	},
+	"text_blogProperties1": {
+		"message": "Вы можете редактировать имя и URL вашего блога здесь. Чтобы обновить имя пользователя, пароль, API URL или ID блога, нажмите на кнопку \"Удалить\", чтобы удалить блог, и затем снова добавьте его, нажав на кнопку \"Добавить новый блог\"."
+	},
+	"header_video": {
+		"message": "Вставить видео"
+	},
+	"text_video1": {
+		"message": "Вставьте URL видео в поле ниже."
+	},
+	"text_video2": {
+		"message": "например, $url1$ или $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "Или скопируйте код вставки, предоставленный для вашего видео, в это поле:"
+	}
+}

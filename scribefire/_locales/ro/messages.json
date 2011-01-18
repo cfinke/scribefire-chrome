@@ -1,0 +1,461 @@
+{
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"extDescription": {
+		"message": "Un editor de bloguri uşor de folosit care te ajută să postezi pe oricare dintre blogurile tale."
+	},
+	"continue": {
+		"message": "Continuă"
+	},
+	"firsttime_header": {
+		"message": "Bine aţi venit în ScribeFire!"
+	},
+	"firsttime_text": {
+		"message": "Primul lucru pe care veţi dori să îl faceţi este să vă adăugaţi adresa blogului. Închideţi acest dialog şi daţi click pe \"Adaugă blog nou\" pentru a începe."
+	},
+	"entry_new_label": {
+		"message": "(nou)"
+	},
+	"entry_localDraft_label": {
+		"message": "Draft Local"
+	},
+	"entry_draft_label": {
+		"message": "Draft"
+	},
+	"entry_scheduled_label": {
+		"message": "Programat"
+	},
+	"notification_draft_delete": {
+		"message": "Draftul a fost şters."
+	},
+	"notification_draft_save": {
+		"message": "Draft salvat."
+	},
+	"notification_post_delete": {
+		"message": "Postul a fost şters cu succes."
+	},
+	"notification_blog_add": {
+		"message": "Blogul a fost adăugat cu succes!"
+	},
+	"notification_publish": {
+		"message": "Publicat cu succes!"
+	},
+	"notification_publish_update": {
+		"message": "Modificarea a fost realizată!"
+	},
+	"action_openBlogInTab": {
+		"message": "Deschide blogul într-un tab nou"
+	},
+	"action_view": {
+		"message": "Vezi"
+	},
+	"action_edit": {
+		"message": "Editează"
+	},
+	"action_remove": {
+		"message": "Şterge"
+	},
+	"action_blog_add": {
+		"message": "Adaugă blog nou"
+	},
+	"action_next": {
+		"message": "Următorul"
+	},
+	"action_cancel": {
+		"message": "Anuleaza"
+	},
+	"action_makeMoney": {
+		"message": "Câştigă bani cu acest blog"
+	},
+	"action_finish": {
+		"message": "Finalizare"
+	},
+	"action_delete": {
+		"message": "Ştergere"
+	},
+	"action_editHTML": {
+		"message": "Activează modul HTML"
+	},
+	"action_editVisual": {
+		"message": "Activează editorul vizual"
+	},
+	"action_category_add": {
+		"message": "Categorie nouă"
+	},
+	"action_customField_add": {
+		"message": "Adaugă câmp custom"
+	},
+	"action_draft_save": {
+		"message": "Progresul salvării"
+	},
+	"action_publish": {
+		"message": "Publică"
+	},
+	"action_permalink_edit": {
+		"message": "Permalink"
+	},
+	"action_schedule": {
+		"message": "Programare"
+	},
+	"action_save": {
+		"message": "Salvare"
+	},
+	"action_insert": {
+		"message": "Inserează"
+	},
+	"action_reset": {
+		"message": "Şterge toate câmpurile şi porneşte un nou $ignore1$ post $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_publishUpdate": {
+		"message": "Modifică $ignore1$ post $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_video_add": {
+		"message": "Introducere video"
+	},
+	"option_blogType_select": {
+		"message": "(selectează)"
+	},
+	"option_blogType_atom": {
+		"message": "Atom"
+	},
+	"option_blogType_blogger": {
+		"message": "Blogger"
+	},
+	"option_blogType_wordpres": {
+		"message": "Wordpress"
+	},
+	"option_blogType_tumblr": {
+		"message": "Tumblr"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
+	},
+	"option_blogType_movabletype": {
+		"message": "MovableType"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous"
+	},
+	"option_publish_immediately": {
+		"message": "Publică imediat"
+	},
+	"option_publish_month1": {
+		"message": "Ian"
+	},
+	"option_publish_month2": {
+		"message": "Feb"
+	},
+	"option_publish_month3": {
+		"message": "mar"
+	},
+	"option_publish_month4": {
+		"message": "Apr"
+	},
+	"option_publish_month5": {
+		"message": "Mai"
+	},
+	"option_publish_month6": {
+		"message": "Iun"
+	},
+	"option_publish_month7": {
+		"message": "Iul"
+	},
+	"option_publish_month8": {
+		"message": "Aug"
+	},
+	"option_publish_month9": {
+		"message": "Sep"
+	},
+	"option_publish_month10": {
+		"message": "Oct"
+	},
+	"option_publish_month11": {
+		"message": "Nov"
+	},
+	"option_publish_month12": {
+		"message": "Dec"
+	},
+	"label_blog": {
+		"message": "Blog:"
+	},
+	"label_blog_type": {
+		"message": "Tipul blogului:"
+	},
+	"label_url": {
+		"message": "URL:"
+	},
+	"label_apiUrl": {
+		"message": "API URL:"
+	},
+	"label_blogId": {
+		"message": "Blog ID:"
+	},
+	"label_loginCredentials": {
+		"message": "Detalii de logare"
+	},
+	"label_username": {
+		"message": "Nume Utilizator"
+	},
+	"label_password": {
+		"message": "Parola"
+	},
+	"label_entry": {
+		"message": "Intrare"
+	},
+	"label_help": {
+		"message": "AJUTOR!"
+	},
+	"label_title": {
+		"message": "Titlu:"
+	},
+	"label_content": {
+		"message": "Conţinut post"
+	},
+	"label_excerpt": {
+		"message": "Extras"
+	},
+	"label_categories": {
+		"message": "Categorii:"
+	},
+	"label_tags": {
+		"message": "Taguri:"
+	},
+	"label_customFields": {
+		"message": "Câmpuri personalizate"
+	},
+	"label_publish": {
+		"message": "Publică"
+	},
+	"label_private": {
+		"message": "Privat"
+	},
+	"label_name": {
+		"message": "Nume:"
+	},
+	"error_header": {
+		"message": "Opa, asta-i cam jenant..."
+	},
+	"error_post_delete": {
+		"message": "ScribeFire a găsit această eroare când s-a încercat ştergerea postului: $status$\n\n$msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
+			},
+			"msg": {
+				"content": "$2"
+			}
+		}
+	},
+	"error_category_add": {
+		"message": "ScribeFire chiar vrea să te ajute, dar ceva s-a stricat în momentul adăugării categoriei. Codul  de eroare este $error_code$.",
+		"placeholders": {
+			"error_code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_post_publish": {
+		"message": "ScribeFire nu a putut publica postul.Mesajul de eroare este: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish": {
+		"message": "ScribeFire nu a putut publica pagina.Mesajul de eroare este: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_unknown": {
+		"message": "O eroare neanticipată s-a produs."
+	},
+	"error_api_getBlogs": {
+		"message": "ScribeFire nu a putut lua informaţia dorită despre blog. Acest mesaj de eroare te poate, probabil, ajuta: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_invalid": {
+		"message": "Nu e vina ta, dar ScribeFire caută un API ($api_type$) care nu există.\n\nDacă eşti alpha tester trebuie să ştergi din listă acest blog şi să îl adaugi din nou.",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_noBlog": {
+		"message": "Ai răbdare... Trebuie să îţi adaugi blogul înainte de a publica ceva."
+	},
+	"error_api_noCategorySupport": {
+		"message": "Acest blog nu suportă adăugarea de categorii."
+	},
+	"error_api_noUploadSupport": {
+		"message": "Acest blog nu suportă urcarea de fişiere."
+	},
+	"error_api_cannotConnect": {
+		"message": "ScribeFire nu s-a putut conecta la blogul tău."
+	},
+	"error_api_setup": {
+		"message": "În încercarea de a afla setările blogului tău ScribeFire s-a împiedicat de acest cod: $code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_setup_unknownBlogType": {
+		"message": "Poţi încerca să configurezi blogul manual."
+	},
+	"error_api_code412": {
+		"message": "Blogul a răspuns cu un cod de eroare 412. Poţi repara acest lucru urmând instrucţiunile de la $url$",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
+			}
+		}
+	},
+	"error_api_noMessage": {
+		"message": "The a răspuns cu eroarea cod $code$, dar niciun mesaj de eroare nu poate fi găsit.",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_blogger_authentication": {
+		"message": "Blogger spune că ai introdus greşit numele de utilizator sau parola."
+	},
+	"error_api_blogger_verify": {
+		"message": "Blogger spune că trebui să-ţi verifici adresa de email a contului; loghează-te în contul tău direct pentru a rezolva acest lucru."
+	},
+	"error_api_blogger_tos": {
+		"message": "Blogger spune că trebui să fii de acord cu termenii serviciului de la Google; loghează-te în contul tău direct pentru a rezolva acest lucru."
+	},
+	"error_api_blogger_deleted": {
+		"message": "Blogger spune: contul folosit de tine a fost şters."
+	},
+	"error_api_blogger_disabled": {
+		"message": "Blogger spune: accesul tău la Blogger a fost restricţionat."
+	},
+	"error_api_blogger_unavailable": {
+		"message": "Blogger spune că serviciul Blogger este temporar indisponibil."
+	},
+	"error_api_blogger_captcha": {
+		"message": "Google cere completarea acestui cod CAPTCHA pentru a continua:"
+	},
+	"error_api_blogger_unknown": {
+		"message": "Blogger nu joacă corect; îi dă lui ScribeFire o eroare: $error$",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_authToken": {
+		"message": "Nu s-a putut recepţiona dovada de autentificare"
+	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "Nu se poate contacta API pentru upload de imagini."
+	},
+	"error_api_posterous_noDeleteSupport": {
+		"message": "Posterous nu suportă ştergerea posturilor la acest moment."
+	},
+	"error_video_noEmbed": {
+		"message": "ScribeFire nu poate genera un cond embed pentru acest video URL. Vă rog verificaţi URL sau introduceţi manual copy\/paste codul în zona de mai jos."
+	},
+	"prompt_newCategory": {
+		"message": "Numele noii categorii"
+	},
+	"confirm_deletePost": {
+		"message": "Eşti sigur că vrei să ştergi acest post? Va fi şters de pe serverul blogului tău şi nu va mai apărea pe blogul tău."
+	},
+	"text_inlinks1": {
+		"message": "ScribeFire a încheiat un parteneriat cu $website$ pentru a-ţi putea oferi o soluţie de monetizare uşoară pentru blog.",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
+			}
+		}
+	},
+	"header_inlinks": {
+		"message": "Ce sunt InLinks?"
+	},
+	"text_inlinks2": {
+		"message": "InLinks sunt reclame HTML static localizate în conţinutul site-urilor. Este pur şi simplu cel mai natural link plătit de pe piaţă."
+	},
+	"text_inlinksBenefit1": {
+		"message": "Reclame uşor de vizualizat. Fără pop-uri!"
+	},
+	"text_inlinksBenefit2": {
+		"message": "Venit predictibil. Eşti plătit o sumă fixă\/pe lună\/per vânzare."
+	},
+	"text_inlinksBenefit3": {
+		"message": "Prietenos cu blogurile. Instaleaza pluginul nostru simplu şi vom avea grijă de restul. Stai liniştit şi colecteaază banii lunar."
+	},
+	"text_inlinksBlogs": {
+		"message": "Înafara blogurilor setate in ScribeFire, următoarele mai sunt compatibile cu InLinks:"
+	},
+	"text_inlinksCompatibility": {
+		"message": "(Pentru moment Inlinks functionează numai în Wordpress.org, Drupal sau MovableType.)"
+	},
+	"text_inlinks3": {
+		"message": "$link_open$ Vizitează InLinks.com $link_close$ pentru a descărca pluginul InLinks şi a începe să câştigi bani cu blogul tău azi!",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
+			},
+			"link_close": {
+				"content": "<\/a>"
+			}
+		}
+	},
+	"header_blogProperties": {
+		"message": "Proprietăţile blogului"
+	},
+	"text_blogProperties1": {
+		"message": "Poţi modifica numele şi URL-ul blogului tău aici. Pentru a modifica numele de utilizator, parola, URL-ul API sau blog ID, click pe butonul \"Şterge\" pentru a şterge blogul şi apoi adaugă-l din nou printr-un click pe butonul \"Adaugă blog nou\"."
+	},
+	"header_video": {
+		"message": "Introducere video"
+	},
+	"text_video1": {
+		"message": "Insereaza URL-ul pentru video în caseta de mai jos."
+	},
+	"text_video2": {
+		"message": "exemplu, $url1$ or $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "Sau copiază codul de embed pentru video în caseta de mai jos:"
+	}
+}

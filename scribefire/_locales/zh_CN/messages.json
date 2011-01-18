@@ -3,109 +3,109 @@
 		"message": "ScribeFire"
 	},
 	"extDescription": {
-		"message": "En lättanvänd bloggredigerare som enkelt låter dig posta till alla dina bloggar."
+		"message": "一款容易使用的博客编辑器，让你在所有博客上轻松发布文章。"
 	},
 	"continue": {
-		"message": "Fortsätt"
+		"message": "继续"
 	},
 	"firsttime_header": {
-		"message": "Välkommen till ScribeFire!"
+		"message": "欢迎来到ScribeFire!"
 	},
 	"firsttime_text": {
-		"message": "Först vill du förmodligen lägga till din blogg. Stäng denna dialogrutan och klicka på 'Lägg till en blogg' för att komma igång."
+		"message": "接下来你可能想做的事是添加你的博客。要进行此操作，请先关闭该会话，然后点击“添加新博客”。"
 	},
 	"entry_new_label": {
-		"message": "(ny)"
+		"message": "（新文章）"
 	},
 	"entry_localDraft_label": {
-		"message": "Lokalt utkast"
+		"message": "本地草稿"
 	},
 	"entry_draft_label": {
-		"message": "Utkast"
+		"message": "博客草稿"
 	},
 	"entry_scheduled_label": {
-		"message": "Schemalagt"
+		"message": "按期发布"
 	},
 	"notification_draft_delete": {
-		"message": "Utkastet borttaget."
+		"message": "已删除草稿。"
 	},
 	"notification_draft_save": {
-		"message": "Utkastet sparat."
+		"message": "已保存草稿。"
 	},
 	"notification_post_delete": {
-		"message": "Posten borttagen."
+		"message": "已成功删除发布的文章。"
 	},
 	"notification_blog_add": {
-		"message": "Din blogg har lagts till!"
+		"message": "已成功添加你的博客。"
 	},
 	"notification_publish": {
-		"message": "Publicerat!"
+		"message": "成功发布！"
 	},
 	"notification_publish_update": {
-		"message": "Uppdaterat!"
+		"message": "成功更新！"
 	},
 	"action_openBlogInTab": {
-		"message": "Öppna bloggen på en ny flik"
+		"message": "在新的标签页中打开博客"
 	},
 	"action_view": {
-		"message": "Se"
+		"message": "预览"
 	},
 	"action_edit": {
-		"message": "Ändra"
+		"message": "编辑"
 	},
 	"action_remove": {
-		"message": "Ta bort"
+		"message": "移除"
 	},
 	"action_blog_add": {
-		"message": "Lägg till en ny blogg"
+		"message": "添加新博客"
 	},
 	"action_next": {
-		"message": "Nästa"
+		"message": "下一步"
 	},
 	"action_cancel": {
-		"message": "Avbryt"
+		"message": "取消"
 	},
 	"action_makeMoney": {
-		"message": "Tjäna pengar på den här bloggen"
+		"message": "用此博客赚钱"
 	},
 	"action_finish": {
-		"message": "Klar"
+		"message": "完成"
 	},
 	"action_delete": {
-		"message": "Ta bort"
+		"message": "删除"
 	},
 	"action_editHTML": {
-		"message": "Byt till HTML-läge"
+		"message": "转换到HTML模式"
 	},
 	"action_editVisual": {
-		"message": "Byt till den visuella editorn"
+		"message": "转换到可视编辑器"
 	},
 	"action_category_add": {
-		"message": "Ny kategori"
+		"message": "新目录"
 	},
 	"action_customField_add": {
-		"message": "Lägg till eget fält"
+		"message": "添加自定义域"
 	},
 	"action_draft_save": {
-		"message": "Spara ändringar"
+		"message": "保存进程"
 	},
 	"action_publish": {
-		"message": "Publicera"
+		"message": "发布"
 	},
 	"action_permalink_edit": {
-		"message": "Permalänk:"
+		"message": "永久链接"
 	},
 	"action_schedule": {
-		"message": "Schemaläggning:"
+		"message": "按期发布"
 	},
 	"action_save": {
-		"message": "Spara"
+		"message": "保存"
 	},
 	"action_insert": {
-		"message": "Infoga"
+		"message": "插入"
 	},
 	"action_reset": {
-		"message": "Töm alla fält och börja på ett nytt $ignore1$ inlägg $ignore2$",
+		"message": "清楚所有域，重启新的$ignore1$ 文章 $ignore2$",
 		"placeholders": {
 			"ignore1": {
 				"content": "<span class=\"entry-type-text\">"
@@ -116,7 +116,7 @@
 		}
 	},
 	"action_publishUpdate": {
-		"message": "Uppdatera $ignore1$ inlägge $ignore2$",
+		"message": "更新$ignore1$ 文章 $ignore2$",
 		"placeholders": {
 			"ignore1": {
 				"content": "<span class=\"entry-type-text\">"
@@ -127,10 +127,10 @@
 		}
 	},
 	"action_video_add": {
-		"message": "Lägg till en video"
+		"message": "插入视频"
 	},
 	"option_blogType_select": {
-		"message": "(välj)"
+		"message": "(选择)"
 	},
 	"option_blogType_atom": {
 		"message": "Atom"
@@ -154,103 +154,103 @@
 		"message": "Posterous"
 	},
 	"option_publish_immediately": {
-		"message": "Publicera omedelbart"
+		"message": "Publish Immediately"
 	},
 	"option_publish_month1": {
-		"message": "jan"
+		"message": "一月"
 	},
 	"option_publish_month2": {
-		"message": "feb"
+		"message": "二月"
 	},
 	"option_publish_month3": {
-		"message": "mar"
+		"message": "三月"
 	},
 	"option_publish_month4": {
-		"message": "apr"
+		"message": "四月"
 	},
 	"option_publish_month5": {
-		"message": "maj"
+		"message": "五月"
 	},
 	"option_publish_month6": {
-		"message": "jun"
+		"message": "六月"
 	},
 	"option_publish_month7": {
-		"message": "jul"
+		"message": "七月"
 	},
 	"option_publish_month8": {
-		"message": "aug"
+		"message": "八月"
 	},
 	"option_publish_month9": {
-		"message": "sep"
+		"message": "九月"
 	},
 	"option_publish_month10": {
-		"message": "okt"
+		"message": "十月"
 	},
 	"option_publish_month11": {
-		"message": "nov"
+		"message": "十一月"
 	},
 	"option_publish_month12": {
-		"message": "dec"
+		"message": "十二月"
 	},
 	"label_blog": {
-		"message": "Blogg:"
+		"message": "博客："
 	},
 	"label_blog_type": {
-		"message": "Bloggtyp:"
+		"message": "博客类型："
 	},
 	"label_url": {
-		"message": "Webbadress:"
+		"message": "URL:"
 	},
 	"label_apiUrl": {
-		"message": "API-webbadress:"
+		"message": "API URL:"
 	},
 	"label_blogId": {
-		"message": "Blogg-ID:"
+		"message": "博客ID："
 	},
 	"label_loginCredentials": {
-		"message": "Inloggningsuppgifter:"
+		"message": "登录信息"
 	},
 	"label_username": {
-		"message": "Användarnamn"
+		"message": "用户名"
 	},
 	"label_password": {
-		"message": "Lösenord"
+		"message": "密码"
+	},
+	"label_entry": {
+		"message": "输入"
 	},
 	"label_help": {
-		"message": "HJÄLP!"
+		"message": "帮助！"
 	},
 	"label_title": {
-		"message": "Titel:"
+		"message": "标题："
 	},
 	"label_content": {
-		"message": "Postinnehåll"
+		"message": "发布内容"
 	},
 	"label_excerpt": {
-		"message": "Sammanfattning:"
+		"message": "摘录："
 	},
 	"label_categories": {
-		"message": "Kategorier:"
+		"message": "目录："
 	},
 	"label_tags": {
-		"message": "Taggar:"
+		"message": "标签："
 	},
 	"label_customFields": {
-		"message": "Egna fält"
+		"message": "自定义域"
 	},
 	"label_publish": {
-		"message": "Publicera"
+		"message": "发布"
 	},
 	"label_private": {
-		"message": "Privat"
+		"message": "隐私"
 	},
 	"label_name": {
-		"message": "Namn:"
-	},
-	"error_header": {
-		"message": "Alltså, det här är pinsamt..."
+		"message": "名字："
 	},
 	"error_post_delete": {
-		"message": "ScribeFire sprang på ett fel när din post skulle tas bort: $status$\n\n$msg$",
+		"message": "当尝试删除你的文章： $status$ 时，ScribeFire发现该小错误。\n$msg$",
 		"placeholders": {
 			"status": {
 				"content": "$1"
@@ -261,7 +261,7 @@
 		}
 	},
 	"error_category_add": {
-		"message": "ScribeFire försökte verkligen hjälpa till, men något gick fel när en kategori skulle läggas till. Felkoden var $error_code$.",
+		"message": "ScribeFire真的想要帮忙，但在添加新目录时出错。错误代码为$error_code$。",
 		"placeholders": {
 			"error_code": {
 				"content": "$1"
@@ -269,7 +269,7 @@
 		}
 	},
 	"error_post_publish": {
-		"message": "ScribeFire kunde inte publicera din post. Här är felet som stöttes på: $message$",
+		"message": "ScribeFire不能发布你的文章。出现的错误信息为：$message$",
 		"placeholders": {
 			"message": {
 				"content": "\n\n$1"
@@ -277,17 +277,11 @@
 		}
 	},
 	"error_page_publish": {
-		"message": "ScribeFire kunde inte publicera din sida. Här är felet som stöttes på: $message$",
+		"message": "ScribeFire不能发布你的页面。出现的错误信息为：$message$",
 		"placeholders": {
 			"message": {
 				"content": "\n\n$1"
 			}
 		}
-	},
-	"error_unknown": {
-		"message": "Ett oväntat fel inträffade."
-	},
-	"header_video": {
-		"message": "Lägg till en video"
 	}
 }
