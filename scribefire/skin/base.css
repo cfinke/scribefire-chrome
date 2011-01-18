@@ -24,12 +24,12 @@ html[platform='webkit'] *[orient="horizontal"] {
 }
 
 html[platform='presto'] *[orient] {
-	display: -webkit-box;
-	-o-box-orient: vertical;
+	/* display: box;
+	box-orient: vertical; */
 }
 
 html[platform='presto'] *[orient="horizontal"] {
-	-o-box-orient: horizontal;
+	/* box-orient: horizontal; */
 }
 
 html[platform='gecko'] *[orient] {
@@ -53,7 +53,7 @@ html[platform='webkit'] *[flex="1"] {
 }
 
 html[platform='presto'] *[flex="1"] {
-	-o-box-flex: 1;
+	/* box-flex: 1; */
 }
 
 html[platform='gecko'] *[flex="1"] {
@@ -67,8 +67,8 @@ html[platform='webkit'] *[flex="0"] {
 }
 
 html[platform='presto'] *[flex="0"] {
-	-o-box-flex: 0;
-	display: none;
+	/* box-flex: 0;
+	display: none; */
 }
 
 html[platform='gecko'] *[flex="0"] {
@@ -81,7 +81,7 @@ html[platform='webkit'] *[flex="7"] {
 }
 
 html[platform='presto'] *[flex="7"] {
-	-o-box-flex: 7;
+	/* box-flex: 7; */
 }
 
 html[platform='gecko'] *[flex="7"] {
@@ -94,8 +94,8 @@ html[platform='webkit'] *[flex="3"] {
 }
 
 html[platform='presto'] *[flex="3"] {
-	-o-box-flex: 3;
-	max-width: 30%;
+	/* box-flex: 3;
+	max-width: 30%; */
 }
 
 html[platform='gecko'] *[flex="3"] {

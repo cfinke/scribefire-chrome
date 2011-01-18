@@ -26,7 +26,8 @@ html[platform='webkit'] .bar-fixed {
 }
 
 html[platform='presto'] .bar-fixed {
-	background: -o-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); 
+	background: #e5e5e5;
+	/* background: gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); */ 
 }
 
 html[platform='gecko'] .bar-fixed {
@@ -38,7 +39,7 @@ html[platform='webkit'] .bar, html[platform='webkit'] .subbar {
 }
 
 html[platform='presto'] .bar, html[platform='presto'] .subbar {
-	background: url(arrow-right.png) 8px 4px no-repeat, -o-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); 
+	background: #e5e5e5 url(arrow-right.png) 8px 4px no-repeat/*, gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1))*/; 
 }
 
 html[platform='gecko'] .bar, html[platform='gecko'] .subbar {
@@ -56,7 +57,7 @@ html[platform='webkit'] .subbar {
 }
 
 html[platform='presto'] .subbar {
-	background: url(arrow-right-blue.png) 8px 4px no-repeat, -o-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf));
+	background: #798bb2 url(arrow-right-blue.png) 8px 4px no-repeat/*, -o-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf))*/;
 }
 
 html[platform='gecko'] .subbar {
@@ -68,7 +69,7 @@ html[platform='webkit'] .bar[open="true"] {
 }
 
 html[platform='presto'] .bar[open="true"] {
-	background: url(arrow-down.png) 7px 5px no-repeat, -o-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
+	background: #e5e5e5 url(arrow-down.png) 7px 5px no-repeat/*, -o-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important*/;
 }
 
 html[platform='gecko'] .bar[open="true"] {
@@ -80,7 +81,7 @@ html[platform='webkit'] .subbar[open="true"] {
 }
 
 html[platform='presto'] .subbar[open="true"] {
-	background: url(arrow-down-blue.png) 7px 5px no-repeat, -o-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf)) !important;
+	background: #798bb2 url(arrow-down-blue.png) 7px 5px no-repeat/*, -o-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf)) !important*/;
 }
 
 html[platform='gecko'] .subbar[open="true"] {
@@ -96,7 +97,7 @@ html[platform='webkit'] .bar[busy="true"] {
 }
 
 html[platform='presto'] .bar[busy="true"] {
-	background: url(throbber-16.png) 5px 2px no-repeat, -o-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
+	background: #e5e5e5 url(throbber-16.png) 5px 2px no-repeat/*, -o-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important*/;
 }
 
 html[platform='gecko'] .bar[busy="true"] {
@@ -130,7 +131,7 @@ html[platform='webkit'] .underbar[open="true"][orient], html[platform='webkit'] 
 }
 
 html[platform='presto'] .underbar[open="true"][orient], html[platform='presto'] .subunderbar[open="true"][orient] {
-	display: box;
+	/* display: box; */
 }
 
 .underbar[open="false"][orient], .subunderbar[open="false"][orient] {
