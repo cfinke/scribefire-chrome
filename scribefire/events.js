@@ -66,6 +66,11 @@ $(document).ready(function () {
 		$(this).replaceWith(scribefire_string($(this).attr("data-key")));
 	});
 	
+	$(".i18n").each(function () {
+		$(this).text(scribefire_string($(this).attr("data-key")));
+	});
+		
+	
 	$("#text-slug").live("change", function () {
 		if ($(this).val()) {
 			$("#slug-display").text($(this).val());
