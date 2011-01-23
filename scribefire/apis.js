@@ -204,7 +204,7 @@ var genericMetaWeblogAPI = function () {
 	this.getPosts = function (params, success, failure) {
 		var self = this;
 		
-		if (!("limit" in params)) params.limit = 1000;
+		if (!("limit" in params)) params.limit = 100;
 		
 		var args = [this.apiUrl, this.id, this.username, this.password, params.limit];
 		
@@ -263,7 +263,7 @@ var genericMetaWeblogAPI = function () {
 					// success(rv);
 					
 					if (self.ui.pages) {
-						var args = [self.apiUrl, self.id, self.username, self.password, 1000];
+						var args = [self.apiUrl, self.id, self.username, self.password, params.limit];
 						var xml = performancingAPICalls.wp_getPages(args);
 						
 						XMLRPC_LIB.doCommand(

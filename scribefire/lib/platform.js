@@ -126,4 +126,8 @@ function scribefire_string(key, substitutions) {
 	}
 }
 
-document.documentElement.setAttribute("platform", platform);
+var style = document.createElement("link");
+style.setAttribute("rel", "stylesheet");
+style.setAttribute("type", "text/css");
+style.setAttribute("href", "skin/platform." + platform + ".css");
+document.getElementsByTagName("head")[0].appendChild(style);

@@ -21,88 +21,14 @@ a {
 	padding-left: 8px;
 }
 
-html[platform='webkit'] .bar-fixed {
-	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); 
-}
-
-html[platform='presto'] .bar-fixed {
-	background: #e5e5e5;
-	/* background: gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); */ 
-}
-
-html[platform='gecko'] .bar-fixed {
-	background: -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1);
-}
-
-html[platform='webkit'] .bar, html[platform='webkit'] .subbar {
-	background: url(arrow-right.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); 
-}
-
-html[platform='presto'] .bar, html[platform='presto'] .subbar {
-	background: #e5e5e5 url(arrow-right.png) 8px 4px no-repeat/*, gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1))*/; 
-}
-
-html[platform='gecko'] .bar, html[platform='gecko'] .subbar {
-	background: url(arrow-right.png) 8px 4px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1);
-}
-
 .subbar {
 	color: #fff;
 	border-top-color: #91a0c0;
 	text-shadow: none;
 }
 
-html[platform='webkit'] .subbar {
-	background: url(arrow-right-blue.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf));
-}
-
-html[platform='presto'] .subbar {
-	background: #798bb2 url(arrow-right-blue.png) 8px 4px no-repeat/*, -o-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf))*/;
-}
-
-html[platform='gecko'] .subbar {
-	background: url(arrow-right-blue.png) 8px 4px no-repeat, -moz-linear-gradient(bottom, #798bb2, #a2b1cf);
-}
-
-html[platform='webkit'] .bar[open="true"] {
-	background: url(arrow-down.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
-}
-
-html[platform='presto'] .bar[open="true"] {
-	background: #e5e5e5 url(arrow-down.png) 7px 5px no-repeat/*, -o-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important*/;
-}
-
-html[platform='gecko'] .bar[open="true"] {
-	background: url(arrow-down.png) 7px 5px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1) !important;
-}
-
-html[platform='webkit'] .subbar[open="true"] {
-	background: url(arrow-down-blue.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf)) !important;
-}
-
-html[platform='presto'] .subbar[open="true"] {
-	background: #798bb2 url(arrow-down-blue.png) 7px 5px no-repeat/*, -o-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf)) !important*/;
-}
-
-html[platform='gecko'] .subbar[open="true"] {
-	background: url(arrow-down-blue.png) 7px 5px no-repeat, -moz-linear-gradient(bottom, #798bb2, #a2b1cf) !important;
-}
-
 .bar[busy="true"] {
 	background-size: 12px 12px, auto;
-}
-
-html[platform='webkit'] .bar[busy="true"] {
-	background: url(throbber-16.png) 5px 2px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
-}
-
-html[platform='presto'] .bar[busy="true"] {
-	background: #e5e5e5 url(throbber-16.png) 5px 2px no-repeat/*, -o-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important*/;
-}
-
-html[platform='gecko'] .bar[busy="true"] {
-	background: url(throbber-16.png) 5px 2px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1) !important;
-	-moz-background-size: 12px, auto;
 }
 
 .underbar, .subunderbar {
@@ -126,20 +52,8 @@ html[platform='gecko'] .bar[busy="true"] {
 	border-width: 0 1px 1px 1px;
 }
 
-html[platform='webkit'] .underbar[open="true"][orient], html[platform='webkit'] .subunderbar[open="true"][orient] {
-	display: -webkit-box;
-}
-
-html[platform='presto'] .underbar[open="true"][orient], html[platform='presto'] .subunderbar[open="true"][orient] {
-	/* display: box; */
-}
-
 .underbar[open="false"][orient], .subunderbar[open="false"][orient] {
 	display: none;
-}
-
-html[platform='gecko'] .underbar[open="true"][orient], html[platform='gecko'] .subunderbar[open="true"][orient] {
-	display: -moz-box;
 }
 
 #dialog-blog-add {

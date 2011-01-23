@@ -10,63 +10,9 @@ button, input[type="submit"] {
 	padding-right: 15px;
 }
 
-html[platform='webkit'] button, html[platform='webkit'] input[type='submit'] {
-	-webkit-border-radius: 10px;
-	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc));
-}
-
-html[platform='presto'] button, html[platform='presto'] input[type='submit'] {
-	border-radius: 10px;
-	background: #dfdfdf;
-	/* background: gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc)); */
-}
-
-html[platform='gecko'] button, html[platform='gecko'] input[type='submit'] {
-	-moz-border-radius: 10px;
-	background: -moz-linear-gradient(bottom, #dfdfdf, #fcfcfc);
-}
-
-html[platform='webkit'] button:active, html[platform='webkit'] input[type="submit"]:active {
-	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
-}
-
-html[platform='presto'] button:active, html[platform='presto'] input[type="submit"]:active {
-	background: #c3c3c3;
-	/* background: -o-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));*/
-}
-
-html[platform='gecko'] button:active, html[platform='gecko'] input[type="submit"]:active {
-	background: -moz-linear-gradient(bottom, #c3c3c3, #eeeeee);
-}
-
 button.busy, input[type="submit"].busy {
 	padding-left: 27px;
 	background-size: 12px 12px, auto;
-}
-
-html[platform='webkit'] button.busy, html[platform='webkit'] input[type="submit"].busy {
-	background: url(throbber-16.png) 8px 3px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc));
-}
-
-html[platform='presto'] button.busy, html[platform='presto'] input[type="submit"].busy {
-	background: #dfdfdf url(throbber-16.png) 8px 3px no-repeat/*, -o-gradient(linear, 100% 0%, 100% 100%, from(#dfdfdf), to(#fcfcfc))*/;
-}
-
-html[platform='gecko'] button.busy, html[platform='gecko'] input[type="submit"].busy {
-	background: url(throbber-16.png) 8px 2px no-repeat, -moz-linear-gradient(bottom, #dfdfdf, #fcfcfc);
-	-moz-background-size: 12px, auto;
-}
-
-html[platform='webkit'] button.busy:active, html[platform='webkit'] input[type="submit"].busy:active {
-	background: url(throbber-16.png) 8px 3px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee));
-}
-
-html[platform='presto'] button.busy:active, html[platform='presto'] input[type="submit"].busy:active {
-	background: #c3c3c3 url(throbber-16.png) 8px 3px no-repeat/*, -o-gradient(linear, 100% 0%, 100% 100%, from(#c3c3c3), to(#eeeeee))*/;
-}
-
-html[platform='gecko'] button.busy:active, html[platform='gecko'] input[type="submit"].busy:active {
-	background: url(throbber-16.png) 8px 2px no-repeat, -moz-linear-gradient(bottom, #c3c3c3, #eeeeee);
 }
 
 button.text-button, button.cancel-button {

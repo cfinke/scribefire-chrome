@@ -1,0 +1,76 @@
+.bar-fixed {
+	background: #e5e5e5;
+}
+
+.bar, .subbar {
+	background: #e5e5e5 url(arrow-right.png) 8px 4px no-repeat;
+}
+
+#list-blogs {
+	float: left;
+	width: 60%;
+}
+
+button.button-blog-meta {
+	margin-left: 10px;
+	float: left;
+}
+
+#list-entries {
+	float: left;
+	width: 60%;
+}
+
+#underbar-entries .ui-deleteEntry {
+	float: left;
+	margin-left: 10px;
+}
+
+#underbar-entries {
+	margin-bottom: 20px;
+}
+
+#filter-entries {
+	float: left;
+	margin-left: 10px;
+}
+
+div.bar {
+	clear: both;
+}
+
+.bar[busy="true"] {
+	background: #e5e5e5 url(throbber-16.png) 5px 2px no-repeat;
+	background-size: 12px;
+}
+
+.subbar[open="true"] {
+	background: #798bb2 url(arrow-down-blue.png) 7px 5px no-repeat;
+}
+
+
+.bar[open="true"] {
+	background: #e5e5e5 url(arrow-down.png) 7px 5px no-repeat;
+}
+
+.subbar {
+	background: #798bb2 url(arrow-right-blue.png) 8px 4px no-repeat;
+}
+
+button, input[type='submit'] {
+	border-radius: 10px;
+	background: #dfdfdf;
+}
+
+button:active, input[type="submit"]:active {
+	background: #c3c3c3;
+}
+
+button.busy, input[type="submit"].busy {
+	background: #dfdfdf url(throbber-16.png) 8px 2px no-repeat;
+	background-size: 12px;
+}
+
+button.busy:active, input[type="submit"].busy:active {
+	background: #c3c3c3 url(throbber-16.png) 8px 3px no-repeat;
+}

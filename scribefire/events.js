@@ -692,22 +692,6 @@ $(document).ready(function () {
 		}
 	});
 	
-	$(window).bind("beforeunload", function (e) {
-		// Grab all of the input values for state persistence.
-		SCRIBEFIRE.prefs.setCharPref("state.entryId", $("#list-entries").val());
-		SCRIBEFIRE.prefs.setCharPref("state.title",   $("#text-title").val());
-		SCRIBEFIRE.prefs.setCharPref("state.content", editor.val());
-		SCRIBEFIRE.prefs.setCharPref("state.tags",	$("#text-tags").val());
-		SCRIBEFIRE.prefs.setCharPref("state.timestamp",getTimestamp());
-		SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#status-draft").val() == "1");
-		SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());
-		SCRIBEFIRE.prefs.setCharPref("state.slug", $("#text-slug").val());
-		SCRIBEFIRE.prefs.setJSONPref("state.customFields", SCRIBEFIRE.getCustomFields(true));
-		SCRIBEFIRE.prefs.setCharPref("state.excerpt", $("#text-excerpt").val());
-		
-		SCRIBEFIRE.prefs.setCharPref("state.editor", switchEditors.mode);
-	});
-	
 	$("#text-title").val(SCRIBEFIRE.prefs.getCharPref("state.title"));
 	SCRIBEFIRE.prefs.setCharPref("state.title", "");
 	
@@ -821,6 +805,29 @@ $(document).ready(function () {
 		
 		// We use .parent() here because putting an id on the element breaks the flex box model someho
 		// $("#text-content").parent().resize();
+		
+		function saveEditorState() {
+			// Grab all of the input values for state persistence.
+			SCRIBEFIRE.prefs.setCharPref("state.entryId", $("#list-entries").val());
+			SCRIBEFIRE.prefs.setCharPref("state.title",   $("#text-title").val());
+			SCRIBEFIRE.prefs.setCharPref("state.content", editor.val());
+			SCRIBEFIRE.prefs.setCharPref("state.tags",	$("#text-tags").val());
+			SCRIBEFIRE.prefs.setCharPref("state.timestamp",getTimestamp());
+			SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#status-draft").val() == "1");
+			SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());
+			SCRIBEFIRE.prefs.setCharPref("state.slug", $("#text-slug").val());
+			SCRIBEFIRE.prefs.setJSONPref("state.customFields", SCRIBEFIRE.getCustomFields(true));
+			SCRIBEFIRE.prefs.setCharPref("state.excerpt", $("#text-excerpt").val());
+
+			SCRIBEFIRE.prefs.setCharPref("state.editor", switchEditors.mode);
+		}
+		
+		$(window).bind("onbeforeunload", saveEditorState);
+		
+		if (platform === "presto") {
+			// Opera doesn't support beforeunload, so we save the state every 5 seconds.
+			setInterval(saveEditorState, 5000);
+		}
 	});
 	
 	$(window).resize(function () {
