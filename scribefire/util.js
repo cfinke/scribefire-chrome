@@ -15,3 +15,23 @@ Array.prototype.unique = function () {
 	
 	return this;
 };
+
+function resolveHref(path, href) {
+	if (href.indexOf("://") != -1) {
+		return href;
+	}
+	else if (href.indexOf("//") === 0) {
+		return path.split("//")[0] + href;
+	}
+	else if (href.indexOf("/") === 0) {
+		return path.substring(0, path.indexOf("/", path.indexOf("://") + 3)) + href;
+	}
+	else {
+		if (path.indexOf("/", path.indexOf("://") + 3) === -1) {
+			return path + "/" + href;
+		}
+		else {
+			return path.substring(0, path.lastIndexOf("/") + 1) + href;
+		}
+	}
+}

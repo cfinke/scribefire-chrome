@@ -773,7 +773,7 @@ var SCRIBEFIRE = {
 									else if (link.attr("title") == "RSD" && link.attr("href")) {
 										// Check the RSD file.
 										var rsdReq = new XMLHttpRequest();
-										rsdReq.open("GET", link.attr("href"), true);
+										rsdReq.open("GET", resolveHref(url, link.attr("href")), true);
 										rsdReq.overrideMimeType("text/xml");
 								
 										rsdReq.onreadystatechange = function () {
@@ -802,8 +802,8 @@ var SCRIBEFIRE = {
 															var api = $(api_set[i]);
 
 															var name = api.attr("name").toLowerCase();
-															var apiUrl = api.attr("apiLink");
-														
+															var apiUrl = resolveHref(url, api.attr("apiLink"));
+															
 															switch (name) {
 																/*
 																case "blogger":

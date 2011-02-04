@@ -173,7 +173,7 @@ var genericMetaWeblogAPI = function () {
 						
 						for (var i = 0, _len = rv.length; i < _len; i++) {
 							var blog = {};
-							blog.url = rv[i].url;
+							blog.url = resolveHref(params.apiUrl, rv[i].url);
 							blog.id = rv[i].blogid;
 							blog.name = rv[i].blogName;
 							blog.apiUrl = params.apiUrl;
