@@ -822,7 +822,7 @@ $(document).ready(function () {
 			SCRIBEFIRE.prefs.setCharPref("state.editor", switchEditors.mode);
 		}
 		
-		$(window).bind("onbeforeunload", saveEditorState);
+		$(window).bind("beforeunload", saveEditorState);
 		
 		if (platform === "presto") {
 			// Opera doesn't support beforeunload, so we save the state every 5 seconds.
