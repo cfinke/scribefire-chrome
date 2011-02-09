@@ -33,12 +33,6 @@ var SCRIBEFIRE_STRINGS = {
 				}
 			}
 
-			if (typeof substitutions != 'undefined') {
-				if (typeof substitutions != 'object') {
-					substitutions = [ substitutions ];
-				}
-			}
-
 			if (substitutions) {
 				for (var i = 0, _len = substitutions.length; i < _len; i++) {
 					var regex = new RegExp("\\$" + (i+1), "g");
@@ -118,6 +112,12 @@ else if (browser == 'safari' || browser == 'opera') {
 }
 
 function scribefire_string(key, substitutions) {
+	if (typeof substitutions != 'undefined') {
+		if (typeof substitutions != 'object') {
+			substitutions = [ substitutions ];
+		}
+	}
+	
 	if (browser == 'chrome') {
 		return chrome.i18n.getMessage(key, substitutions);
 	}
