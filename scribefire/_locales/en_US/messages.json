@@ -489,5 +489,8 @@
 	},
 	"time_ago_days": {
 		"message": "$1 days ago"
+	},
+	"confirm_not_saved": {
+		"message": "Are you sure you want to switch posts? You haven't saved the current version of this post yet.\n\n(Click 'Save Progress' at the bottom of the page to save your progress.)"
 	}
 }

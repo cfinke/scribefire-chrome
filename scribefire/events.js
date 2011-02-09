@@ -22,6 +22,10 @@ var editor = {
 				return switchEditors._wp_Autop($("#text-content").val().replace(/^\s+|\s+$/g, ""));
 			}
 		}
+	},
+	
+	change : function () {
+		SCRIBEFIRE.dirty = true;
 	}
 };
 
@@ -278,7 +282,19 @@ $(document).ready(function () {
 		alert("@Todo");
 	});
 	
-	$("#list-entries").live("change", function () {
+	$("#list-entries").live("change", function (e) {
+		if (SCRIBEFIRE.dirty) {
+			if (!confirm(scribefire_string("confirm_not_saved"))) {
+				$(this).val($(this).data("lastPostId"));
+				
+				e.preventDefault();
+				e.stopPropagation();
+				return;
+			}
+		}
+		
+		$(this).data("lastPostId", $(this).val());
+		
 		var postId = $(this).val();
 		
 		$("#buttons-publish-published").hide();
@@ -373,6 +389,8 @@ $(document).ready(function () {
 		}
 		
 		SCRIBEFIRE.updateOptionalUI();
+		
+		SCRIBEFIRE.dirty = false;
 	});
 	
 	$("#list-categories").live("change", function (e) {
@@ -760,6 +778,11 @@ $(document).ready(function () {
 	
 	SCRIBEFIRE.load();
 	
+	$("#text-title").live("change", function() { SCRIBEFIRE.dirty = true; });
+	$("#text-content").live("change", function() { SCRIBEFIRE.dirty = true; });
+	$("#text-tags").live("change", function() { SCRIBEFIRE.dirty = true; });
+	$("#list-categories").live("change", function() { SCRIBEFIRE.dirty = true; });
+	
 	$(window).load(function () {
 		var editorContent = SCRIBEFIRE.prefs.getCharPref("state.content");
 		SCRIBEFIRE.prefs.setCharPref("state.content", "");
@@ -798,7 +821,8 @@ $(document).ready(function () {
 				if (SCRIBEFIRE.prefs.getCharPref("state.editor") == 'html') {
 					switchEditors.go('text-content', 'html');
 				}
-			}
+			},
+			onchange_callback : "editor.change"
 		});
 		
 		adjustForSize();

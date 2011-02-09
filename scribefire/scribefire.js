@@ -1,4 +1,7 @@
 var SCRIBEFIRE = {
+	// Whether the current content needs to be saved somewhere to avoid losing it.
+	dirty : false,
+	
 	autocomplete : {
 		tags : [],
 		custom_field_keys : []
@@ -750,7 +753,7 @@ var SCRIBEFIRE = {
 				if (req.readyState == 4) {
 					if (req.status < 300) {
 						// Check for a <link /> tag.
-						var linkTags = req.responseText.match(/<link(?:(?:\s+\w+(?:\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/g);
+						var linkTags = req.responseText.match(/<link(?:(?:\s+\w+(?:\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/g); //'
 						
 						var atomAPIs = {};
 						
@@ -980,6 +983,8 @@ var SCRIBEFIRE = {
 		params.content = params.content.replace(/<[^>\s]+:[^\s>]+[^>]*>/g, " ");
 		
 		function success(rv) {
+			SCRIBEFIRE.dirty = false;
+			
 			SCRIBEFIRE.prefs.setCharPref("state.entryId", rv.id);
 			
 			$("#list-entries").val("scribefire:new:" + $("#list-entries option:selected").data("type")).change();
