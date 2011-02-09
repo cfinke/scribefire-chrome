@@ -7,7 +7,12 @@ function openScribeFire() {
 	chrome.tabs.getAllInWindow(null, function (tabs) {
 		for (var i = 0; i < tabs.length; i++) {
 			if (tabs[i].url == scribefireUrl) {
-				chrome.tabs.update(tabs[i].id, { "selected": true });
+				chrome.tabs.update(tabs[i].id, { "selected" : true });
+				
+				if (localStorage["extensions.scribefire.blogThis"]) {
+					chrome.tabs.update(tabs[i].id, { "url" : scribefireUrl });
+				}
+				
 				return;
 			}
 		}
@@ -23,7 +28,23 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 function scribefireContextClick(info, tab) {
 	var htmlToInsert = "";
 	
-	if (info.selectionText) {
+	if (info.linkUrl) {
+		if (info.selectionText) {
+			htmlToInsert = '<a href="' + info.linkUrl + '">'+info.selectionText.replace(/\n/g, "<br/>")+'</a>';
+		}
+		else {
+			htmlToInsert = '<a href="' + info.linkUrl + '">Your link text here.</a>';
+		}
+	}
+	else if (info.pageUrl) {
+		if (info.selectionText) {
+			htmlToInsert = '<a href="' + info.pageUrl + '">'+info.selectionText.replace(/\n/g, "<br/>")+'</a>';
+		}
+		else {
+			htmlToInsert = '<a href="' + info.pageUrl + '">Your link text here.</a>';
+		}
+	}
+	else if (info.selectionText) {
 		htmlToInsert = info.selectionText.replace(/\n/g, "<br/>");
 	}
 	else if (info.mediaType == "video") {
@@ -34,12 +55,6 @@ function scribefireContextClick(info, tab) {
 	}
 	else if (info.mediaType == "image") {
 		htmlToInsert = '<img src="' + info.srcUrl + '" />';
-	}
-	else if (info.linkUrl) {
-		htmlToInsert = '<a href="' + info.linkUrl + '">Your link text here.</a>';
-	}
-	else if (info.pageUrl) {
-		htmlToInsert = '<a href="' + info.pageUrl + '">Your link text here.</a>';
 	}
 	
 	localStorage["extensions.scribefire.blogThis"] = htmlToInsert;
