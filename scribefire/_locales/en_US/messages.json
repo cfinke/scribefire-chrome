@@ -477,5 +477,17 @@
 	},
 	"text_video3": {
 		"message": "Or, copy the embed code provided for your video into this box:"
+	},
+	"time_ago_seconds": {
+		"message": "Less than a minute ago"
+	},
+	"time_ago_minutes": {
+		"message": "$1 minutes ago"
+	},
+	"time_ago_hours": {
+		"message": "$1 hours ago"
+	},
+	"time_ago_days": {
+		"message": "$1 days ago"
 	}
 }
