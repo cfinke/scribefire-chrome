@@ -495,5 +495,8 @@
 	},
 	"zemanta_related_articles": {
 		"message": "Related articles by Zemanta:"
+	},
+	"action_zemanta_add": {
+		"message": "Add links to related articles"
 	}
 }
