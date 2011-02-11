@@ -14,6 +14,7 @@
 		<script type="text/javascript" src="xmlrpc.js"></script>
 		<script type="text/javascript" src="apis.js"></script>
 		<script type="text/javascript" src="scribefire.js"></script>
+		<script type="text/javascript" src="zemanta.js"></script>
 		<script type="text/javascript" src="lib/jquery.js"></script>
 		<script type="text/javascript" src="lib/jquery-ui.js"></script>
 		<script type="text/javascript" src="lib/jquery-resize.js"></script>
@@ -305,6 +306,23 @@
 				<button id="button-video-insert-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
 				<button id="button-video-insert"><i18n data-key="action_insert" /></button>
 			</div>
+		</div>
+		
+		<div id="panel-zemanta" style="display: none;">
+			<div class="ui-zemanta" id="zemanta-container">
+				<div id="zemanta-articles-container"></div>
+				<div id="zemanta-article-template" style="display: none;">
+					<input type="checkbox" />
+					<a href="#" target="_blank"></a>
+					<small/>
+				</div>
+			</div>
+			
+			<div class="buttons">
+				<button id="button-zemanta-insert-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
+				<button id="button-zemanta-insert"><i18n data-key="action_insert" /></button>
+			</div>
+			
 		</div>
 		
 		<script type="text/javascript" src="lib/platform.js"></script>

@@ -492,5 +492,8 @@
 	},
 	"confirm_not_saved": {
 		"message": "Are you sure you want to switch posts? You haven't saved the current version of this post yet.\n\n(Click 'Save Progress' at the bottom of the page to save your progress.)"
+	},
+	"zemanta_related_articles": {
+		"message": "Related articles by Zemanta:"
 	}
 }
