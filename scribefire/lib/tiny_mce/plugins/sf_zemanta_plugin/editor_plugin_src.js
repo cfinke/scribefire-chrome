@@ -10,19 +10,7 @@
 			// Register commands
 			ed.addCommand('SF_Zemanta', function() {
 				// Do Zemanta things.
-				$.facebox($("#panel-zemanta"));
-				
-				SF_ZEMANTA.getRelated("articles");
-				
-				$("#button-zemanta-insert").die("click");
-				$("#button-zemanta-insert").live("click", function (e) {
-					e.preventDefault();
-					
-					SF_ZEMANTA.updateArticlesInEditor();
-					$(document).trigger("close.facebox");
-				});
-				
-				$("#panel-zemanta").show();
+				SF_ZEMANTA.getRelated("articles", ed.selection.getContent());
 			});
 
 			// Register buttons

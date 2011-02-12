@@ -494,9 +494,21 @@
 		"message": "Are you sure you want to switch posts? You haven't saved the current version of this post yet.\n\n(Click 'Save Progress' at the bottom of the page to save your progress.)"
 	},
 	"zemanta_related_articles": {
-		"message": "Related articles by Zemanta:"
+		"message": "Related articles, courtesy of Zemanta:"
+	},
+	"zemanta_instructions": {
+		"message": "Select the articles you'd like to include in your post:"
 	},
 	"action_zemanta_add": {
 		"message": "Add links to related articles"
+	},
+	"zemanta_tos_description": {
+		"message": "In order to continue, you need to agree to Zemanta's Terms of Service (shown below)."
+	},
+	"zemanta_tos_accept_request": {
+		"message": "If you agree to the terms, click 'Continue.'"
+	},
+	"zemanta_tracking_optin": {
+		"message": "Is it ok if ScribeFire adds an invisible image to your post to track Zemanta usage statistics? You won't notice a difference either way, and even if you decline, you won't be asked again."
 	}
 }

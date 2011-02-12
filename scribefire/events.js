@@ -283,7 +283,7 @@ $(document).ready(function () {
 	});
 	
 	$("#list-entries").live("change", function (e) {
-		if (SCRIBEFIRE.dirty && $(this).data("lastPostId")) {
+		if (SCRIBEFIRE.dirty && $(this).data("lastPostId") && $(this).data("lastPostId") != $(this).val()) {
 			if (!confirm(scribefire_string("confirm_not_saved"))) {
 				$(this).val($(this).data("lastPostId"));
 				

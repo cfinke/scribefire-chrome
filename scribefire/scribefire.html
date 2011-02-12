@@ -309,6 +309,8 @@
 		</div>
 		
 		<div id="panel-zemanta" style="display: none;">
+			<p><i18n data-key="zemanta_instructions" /></p>
+			
 			<div class="ui-zemanta" id="zemanta-container">
 				<div id="zemanta-articles-container"></div>
 				<div id="zemanta-article-template" style="display: none;">
@@ -322,7 +324,19 @@
 				<button id="button-zemanta-insert-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
 				<button id="button-zemanta-insert"><i18n data-key="action_insert" /></button>
 			</div>
+		</div>
+		
+		<div id="panel-zemanta-tos" style="display: none;">
+			<p><i18n data-key="zemanta_tos_description" /></p>
 			
+			<div id="container-zemanta-tos"></div>
+			
+			<p><i18n data-key="zemanta_tos_accept_request" /></p>
+			
+			<div class="buttons">
+				<button id="button-zemanta-tos-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
+				<button id="button-zemanta-tos-accept"><i18n data-key="continue" /></button>
+			</div>
 		</div>
 		
 		<script type="text/javascript" src="lib/platform.js"></script>

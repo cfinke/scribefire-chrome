@@ -90,9 +90,9 @@
       closeImage   : '/skin/closelabel.gif',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
-    <div id="facebox" style="display:none; border-radius: 10px; -moz-border-radius: 10px; padding: 10px;"> \
+    <div id="facebox" style="display:none; width: 50%; margin-left: auto; margin-right: auto; border-radius: 10px; -moz-border-radius: 10px; padding: 10px;"> \
       <div class="popup"> \
-        <table> \
+        <table style="width: 100%;"> \
           <tbody> \
               <td class="body"> \
                 <div class="content"> \
