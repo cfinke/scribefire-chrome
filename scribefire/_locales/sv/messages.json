@@ -2,9 +2,6 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
-	"extDescription": {
-		"message": "En lättanvänd bloggredigerare som enkelt låter dig posta till alla dina bloggar."
-	},
 	"continue": {
 		"message": "Fortsätt"
 	},
@@ -12,7 +9,7 @@
 		"message": "Välkommen till ScribeFire!"
 	},
 	"firsttime_text": {
-		"message": "Först vill du förmodligen lägga till din blogg. Stäng denna dialogrutan och klicka på 'Lägg till en blogg' för att komma igång."
+		"message": "Till att börja med vill du förmodligen lägga till din blogg. Stäng denna dialogrutan och klicka på 'Lägg till en blogg' för att komma igång."
 	},
 	"entry_new_label": {
 		"message": "(ny)"
@@ -216,6 +213,9 @@
 	"label_password": {
 		"message": "Lösenord"
 	},
+	"label_entry": {
+		"message": "Inlägg"
+	},
 	"label_help": {
 		"message": "HJÄLP!"
 	},
@@ -287,7 +287,172 @@
 	"error_unknown": {
 		"message": "Ett oväntat fel inträffade."
 	},
+	"error_api_getBlogs": {
+		"message": "ScribeFire kunde inte hämta den information som behövdes. Din blogg var hjälpsam och gav detta meddelandet: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_invalid": {
+		"message": "Det är inte ditt fel men ScribeFire letar efter ett API ($api_type$) som inte finns.\n\nOm du är en alpha-testare behöver du ta bort den här bloggen och lägga till den igen.",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_noBlog": {
+		"message": "Lugn och fin. Du måste lägga till din blogg innan du kan publicera något."
+	},
+	"error_api_noCategorySupport": {
+		"message": "Denna blogg stöder inte att kategorier läggs till."
+	},
+	"error_api_noUploadSupport": {
+		"message": "Denna bloggen stöder inte uppladdning av filer."
+	},
+	"error_api_cannotConnect": {
+		"message": "ScribeFire kunde inte ansluta till din blogg."
+	},
+	"error_api_setup": {
+		"message": "Under försöket att hitta din bloggs inställningar snubblade ScribeFire över denna kod: $code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_setup_unknownBlogType": {
+		"message": "Du får gärna försöka att konfigurera din blogg manuellt."
+	},
+	"error_api_code412": {
+		"message": "Bloggen gav ett 412-fel. Du kan lösa det genom att följa instruktionerna på $url$",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
+			}
+		}
+	},
+	"error_api_noMessage": {
+		"message": "Bloggen gav ett $code$-fel men inga felmeddelanden kunde hittas.",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_blogger_authentication": {
+		"message": "Blogger säger att du har skrivit in fel användarnamn eller lösenord."
+	},
+	"error_api_blogger_verify": {
+		"message": "Blogger säger att du måste bekräfta ditt kontos e-postadress; logga in på ditt konto för att sköta detta."
+	},
+	"error_api_blogger_tos": {
+		"message": "Blogger säger att du fortfarande måste acceptera Googles Användarvillkor; logga in på ditt konto för att sköta detta."
+	},
+	"error_api_blogger_deleted": {
+		"message": "Blogger säger att kontot du använder har raderats."
+	},
+	"error_api_blogger_disabled": {
+		"message": "Blogger säger att din tillgång till tjänsten har avaktiverats."
+	},
+	"error_api_blogger_unavailable": {
+		"message": "Blogger säger att tjänsten för tillfället inte går att använda."
+	},
+	"error_api_blogger_captcha": {
+		"message": "Google kräver att du färdigställer denna CAPTCHA för att fortsätta:"
+	},
+	"error_api_blogger_unknown": {
+		"message": "Blogger spelar fult, och ger ScribeFire föjande fel: $error$",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_authToken": {
+		"message": "Kunde inte skaffa en verifieringstoken."
+	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "Kunde inte kontakta bilduppladdningsAPI:t."
+	},
+	"error_api_posterous_noDeleteSupport": {
+		"message": "Posterous stöder inte inläggsraderande för tillfället."
+	},
+	"error_video_noEmbed": {
+		"message": "ScribeFire kunde inte generera en inbäddad kod för denna videoaddress. Var snäll och kolla webbaddressen eller klistra in koden manuellt."
+	},
+	"prompt_newCategory": {
+		"message": "Nytt namn på kategori:"
+	},
+	"confirm_deletePost": {
+		"message": "Är du säker på att du vill radera detta inlägg? Det kommer att tas bort från din bloggserver och det kommer inte längre att synas på din blogg."
+	},
+	"text_inlinks1": {
+		"message": "ScribeFire samarbetar med $website$ för att ge dig ett enkelt sätt att tjäna pengar på din blogg.",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
+			}
+		}
+	},
+	"header_inlinks": {
+		"message": "Vad ä"
+	},
+	"text_inlinks2": {
+		"message": "InLinks är statiska HTML-annonser på en webbsida. Det är helt enkelt den naturligaste betalda länken på marknaden. Fördelarna för dig är:"
+	},
+	"text_inlinksBenefit1": {
+		"message": "Annonser som är en fröjd för ögat. Inga irriterande pop up-fönster."
+	},
+	"text_inlinksBenefit2": {
+		"message": "Förutsägbar förtjänst. Betalt en fast summa\/månad\/annons såld."
+	},
+	"text_inlinksBenefit3": {
+		"message": "Bloggvänlig. Installera vårt enkla tillägg och vi tar hand om resten. Luta dig tilbaka och dra in pengar varje månad."
+	},
+	"text_inlinksBlogs": {
+		"message": "Av de bloggar du har lagt upp i ScribeFire så kan följande vara kompatibla med InLinks:"
+	},
+	"text_inlinksCompatibility": {
+		"message": "(För tillfället fungerar InLinks bara med bloggar som använder Wordpress.org, Drupal eller MovableType.)"
+	},
+	"text_inlinks3": {
+		"message": "$link_open$ Besök InLinks.com $link_close$ för att ladda ner InLinks-tillägget och börja tjäna pengar på dina bloggar idag!",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
+			},
+			"link_close": {
+				"content": "<\/a>"
+			}
+		}
+	},
+	"header_blogProperties": {
+		"message": "Blogginformation"
+	},
+	"text_blogProperties1": {
+		"message": "Du kan redigera namn och webbaddress till din blogg här. För att uppdatera ditt användarnamn, lösenord, API URL, eller blogg ID, klicka på Ta bort-knappen och lägg till den igen genom att klicka på Lägg till en ny blogg-knappen."
+	},
 	"header_video": {
 		"message": "Lägg till en video"
+	},
+	"text_video1": {
+		"message": "Klistra in länken till videon i denna rutan."
+	},
+	"text_video2": {
+		"message": "t.ex. $url1$ eller $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "Alternativt, kopiera den kod som videosajten gav i denna rutan:"
 	}
 }

@@ -2,9 +2,6 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
-	"extDescription": {
-		"message": "en fullspekket blog editor som integreres med nettleseren din og lar deg enkelt poste til alle bloggene dine"
-	},
 	"continue": {
 		"message": "Fortsett"
 	},

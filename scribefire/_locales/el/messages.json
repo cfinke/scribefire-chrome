@@ -1,0 +1,424 @@
+{
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"continue": {
+		"message": "Συνέχεια"
+	},
+	"firsttime_header": {
+		"message": "Καλωσήρθατε στο ScribeFire!"
+	},
+	"firsttime_text": {
+		"message": "Το πρώτο πράγμα που πιθανώς θα θέλατε να κάνετε είναι να προσθέσετε το blog σας. Κλείστε αυτό το παράθυρο και πατήστε \"Προσθήκη νέου blog\" για να αρχίσετε."
+	},
+	"entry_new_label": {
+		"message": "Νέο άρθρο"
+	},
+	"entry_localDraft_label": {
+		"message": "Τοπικό πρόχειρο (στον υπολογιστή)"
+	},
+	"entry_draft_label": {
+		"message": "Πρόχειρο (στο blog σας)"
+	},
+	"entry_scheduled_label": {
+		"message": "Προγραμματισμένα άρθρα"
+	},
+	"notification_draft_delete": {
+		"message": "Το πρόχειρο διαγράφηκε."
+	},
+	"notification_draft_save": {
+		"message": "Το πρόχειρο αποθηκεύτηκε."
+	},
+	"notification_post_delete": {
+		"message": "Το άρθρο διαγράφηκε με επιτυχία."
+	},
+	"notification_blog_add": {
+		"message": "Το blog σας προστέθηκε με επιτυχία!"
+	},
+	"notification_publish": {
+		"message": "Το άρθρο δημοσιεύτηκε με επιτυχία!"
+	},
+	"notification_publish_update": {
+		"message": "Το άρθρο ενημερώθηκε με επιτυχία!"
+	},
+	"action_openBlogInTab": {
+		"message": "Άνοιγμα του blog σε νέα καρτέλα"
+	},
+	"action_view": {
+		"message": "Προβολή"
+	},
+	"action_edit": {
+		"message": "Επεξεργασία"
+	},
+	"action_remove": {
+		"message": "Αφαίρεση"
+	},
+	"action_blog_add": {
+		"message": "Προσθήκη νέου blog"
+	},
+	"action_next": {
+		"message": "Επόμενο"
+	},
+	"action_cancel": {
+		"message": "Ακύρωση"
+	},
+	"action_makeMoney": {
+		"message": "Κερδίστε χρήματα με αυτό το blog"
+	},
+	"action_finish": {
+		"message": "Τέλος"
+	},
+	"action_delete": {
+		"message": "Διαγραφή"
+	},
+	"action_editHTML": {
+		"message": "Αλλαγή σε στυλ HTML"
+	},
+	"action_category_add": {
+		"message": "Νέα κατηγορία"
+	},
+	"action_draft_save": {
+		"message": "Αποθήκευση πρόχειρου"
+	},
+	"action_publish": {
+		"message": "Δημοσίευση"
+	},
+	"action_permalink_edit": {
+		"message": "Σύνδεσμος:"
+	},
+	"action_schedule": {
+		"message": "Προγραμμάτιση:"
+	},
+	"action_save": {
+		"message": "Αποθήκευση"
+	},
+	"action_insert": {
+		"message": "Εισαγωγή"
+	},
+	"action_video_add": {
+		"message": "Εισαγωγή"
+	},
+	"option_blogType_select": {
+		"message": "Επιλογή"
+	},
+	"option_blogType_atom": {
+		"message": "Atom"
+	},
+	"option_blogType_blogger": {
+		"message": "Blogger"
+	},
+	"option_blogType_tumblr": {
+		"message": "Tumblr"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
+	},
+	"option_blogType_movabletype": {
+		"message": "MovableType"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous"
+	},
+	"option_publish_immediately": {
+		"message": "Άμεση δημοσίευση"
+	},
+	"option_publish_month1": {
+		"message": "Ιαν"
+	},
+	"option_publish_month2": {
+		"message": "Φεβ"
+	},
+	"option_publish_month3": {
+		"message": "Μαρ"
+	},
+	"option_publish_month4": {
+		"message": "Απρ"
+	},
+	"option_publish_month5": {
+		"message": "Μάιος"
+	},
+	"option_publish_month6": {
+		"message": "Ιουν"
+	},
+	"option_publish_month7": {
+		"message": "Ιουλ"
+	},
+	"option_publish_month8": {
+		"message": "Αυγ"
+	},
+	"option_publish_month9": {
+		"message": "Σεπ"
+	},
+	"option_publish_month10": {
+		"message": "Οκτ"
+	},
+	"option_publish_month11": {
+		"message": "Νοε"
+	},
+	"option_publish_month12": {
+		"message": "Δεκ"
+	},
+	"label_blog": {
+		"message": "Blog"
+	},
+	"label_blog_type": {
+		"message": "Τύπος Blog"
+	},
+	"label_url": {
+		"message": "URL:"
+	},
+	"label_apiUrl": {
+		"message": "API URL:"
+	},
+	"label_blogId": {
+		"message": "Blog ID:"
+	},
+	"label_loginCredentials": {
+		"message": "Διαπιστευτήρια εισόδου"
+	},
+	"label_username": {
+		"message": "Όνομα χρήστη"
+	},
+	"label_password": {
+		"message": "Κωδικός"
+	},
+	"label_entry": {
+		"message": "Είσοδος"
+	},
+	"label_help": {
+		"message": "ΒΟΗΘΕΙΑ!"
+	},
+	"label_title": {
+		"message": "Τίτλος"
+	},
+	"label_content": {
+		"message": "Περιεχόμενο"
+	},
+	"label_excerpt": {
+		"message": "Απόσπασμα"
+	},
+	"label_categories": {
+		"message": "Κατηγορίες:"
+	},
+	"label_tags": {
+		"message": "Tags:"
+	},
+	"label_customFields": {
+		"message": "Ειδικά πεδία:"
+	},
+	"label_publish": {
+		"message": "Δημοσίευση"
+	},
+	"label_private": {
+		"message": "Ιδιωτικό"
+	},
+	"label_name": {
+		"message": "Όνομα:"
+	},
+	"error_header": {
+		"message": "Λοιπόν, αυτό μας φέρνει σε αμηχανία..."
+	},
+	"error_post_delete": {
+		"message": "Το ScribeFire εντόπισε αυτό το μικρό σφάλμα καθώς προσπαθούσε να διαγράψει το άρθρο: $status$\n\n$msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
+			},
+			"msg": {
+				"content": "$2"
+			}
+		}
+	},
+	"error_category_add": {
+		"message": "Το ScribeFire πραγματικά ήθελε να βοηθήσει, αλλά κάτι δεν δούλεψε όταν προσπάθησε να προσθέσει μια κατηγορία. Ο κωδικός σφάλματος ήταν $error_code$.",
+		"placeholders": {
+			"error_code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_post_publish": {
+		"message": "Το ScribeFire δεν μπόρεσε να δημοσιεύσει το άρθρο σας. Αυτός είναι ο κωδικός σφάλματος που προέκυψε: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish": {
+		"message": "Το ScribeFire δεν μπόρεσε να δημοσιεύσει τη σελίδα σας. Αυτός είναι ο κωδικός σφάλματος που προέκυψε: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_unknown": {
+		"message": "Προέκυψε ένα απροσδόκητο σφάλμα."
+	},
+	"error_api_getBlogs": {
+		"message": "Το ScribeFire δεν μπόρεσε να πάρει τις απαραίτητες πληροφορίες σχετικά με το blog σας. Το blog σας επιστρέφει αυτό το μήνυμα: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_invalid": {
+		"message": "Δεν είναι δικό σας λάθος, αλλά το ScribeFire ψάχνει για ένα API ($api_type$) που δεν υπάρχει.\nΑν είστε alpha tester, θα πρέπει να διαγράψετε αυτό το blog και να το προσθέσετε ξανά.",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_noBlog": {
+		"message": "Σιγά σιγά...  :) Θα πρέπει πρώτα να προσθέσετε το blog σας για να μπορέσετε να δημοσιεύσετε άρθρα ή σελίδες."
+	},
+	"error_api_noCategorySupport": {
+		"message": "Αυτό το blog δεν υποστηρίζει την προσθήκη κατηγοριών."
+	},
+	"error_api_noUploadSupport": {
+		"message": "Αυτό το blog δεν υποστηρίζει το \"ανέβασμα αρχείων\"."
+	},
+	"error_api_setup": {
+		"message": "Κατά την διάρκεια επαλήθευσης των ρυθμίσεων του blog σας, το ScribeFire \"σκόνταψε\"  σε αυτόν τον κώδικα: $code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_setup_unknownBlogType": {
+		"message": "Είστε ευπρόσδεκτοι να δοκιμάσετε και να ρυθμίσετε το blog σας \"χειροκίνητα\"."
+	},
+	"error_api_code412": {
+		"message": "Το blog επέστρεψε κωδικό σφάλματος 412 . Ίσως μπορέσετε να το διορθώσετε, ακολουθώντας τις οδηγίες στο $url$",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
+			}
+		}
+	},
+	"error_api_noMessage": {
+		"message": "Το blog επέστρεψε κωδικό σφάλματος $code$, αλλά δεν εντοπίστηκε κάποιο σφάλμα.",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_blogger_authentication": {
+		"message": "Το Blogger λέει ότι έχετε εισάγει λάθος όνομα χρήστη ή κωδικό πρόσβασης."
+	},
+	"error_api_blogger_verify": {
+		"message": "Το Blogger λέει ότι θα πρέπει να επαληθεύσετε τη διεύθυνση ηλεκτρονικού ταχυδρομείου σας. Συνδεθείτε στο λογαριασμό σας για να επιλύσετε το θέμα αυτό."
+	},
+	"error_api_blogger_tos": {
+		"message": "Το Blogger λέει ότι είναι απαραίτητο να κάνετε αποδοχή με τους  Όρους Υπηρεσιών της Google. Συνδεθείτε στο λογαριασμό σας για να επιλύσετε το θέμα αυτό."
+	},
+	"error_api_blogger_deleted": {
+		"message": "Το Blogger λέει ότι ο λογαριασμός που χρησιμοποιείτε έχει διαγραφεί."
+	},
+	"error_api_blogger_disabled": {
+		"message": "Το Blogger λέει ότι η πρόσβασή σας στο Blogger έχει απενεργοποιηθεί."
+	},
+	"error_api_blogger_unavailable": {
+		"message": "Το Blogger λέει ότι η υπηρεσία προσωρινά δεν είναι διαθέσιμη."
+	},
+	"error_api_blogger_captcha": {
+		"message": "Google απαιτεί να ολοκληρώσετε αυτό το CAPTCHA για να συνεχίσει:"
+	},
+	"error_api_blogger_unknown": {
+		"message": "Το Blogger δεν συμπεριφέρεται πολύ καλά! Επιστρέφει σφάλμα στο ScribeFire: $error$",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_authToken": {
+		"message": "Δεν ήταν εφικτός ο έλεγχος ταυτότητας."
+	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "Παρουσιάστηκε σφάλμα κατά την σύνδεση με API."
+	},
+	"error_api_posterous_noDeleteSupport": {
+		"message": "Αυτή την στιγμή, το Posterous δεν υποστηρίζει διαγραφή άρθρου."
+	},
+	"error_video_noEmbed": {
+		"message": "Το ScribeFire δεν μπόρεσε να δημιουργήσει τον κώδικα για την εισαγωγή αυτού του βίντεο. Ελέγξτε τη διεύθυνση URL, ή κάντε επικόλληση του κώδικα στο πεδίο παρακάτω."
+	},
+	"prompt_newCategory": {
+		"message": "Νέο όνομα κατηγορίας:"
+	},
+	"confirm_deletePost": {
+		"message": "Είστε σίγουρος\/η ότι θέλετε να διαγράψετε αυτό το άρθρο; Θα διαγραφεί από το Blog σας και τον Server και δεν θα είναι πλέον διαθέσιμο."
+	},
+	"text_inlinks1": {
+		"message": "Το ScribeFire συνεργάζεται με την ιστοσελίδα $website$ για να σας παρέχει μια εύκολη λύση για να κερδίσετε μέσω του Blog σας.",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
+			}
+		}
+	},
+	"header_inlinks": {
+		"message": "Τι είναι το InLinks;"
+	},
+	"text_inlinks2": {
+		"message": "Το Inlinks είναι στατικές διαφημίσεις HTML που βρίσκεται μέσα στο περιεχόμενο των ιστοσελίδων. Είναι απλά το πιο φυσικό πληρωτέο link στην αγορά. Τα οφέλη για εσάς είναι:"
+	},
+	"text_inlinksBenefit1": {
+		"message": "Διαφημίσεις οι οποίες δεν είναι δυσάρεστες όταν εμφανίζονται. Όχι ενοχλητικά pop-ups!"
+	},
+	"text_inlinksBenefit2": {
+		"message": "Εκτιμώμενα έσοδα. Πληρωθείτε κατ 'αποκοπή \/ μήνα ή ανά πώληση."
+	},
+	"text_inlinksBenefit3": {
+		"message": "Blog-friendly. Εγκαταστήστε το πολύ απλό πρόσθετο (Plugin) μας και εμείς αναλαμβάνουμε τα υπόλοιπα. Απλά χαλαρώστε και αρχίστε να εισπράττετε τις μηνιαίες αποδοχές σας."
+	},
+	"text_inlinksBlogs": {
+		"message": "Από τα blogs που έχετε δημιουργήσει στο ScribeFire, συμβατά με το inlinks είναι τα ακόλουθα:"
+	},
+	"text_inlinksCompatibility": {
+		"message": "(Προς το παρόν, το InLinks είναι διαθέσιμο για blogs σε Wordpress.org, Drupal ή Movable Type.)"
+	},
+	"text_inlinks3": {
+		"message": "$link_open$ Επισκεφθείτε το InLinks.com $link_close$ για να κάνετε λήψη του InLinks plugin και να αρχίσετε να κερδίζετε χρήματα στο blog σας από σήμερα!!",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
+			},
+			"link_close": {
+				"content": "<\/a>"
+			}
+		}
+	},
+	"header_blogProperties": {
+		"message": "Ρυθμίσεις Blog"
+	},
+	"text_blogProperties1": {
+		"message": "Μπορείτε να επεξεργαστείτε το όνομα και τη διεύθυνση URL του blog σας εδώ. Για να ενημερώσετε το όνομα χρήστη, τον κωδικό πρόσβασης API URL ή το αναγνωριστικό blog, κάντε κλικ στο κουμπί \"Κατάργηση\" για να αφαιρέσετε το blog και στη συνέχεια να το προσθέσετε ξανά κάνοντας κλικ στο \"Προσθήκη νέου Blog\"."
+	},
+	"header_video": {
+		"message": "Εισαγωγή Video"
+	},
+	"text_video1": {
+		"message": "Εισάγετε το URL του video στο παρακάτω πεδίο."
+	},
+	"text_video2": {
+		"message": "π.χ., $url1$ ή $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "Ή, αντιγράψτε τον κώδικα εισαγωγής για το βίντεό σας σε αυτό το πεδίο:"
+	}
+}

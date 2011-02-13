@@ -62,6 +62,9 @@
 	"action_save": {
 		"message": "భద్రపరచు"
 	},
+	"option_blogType_select": {
+		"message": "(ఎంచుకోండి)"
+	},
 	"option_blogType_atom": {
 		"message": "ఆటమ్"
 	},
@@ -131,11 +134,17 @@
 	"label_password": {
 		"message": "సంకేతపదం"
 	},
+	"label_entry": {
+		"message": "టపా"
+	},
 	"label_help": {
 		"message": "సహాయం!"
 	},
 	"label_title": {
 		"message": "శీర్షిక:"
+	},
+	"label_content": {
+		"message": "టపా విషయం"
 	},
 	"label_excerpt": {
 		"message": "సంగ్రహం:"

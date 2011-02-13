@@ -2,9 +2,6 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
-	"extDescription": {
-		"message": "一款容易使用的博客编辑器，让你在所有博客上轻松发布文章。"
-	},
 	"continue": {
 		"message": "继续"
 	},
@@ -249,6 +246,9 @@
 	"label_name": {
 		"message": "名字："
 	},
+	"error_header": {
+		"message": "呃，糟糕……"
+	},
 	"error_post_delete": {
 		"message": "当尝试删除你的文章： $status$ 时，ScribeFire发现该小错误。\n$msg$",
 		"placeholders": {
@@ -283,5 +283,176 @@
 				"content": "\n\n$1"
 			}
 		}
+	},
+	"error_unknown": {
+		"message": "发生一个意外错误。"
+	},
+	"error_api_getBlogs": {
+		"message": "ScribeFire不能得到必需的关于你的博客的信息。还好，你的博客返回了这个信息：$message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_invalid": {
+		"message": "不是你的错，不过ScribeFire正在查找的API（$api_type$)不存在。\n如果你不是alpha版本测试者，你需要移除博客然后重新添加。",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_noBlog": {
+		"message": "慢点……发布日志前需要先添加日志。"
+	},
+	"error_api_noCategorySupport": {
+		"message": "此博客不支持添加分类。"
+	},
+	"error_api_noUploadSupport": {
+		"message": "此博客不支持上传文件。"
+	},
+	"error_api_cannotConnect": {
+		"message": "ScribeFire不能成功连接到你的博客。"
+	},
+	"error_api_setup": {
+		"message": "在确定你的博客设置时，ScribeFire被这个代码阻止：$code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_setup_unknownBlogType": {
+		"message": "欢迎手动配置你的博客。"
+	},
+	"error_api_code412": {
+		"message": "博客返回412错误。你可以按照这个说明$url$来修复。",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
+			}
+		}
+	},
+	"error_api_noMessage": {
+		"message": "博客返回一个代码错误$code$，但是没有错误信息。",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_blogger_authentication": {
+		"message": "你输入了错误的用户名或密码。"
+	},
+	"error_api_blogger_verify": {
+		"message": "你需要验证你的帐户Email地址，直接登录你的帐户操作此项。"
+	},
+	"error_api_blogger_tos": {
+		"message": "你需要同意谷歌服务条款，直接登录你的帐户操作此项。"
+	},
+	"error_api_blogger_deleted": {
+		"message": "你的Blogger帐户已被删除。"
+	},
+	"error_api_blogger_disabled": {
+		"message": "你与Blogger的连接被取消。"
+	},
+	"error_api_blogger_unavailable": {
+		"message": "暂时不能使用Blogger服务。"
+	},
+	"error_api_blogger_captcha": {
+		"message": "谷歌要求完成验证才能继续："
+	},
+	"error_api_blogger_unknown": {
+		"message": "Blogger运行不正常，返回一个错误：$error$",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_authToken": {
+		"message": "不能获取身份验证。"
+	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "不能连接图片上传API。"
+	},
+	"error_api_posterous_noDeleteSupport": {
+		"message": "当前Posterous不支持删除日志。"
+	},
+	"error_video_noEmbed": {
+		"message": "ScribeFire不能为这个视频链接生成嵌入代码。请检查链接，或者手动粘贴嵌入代码到下面输入框。"
+	},
+	"prompt_newCategory": {
+		"message": "新分类"
+	},
+	"confirm_deletePost": {
+		"message": "确定删除这篇日志？日志将从博客中删除，并不再显示。"
+	},
+	"text_inlinks1": {
+		"message": "ScribeFire已和$website$合作，为你的博客提供简便的生财之道。",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
+			}
+		}
+	},
+	"header_inlinks": {
+		"message": "InLinks是什么？"
+	},
+	"text_inlinks2": {
+		"message": "InLinks是放在网站内容区里的静态HTML广告，是市面上最为自然的付费链接。好处是："
+	},
+	"text_inlinksBenefit1": {
+		"message": "广告容易被看到，没有烦人的弹出框！"
+	},
+	"text_inlinksBenefit2": {
+		"message": "可以预测的收入。"
+	},
+	"text_inlinksBenefit3": {
+		"message": "安装我们的插件，剩下的我们来做。你只用坐下来数数每月挣了多少。"
+	},
+	"text_inlinksBlogs": {
+		"message": "你在ScribeFire中添加的博客里，下列博客可使用InLinks："
+	},
+	"text_inlinksCompatibility": {
+		"message": "（目前为止，Inlinks只适用于使用Wordpress，Drupal，或MovableType搭建的博客）"
+	},
+	"text_inlinks3": {
+		"message": "$link_open$访问InLinks.com网站，$link_close$下载InLinks插件，今天开始挣钱！",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
+			},
+			"link_close": {
+				"content": "<\/a>"
+			}
+		}
+	},
+	"header_blogProperties": {
+		"message": "博客属性"
+	},
+	"text_blogProperties1": {
+		"message": "在这里你可以编辑博客名字与地址。更新用户名，密码，API地址，或博客ID时，先点击“移除”移除博客，然后点击”添加新博客“重新添加博客"
+	},
+	"header_video": {
+		"message": "插入视频"
+	},
+	"text_video1": {
+		"message": "将视频链接粘贴到这里："
+	},
+	"text_video2": {
+		"message": "例如，$url1$或$url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "或者，将视频的嵌入代码粘贴到这里："
 	}
 }

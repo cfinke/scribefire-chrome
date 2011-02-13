@@ -2,9 +2,6 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
-	"extDescription": {
-		"message": "Een makkelijk te gebruiken blog editor laat je eenvoudig berichten naar al je blogs sturen."
-	},
 	"continue": {
 		"message": "Doorgaan"
 	},
@@ -85,5 +82,62 @@
 	},
 	"action_customField_add": {
 		"message": "Voeg Custom Veld toe"
+	},
+	"action_draft_save": {
+		"message": "Sla concept op"
+	},
+	"action_publish": {
+		"message": "Publiseer"
+	},
+	"action_permalink_edit": {
+		"message": "Permalink:"
+	},
+	"action_save": {
+		"message": "Opslaan"
+	},
+	"action_insert": {
+		"message": "Invoegen"
+	},
+	"action_video_add": {
+		"message": "Voeg een video in"
+	},
+	"option_blogType_select": {
+		"message": "(Selecteer)"
+	},
+	"option_blogType_atom": {
+		"message": "Atom"
+	},
+	"option_blogType_blogger": {
+		"message": "Blogger"
+	},
+	"option_blogType_tumblr": {
+		"message": "Tumblr"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
+	},
+	"option_blogType_movabletype": {
+		"message": "MovableType"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous"
+	},
+	"option_publish_immediately": {
+		"message": "Publiceer meteen"
+	},
+	"option_publish_month1": {
+		"message": "Jan"
+	},
+	"label_blog_type": {
+		"message": "Blog type:"
+	},
+	"label_url": {
+		"message": "URL:"
+	},
+	"label_apiUrl": {
+		"message": "API URL:"
+	},
+	"label_blogId": {
+		"message": "Blog ID:"
 	}
 }

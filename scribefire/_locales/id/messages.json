@@ -2,9 +2,6 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
-	"extDescription": {
-		"message": "Sebuah penyunting blog gampang-pakai yang memudahkan anda untuk mengirim tulisan ke semua blog Anda."
-	},
 	"continue": {
 		"message": "Lanjut"
 	},
@@ -82,6 +79,9 @@
 	},
 	"action_category_add": {
 		"message": "Kategori Baru"
+	},
+	"action_customField_add": {
+		"message": "Tambahkan Bidang Kustom"
 	},
 	"action_draft_save": {
 		"message": "Simpan Perubahan"

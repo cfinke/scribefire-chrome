@@ -2,9 +2,6 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
-	"extDescription": {
-		"message": "Um editor de blog fácil de usar que permite postagens em todos os seus blogs."
-	},
 	"continue": {
 		"message": "Continuar"
 	},

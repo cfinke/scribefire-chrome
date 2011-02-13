@@ -2,9 +2,6 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
-	"extDescription": {
-		"message": "Un éditeur de blog facile à prendre en mains et vous permettant de publier aisément vos billets sur tous vos blogs."
-	},
 	"continue": {
 		"message": "Continuer"
 	},
@@ -103,6 +100,28 @@
 	},
 	"action_insert": {
 		"message": "Insérer"
+	},
+	"action_reset": {
+		"message": "Vider tous les champs et commencer à nouveau $ignore1$ Publier $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_publishUpdate": {
+		"message": "Mettre à jour $ignore1$ Publier $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
 	},
 	"action_video_add": {
 		"message": "Insérer une vidéo"
@@ -230,8 +249,109 @@
 	"error_header": {
 		"message": "Mmmh, c'est embarrassant…"
 	},
+	"error_post_delete": {
+		"message": "On a trouve cette erreur en supprimant votre note : $status$\n\n$msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
+			},
+			"msg": {
+				"content": "$2"
+			}
+		}
+	},
+	"error_category_add": {
+		"message": "On veux vous aider, mais quelque chose s'est mal passée en ajoutant une nouvelle catégorie. L'erreur était $error_code$.",
+		"placeholders": {
+			"error_code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_post_publish": {
+		"message": "On ne peut pas publier votre billet. Voici l'erreur : $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish": {
+		"message": "On ne peut pas publier votre page. Voici l'erreur : $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_unknown": {
+		"message": "Une erreur imprévue s'est produit."
+	},
+	"error_api_getBlogs": {
+		"message": "On ne peut pas obtenir l'information dont on a besoin, mais votre blog a répondu ainsi : $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_invalid": {
+		"message": "Ce n'est pas votre faute, mais ScribeFire cherche une interface de programmation API ($api_type$) qui n'existe pas.\nSi vous êtes testeur alpha, il vous faut enlever ce blog et l'ajouter à nouveau.",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_noBlog": {
+		"message": "Attendez. Il vous faut ajouter un blog avant de pouvoir publier."
+	},
+	"error_api_noCategorySupport": {
+		"message": "Ce blog ne supporte pas l'addition des catégories."
+	},
+	"error_api_noUploadSupport": {
+		"message": "Ce blog ne supporte pas le téléchargement de fichiers."
+	},
+	"error_api_cannotConnect": {
+		"message": "ScribeFire n'arrive pas à connecter à votre blog."
+	},
+	"error_api_setup_unknownBlogType": {
+		"message": "Vous pouvez essayer de configurer votre blog manuellement."
+	},
+	"error_api_blogger_captcha": {
+		"message": "Google exige que vous remplissiez ce test Captcha a fin de continuer :"
+	},
+	"error_api_blogger_unknown": {
+		"message": "Blogger ne marche pas bien avec ScribeFire. Il l'a transmis cette erreur : $error$",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "On n'arrive pas à contacter la fonction de téléchargement d'images de l'interface de programmation (API)."
+	},
+	"error_api_posterous_noDeleteSupport": {
+		"message": "Posterous ne supporte encore la suppression de billets."
+	},
+	"prompt_newCategory": {
+		"message": "Nom de la nouvelle catégorie :"
+	},
+	"confirm_deletePost": {
+		"message": "Êtes-vous sûr de vouloir supprimer ce billet ? On l'enlèvera du serveur de votre blog et il n'apparaîtra plus dans votre blog."
+	},
+	"header_inlinks": {
+		"message": "Qu'est-ce que InLinks ?"
+	},
+	"text_inlinks2": {
+		"message": "InLinks sont des publicités fixées HTML situées dans le contenu des sites Web. C'est l'un des façons faciles d'avoir liens rémunérées. Vous recevez des bénéfices comme :"
+	},
+	"text_inlinksBenefit1": {
+		"message": "Pubs qui ne nous dérange pas. Plus de pubs surgissants ou intruse !"
+	},
 	"text_inlinksCompatibility": {
-		"message": "Dorénavant, seul Inlinks marche pour les blogs utilisant"
+		"message": "Pour l'instant, Inlinks ne marche que pour les blogs utilisant Wordpress.org, Drupal, or MovableType."
 	},
 	"text_inlinks3": {
 		"message": "$link_open$ Visit InLinks.com $link_close$ pour télécharger le plugin et commencer à gagner de l'argent avec votre blog de suite !",
@@ -255,5 +375,19 @@
 	},
 	"text_video1": {
 		"message": "Coller ici l'URL de la vidéo"
+	},
+	"text_video2": {
+		"message": "$url1$ ou $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "Ou plutôt copier le code intégrable fourni pour votre vidéo dans cette boîte :"
 	}
 }

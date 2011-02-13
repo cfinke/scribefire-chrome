@@ -2,9 +2,6 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
-	"extDescription": {
-		"message": "Un editor de blogs fácil de usar que le permite fácilmente escribir entradas en todos sus blogs."
-	},
 	"continue": {
 		"message": "Continuar"
 	},
@@ -12,7 +9,7 @@
 		"message": "¡Bienvenidos a ScribeFire!"
 	},
 	"firsttime_text": {
-		"message": "Lo primero que probablemente va a querer hacer es agregar su blog. Cierre este diálogo y haga clic en 'Agregar un Nuevo Blog' para empezar."
+		"message": "Probablemente lo primero que querrá hacer es agregar su blog. Cierre este diálogo y haga clic en 'Agregar un Nuevo Blog' para empezar."
 	},
 	"entry_new_label": {
 		"message": "(nueva)"
