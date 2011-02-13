@@ -151,7 +151,7 @@ $(document).ready(function () {
 		}
 	});
 	
-	$("#reset-button").live("click", function (e) {
+	$(".reset-button").live("click", function (e) {
 		e.preventDefault();
 		
 		SCRIBEFIRE.clearData();
@@ -303,7 +303,7 @@ $(document).ready(function () {
 		$("#buttons-publish-published").hide();
 		$("#buttons-publish-draft").show();
 		
-		if (postId.toString().indexOf("scribefire:new") == 0) {
+		if (!postId || postId.toString().indexOf("scribefire:new") == 0) {
 			$("#button-entry-remove").hide();
 		}
 		else {
@@ -590,24 +590,13 @@ $(document).ready(function () {
 		SCRIBEFIRE.publish(
 			function success(rv) {
 				button.removeClass("busy");
-				SCRIBEFIRE.notify(
-					scribefire_string("notification_publish"),
-					scribefire_string("action_openBlogInTab"),
-					function (button) { 
-						var url = SCRIBEFIRE.getAPI().url;
-
-						if (typeof chrome != 'undefined') {
-							chrome.tabs.create({ "url": url });
-						}
-						else {
-							window.open(url);
-						}
-					}
-				);
+				$.facebox($("#panel-publish-notification"));
+				$("#panel-publish-notification").show();
 			},
 			function error(rv) {
 				button.removeClass("busy");
-			});
+			}
+		);
 	});
 	
 	$("#button-publish").live("click", function (e) {
@@ -619,24 +608,13 @@ $(document).ready(function () {
 		SCRIBEFIRE.publish(
 			function success(rv) {
 				button.removeClass("busy");
-				SCRIBEFIRE.notify(
-					scribefire_string("notification_publish_update"),
-					scribefire_string("action_openBlogInTab"),
-					function (button) { 
-						var url = SCRIBEFIRE.getAPI().url;
-
-						if (typeof chrome != 'undefined') {
-							chrome.tabs.create({ "url": url });
-						}
-						else {
-							window.open(url);
-						}
-					}
-				);
+				$.facebox($("#panel-publish-update-notification"));
+				$("#panel-publish-update-notification").show();
 			},
 			function error(rv) {
 				button.removeClass("busy");
-			});
+			}
+		);
 	});
 	
 	$("#button-save-progress").live("click", function (e) {
@@ -672,18 +650,7 @@ $(document).ready(function () {
 		$("#panel-blog-edit").show();
 	});
 	
-	$("#button-blog-view").live("click", function (e) {
-		e.preventDefault();
-		
-		var url = SCRIBEFIRE.getAPI().url;
-
-		if (typeof chrome != 'undefined') {
-			chrome.tabs.create({ "url": url });
-		}
-		else {
-			window.open(url);
-		}
-	});
+	$(".button-blog-view").live("click", SCRIBEFIRE.viewBlog);
 	
 	$("#button-blog-edit-finish").live("click", function (e) {
 		e.preventDefault();

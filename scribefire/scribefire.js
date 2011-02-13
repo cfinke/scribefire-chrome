@@ -196,9 +196,56 @@ var SCRIBEFIRE = {
 			notifier.timer = setTimeout(function () { notifier.hide("slow"); }, 5000);
 		});
 	},
+
+	notifyModal : function (msg, buttons) {
+		$(document).trigger("close.facebox");
+		
+		var container = $("<div/>");
+		container.attr("id", "notification-modal");
+		
+		var textContainer = $("<p/>");
+		textContainer.html(msg);
+		container.append(textContainer);
+		
+		var buttonContainer = $("<div/>");
+		buttonContainer.addClass("buttons");
+		
+		container.append(buttonContainer);
+		
+		$.facebox(container);
+		
+		for (var i = 0, _len = buttons.length; i < _len; i++) {
+			var button = $("<button/>");
+			buttonContainer.append(button);
+		
+			button.text(buttons[i].label);
+			
+			if ("class" in buttons[i]) {
+				button.addClass(buttons[i].class);
+			}
+			
+			button.attr("abc", buttons[i].callback);
+		}
+	},
+	
+	clearNotifyModal : function () {
+		$(document).trigger("close.facebox");
+		$("#notification-modal").remove();
+	},
 	
 	blogThis : function (html) {
 		editor.val(editor.val() + html);
+	},
+	
+	viewBlog : function () {
+		var url = SCRIBEFIRE.getAPI().url;
+
+		if (typeof chrome != 'undefined') {
+			chrome.tabs.create({ "url": url });
+		}
+		else {
+			window.open(url);
+		}
 	},
 	
 	populateBlogsList : function () {
@@ -1055,6 +1102,8 @@ var SCRIBEFIRE = {
 	},
 	
 	clearData : function () {
+		SCRIBEFIRE.prefs.setCharPref("state.entryId", "scribefire:new:" + $("#list-entries option:selected").data("type"))
+		
 		$("#list-entries").val("scribefire:new:" + $("#list-entries option:selected").data("type")).change();
 		$("#text-title").val("").change();
 		$("#text-tags").val("").change();

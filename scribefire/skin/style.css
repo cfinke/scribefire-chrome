@@ -128,3 +128,7 @@ a {
 .error {
 	color: #f00;
 }
+
+.buttons .button-meta {
+	float: left;
+}

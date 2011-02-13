@@ -44,10 +44,10 @@
 		"message": "Your blog was added successfully!"
 	},
 	"notification_publish": {
-		"message": "Published successfully!"
+		"message": "Your post was published successfully."
 	},
 	"notification_publish_update": {
-		"message": "Updated successfully!"
+		"message": "Your post was updated successfully."
 	},
 	"action_openBlogInTab": {
 		"message": "Open blog in a new tab"
@@ -510,5 +510,14 @@
 	},
 	"zemanta_tracking_optin": {
 		"message": "Is it ok if ScribeFire adds an invisible image to your post to track Zemanta usage statistics? You won't notice a difference either way, and even if you decline, you won't be asked again."
+	},
+	"action_continueEditing": {
+		"message": "Continue editing this post"
+	},
+	"action_startNewPost": {
+		"message": "Start a new post"
+	},
+	"label_genericQuestion": {
+		"message": "Do you want to:"
 	}
 }
