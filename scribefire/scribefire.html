@@ -41,72 +41,77 @@
 								<select id="list-blogs" flex="1"></select>
 								<button id="button-blog-view" class="button-blog-meta" style="margin-left: 10px;"><i18n data-key="action_view" /></button>
 								<button id="button-blog-edit" class="button-blog-meta" style="margin-left: 10px;"><i18n data-key="action_edit" /></button>
+								<button id="button-blog-add" style="margin-left: 10px;"><i18n data-key="action_blog_add" /></button>
 								<button id="button-blog-remove" class="button-blog-meta text-button"><i18n data-key="action_remove" /></button>
+								<!-- <button id="button-inlinks"><i18n data-key="action_makeMoney" /></button> -->
 							</div>
-							<p style="clear: both;">
-								<button id="button-blog-add"><i18n data-key="action_blog_add" /></button>
-								<button id="button-inlinks"><i18n data-key="action_makeMoney" /></button>
-							</p>
 							<div id="dialog-blog-add" style="display:none;">
-								<div class="step-1">
-									<div id="bar-add-blog-url" class="subbar" open="true">
-										<label><i18n data-key="label_url" /> <span id="label-add-blog-url"></span></label>
+								<p id="dialog-blog-add-error" style="display: none;" class="error"></p>
+								<div id="dialog-blog-add-container">
+									<div class="step-1">
+										<div id="bar-add-blog-url" class="subbar" open="true">
+											<label><i18n data-key="label_url" /> <span id="label-add-blog-url"></span></label>
+										</div>
+										<div class="subunderbar" open="true">
+											<input type="url" id="text-blog-url" accept="button-blog-urlcheck" cancel="button-addblog-cancel" />
+											<p>
+												<button id="button-blog-urlcheck"><i18n data-key="action_next" /></button>
+												<!-- <button class="button-addblog-cancel cancel-button"><i18n data-key="action_cancel" /></button> -->
+											</p>
+										</div>
 									</div>
-									<div class="subunderbar" open="true">
-										<input type="url" id="text-blog-url" accept="button-blog-urlcheck" cancel="button-addblog-cancel" />
-										<p>
-											<button id="button-blog-urlcheck"><i18n data-key="action_next" /></button>
-											<button class="button-addblog-cancel cancel-button"><i18n data-key="action_cancel" /></button>
-										</p>
-									</div>
-								</div>
-								<div class="step-2">
-									<div id="bar-add-blog-type" class="subbar">
-										<label><i18n data-key="label_blog_type" /> <span id="label-add-blog-type"></span></label>
-									</div>
-									<div class="subunderbar">
-										<select id="list-blog-types">
-											<option value=""><i18n data-key="option_blogType_select" /></option>
-											<option value="atom"><i18n data-key="option_blogType_atom" /></option>
-											<option value="blogger"><i18n data-key="option_blogType_blogger" /></option>
-											<option value="wordpress"><i18n data-key="option_blogType_wordpress" /></option>
-											<option value="tumblr"><i18n data-key="option_blogType_tumblr" /></option>
-											<option value="metaweblog" requires_id="true"><i18n data-key="option_blogType_metaweblog" /></option>
-											<option value="movabletype" requires_id="true"><i18n data-key="option_blogType_movabletype" /></option>
-											<option value="posterous"><i18n data-key="option_blogType_posterous" /></option>
-										</select>
-									</div>
-								</div>
-								<div class="step-2">
-									<div id="bar-add-blog-apiurl" class="subbar">
-										<label><i18n data-key="label_apiUrl" /> <span id="label-add-blog-apiurl"></span></label>
-									</div>
-									<div class="subunderbar">
-										<input type="url" id="text-blog-api-url" value="" />
-									</div>
-									<div id="text-add-blog-id-container" style="display: none;">
-										<div id="bar-add-blog-id" class="subbar">
-											<label><i18n data-key="label_blogId" /> <span id="label-add-blog-blogid"></span></label>
+									<div class="step-2">
+										<div id="bar-add-blog-type" class="subbar">
+											<label><i18n data-key="label_blog_type" /> <span id="label-add-blog-type"></span></label>
 										</div>
 										<div class="subunderbar">
-											<input type="text" id="text-addblog-id" />
+											<select id="list-blog-types">
+												<option value="" data-key="option_blogType_select" class="i18n"></option>
+												<option value="atom" data-key="option_blogType_atom" class="i18n"></option>
+												<option value="blogger" data-key="option_blogType_blogger" class="i18n"></option>
+												<option value="wordpress" data-key="option_blogType_wordpress" class="i18n"></option>
+												<option value="tumblr" data-key="option_blogType_tumblr" class="i18n"></option>
+												<option value="metaweblog" requires_id="true" data-key="option_blogType_metaweblog" class="i18n"></option>
+												<option value="movabletype" requires_id="true" data-key="option_blogType_movabletype" class="i18n"></option>
+												<option value="posterous" data-key="option_blogType_posterous" class="i18n"></option>
+											</select>
+										</div>
+									</div>
+									<div class="step-2">
+										<div id="bar-add-blog-apiurl" class="subbar">
+											<label><i18n data-key="label_apiUrl" /> <span id="label-add-blog-apiurl"></span></label>
+										</div>
+										<div class="subunderbar">
+											<input type="url" id="text-blog-api-url" value="" />
+										</div>
+										<div id="text-add-blog-id-container" style="display: none;">
+											<div id="bar-add-blog-id" class="subbar">
+												<label><i18n data-key="label_blogId" /> <span id="label-add-blog-blogid"></span></label>
+											</div>
+											<div class="subunderbar">
+												<input type="text" id="text-addblog-id" />
+											</div>
+										</div>
+									</div>
+									<div class="step-2">
+										<div class="subbar" id="bar-add-blog-credentials">
+											<label><i18n data-key="label_loginCredentials" /></label>
+										</div>
+										<div class="subunderbar">
+											<label><i18n data-key="label_username" /></label>
+											<input type="text" id="text-blog-username" accept="button-blog-logincheck" />
+											<label><i18n data-key="label_password" /></label>
+											<input type="password" id="text-blog-password" accept="button-blog-logincheck" />
+											<p>
+												<button id="button-blog-logincheck"><i18n data-key="action_finish" /></button>
+												<!-- <button class="button-addblog-cancel cancel-button"><i18n data-key="action_cancel" /></button> -->
+											</p>
 										</div>
 									</div>
 								</div>
-								<div class="step-2">
-									<div class="subbar" id="bar-add-blog-credentials">
-										<label><i18n data-key="label_loginCredentials" /></label>
-									</div>
-									<div class="subunderbar">
-										<label><i18n data-key="label_username" /></label>
-										<input type="text" id="text-blog-username" accept="button-blog-logincheck" />
-										<label><i18n data-key="label_password" /></label>
-										<input type="password" id="text-blog-password" accept="button-blog-logincheck" />
-										<p>
-											<button id="button-blog-logincheck"><i18n data-key="action_finish" /></button>
-											<button class="button-addblog-cancel cancel-button"><i18n data-key="action_cancel" /></button>
-										</p>
-									</div>
+								<div class="buttons">
+									<button id="button-blog-edit-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
+									<!--<button id="button-blog-edit-finish"><i18n data-key="action_save" /></button> -->
 								</div>
 							</div>
 						</div>

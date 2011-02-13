@@ -1310,16 +1310,20 @@ var SCRIBEFIRE = {
 	error : function (msg, errorCode) {
 		msg = msg.replace(/</g, "&lt;").replace(/\n/g, "<br />");
 		
-		// @todo Localize
 		var errorHTML = "<h3>" + scribefire_string("error_header") + "</h3><p>"+msg+"</p>";
 		
-		/*
-		if (errorCode == 'BadAuthentication') {
-			errorHTML += '<p><a href="#" id="button-update-auth">Click here to update your username and password.</a></p>';
+		if ($("#dialog-blog-add").is(":visible")) {
+			$("#dialog-blog-add-error").html(msg).fadeIn();
 		}
-		*/
+		else {
+			/*
+			if (errorCode == 'BadAuthentication') {
+				errorHTML += '<p><a href="#" id="button-update-auth">Click here to update your username and password.</a></p>';
+			}
+			*/
 		
-		$.facebox("<div class='error'>" + errorHTML + "</div>");
+			$.facebox("<div class='error'>" + errorHTML + "</div>");
+		}
 	}
 };
 

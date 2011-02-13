@@ -56,7 +56,7 @@ a {
 	display: none;
 }
 
-#dialog-blog-add {
+#dialog-blog-add-container {
 	border: 1px dotted #aaa;
 }
 
@@ -122,5 +122,9 @@ a {
 }
 
 #error-video-insert {
+	color: #f00;
+}
+
+.error {
 	color: #f00;
 }
