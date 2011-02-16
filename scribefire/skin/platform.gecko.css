@@ -19,6 +19,10 @@ body {
 	width: 99%;
 }
 
+*[flex="4"] {
+	-moz-box-flex: 4;
+}
+
 *[flex="0"] {
 	-moz-box-flex: 0;
 	display: none;

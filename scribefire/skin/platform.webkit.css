@@ -16,6 +16,10 @@
 	display: none;
 }
 
+*[flex="4"] {
+	-webkit-box-flex: 4;
+}
+
 *[flex="7"] {
 	-webkit-box-flex: 7;
 }
