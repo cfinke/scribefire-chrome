@@ -671,12 +671,12 @@ var wordpressAPI = function () {
 	for (var x in this.ui) newUi[x] = this.ui[x];
 	this.ui = newUi;
 	
-	this.ui.categories = { "posts" : true, "pages" : false };
+	this.ui.categories = { "posts" : true, "pages" : false, "default": true };
 	this.ui.slug = true;
-	this.ui.private = { "posts" : true, "pages" : false };
+	this.ui.private = { "posts" : true, "pages" : false, "default": true };
 	this.ui["text-content_wp_more"] = true;
 	this.ui["custom-fields"] = true;
-	this.ui["tags"] = { "posts" : true, "pages" : false };
+	this.ui["tags"] = { "posts" : true, "pages" : false, "default": true };
 	this.ui.excerpt = true;
 	this.ui.pages = true;
 	

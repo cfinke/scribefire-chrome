@@ -33,7 +33,7 @@ body {
 	max-width: 30%;
 }
 
-.bar-fixed {
+.bar.fixed {
 	background: -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1);
 }
 

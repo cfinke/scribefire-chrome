@@ -8,7 +8,7 @@ a {
 	color: inherit;
 }
 
-.bar, .subbar, .bar-fixed, .subbar-fixed {
+.bar, .subbar {
 	color: #5d5d5d;
 	font-weight: bold;
 	font-size: 12px;
@@ -17,7 +17,7 @@ a {
 	text-shadow: 1px 1px #f5f5f5;
 }
 
-.bar-fixed {
+.bar.fixed {
 	padding-left: 8px;
 }
 
@@ -40,7 +40,7 @@ a {
 	border-color: #bdbdbd;
 }
 
-.bar, .subbar, .bar-fixed {
+.bar, .subbar {
 	border: #bdbdbd 1px solid;
 }
 
@@ -54,6 +54,10 @@ a {
 
 .underbar[open="false"][orient], .subunderbar[open="false"][orient] {
 	display: none;
+}
+
+.underbar.fixed, .subunderbar.fixed {
+	display: block;
 }
 
 #dialog-blog-add-container {

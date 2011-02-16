@@ -1218,6 +1218,10 @@ var SCRIBEFIRE = {
 		var api = SCRIBEFIRE.getAPI();
 		var contentType = $("#list-entries option:selected").data("type");
 		
+		if (!contentType || contentType === "null") {
+			contentType = "default";
+		}
+		
 		for (x in api.ui) {
 			// x refers to a classname: ui-draft, ui-tags, etc.
 			var id = ".ui-" + x;

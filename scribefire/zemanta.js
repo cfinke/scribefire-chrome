@@ -149,7 +149,6 @@ var SF_ZEMANTA = {
 							SF_ZEMANTA.signature = json.signature;
 
 							if (type == "articles") {
-								console.log(json);
 								var articles = json.articles;
 
 								if (articles && articles.length > 0) {

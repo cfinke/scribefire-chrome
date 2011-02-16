@@ -908,56 +908,6 @@ function adjustForSize() {
 	$("body").width( $(window).width() - 3 );//.height( Math.max( $("body").height(), $(window).height() ));
 	
 	return;
-	/*
-	if (platform != "gecko") {
-	//	return;
-	}
-	
-	var movableElementsTop = [ "entries", "blogs" ];
-	var movableElementsBottom = [ "categories", "tags" ];
-	
-	var container = "main";
-	
-	// 740 is the width of the toolbar of the editor.
-	if ($(window).width() > (740 * 10 / 7) && $(window).width() > $(window).height()) {
-		// Only add the sidebar when the window is wide enough to show the full editor toolbar
-		// and sidebar without a horizontal scroll (and only if it's wider than it is tall).
-		container = "sidebar";
-	}
-	
-	if ($("#ui-" + movableElementsTop[0]).parent().attr("id") == container) {
-		return;
-	}
-	
-	if (container == "sidebar") {
-		$("#main").attr("flex", "7");
-		$("#sidebar").attr("flex", "3");
-	}
-	else {
-		$("#sidebar").attr("flex", "0");
-		$("#main").attr("flex", "1");
-	}
-	
-	if (container == "main") {
-		$("#sidebar select").css( { "max-width" : null } );
-	}
-	
-	for (var i = 0; i < movableElementsBottom.length; i++) {
-		var e = $("#ui-" + movableElementsBottom[i]);
-	
-		e.remove();
-	
-		$("#" + container).append(e);
-	}
-	
-	for (var i = 0; i < movableElementsTop.length; i++) {
-		var e = $("#ui-" + movableElementsTop[i]);
-	
-		e.remove();
-	
-		$("#" + container).prepend(e);
-	}
-	*/
 }
 
 if (typeof safari != 'undefined') {
