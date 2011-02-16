@@ -149,25 +149,29 @@ var SF_ZEMANTA = {
 							SF_ZEMANTA.signature = json.signature;
 
 							if (type == "articles") {
+								console.log(json);
 								var articles = json.articles;
 
 								if (articles && articles.length > 0) {
 									$("#zemanta-container").show();
-
+									
 									var utcMS = new Date().getTime();
-
+									
 									var j = 0;
-
-									for (var i = articles.length - 1; i >= 0; i--) {
+									
+									for (var i = 0, _len = articles.length; i < _len; i++) {
 										var item = $("#zemanta-article-template").clone();
 										item.removeAttr("id");
 										item.show();
-
+										
 										item.data("reference", articles[i]);
 
 										var cb = item.find("input:first");
 										cb.attr("url", articles[i].url);
 										cb.attr("title", articles[i].title);
+										if ("pc" in articles[i]) {
+											cb.attr("checked", "checked");
+										}
 
 										var desc = item.find("a:first");
 										desc.text(articles[i].title);
