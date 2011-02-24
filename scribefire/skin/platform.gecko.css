@@ -19,51 +19,22 @@ body {
 	width: 99%;
 }
 
-*[flex="4"] {
-	-moz-box-flex: 4;
-}
-
-*[flex="0"] {
-	-moz-box-flex: 0;
-	display: none;
-}
-
-*[flex="7"] {
-	-moz-box-flex: 7;
-}
-
-*[flex="3"] {
-	-moz-box-flex: 3;
-	max-width: 30%;
-}
-
-.bar.fixed {
+#content .bar {
 	background: -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1);
 }
 
-.underbar[open="true"][orient], .subunderbar[open="true"][orient] {
-	display: -moz-box;
-}
-
 .bar[busy="true"] {
-	background: url(throbber-16.png) 5px 2px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1) !important;
-	-moz-background-size: 12px, auto;
+	background: url(throbber-16.png) 5px 2px no-repeat;
+	-moz-background-size: 12px;
+	padding-left: 18px;
 }
 
 .subbar[open="true"] {
 	background: url(arrow-down-blue.png) 7px 5px no-repeat, -moz-linear-gradient(bottom, #798bb2, #a2b1cf) !important;
 }
 
-.bar[open="true"] {
-	background: url(arrow-down.png) 7px 5px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1) !important;
-}
-
 .subbar {
 	background: url(arrow-right-blue.png) 8px 4px no-repeat, -moz-linear-gradient(bottom, #798bb2, #a2b1cf);
-}
-
-.bar, .subbar {
-	background: url(arrow-right.png) 8px 4px no-repeat, -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1);
 }
 
 button, input[type='submit'] {

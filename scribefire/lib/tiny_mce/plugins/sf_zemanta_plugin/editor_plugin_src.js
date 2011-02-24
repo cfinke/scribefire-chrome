@@ -10,7 +10,15 @@
 			// Register commands
 			ed.addCommand('SF_Zemanta', function() {
 				// Do Zemanta things.
-				SF_ZEMANTA.getRelated("articles", ed.selection.getContent());
+				
+				var textContent = $.trim(editor.val());
+				
+				if (!textContent) {
+					alert("You must write something in the editor before adding articles from Zemanta.");
+				}
+				else {
+					SF_ZEMANTA.getRelated("articles", textContent);
+				}
 			});
 
 			// Register buttons

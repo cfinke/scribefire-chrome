@@ -1,56 +1,29 @@
-.bar.fixed {
+#content .bar {
 	background: #e5e5e5;
+	clear: both;
 }
 
-.bar, .subbar {
+.subbar {
 	background: #e5e5e5 url(arrow-right.png) 8px 4px no-repeat;
-}
-
-#list-blogs {
-	float: left;
-	width: 60%;
-}
-
-button.button-blog-meta {
-	margin-left: 10px;
-	float: left;
 }
 
 #list-entries {
 	float: left;
-	width: 60%;
 }
 
 #underbar-entries .ui-deleteEntry {
-	float: left;
+	float: right;
 	margin-left: 10px;
-}
-
-#underbar-entries {
-	margin-bottom: 20px;
-}
-
-#filter-entries {
-	float: left;
-	margin-left: 10px;
-}
-
-div.bar {
-	clear: both;
 }
 
 .bar[busy="true"] {
-	background: #e5e5e5 url(throbber-16.png) 5px 2px no-repeat;
+	background: url(throbber-16.png) 5px 5px no-repeat;
 	background-size: 12px;
+	padding-left: 18px !important;
 }
 
 .subbar[open="true"] {
 	background: #798bb2 url(arrow-down-blue.png) 7px 5px no-repeat;
-}
-
-
-.bar[open="true"] {
-	background: #e5e5e5 url(arrow-down.png) 7px 5px no-repeat;
 }
 
 .subbar {

@@ -97,7 +97,26 @@ var SF_ZEMANTA = {
 	getRelated : function (type, content) {
 		function _getRelated() {
 			if (!content) content = SF_ZEMANTA.getSelectedContent();
-
+			
+			$.facebox($("#panel-zemanta"));
+			
+			$("#panel-zemanta .loaded").hide();
+			$("#panel-zemanta .no-results").hide();
+			$("#panel-zemanta .zemanta-loading").show();
+			
+			$("#button-zemanta-insert").die("click");
+			$("#button-zemanta-insert").live("click", function (e) {
+				e.preventDefault();
+				
+				SF_ZEMANTA.updateArticlesInEditor();
+				
+				$(document).trigger("close.facebox");
+			});
+			
+			var container = $("#zemanta-articles-container").html("");
+			
+			$("#panel-zemanta").show();
+			
 			SF_ZEMANTA.getAPIKey(function (apiKey) {
 				SF_ZEMANTA.getZemantaPrefs(apiKey, function (zprefs) {
 					var req = new XMLHttpRequest();
@@ -125,29 +144,14 @@ var SF_ZEMANTA = {
 							//while (deck.firstChild) deck.removeChild(deck.firstChild);
 						break;
 					}
-
-					$.facebox($("#panel-zemanta"));
-
-					$("#button-zemanta-insert").die("click");
-					$("#button-zemanta-insert").live("click", function (e) {
-						e.preventDefault();
-
-						SF_ZEMANTA.updateArticlesInEditor();
-
-						$(document).trigger("close.facebox");
-					});
-
-					var container = $("#zemanta-articles-container").html("");
-
-					$("#panel-zemanta").show();
-
+					
 					req.onreadystatechange = function () {
 						if (req.readyState == 4) {
 							// Insert the articles.
 							var json = JSON.parse(req.responseText);
-
+							
 							SF_ZEMANTA.signature = json.signature;
-
+							
 							if (type == "articles") {
 								var articles = json.articles;
 
@@ -168,14 +172,15 @@ var SF_ZEMANTA = {
 										var cb = item.find("input:first");
 										cb.attr("url", articles[i].url);
 										cb.attr("title", articles[i].title);
-										if ("pc" in articles[i]) {
+										
+										if ("pc" in articles[i] || i < 4) {
 											cb.attr("checked", "checked");
 										}
 
 										var desc = item.find("a:first");
 										desc.text(articles[i].title);
 										desc.attr("href", articles[i].url);
-
+										
 										var time = articles[i].published_datetime;
 										var date = new Date();
 
@@ -204,7 +209,11 @@ var SF_ZEMANTA = {
 										else {
 											dateString += scribefire_string("time_ago_days", Math.round(difference /  60 / 24));
 										}
-
+										
+										if ("pc" in articles[i]) {
+											dateString += " " + scribefire_string("label_promoted");
+										}
+										
 										item.find("small:first").text(dateString);
 
 										if (j < 4) {
@@ -228,9 +237,12 @@ var SF_ZEMANTA = {
 									}
 								}
 								else {
-									// @todo
-									alert(performancingUI.getLocaleString("zemanta.noArticles"));
+									$("#panel-zemanta .no-results").show();
 								}
+								
+								$("#panel-zemanta .zemanta-loading").hide();
+								$("#panel-zemanta .no-results").hide();
+								$("#panel-zemanta .loaded").show();
 							} else if (type == "images") {
 								/*
 								var images = json.images;
@@ -292,10 +304,27 @@ var SF_ZEMANTA = {
 			$("#container-zemanta-tos").html('<iframe src="http://www.zemanta.com/tos" style="width: 100%;"/>');
 		
 			$("#button-zemanta-tos-accept").die("click");
+			
 			$("#button-zemanta-tos-accept").live("click", function () {
-				$(document).trigger("close.facebox");
-				SCRIBEFIRE.prefs.setBoolPref("zemanta.tos", true);
-				_getRelated();
+				$("#zemanta_pixie_reminder").hide();
+				
+				if (!$("#zemanta_pixie_yes").is(":checked") && !$("#zemanta_pixie_no").is(":checked")) {
+					$("#zemanta_pixie_reminder").fadeIn();
+				}
+				else {
+					$(document).trigger("close.facebox");
+				
+					if ($("#zemanta_pixie_yes").is(":checked")) {
+						SCRIBEFIRE.prefs.setBoolPref("zemanta.track", true);
+					}
+					else {
+						SCRIBEFIRE.prefs.setBoolPref("zemanta.track", false);
+					}
+				
+					SCRIBEFIRE.prefs.setBoolPref("zemanta.tos", true);
+				
+					_getRelated();
+				}
 			});
 		}
 		else {
@@ -313,14 +342,6 @@ var SF_ZEMANTA = {
 		editor.val(val);
 		
 		if (selectedArticles.length > 0) {
-			if (!SCRIBEFIRE.prefs.getBoolPref("zemanta.trackingOptInRequest")) {
-				SCRIBEFIRE.prefs.setBoolPref("zemanta.trackingOptInRequest", true);
-				
-				if (confirm(scribefire_string("zemanta_tracking_optin"))) {
-					SCRIBEFIRE.prefs.setBoolPref("zemanta.track", true);
-				}
-			}
-			
 			var html = '<div class="zemanta-articles">'+scribefire_string('zemanta_related_articles')+'<ul class="zemanta-articles">';
 			
 			selectedArticles.each(function () {

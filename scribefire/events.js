@@ -191,7 +191,7 @@ $(document).ready(function () {
 			SCRIBEFIRE.deletePost(
 				$("#list-entries").val(),
 				function success() {
-					SCRIBEFIRE.notify(scribefire_string("notification_delete_post"));
+					SCRIBEFIRE.notify(scribefire_string("notification_post_delete"));
 					
 					SCRIBEFIRE.clearData();
 					
@@ -204,8 +204,8 @@ $(document).ready(function () {
 		}
 	});
 	
-	$(".bar").live("click", function () {
-		if ($(this).attr("id") == "bar-content") return;
+	$("#sidebar .bar").live("click", function () {
+		if ($(this).hasClass("fixed")) return;
 		
 		if ($(this).attr("disabled") != "true") {
 			if ($(this).attr("open") == "true") {
@@ -221,7 +221,7 @@ $(document).ready(function () {
 		$(this).persist("open");
 		$(this).parent().find(".underbar:first").persist("open");
 	});
-
+	
 	$(".subbar").live("click", function () {
 		if ($(this).attr("disabled") != "true") {
 			$(this).parent().find(".subunderbar:first").toggle();
@@ -260,11 +260,17 @@ $(document).ready(function () {
 	$("#list-blogs").live("change", function () {
 		$("#button-inlinks").hide();
 		
+		SCRIBEFIRE.updateOptionalUI();
+		
 		if (!$(this).val()) {
-			$(".button-blog-meta").hide();
+			$(".blog-meta").hide();
+			$(".blog-unmeta").show();
 		}
 		else {
-			$(".button-blog-meta").show();
+			$(".blog-unmeta").hide();
+			$(".blog-meta").show();
+			SCRIBEFIRE.updateOptionalUI();
+			
 			SCRIBEFIRE.populateEntriesList($("#filter-entries").val());
 			SCRIBEFIRE.populateCategoriesList();
 			
@@ -275,8 +281,6 @@ $(document).ready(function () {
 		
 		SCRIBEFIRE.prefs.setCharPref("selectedBlog", $(this).val());
 		$("#label-current-blog").text($(this).find("option:selected").text());
-		
-		SCRIBEFIRE.updateOptionalUI();
 	});
 	
 	$("#button-update-auth").live("click", function (e) {
@@ -377,7 +381,7 @@ $(document).ready(function () {
 			}
 		}
 		
-		$("#label-current-entry").text(($(this).find("option:selected").data("title") || ""));
+		//$("#label-current-entry").text(($(this).find("option:selected").data("title") || ""));
 		
 		switch ($(this).find("option:selected").data("type")) {
 			case "pages":
@@ -410,6 +414,15 @@ $(document).ready(function () {
 			$("#label-current-categories").text(categories.join(", "));
 		}
 	});
+	
+	$("#button-zemanta-hide").live("click", function (e) {
+		SCRIBEFIRE.prefs.setBoolPref("zemanta.hidePromo", true);
+		$("#zemanta-promo").hide();
+	});
+	
+	if (!SCRIBEFIRE.prefs.getBoolPref("zemanta.hidePromo")) {
+		$("#zemanta-promo").show();
+	}
 	
 	$("#button-blog-add").live("click", function (e) {
 		accountWizardBlog = {};
@@ -765,6 +778,9 @@ $(document).ready(function () {
 	
 	$(window).load(function () {
 		var editorContent = SCRIBEFIRE.prefs.getCharPref("state.content");
+		
+		if (!editorContent) editorContent = "";
+		
 		SCRIBEFIRE.prefs.setCharPref("state.content", "");
 		
 		var blogThisText = "";
@@ -805,8 +821,6 @@ $(document).ready(function () {
 			onchange_callback : "editor.change"
 		});
 		
-		adjustForSize();
-		
 		// We use .parent() here because putting an id on the element breaks the flex box model someho
 		// $("#text-content").parent().resize();
 		
@@ -832,6 +846,8 @@ $(document).ready(function () {
 			// Opera doesn't support beforeunload, so we save the state every 5 seconds.
 			setInterval(saveEditorState, 5000);
 		}
+		
+		adjustForSize();
 	});
 	
 	$(window).resize(function () {
@@ -882,11 +898,52 @@ var resize_timeout = null;
 // var editor_resize_timeout = null;
 
 function adjustForSize() {
+	if (switchEditors.mode == 'tinymce') {
+		if ("activeEditor" in tinyMCE && tinyMCE.activeEditor) {
+			var windowHeight = $(window).height();
+			var windowWidth = $(window).width();
+			var bodyWidth = $("#content-body").width();
+			
+			var editorHeight = $("#text-content_ifr").height();
+			var editorWidth = $("#text-content_ifr").width();
+	
+			var contentWidth = $("#content").width();
+			var newEditorWidth = contentWidth - 40;
+	
+			var contentHeight = $("#content").height();
+			
+			if (contentHeight > windowHeight) {
+				newEditorHeight = Math.max(200, editorHeight - (contentHeight - windowHeight));
+			}
+			else {
+				var usedHeight = 0;
+				$("#content > *").each(function () {
+					usedHeight += $(this).height() + 2;
+				});
+		
+				newEditorHeight = editorHeight + (contentHeight - usedHeight);
+			}
+			
+			if (bodyWidth > windowWidth) {
+				newEditorWidth = Math.max(400, (newEditorWidth - (bodyWidth - windowWidth)));
+			}
+	
+			tinyMCE.activeEditor.theme.resizeTo(newEditorWidth, newEditorHeight);
+		}
+	}
+	
+	/*
 	// Resize the editor proportionally to how wide the window was made.
 	editorWidth = $("#text-content_ifr").width();
 	editorHeight = $("#text-content_ifr").height();
 	
 	var newWindowWidth = $(window).width();
+	var newWindowHeight = $("#content").height();
+	
+	var usedHeight = 0;
+	$("#content > *").each(function () {
+		usedHeight += $(this).height() + 2;
+	});
 	
 	var difference = newWindowWidth - windowWidth;
 	windowWidth = newWindowWidth;
@@ -898,8 +955,8 @@ function adjustForSize() {
 				if (newEditorWidth > windowWidth) {
 					newEditorWidth = windowWidth - 20;
 				}
-
-				tinyMCE.activeEditor.theme.resizeTo(newEditorWidth, editorHeight);
+				
+				tinyMCE.activeEditor.theme.resizeTo(newEditorWidth, editorHeight + (newWindowHeight - usedHeight));
 			}
 		}
 	}
@@ -908,6 +965,7 @@ function adjustForSize() {
 	$("body").width( $(window).width() - 3 );//.height( Math.max( $("body").height(), $(window).height() ));
 	
 	return;
+	*/
 }
 
 if (typeof safari != 'undefined') {

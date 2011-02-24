@@ -11,29 +11,11 @@
 	-webkit-box-flex: 1;
 }
 
-*[flex="0"] {
-	-webkit-box-flex: 0;
-	display: none;
+#content .bar {
+	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
 }
 
-*[flex="4"] {
-	-webkit-box-flex: 4;
-}
-
-*[flex="7"] {
-	-webkit-box-flex: 7;
-}
-
-*[flex="3"] {
-	-webkit-box-flex: 3;
-	max-width: 30%;
-}
-
-.bar.fixed {
-	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); 
-}
-
-.bar, .subbar {
+.subbar {
 	background: url(arrow-right.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); 
 }
 
@@ -41,20 +23,12 @@
 	background: url(arrow-right-blue.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf));
 }
 
-.bar[open="true"] {
-	background: url(arrow-down.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
-}
-
 .subbar[open="true"] {
 	background: url(arrow-down-blue.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf)) !important;
 }
 
-.bar[busy="true"] {
+#content .bar[busy="true"] {
 	background: url(throbber-16.png) 5px 2px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
-}
-
-.underbar[open="true"][orient], .subunderbar[open="true"][orient] {
-	display: -webkit-box;
 }
 
 button, input[type='submit'] {

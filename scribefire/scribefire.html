@@ -27,164 +27,176 @@
 		<script type="text/javascript" src="migrate.js"></script>
 		<script type="text/javascript" src="lib/jquery-oembed.js"></script>
 	</head>
-	<body orient="vertical">
-		<div orient="horizontal">
-			<div orient="vertical" flex="4">
-				<div>
-					<div class="bar" open="true" id="bar-title">
-						<label><i18n data-key="label_title" /> <span id="label-current-title"></span></label>
-					</div>
-					<div class="underbar" open="true" id="underbar-title">
-						<div orient="horizontal">
-							<input type="text" id="text-title" flex="1"/>
-							<button class="text-button reset-button"><i18n data-key="action_reset" /></button>
+	<body>
+		<table style="height: 99%; width: 100%;" cellspacing="0" cellpadding="0" id="content-body">
+			<tr style="height: 99%;">
+				<td style="width: 25%; overflow: auto; height: 100%;" id="sidebar">
+					<div class="ui-blogs">
+						<div class="bar fixed" open="true" id="bar-blog">
+							<label><i18n data-key="label_blog" /> <span id="label-current-blog"></span></label>
+							<button class="bar-meta" id="button-blog-add"><i18n data-key="action_blog_add" /></button>
 						</div>
-					</div>
-				</div>
-				<div>
-					<div class="bar fixed" open="true" id="bar-content">
-						<label><i18n data-key="label_content" /></label>
-						<div id="editor-toggles" style="float: right; padding-right: 1ex; cursor: pointer;" class="trap">
-							<a id="edButtonHTML" onclick="event.stopPropagation(); switchEditors.go('text-content', 'html');"><i18n data-key="action_editHTML" /></a>
-							<a id="edButtonPreview" style="display: none;" onclick="event.stopPropagation(); switchEditors.go('text-content', 'tinymce');"><i18n data-key="action_editVisual" /></a>
-						</div>
-					</div>
-					<div class="underbar" open="true">
-						<textarea rows="10" name="text-content" id="text-content"></textarea>
-					
-						<div class="ui-excerpt" style="margin-top: 1em;">
-							<div class="subbar" id="bar-excerpt">
-								<label><i18n data-key="label_excerpt" /> <span id="label-current-excerpt"></span></label>
-							</div>
-							<div class="subunderbar" last="true">
-								<textarea rows="5" name="text-excerpt" id="text-excerpt"></textarea>
-							</div>
-							<div class="ui-custom-fields" style="margin-top: 10px;">
-								<div class="subbar" id="bar-custom-fields">
-									<label><i18n data-key="label_customFields" /></label>
-								</div>
-								<div class="subunderbar" id="underbar-custom-fields" last="true">
-									<div id="custom-fields">
-										<div class="custom_field">
-											<input type="hidden" name="id" />
-											<button class="button-remove-custom-field">-</button>
-											<input type="text" name="key" placeholder="Name" />
-											<textarea name="value" placeholder="Value"></textarea>
-										</div>
-									</div>
-
-									<button id="button-add-custom-field"><i18n data-key="action_customField_add" /></button>
+						<div class="underbar fixed" open="true">
+							<div class="blog-meta">
+								<select id="list-blogs"></select>
+								<div style="margin-top: 10px;">
+									<button class="button-blog-view" style="float: left;"><i18n data-key="action_view" /></button>
+									<button id="button-blog-edit" style="margin-left: 10px; float: left;"><i18n data-key="action_edit" /></button>
+									<button id="button-blog-remove" class="text-button"><i18n data-key="action_remove" /></button>
 								</div>
 							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-			<div orient="vertical" flex="1">
-				<div class="ui-blogs">
-					<div class="bar" open="true" id="bar-blog">
-						<label><i18n data-key="label_blog" /> <span id="label-current-blog"></span></label>
-						<a href="#" style="float: right; padding-right: 1ex;" class="trap" id="link-help"><i18n data-key="label_help" /></a>
-					</div>
-					<div class="underbar" open="true" id="underbar-blog">
-						<div orient="vertical">
-							<select id="list-blogs" flex="1"></select>
-							<div orient="horizontal" style="margin-top: 10px;">
-								<button class="button-blog-meta button-blog-view"><i18n data-key="action_view" /></button>
-								<button id="button-blog-edit" class="button-blog-meta" style="margin-left: 10px;"><i18n data-key="action_edit" /></button>
-								<button id="button-blog-add" style="margin-left: 10px;"><i18n data-key="action_blog_add" /></button>
-								<button id="button-blog-remove" class="button-blog-meta text-button"><i18n data-key="action_remove" /></button>
-								<!-- <button id="button-inlinks"><i18n data-key="action_makeMoney" /></button> -->
+							<div class="blog-unmeta" style="display: none;">
+								<p><i18n data-key="text_get_started" /></p>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div>
-					<div class="bar" id="bar-entries">
-						<label><span class="entry-type-text"><i18n data-key="label_entry" /></span>: <span id="label-current-entry"></span></label>
-					</div>
-					<div class="underbar" id="underbar-entries">
-						<div orient="vertical">
-							<input type="search" placeholder="Filter Entries List" style="width: 100%;" id="filter-entries" />
+					<div class="blog-meta">
+						<div class="bar fixed" id="bar-entries">
+							<label><span class="entry-type-text"><i18n data-key="label_entry" /></span></label>
+							<button class="bar-meta reset-button"><i18n data-key="action_reset" /></button>
+						</div>
+						<div class="underbar fixed" id="underbar-entries">
 							<div orient="horizontal">
 								<select id="list-entries" flex="1" style="display: block;"><option value="scribefire:new:post"><i18n data-key="entry_new_label" /></option></select>
 								<span class="ui-deleteEntry" style="display: block;">
 									<button id="button-entry-remove" style="display: none; margin-left: 10px;" class="text-button"><i18n data-key="action_delete" /></button>
 								</span>
 							</div>
+							<input type="search" placeholder="Filter Entries List" style="width: 100%;" id="filter-entries" />
 						</div>
 					</div>
-				</div>
-				<div class="ui-categories" flex="1" orient="vertical">
-					<div class="bar" id="bar-categories">
-						<label><i18n data-key="label_categories" /> <span id="label-current-categories"></span></label>
+					<div class="ui-categories blog-meta">
+						<div class="bar" id="bar-categories">
+							<label><i18n data-key="label_categories" /> <span id="label-current-categories"></span></label>
+							<button id="button-category-add" class="bar-meta ui-add-category"><i18n data-key="action_category_add" /></button>
+						</div>
+						<div class="underbar">
+							<select id="list-categories" multiple="true"></select>
+						</div>
 					</div>
-					<div class="underbar" id="underbar-categories" flex="1" orient="vertical">
-						<select id="list-categories" multiple="true" flex="1"></select>
-						<button id="button-category-add" class="ui-add-category"><i18n data-key="action_category_add" /></button>
+					<div class="ui-tags blog-meta">
+						<div class="bar" id="bar-tags">
+							<label><i18n data-key="label_tags" /> <span id="label-current-tags"></span></label>
+						</div>
+						<div class="underbar">
+							<input type="text" id="text-tags" placeholder="Comma-separated"/><!-- @todo localize -->
+						</div>
 					</div>
-				</div>
-				<div class="ui-tags">
-					<div class="bar" id="bar-tags">
-						<label><i18n data-key="label_tags" /> <span id="label-current-tags"></span></label>
+					<div class="ui-zemanta" id="zemanta-promo" style="display: none;">
+						<div class="bar fixed">
+							<label><i18n data-key="zemanta_introduction_header" /></label>
+							<button class="bar-meta" id="button-zemanta-hide"><i18n data-key="action_hide" /></button>
+						</div>
+						<div class="underbar fixed">
+							<img src="skin/zemanta-logo.png" align="left" style="padding-right: 10px;"/>
+							<p><i18n data-key="zemanta_introduction" /></p>
+							<img src="skin/zemanta-screenshot.png" style="border: 1px solid #666;" />
+						</div>
 					</div>
-					<div class="underbar" id="underbar-tags">
-						<input type="text" id="text-tags" placeholder="Comma-separated"/><!-- @todo localize -->
+				</td>
+				<td style="width: 75%; max-width: 75%; overflow: auto; height: 100%;" id="content">
+					<div>
+						<div class="bar fixed" id="bar-title">
+							<label><i18n data-key="label_title" /> <span id="label-current-title"></span></label>
+							<a href="#" style="float: right; padding-right: 1ex;" class="trap" id="link-help"><i18n data-key="label_help" /></a>
+							
+						</div>
+						<div class="underbar fixed">
+							<input type="text" id="text-title" flex="1"/>
+						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		<div>
-			<div class="bar fixed" id="bar-publish">
-				<label><i18n data-key="label_publish" /></label>
-			</div>
-			<div class="underbar fixed" id="underbar-publish">
-				<input type="hidden" id="status-draft" value="0" />
-				
-				<div style="text-align: right; float: right;">
-					<span id="buttons-publish-draft">
-						<button id="button-save-progress"><i18n data-key="action_draft_save" /></button>
-						<button id="button-publish-draft"><i18n data-key="action_publish" /></button>
-					</span>
-					<span id="buttons-publish-published">
-						<button id="button-publish"><i18n data-key="action_publishUpdate" /></button>
-					</span>
-				</div>
-				<span class="ui-private">
-					<input type="checkbox" id="checkbox-private" /> <label><i18n data-key="label_private" /></label>
-				</span>
-				<span class="ui-slug">
-					<a href="#" id="slug-toggle"><i18n data-key="action_permalink_edit" /></a> 
-					<input type="url" style="width: 15em; display: none;" id="text-slug" />
-					<span id="slug-display"></span>
-				</span>
-				<span class="ui-timestamp">
-					<a href="#" id="toggle-schedule"><i18n data-key="action_schedule" /></a>
-					<span id="toggle-schedule-immediately"><i18n data-key="option_publish_immediately" /></span>
-					<span id="toggle-schedule-scheduled">
-						<select id="list-datestamp-month" style="width: auto;">
-							<option value="01" class="i18n" data-key="option_publish_month1"></option>
-							<option value="02" class="i18n" data-key="option_publish_month2"></option>
-							<option value="03" class="i18n" data-key="option_publish_month3"></option>
-							<option value="04" class="i18n" data-key="option_publish_month4"></option>
-							<option value="05" class="i18n" data-key="option_publish_month5"></option>
-							<option value="06" class="i18n" data-key="option_publish_month6"></option>
-							<option value="07" class="i18n" data-key="option_publish_month7"></option>
-							<option value="08" class="i18n" data-key="option_publish_month8"></option>
-							<option value="09" class="i18n" data-key="option_publish_month9"></option>
-							<option value="10" class="i18n" data-key="option_publish_month10"></option>
-							<option value="11" class="i18n" data-key="option_publish_month11"></option>
-							<option value="12" class="i18n" data-key="option_publish_month12"></option>
-						</select>
-						<input type="day" id="text-datestamp-day" size="2" placeholder="DD"/>,
-						<input type="year" id="text-datestamp-year" size="4" placeholder="YYYY"/>
-						@
-						<input type="hour" id="text-timestamp-hour" size="2" placeholder="HH" />:<input type="minute" id="text-timestamp-minute" size="2" placeholder="mm" min="00" max="59" />
-					</span>
-				</span>
-			</div>
-		</div>
+					<div flex="1">
+						<div class="bar fixed" open="true" id="bar-content">
+							<label><i18n data-key="label_content" /></label>
+							<div id="editor-toggles" style="float: right; padding-right: 1ex; cursor: pointer;" class="trap">
+								<a id="edButtonHTML" onclick="event.stopPropagation(); switchEditors.go('text-content', 'html');"><i18n data-key="action_editHTML" /></a>
+								<a id="edButtonPreview" style="display: none;" onclick="event.stopPropagation(); switchEditors.go('text-content', 'tinymce');"><i18n data-key="action_editVisual" /></a>
+							</div>
+						</div>
+						<div class="underbar" open="true" flex="1">
+							<textarea rows="10" name="text-content" id="text-content"></textarea>
+					
+							<div class="ui-excerpt" style="margin-top: 1em;">
+								<div class="subbar" id="bar-excerpt">
+									<label><i18n data-key="label_excerpt" /> <span id="label-current-excerpt"></span></label>
+								</div>
+								<div class="subunderbar" last="true">
+									<textarea rows="5" name="text-excerpt" id="text-excerpt"></textarea>
+								</div>
+								<div class="ui-custom-fields" style="margin-top: 10px;">
+									<div class="subbar" id="bar-custom-fields">
+										<label><i18n data-key="label_customFields" /></label>
+									</div>
+									<div class="subunderbar" last="true">
+										<div id="custom-fields">
+											<div class="custom_field">
+												<input type="hidden" name="id" />
+												<button class="button-remove-custom-field">-</button>
+												<input type="text" name="key" placeholder="Name" />
+												<textarea name="value" placeholder="Value"></textarea>
+											</div>
+										</div>
+
+										<button id="button-add-custom-field"><i18n data-key="action_customField_add" /></button>
+									</div>
+								</div>
+							
+							</div>
+						</div>
+					</div>
+					<div class="blog-meta">
+						<div class="bar fixed" id="bar-publish">
+							<label><i18n data-key="label_publish" /></label>
+						</div>
+						<div class="underbar fixed" id="underbar-publish" last="true">
+							<input type="hidden" id="status-draft" value="0" />
+
+							<div style="text-align: right; float: right;">
+								<span id="buttons-publish-draft">
+									<button id="button-save-progress"><i18n data-key="action_draft_save" /></button>
+									<button id="button-publish-draft"><i18n data-key="action_publish" /></button>
+								</span>
+								<span id="buttons-publish-published">
+									<button id="button-publish"><i18n data-key="action_publishUpdate" /></button>
+								</span>
+							</div>
+							<span class="ui-private">
+								<input type="checkbox" id="checkbox-private" /> <label><i18n data-key="label_private" /></label>
+							</span>
+							<span class="ui-slug">
+								<a href="#" id="slug-toggle"><i18n data-key="action_permalink_edit" /></a> 
+								<input type="url" style="width: 15em; display: none;" id="text-slug" />
+								<span id="slug-display"></span>
+							</span>
+							<span class="ui-timestamp">
+								<a href="#" id="toggle-schedule"><i18n data-key="action_schedule" /></a>
+								<span id="toggle-schedule-immediately"><i18n data-key="option_publish_immediately" /></span>
+								<span id="toggle-schedule-scheduled">
+									<select id="list-datestamp-month" style="width: auto;">
+										<option value="01" class="i18n" data-key="option_publish_month1"></option>
+										<option value="02" class="i18n" data-key="option_publish_month2"></option>
+										<option value="03" class="i18n" data-key="option_publish_month3"></option>
+										<option value="04" class="i18n" data-key="option_publish_month4"></option>
+										<option value="05" class="i18n" data-key="option_publish_month5"></option>
+										<option value="06" class="i18n" data-key="option_publish_month6"></option>
+										<option value="07" class="i18n" data-key="option_publish_month7"></option>
+										<option value="08" class="i18n" data-key="option_publish_month8"></option>
+										<option value="09" class="i18n" data-key="option_publish_month9"></option>
+										<option value="10" class="i18n" data-key="option_publish_month10"></option>
+										<option value="11" class="i18n" data-key="option_publish_month11"></option>
+										<option value="12" class="i18n" data-key="option_publish_month12"></option>
+									</select>
+									<input type="day" id="text-datestamp-day" size="2" placeholder="DD"/>,
+									<input type="year" id="text-datestamp-year" size="4" placeholder="YYYY"/>
+									@
+									<input type="hour" id="text-timestamp-hour" size="2" placeholder="HH" />:<input type="minute" id="text-timestamp-minute" size="2" placeholder="mm" min="00" max="59" />
+								</span>
+							</span>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
 		
 		<div id="panel-inlinks" style="display: none;">
 			<image src="skin/inlinks.png" />
@@ -250,20 +262,39 @@
 		</div>
 		
 		<div id="panel-zemanta" style="display: none;">
-			<p><i18n data-key="zemanta_instructions" /></p>
+			<p><img src="skin/zemanta-logo.png" /></p>
 			
-			<div class="ui-zemanta" id="zemanta-container">
-				<div id="zemanta-articles-container"></div>
-				<div id="zemanta-article-template" style="display: none;">
-					<input type="checkbox" />
-					<a href="#" target="_blank"></a>
-					<small/>
+			<div class="zemanta-loading">
+				<p class="throbber">Please wait while ScribeFire retrieves related articles from Zemanta...</p>
+				<div class="buttons">
+					<button id="button-zemanta-insert-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
 				</div>
 			</div>
+			<div class="no-results">
+				<p><i18n data-key="zemanta_no_results" /></p>
 			
-			<div class="buttons">
-				<button id="button-zemanta-insert-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
-				<button id="button-zemanta-insert"><i18n data-key="action_insert" /></button>
+				<p><i18n data-key="zemanta_selection_hint" /></p>
+				
+				<div class="buttons">
+					<button id="button-zemanta-insert-cancel" class="modal_close cancel-button"><i18n data-key="action_close" /></button>
+				</div>
+			</div>
+			<div class="loaded">
+				<p><i18n data-key="zemanta_instructions" /></p>
+			
+				<div class="ui-zemanta" id="zemanta-container">
+					<div id="zemanta-articles-container"></div>
+					<div id="zemanta-article-template" style="display: none;">
+						<input type="checkbox" />
+						<a href="#" target="_blank"></a>
+						<small/>
+					</div>
+				</div>
+			
+				<div class="buttons">
+					<button id="button-zemanta-insert-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
+					<button id="button-zemanta-insert"><i18n data-key="action_insert" /></button>
+				</div>
 			</div>
 		</div>
 		
@@ -271,6 +302,15 @@
 			<p><i18n data-key="zemanta_tos_description" /></p>
 			
 			<div id="container-zemanta-tos"></div>
+			
+			<p style="display: none; color: #c00;" id="zemanta_pixie_reminder"><i18n data-key="zemanta_pixie_reminder" /></p>
+			
+			<p><i18n data-key="zemanta_tracking_optin" /></p>
+			
+			<div style="margin-left: 2em;">
+				<input type="radio" name="zemanta_pixie" id="zemanta_pixie_yes" value="1" /> <label for="zemanta_pixie_yes"><i18n data-key="zemanta_tracking_yes" /></label> <br />
+				<input type="radio" name="zemanta_pixie" id="zemanta_pixie_no" value="0" /> <label for="zemanta_pixie_no"><i18n data-key="zemanta_tracking_no" /></label>
+			</div>
 			
 			<p><i18n data-key="zemanta_tos_accept_request" /></p>
 			
@@ -301,6 +341,7 @@
 		</div>
 		
 		<div id="dialog-blog-add" style="display:none;">
+			<h1 style="margin-top: 0;"><i18n data-key="action_blog_add" /></h1>
 			<p id="dialog-blog-add-error" style="display: none;" class="error"></p>
 			<div id="dialog-blog-add-container">
 				<div class="step-1">

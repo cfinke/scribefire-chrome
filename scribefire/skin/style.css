@@ -1,5 +1,12 @@
+html, body {
+	height: 99.99%;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
 body {
-	background-color: #f5f5f5;
+	background-color: #fff;
 	border-bottom: #bdbdbd 1px solid;
 }
 
@@ -8,7 +15,7 @@ a {
 	color: inherit;
 }
 
-.bar, .subbar {
+#content .bar, .subbar {
 	color: #5d5d5d;
 	font-weight: bold;
 	font-size: 12px;
@@ -17,7 +24,16 @@ a {
 	text-shadow: 1px 1px #f5f5f5;
 }
 
-.bar.fixed {
+#sidebar .bar {
+	padding-left: 0.5em;
+	padding-top: 0.5em;
+}
+
+#sidebar .bar label {
+	text-transform: uppercase;
+}
+
+#content .bar {
 	padding-left: 8px;
 }
 
@@ -27,36 +43,47 @@ a {
 	text-shadow: none;
 }
 
-.bar[busy="true"] {
+#content .bar[busy="true"] {
 	background-size: 12px 12px, auto;
 }
 
-.underbar, .subunderbar {
-	background-color: #fff;
+#content .underbar {
+	padding: 10px;
+}
+
+.subunderbar {
 	padding: 10px;
 	display: none;
+}
+
+#sidebar .underbar {
+	padding: 0.25em 1em 1em 1.5em;
+	border-bottom: 1px dotted #62717f;
+}
+
+#content .underbar, .subunderbar {
 	border-width: 0 1px 0 1px;
 	border-style: solid;
 	border-color: #bdbdbd;
 }
 
-.bar, .subbar {
+#content .bar, .subbar {
 	border: #bdbdbd 1px solid;
 }
 
-.underbar[open="true"], .subunderbar[open="true"] {
-	display: block;
+.subunderbar[open="true"] {
+	display: block !important;
 }
 
-.underbar[last], .subunderbar[last] {
+#content .underbar[last], .subunderbar[last] {
 	border-width: 0 1px 1px 1px;
 }
 
-.underbar[open="false"][orient], .subunderbar[open="false"][orient] {
+.subunderbar[open="false"][orient] {
 	display: none;
 }
 
-.underbar.fixed, .subunderbar.fixed {
+.subunderbar.fixed {
 	display: block;
 }
 
@@ -100,7 +127,13 @@ a {
 }
 
 #sidebar {
-	border-left: #d1d1d1 2px solid;
+	background-color: #dadfe5;
+	border-right: 1px dotted #62717f;
+}
+
+#sidebar .bar label {
+	color: #62717f;
+	font-weight: bold;
 }
 
 #custom-fields button {
@@ -135,4 +168,45 @@ a {
 
 .buttons .button-meta {
 	float: left;
+}
+
+
+/* Allow editor toolbar to wrap. */
+
+.mceToolbarRow1 * {
+	float: left;
+}
+
+.mceToolbarRow1 select {
+	width: auto !important;
+}
+
+.mceToolbarRow1 option {
+	float: none;
+}
+
+.bar-meta {
+	float: right;
+	padding-right: 1ex;
+	border: 0;
+	background: transparent !important;
+	margin: 0;
+	padding: 0 1em 0 0;
+	color: #62717f;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.bar-meta:hover {
+	text-decoration: underline;
+}
+
+#panel-zemanta {
+	line-height: 1.8em;
+}
+
+p.throbber {
+	padding-left: 20px;
+	background-image: url(throbber-16.png);
+	background-repeat: no-repeat;
 }

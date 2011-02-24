@@ -9,11 +9,17 @@
 	"continue": {
 		"message": "Continue"
 	},
+	"action_close": {
+		"message": "Close"
+	},
 	"firsttime_header": {
 		"message": "Welcome to ScribeFire!"
 	},
 	"firsttime_text": {
 		"message": "The first thing you're probably going to want to do is add your blog.  Close this dialog and click 'Add a New Blog' to get started."
+	},
+	"text_get_started": {
+		"message": "Click \"Add a New Blog\" to get started."
 	},
 	"entry_new_label": {
 		"message": "(new)",
@@ -86,7 +92,7 @@
 		"message": "Switch to Visual Editor"
 	},
 	"action_category_add": {
-		"message": "New Category"
+		"message": "Add a New Category"
 	},
 	"action_customField_add": {
 		"message": "Add Custom Field"
@@ -110,7 +116,7 @@
 		"message": "Insert"
 	},
 	"action_reset": {
-		"message": "Clear All Fields and Start a New $ignore1$ Post $ignore2$",
+		"message": "Start a New $ignore1$ Post $ignore2$",
 		"placeholders": {
 			"ignore1": {
 				"content": "<span class=\"entry-type-text\">"
@@ -210,7 +216,7 @@
 		"description": "A three-letter abbreviation of the twelfth month of the year."
 	},
 	"label_blog": {
-		"message": "Blog:"
+		"message": "Blog"
 	},
 	"label_blog_type": {
 		"message": "Blog Type:"
@@ -250,10 +256,10 @@
 		"message": "Excerpt:"
 	},
 	"label_categories": {
-		"message": "Categories:"
+		"message": "Categories"
 	},
 	"label_tags": {
-		"message": "Tags:"
+		"message": "Tags"
 	},
 	"label_customFields": {
 		"message": "Custom Fields"
@@ -511,13 +517,42 @@
 	"zemanta_tracking_optin": {
 		"message": "Is it ok if ScribeFire adds an invisible image to your post to track Zemanta usage statistics? You won't notice a difference either way, and even if you decline, you won't be asked again."
 	},
+	"zemanta_tracking_yes": {
+		"message": "Yes, ScribeFire can add a tracking image to posts when I use Zemanta."
+	},
+	"zemanta_tracking_no": {
+		"message": "No, I'd rather not include a tracking image."
+	},
+	"zemanta_pixie_reminder": {
+		"message": "Please indicate whether or not ScribeFire can add an invisible image to your posts when you use Zemanta."
+	},
+	"zemanta_selection_hint": {
+		"message": "Did you know that you can select text in your post before clicking the Zemanta icon to limit the text that Zemanta uses to find related articles?"
+	},
+	"zemanta_no_results": {
+		"message": "Zemanta couldn't find any relevant articles for your post."
+	},
+	"zemanta_introduction_header": {
+		"message": "New: Zemanta Integration"
+	},
+	"zemanta_introduction": {
+		"message": "Zemanta helps you create rich blog posts by recognizing your topic and suggesting useful related links. Just write your post, click the Zemanta toolbar icon (screenshot shown below), and then select the articles you'd like to link to."
+	},
 	"action_continueEditing": {
 		"message": "Continue editing this post"
 	},
 	"action_startNewPost": {
 		"message": "Start a new post"
 	},
+	"action_hide": {
+		"message": "Hide",
+		"description": "Used as the text on a button to hide a portion of the interface."
+	},
 	"label_genericQuestion": {
 		"message": "Do you want to:"
+	},
+	"label_promoted": {
+		"message": "(promoted)",
+		"description": "Used to indicate that a link has been sponsored by an advertiser."
 	}
 }

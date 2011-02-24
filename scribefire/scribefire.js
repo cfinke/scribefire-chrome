@@ -298,6 +298,8 @@ var SCRIBEFIRE = {
 		}
 		else {
 			$("#list-blogs").hide();
+			$(".blog-meta").hide();
+			$(".blog-unmeta").show();
 			$("#list-blogs").val("");
 		}
 		
@@ -1215,6 +1217,11 @@ var SCRIBEFIRE = {
 	updateOptionalUI : function (doc) {
 		if (!doc) doc = document;
 		
+		if ($("#list-blogs").val()) {
+			$(".blog-unmeta").hide();
+			$(".blog-meta").show();
+		}
+		
 		var api = SCRIBEFIRE.getAPI();
 		var contentType = $("#list-entries option:selected").data("type");
 		
@@ -1253,6 +1260,13 @@ var SCRIBEFIRE = {
 				}
 			}
 		}
+		
+		if (!$("#list-blogs").val()) {
+			$(".blog-meta").hide();
+			$(".blog-unmeta").show();
+		}
+		
+		adjustForSize();
 	},
 	/*
 	export : function () {
