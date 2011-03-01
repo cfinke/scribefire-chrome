@@ -56,13 +56,15 @@
 							<button class="bar-meta reset-button"><i18n data-key="action_reset" /></button>
 						</div>
 						<div class="underbar fixed" id="underbar-entries">
-							<div orient="horizontal">
-								<select id="list-entries" flex="1" style="display: block;"><option value="scribefire:new:post"><i18n data-key="entry_new_label" /></option></select>
-								<span class="ui-deleteEntry" style="display: block;">
-									<button id="button-entry-remove" style="display: none; margin-left: 10px;" class="text-button"><i18n data-key="action_delete" /></button>
-								</span>
+							<div>
+								<select id="list-entries"><option value="scribefire:new:post"><i18n data-key="entry_new_label" /></option></select>
 							</div>
 							<input type="search" placeholder="Filter Entries List" style="width: 100%;" id="filter-entries" />
+							<div class="post-meta" style="margin-top: 10px;">
+								<span class="ui-deleteEntry" style="display: block;">
+									<button id="button-entry-remove" class="text-button"><i18n data-key="action_delete" /></button>
+								</span>
+							</div>
 						</div>
 					</div>
 					<div class="ui-categories blog-meta">

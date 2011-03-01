@@ -65,15 +65,32 @@ function setTimestamp(date) {
 	}
 }
 
-$(document).ready(function () {
+function localize() {
 	$("i18n").each(function () {
-		$(this).replaceWith(scribefire_string($(this).attr("data-key")));
+		var $this = $(this);
+		
+		var string = scribefire_string($this.attr("data-key"));
+		
+		if (string) {
+			$this.replaceWith(string);
+		}
 	});
 	
 	$(".i18n").each(function () {
-		$(this).text(scribefire_string($(this).attr("data-key")));
-	});
+		var $this = $(this);
 		
+		var string = scribefire_string($this.attr("data-key"));
+		
+		if (string) {
+			$this.text(string);
+		}
+	});
+}
+
+$(document).ready(function () {
+	localize();
+	
+	$(".post-meta").hide();
 	
 	$("#text-slug").live("change", function () {
 		if ($(this).val()) {
@@ -308,10 +325,10 @@ $(document).ready(function () {
 		$("#buttons-publish-draft").show();
 		
 		if (!postId || postId.toString().indexOf("scribefire:new") == 0) {
-			$("#button-entry-remove").hide();
+			$(".post-meta").hide();
 		}
 		else {
-			$("#button-entry-remove").show();
+			$(".post-meta").show();
 			
 			var entry = $(this).find("option:selected");
 		

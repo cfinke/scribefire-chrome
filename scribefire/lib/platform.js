@@ -57,54 +57,113 @@ if (platform == 'gecko') {
 		};
 	}
 	
-	(function (extension_id, string_object) {
-		var extensionManager = Components.classes["@mozilla.org/extensions/manager;1"].getService(Components.interfaces.nsIExtensionManager);
-		var installLocation = extensionManager.getInstallLocation(extension_id);
-		
-		try {
-			var defaultLocale = JSON.parse(FileIO.read(installLocation.getItemFile(extension_id, "chrome/content/manifest.json"))).default_locale;
-		} catch (e) {
+	if ("@mozilla.org/extensions/manager;1" in Components.classes) {
+		(function (extension_id, string_object) {
 			var defaultLocale = "en_US";
-		}
+		
+			var extensionManager = Components.classes["@mozilla.org/extensions/manager;1"].getService(Components.interfaces.nsIExtensionManager);
+			var installLocation = extensionManager.getInstallLocation(extension_id);
+		
+			// Get the user's Firefox locale.
+			var userLocale = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("general.useragent.").getCharPref("locale");
 
-		// Get the user's Firefox locale.
-		var userLocale = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("general.useragent.").getCharPref("locale");
+			// Convert the userLocale to Chrome style.
+			var userLocaleParts = userLocale.split("-");
+			if (userLocaleParts.length > 1) userLocaleParts[1] = userLocaleParts[1].toUpperCase();
+			userLocale = userLocaleParts.join("_");
 
-		// Convert the userLocale to Chrome style.
-		var userLocaleParts = userLocale.split("-");
-		if (userLocaleParts.length > 1) userLocaleParts[1] = userLocaleParts[1].toUpperCase();
-		userLocale = userLocaleParts.join("_");
+			var localeOrder = [defaultLocale];
 
-		var localeOrder = [defaultLocale];
-
-		if (userLocale != defaultLocale) {
-			if ((underscoreIndex = userLocale.indexOf("_")) != -1) {
-				localeOrder.push(userLocale.substr(0, underscoreIndex));
+			if (userLocale != defaultLocale) {
+				if ((underscoreIndex = userLocale.indexOf("_")) != -1) {
+					localeOrder.push(userLocale.substr(0, underscoreIndex));
+				}
+				localeOrder.push(userLocale);
 			}
-			localeOrder.push(userLocale);
-		}
 
-		// Starting with the default, pull in all of the strings for each locale, 
-		// overwriting previous ones if necessary.
-		localeOrder.forEach(function (locale) {
-			var messagesFile = installLocation.getItemFile(extension_id, "chrome/content/_locales/" + locale + "/messages.json");
-			var messagesText = FileIO.read(messagesFile);
+			// Starting with the default, pull in all of the strings for each locale, 
+			// overwriting previous ones if necessary.
+			localeOrder.forEach(function (locale) {
+				if (typeof installLocation != 'undefined') {
+					var messagesFile = installLocation.getItemFile(extension_id, "chrome/content/_locales/" + locale + "/messages.json");
+				}
+				else {
+					Components.utils.import("resource://gre/modules/AddonManager.jsm");
+				
+					AddonManager.getAddonByID("next@scribefire.com", function (addon) {
+						var addonLocation = addon.getResourceURI("").QueryInterface(Components.interfaces.nsIFileURL).file;
+					  });
+				}
+				var messagesText = FileIO.read(messagesFile);
 			
-			if (messagesText) {
-				var messages = {};
+				if (messagesText) {
+					var messages = {};
 				
-				try {
-					messages = JSON.parse(messagesText);
-				} catch (e) {
-					// Invalid JSON.
-				}
+					try {
+						messages = JSON.parse(messagesText);
+					} catch (e) {
+						// Invalid JSON.
+					}
 				
-				for (var i in messages) {
-					string_object[i] = messages[i];
+					for (var i in messages) {
+						string_object[i] = messages[i];
+					}
 				}
-			}
-		});
-	})("next@scribefire.com", SCRIBEFIRE_STRINGS.strings);
+			});
+		})("next@scribefire.com", SCRIBEFIRE_STRINGS.strings);
+	}
+	else {
+		(function (extension_id, string_object) {
+			var defaultLocale = "en_US";
+			
+			Components.utils.import("resource://gre/modules/AddonManager.jsm");  
+			
+			AddonManager.getAddonByID(extension_id, function (addon) {
+				var addonLocation = addon.getResourceURI("").QueryInterface(Components.interfaces.nsIFileURL).file;
+			
+				// Get the user's Firefox locale.
+				var userLocale = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("general.useragent.").getCharPref("locale");
+
+				// Convert the userLocale to Chrome style.
+				var userLocaleParts = userLocale.split("-");
+				if (userLocaleParts.length > 1) userLocaleParts[1] = userLocaleParts[1].toUpperCase();
+				userLocale = userLocaleParts.join("_");
+
+				var localeOrder = [defaultLocale];
+
+				if (userLocale != defaultLocale) {
+					if ((underscoreIndex = userLocale.indexOf("_")) != -1) {
+						localeOrder.push(userLocale.substr(0, underscoreIndex));
+					}
+					localeOrder.push(userLocale);
+				}
+
+				// Starting with the default, pull in all of the strings for each locale, 
+				// overwriting previous ones if necessary.
+				localeOrder.forEach(function (locale) {
+					var messagesFile = addon.getResourceURI("chrome/content/_locales/" + locale + "/messages.json").QueryInterface(Components.interfaces.nsIFileURL).file;
+					console.log(messagesFile);
+					var messagesText = FileIO.read(messagesFile);
+			
+					if (messagesText) {
+						var messages = {};
+				
+						try {
+							messages = JSON.parse(messagesText);
+						} catch (e) {
+							// Invalid JSON.
+						}
+				
+						for (var i in messages) {
+							string_object[i] = messages[i];
+						}
+					}
+				});
+				
+				localize();
+			});
+		})("next@scribefire.com", SCRIBEFIRE_STRINGS.strings);
+	}
 }
 else if (browser == 'safari' || browser == 'opera') {
 	// SCRIBEFIRE_MESSAGES is generated by the Safari and Opera build scripts.
