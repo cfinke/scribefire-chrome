@@ -831,7 +831,7 @@ var SCRIBEFIRE = {
 										rsdReq.onreadystatechange = function () {
 											if (rsdReq.readyState == 4) {
 												if (rsdReq.status < 300) {
-													var xml = rsdReq.responseXML;
+													var xml = xmlFromRequest(rsdReq);
 													var jxml = $(xml);
 											
 													var engineName = $(jxml).find("engineName:first").text().toLowerCase();

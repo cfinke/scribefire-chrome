@@ -22,7 +22,7 @@ var XMLRPC_LIB = {
 				//console.log("Receiving: " + req.status + " " + req.responseText);
 				//console.log(req.responseXML);
 				
-				var xml = req.responseXML;
+				var xml = xmlFromRequest(req);
 				
 				if (!xml) {
 					var text = req.responseText.replace(/<\?xml[^>]+>/, "").replace(/^\s+/g, "");

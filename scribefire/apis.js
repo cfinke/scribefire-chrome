@@ -893,7 +893,7 @@ var genericAtomAPI = function () {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
 						if (req.status < 300) {
-							var xml = req.responseXML;
+							var xml = xmlFromRequest(req);
 							
 							if (!xml) {
 								if (failure) {
@@ -942,7 +942,7 @@ var genericAtomAPI = function () {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
 						if (req.status < 300) {
-							var xml = req.responseXML;
+							var xml = xmlFromRequest(req);
 							
 							var jxml = $(xml);
 						
@@ -1108,7 +1108,7 @@ var genericAtomAPI = function () {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
 						if (req.status < 300) {
-							var xml = req.responseXML;
+							var xml = xmlFromRequest(req);
 							var jxml = $(xml);
 							
 							var postId = jxml.find("id:first").text();//.split(".post-")[1];
@@ -1141,7 +1141,7 @@ var genericAtomAPI = function () {
 						req.onreadystatechange = function () {
 							if (req.readyState == 4) {
 								if (req.status < 300) {
-									var xml = req.responseXML;
+									var xml = xmlFromRequest(req);
 									var jxml = $(xml);
 							
 									var categories = [];
@@ -1183,7 +1183,7 @@ var genericAtomAPI = function () {
 					req.onreadystatechange = function () {
 						if (req.readyState == 4) {
 							if (req.status < 300) {
-								var xml = req.responseXML;
+								var xml = xmlFromRequest(req);
 								var jxml = $(xml);
 								
 								var interfaceUrl = jxml.find("entry:first link[rel='self']:first").attr("href");
@@ -1195,7 +1195,7 @@ var genericAtomAPI = function () {
 										creq.onreadystatechange = function () {
 											if (creq.readyState == 4) {
 												if (creq.status < 300) {
-													var cxml = creq.responseXML;
+													var cxml = xmlFromRequest(creq);
 													var cjxml = $(cxml);
 												
 													var categoryLink = cjxml.find("link[rel='service.categories']:first");
@@ -1265,7 +1265,7 @@ var genericAtomAPI = function () {
 		var req = new XMLHttpRequest();
 		// encodeURIComponent is used here because otherwise some requests were failing
 		// when the password contains special characters like "@"
-		req.open(method, url, true, encodeURIComponent(this.username), encodeURIComponent(this.password));
+		req.open(method, url, false, encodeURIComponent(this.username), encodeURIComponent(this.password));
 		req.setRequestHeader("Content-Type", "application/atom+xml");
 		
 		callback(req);
@@ -1491,7 +1491,7 @@ var bloggerAPI = function () {
 							invalidTokens = 0;
 						
 							try {
-								var imageUrl = $(upreq.responseXML).find("content:first").attr("src");
+								var imageUrl = $(xmlFromRequest(upreq)).find("content:first").attr("src");
 								success( { "url" : imageUrl } );
 							} catch (e) {
 								failure( { "status" : upreq.status, "msg" : upreq.responseText });
@@ -1605,7 +1605,7 @@ var bloggerAPI = function () {
 							invalidTokens = 0;
 						
 							try {
-								var imageUrl = $(upreq.responseXML).find("content:first").attr("src");
+								var imageUrl = $(xmlFromRequest(upreq)).find("content:first").attr("src");
 								success( { "url" : imageUrl } );
 							} catch (e) {
 								failure( { "status" : upreq.status, "msg" : upreq.responseText });
@@ -1735,7 +1735,7 @@ var tumblrAPI = function () {
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
-					var xml = req.responseXML;
+					var xml = xmlFromRequest(req);
 					
 					var jxml = $(xml);
 					
@@ -1818,7 +1818,7 @@ var tumblrAPI = function () {
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
-					var xml = req.responseXML;
+					var xml = xmlFromRequest(req);
 					var jxml = $(xml);
 				
 					var rv = [];
@@ -1972,7 +1972,7 @@ var posterousAPI = function () {
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
-					var xml = req.responseXML;
+					var xml = xmlFromRequest(req);
 					var jxml = $(xml);
 					
 					var blogs = [];
@@ -2036,7 +2036,7 @@ var posterousAPI = function () {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
 
-					var xml = req.responseXML;
+					var xml = xmlFromRequest(req);
 					
 					var jxml = $(xml);
 					
@@ -2140,7 +2140,7 @@ var posterousAPI = function () {
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
-				var xml = req.responseXML;
+				var xml = xmlFromRequest(req);
 				var jxml = $(xml);
 				
 				if (req.status == 200) {

@@ -35,3 +35,21 @@ function resolveHref(path, href) {
 		}
 	}
 }
+
+function xmlFromRequest(req) {
+	if (req.responseXML) {
+		return req.responseXML;
+	}
+	else {
+		var text = $.trim(req.responseText);
+		
+		if (typeof DOMParser != 'undefined') {
+			var parser = new DOMParser();
+			var xml = parser.parseFromString(text, "text/xml");
+			return xml;
+		}
+		else {
+			return false;
+		}
+	}
+}
