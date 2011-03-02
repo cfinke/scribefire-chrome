@@ -160,6 +160,10 @@ var genericMetaWeblogAPI = function () {
 	this.getBlogs = function (params, success, failure) {
 		// How safe is it to assume that MetaWeblog APIs implement the blogger_ methods?
 		
+		if (!params.id || !("id" in params)) {
+			params.id = "0";
+		}
+		
 		var args = [params.apiUrl, params.id, params.username, params.password];
 		var xml = performancingAPICalls.blogger_getUsersBlogs(args);
 		
