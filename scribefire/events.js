@@ -92,6 +92,10 @@ $(document).ready(function () {
 	
 	$(".post-meta").hide();
 	
+	if (!supports_input_placeholder()) {
+		$("#filter-entries").hide();
+	}
+	
 	$("#text-slug").live("change", function () {
 		if ($(this).val()) {
 			$("#slug-display").text($(this).val());
@@ -307,7 +311,7 @@ $(document).ready(function () {
 	});
 	
 	$("#list-entries").live("change", function (e) {
-		if (SCRIBEFIRE.dirty && $(this).data("lastPostId") && $(this).data("lastPostId") != $(this).val()) {
+		if (SCRIBEFIRE.dirty && $(this).data("lastPostId") && $(this).data("lastPostId") != $(this).val() && $(this).val().toString().indexOf("scribefire:new") != 0) {
 			if (!confirm(scribefire_string("confirm_not_saved"))) {
 				$(this).val($(this).data("lastPostId"));
 				
