@@ -53,3 +53,8 @@ function xmlFromRequest(req) {
 		}
 	}
 }
+
+function supports_input_placeholder() {
+	var i = document.createElement('input');
+	return 'placeholder' in i;
+}
