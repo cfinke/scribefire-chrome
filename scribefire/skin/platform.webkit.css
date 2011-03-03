@@ -1,22 +1,5 @@
-*[orient] {
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-}
-
-*[orient="horizontal"] {
-	-webkit-box-orient: horizontal;
-}
-
-*[flex="1"] {
-	-webkit-box-flex: 1;
-}
-
 #content .bar {
 	background: -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
-}
-
-.subbar {
-	background: url(arrow-right.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)); 
 }
 
 .subbar {
@@ -27,8 +10,11 @@
 	background: url(arrow-down-blue.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf)) !important;
 }
 
-#content .bar[busy="true"] {
-	background: url(throbber-16.png) 5px 2px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#e5e5e5), to(#d1d1d1)) !important;
+.bar[busy="true"] {
+	background: url(throbber-16.png) 4px 6px no-repeat;
+	-webkit-background-size: 12px;
+	background-size: 12px;
+	padding-left: 18px !important;
 }
 
 button, input[type='submit'] {

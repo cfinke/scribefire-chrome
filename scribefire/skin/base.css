@@ -11,10 +11,6 @@ td {
 	vertical-align: top;
 }
 
-*[orient] > * {
-	display: block;
-}
-
 select {
 	max-width: 100%;
 	overflow: hidden;

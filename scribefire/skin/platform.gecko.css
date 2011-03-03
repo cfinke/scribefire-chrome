@@ -2,29 +2,12 @@ body {
 	width: 100%;
 }
 
-*[orient] {
-	display: -moz-box;
-	-moz-box-orient: vertical;
-}
-
-*[orient="horizontal"] {
-	-moz-box-orient: horizontal;
-	width: 100%;
-	padding: 0;
-	margin: 0;
-}
-
-*[flex="1"] {
-	-moz-box-flex: 1;
-	width: 99%;
-}
-
 #content .bar {
 	background: -moz-linear-gradient(bottom, #e5e5e5, #d1d1d1);
 }
 
 .bar[busy="true"] {
-	background: url(throbber-16.png) 5px 2px no-repeat;
+	background: url(throbber-16.png) 5px 5px no-repeat;
 	-moz-background-size: 12px;
 	background-size: 12px;
 	padding-left: 18px !important;

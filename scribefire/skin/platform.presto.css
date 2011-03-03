@@ -3,10 +3,6 @@
 	clear: both;
 }
 
-.subbar {
-	background: #e5e5e5 url(arrow-right.png) 8px 4px no-repeat;
-}
-
 #list-entries {
 	float: left;
 }
