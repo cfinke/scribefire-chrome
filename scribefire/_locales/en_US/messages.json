@@ -538,6 +538,9 @@
 	"zemanta_introduction": {
 		"message": "Zemanta helps you create rich blog posts by recognizing your topic and suggesting useful related links. Just write your post, click the Zemanta toolbar icon (screenshot shown below), and then select the articles you'd like to link to."
 	},
+	"zemanta_loading_message": {
+		"message": "Please wait while ScribeFire retrieves related articles from Zemanta..."
+	},
 	"action_continueEditing": {
 		"message": "Continue editing this post"
 	},
