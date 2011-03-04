@@ -221,7 +221,7 @@ var SCRIBEFIRE = {
 			button.text(buttons[i].label);
 			
 			if ("class" in buttons[i]) {
-				button.addClass(buttons[i].class);
+				button.addClass(buttons[i]["class"]);
 			}
 			
 			button.attr("abc", buttons[i].callback);
@@ -1077,7 +1077,14 @@ var SCRIBEFIRE = {
 			params.id = "";
 		}
 		
-		if ($("#list-entries option:selected").data("type") == 'posts') {
+		var entryType = $("#list-entries option:selected").data("type");
+		
+		if (entryType != "posts" && entryType != "pages") {
+			// Posts are still loading.
+			entryType = "posts";
+		}
+		
+		if (entryType == 'posts') {
 			SCRIBEFIRE.getAPI().publish(
 				params,
 				success,
@@ -1087,7 +1094,7 @@ var SCRIBEFIRE = {
 				}
 			);
 		}
-		else if ($("#list-entries option:selected").data("type") == 'pages') {
+		else if (entryType == 'pages') {
 			SCRIBEFIRE.getAPI().publish(
 				params,
 				success,
@@ -1096,10 +1103,6 @@ var SCRIBEFIRE = {
 					callbackFailure();
 				}
 			);
-		}
-		else {
-			// @todo localize
-			alert("Invalid type: " + $("#list-entries option:selected").data("type") );
 		}
 	},
 	

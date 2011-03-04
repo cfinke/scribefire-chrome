@@ -84,16 +84,8 @@ if (platform == 'gecko') {
 			// Starting with the default, pull in all of the strings for each locale, 
 			// overwriting previous ones if necessary.
 			localeOrder.forEach(function (locale) {
-				if (typeof installLocation != 'undefined') {
-					var messagesFile = installLocation.getItemFile(extension_id, "chrome/content/_locales/" + locale + "/messages.json");
-				}
-				else {
-					Components.utils.import("resource://gre/modules/AddonManager.jsm");
+				var messagesFile = installLocation.getItemFile(extension_id, "chrome/content/_locales/" + locale + "/messages.json");
 				
-					AddonManager.getAddonByID("next@scribefire.com", function (addon) {
-						var addonLocation = addon.getResourceURI("").QueryInterface(Components.interfaces.nsIFileURL).file;
-					  });
-				}
 				var messagesText = FileIO.read(messagesFile);
 			
 				if (messagesText) {
@@ -116,7 +108,8 @@ if (platform == 'gecko') {
 		(function (extension_id, string_object) {
 			var defaultLocale = "en_US";
 			
-			Components.utils.import("resource://gre/modules/AddonManager.jsm");  
+			// Safari and Opera both complain about using .import
+			Components.utils["import"]("resource://gre/modules/AddonManager.jsm");  
 			
 			AddonManager.getAddonByID(extension_id, function (addon) {
 				var addonLocation = addon.getResourceURI("").QueryInterface(Components.interfaces.nsIFileURL).file;
