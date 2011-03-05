@@ -38,9 +38,6 @@
 	"action_editHTML": {
 		"message": "Пребаците се у HTML поглед"
 	},
-	"action_category_add": {
-		"message": "Нова категорија"
-	},
 	"action_publish": {
 		"message": "Објави"
 	},
@@ -95,9 +92,6 @@
 	"option_publish_month12": {
 		"message": "Дец"
 	},
-	"label_blog": {
-		"message": "Блог:"
-	},
 	"label_username": {
 		"message": "Корисничко име"
 	},
@@ -112,9 +106,6 @@
 	},
 	"label_excerpt": {
 		"message": "Исечак:"
-	},
-	"label_categories": {
-		"message": "Категорије:"
 	},
 	"label_publish": {
 		"message": "Објави"

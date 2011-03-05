@@ -35,12 +35,6 @@
 	"notification_blog_add": {
 		"message": "Het toevoegen van je blog is geslaagd!"
 	},
-	"notification_publish": {
-		"message": "Publikatie geslaagd!"
-	},
-	"notification_publish_update": {
-		"message": "Update geslaagd!"
-	},
 	"action_openBlogInTab": {
 		"message": "Open blog in een nieuwe tab."
 	},
@@ -76,9 +70,6 @@
 	},
 	"action_editVisual": {
 		"message": "Switch naar Visuele Editor"
-	},
-	"action_category_add": {
-		"message": "Nieuwe Kategorie"
 	},
 	"action_customField_add": {
 		"message": "Voeg Custom Veld toe"

@@ -35,12 +35,6 @@
 	"notification_blog_add": {
 		"message": "Seu blog foi adicionado com sucesso!"
 	},
-	"notification_publish": {
-		"message": "Publicado com sucesso!"
-	},
-	"notification_publish_update": {
-		"message": "Atualizado com sucesso!"
-	},
 	"action_openBlogInTab": {
 		"message": "Abrir blog em uma nova aba"
 	},
@@ -77,9 +71,6 @@
 	"action_editVisual": {
 		"message": "Alternar para o Visual Editor"
 	},
-	"action_category_add": {
-		"message": "Nova Categoria"
-	},
 	"action_customField_add": {
 		"message": "Adicionar Campo Personalizado"
 	},
@@ -100,17 +91,6 @@
 	},
 	"action_insert": {
 		"message": "Inserir"
-	},
-	"action_reset": {
-		"message": "Limpar todos os campos e começar um novo $ignore1$ texto $ignore2$",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
 	},
 	"action_publishUpdate": {
 		"message": "Atualizar $ignore1$ Texto $ignore2$",
@@ -189,9 +169,6 @@
 	"option_publish_month12": {
 		"message": "Dez"
 	},
-	"label_blog": {
-		"message": "Blog:"
-	},
 	"label_blog_type": {
 		"message": "Tipo de Blog:"
 	},
@@ -227,12 +204,6 @@
 	},
 	"label_excerpt": {
 		"message": "Resumo:"
-	},
-	"label_categories": {
-		"message": "Categorias:"
-	},
-	"label_tags": {
-		"message": "Tags:"
 	},
 	"label_customFields": {
 		"message": "Campos Personalizados"

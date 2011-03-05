@@ -1,0 +1,234 @@
+{
+	"extName": {
+		"message": "अग्निलेखक"
+	},
+	"extDescription": {
+		"message": "एक सरल ब्लॉग संपादक जो ब्लॉग लेखन और संपादन आसन बनाये"
+	},
+	"continue": {
+		"message": "क्रमशः"
+	},
+	"firsttime_header": {
+		"message": "अग्निलेखक आपका स्वागत करता है!"
+	},
+	"firsttime_text": {
+		"message": "संभवतः आप सबसे पहले अपने ब्लॉग का पंजीकरण करवाना चाहेंगे I उसके लिये इस संदेश को बंद करें और \"नया ब्लॉग पंजीकृत करें\" पर क्लिक करें I"
+	},
+	"entry_new_label": {
+		"message": "(नया)"
+	},
+	"entry_localDraft_label": {
+		"message": "अप्रकाशित प्रारूप"
+	},
+	"entry_draft_label": {
+		"message": "प्रारूप"
+	},
+	"entry_scheduled_label": {
+		"message": "क्रमबद्ध अप्रकाशित"
+	},
+	"notification_draft_delete": {
+		"message": "प्रारूप रद्द"
+	},
+	"notification_draft_save": {
+		"message": "प्रारूप सुरक्षित"
+	},
+	"notification_post_delete": {
+		"message": "प्रकाशित सामग्री रद्द सफल"
+	},
+	"notification_blog_add": {
+		"message": "ब्लॉग पंजीकरण सफल!"
+	},
+	"action_openBlogInTab": {
+		"message": "ब्लॉग नये टेब में खोलें"
+	},
+	"action_view": {
+		"message": "दर्शन"
+	},
+	"action_edit": {
+		"message": "संपादन"
+	},
+	"action_remove": {
+		"message": "हटायें"
+	},
+	"action_blog_add": {
+		"message": "नया ब्लॉग पंजीकृत करें"
+	},
+	"action_next": {
+		"message": "अगला"
+	},
+	"action_cancel": {
+		"message": "रद्द"
+	},
+	"action_makeMoney": {
+		"message": "इस ब्लॉग से धन कमाएं"
+	},
+	"action_finish": {
+		"message": "पूर्ण करें"
+	},
+	"action_delete": {
+		"message": "रद्द"
+	},
+	"action_editHTML": {
+		"message": "HTML  भाषा में देखें"
+	},
+	"action_editVisual": {
+		"message": "दृश्य संपादक में देखें"
+	},
+	"action_customField_add": {
+		"message": "स्वःइक्षित जानकारी जोडें"
+	},
+	"action_draft_save": {
+		"message": "कार्य प्रगति सुरक्षित करें"
+	},
+	"action_publish": {
+		"message": "प्रकाशित करें"
+	},
+	"action_permalink_edit": {
+		"message": "चिरस्थाई परिचय"
+	},
+	"action_schedule": {
+		"message": "सारिणी"
+	},
+	"action_save": {
+		"message": "रक्षण"
+	},
+	"action_insert": {
+		"message": "डालें"
+	},
+	"action_publishUpdate": {
+		"message": "नवीनीकृत सामग्री प्रकाशित करें $ignore1$ Post $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_video_add": {
+		"message": "चलचित्र डालें"
+	},
+	"option_blogType_select": {
+		"message": "(चुनाव करें)"
+	},
+	"option_blogType_atom": {
+		"message": "Atom प्रकार का ब्लॉग"
+	},
+	"option_blogType_blogger": {
+		"message": "blogger प्रकार का ब्लॉग"
+	},
+	"option_blogType_wordpress": {
+		"message": "wordpress प्रकार का ब्लॉग"
+	},
+	"option_blogType_tumblr": {
+		"message": "tumblr प्रकार का ब्लॉग"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog प्रकार का ब्लॉग"
+	},
+	"option_blogType_movabletype": {
+		"message": "Movabletype प्रकार का ब्लॉग"
+	},
+	"option_publish_immediately": {
+		"message": "तुरंत प्रकाशित करें"
+	},
+	"option_publish_month1": {
+		"message": "जनव"
+	},
+	"option_publish_month2": {
+		"message": "फ़रव"
+	},
+	"option_publish_month3": {
+		"message": "मार्च"
+	},
+	"option_publish_month4": {
+		"message": "अप्रैल"
+	},
+	"option_publish_month5": {
+		"message": "मई"
+	},
+	"option_publish_month6": {
+		"message": "जून"
+	},
+	"option_publish_month7": {
+		"message": "जुला"
+	},
+	"option_publish_month8": {
+		"message": "अगस"
+	},
+	"option_publish_month9": {
+		"message": "सितम"
+	},
+	"option_publish_month10": {
+		"message": "अक्तू"
+	},
+	"option_publish_month11": {
+		"message": "नवम"
+	},
+	"option_publish_month12": {
+		"message": "दिस"
+	},
+	"label_blog_type": {
+		"message": "ब्लॉग का प्रकार"
+	},
+	"label_url": {
+		"message": "इन्टरनेट पर पता"
+	},
+	"label_apiUrl": {
+		"message": "API  का इन्टरनेट पता"
+	},
+	"label_blogId": {
+		"message": "ब्लॉग परिचयपत्र"
+	},
+	"label_loginCredentials": {
+		"message": "स्वामित्व पहचान"
+	},
+	"label_username": {
+		"message": "खाता नाम"
+	},
+	"label_password": {
+		"message": "आज्ञा शब्द"
+	},
+	"label_entry": {
+		"message": "प्रवेशद्वार"
+	},
+	"label_help": {
+		"message": "सहायता!"
+	},
+	"label_title": {
+		"message": "उपनाम"
+	},
+	"label_content": {
+		"message": "सामग्री प्रकाशित करें"
+	},
+	"label_excerpt": {
+		"message": "उद्धरण"
+	},
+	"label_customFields": {
+		"message": "स्वःइक्षित जानकारीयाँ"
+	},
+	"label_publish": {
+		"message": "प्रकाशित करें"
+	},
+	"label_private": {
+		"message": "निजी"
+	},
+	"label_name": {
+		"message": "नाम"
+	},
+	"error_header": {
+		"message": "अरे! अग्निलेखक ने गलती कर दी"
+	},
+	"error_post_delete": {
+		"message": "आपकी प्रकाशित सामग्री रद्द करते हुए अग्निलेखक को एक छोटी समस्या मिली है: $status$ $msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
+			},
+			"msg": {
+				"content": "$2"
+			}
+		}
+	}
+}

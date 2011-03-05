@@ -2,6 +2,9 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
+	"extDescription": {
+		"message": "Un redattore blog, facile da usare per pubblicare al tutti i tuoi blog."
+	},
 	"continue": {
 		"message": "Continua"
 	},
@@ -34,12 +37,6 @@
 	},
 	"notification_blog_add": {
 		"message": "Il tuo blog è stato aggiunto con successo!"
-	},
-	"notification_publish": {
-		"message": "Pubbicazione avvenuta correttamente!"
-	},
-	"notification_publish_update": {
-		"message": "Aggiornamento avvenuto correttamente!"
 	},
 	"action_openBlogInTab": {
 		"message": "Apri il blog in una nuova scheda"
@@ -77,9 +74,6 @@
 	"action_editVisual": {
 		"message": "Passa alla modalità Editor Visuale"
 	},
-	"action_category_add": {
-		"message": "Nuova Categoria"
-	},
 	"action_customField_add": {
 		"message": "Aggiungi un campo personalizzato"
 	},
@@ -100,17 +94,6 @@
 	},
 	"action_insert": {
 		"message": "Inserisci"
-	},
-	"action_reset": {
-		"message": "Svuota tutti i campi e inizia un Nuovo $ignore1$ Articolo $ignore2$",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
 	},
 	"action_publishUpdate": {
 		"message": "Aggiorna $ignore1$ Articolo $ignore2$",
@@ -189,9 +172,6 @@
 	"option_publish_month12": {
 		"message": "Dic"
 	},
-	"label_blog": {
-		"message": "Blog:"
-	},
 	"label_blog_type": {
 		"message": "Tipo Blog:"
 	},
@@ -227,12 +207,6 @@
 	},
 	"label_excerpt": {
 		"message": "Estratto:"
-	},
-	"label_categories": {
-		"message": "Categorie:"
-	},
-	"label_tags": {
-		"message": "Tags:"
 	},
 	"label_customFields": {
 		"message": "Campi Personalizzati"
@@ -454,5 +428,38 @@
 	},
 	"text_video3": {
 		"message": "Oppure incolla il codice da incorporare fornito dal tuo video in questo box:"
+	},
+	"time_ago_seconds": {
+		"message": "Meno d'un minuto fa"
+	},
+	"time_ago_minutes": {
+		"message": "$1 minuti fa"
+	},
+	"time_ago_hours": {
+		"message": "$1 ore fa"
+	},
+	"time_ago_days": {
+		"message": "$1 giorni fa"
+	},
+	"confirm_not_saved": {
+		"message": "Sai sicuro che vuoi cambiare l'articoli?  Non hai ancora salvato la versione attuale di questo articolo.\n\n(Clicca su 'Salva aggiornamenti' al fondo della pagina per salvare i tuoi aggiornamenti.)"
+	},
+	"zemanta_related_articles": {
+		"message": "Articoli simili, grazie a Zemanta:"
+	},
+	"zemanta_instructions": {
+		"message": "Scegli i articoli che vuoi includere al tuo post:"
+	},
+	"action_zemanta_add": {
+		"message": "Aggiungere collegamenti ai articoli simili."
+	},
+	"zemanta_tos_description": {
+		"message": "Per continuare, devi accettare i Condizioni di Servizio di Zemanta (mostrati di seguito)."
+	},
+	"zemanta_tos_accept_request": {
+		"message": "Se accetti i condizioni, clicca 'Continua.'"
+	},
+	"zemanta_tracking_optin": {
+		"message": "Sarebbe possibile di permettere ScribeFire d'aggiungere un'immagine invisibile per contare le statistiche d'uso Zemanta?  Non noti la differenza.  Se non accetti, non ti domanderemo pìu."
 	}
 }

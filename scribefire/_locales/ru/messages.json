@@ -35,12 +35,6 @@
 	"notification_blog_add": {
 		"message": "Ваш блог был успешно добавлен!"
 	},
-	"notification_publish": {
-		"message": "Опубликовано успешно!"
-	},
-	"notification_publish_update": {
-		"message": "Обновлено успешно!"
-	},
 	"action_openBlogInTab": {
 		"message": "Открыть блог в новой вкладке"
 	},
@@ -77,9 +71,6 @@
 	"action_editVisual": {
 		"message": "Переключиться на визуальный редактор"
 	},
-	"action_category_add": {
-		"message": "Новая категория"
-	},
 	"action_customField_add": {
 		"message": "Добавить клиентское поле"
 	},
@@ -100,17 +91,6 @@
 	},
 	"action_insert": {
 		"message": "Вставить"
-	},
-	"action_reset": {
-		"message": "Очистить все поля и начать новое $ignore1$ сообщение $ignore2$",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
 	},
 	"action_publishUpdate": {
 		"message": "Обновить $ignore1$ сообщение $ignore2$",
@@ -189,9 +169,6 @@
 	"option_publish_month12": {
 		"message": "Дек"
 	},
-	"label_blog": {
-		"message": "Блог:"
-	},
 	"label_blog_type": {
 		"message": "Тип блога:"
 	},
@@ -227,12 +204,6 @@
 	},
 	"label_excerpt": {
 		"message": "Выдержки:"
-	},
-	"label_categories": {
-		"message": "Категории:"
-	},
-	"label_tags": {
-		"message": "Теги:"
 	},
 	"label_customFields": {
 		"message": "Клиентские поля"

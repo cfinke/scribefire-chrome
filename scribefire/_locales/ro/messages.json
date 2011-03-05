@@ -2,6 +2,9 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
+	"extDescription": {
+		"message": "Un editor de bloguri uşor de folosit, compatibil cu multe platforme."
+	},
 	"continue": {
 		"message": "Continuă"
 	},
@@ -34,12 +37,6 @@
 	},
 	"notification_blog_add": {
 		"message": "Blogul a fost adăugat cu succes!"
-	},
-	"notification_publish": {
-		"message": "Publicat cu succes!"
-	},
-	"notification_publish_update": {
-		"message": "Modificarea a fost realizată!"
 	},
 	"action_openBlogInTab": {
 		"message": "Deschide blogul într-un tab nou"
@@ -77,9 +74,6 @@
 	"action_editVisual": {
 		"message": "Activează editorul vizual"
 	},
-	"action_category_add": {
-		"message": "Categorie nouă"
-	},
 	"action_customField_add": {
 		"message": "Adaugă câmp custom"
 	},
@@ -100,17 +94,6 @@
 	},
 	"action_insert": {
 		"message": "Inserează"
-	},
-	"action_reset": {
-		"message": "Şterge toate câmpurile şi porneşte un nou $ignore1$ post $ignore2$",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
 	},
 	"action_publishUpdate": {
 		"message": "Modifică $ignore1$ post $ignore2$",
@@ -189,9 +172,6 @@
 	"option_publish_month12": {
 		"message": "Dec"
 	},
-	"label_blog": {
-		"message": "Blog:"
-	},
 	"label_blog_type": {
 		"message": "Tipul blogului:"
 	},
@@ -227,12 +207,6 @@
 	},
 	"label_excerpt": {
 		"message": "Extras"
-	},
-	"label_categories": {
-		"message": "Categorii:"
-	},
-	"label_tags": {
-		"message": "Taguri:"
 	},
 	"label_customFields": {
 		"message": "Câmpuri personalizate"
@@ -454,5 +428,38 @@
 	},
 	"text_video3": {
 		"message": "Sau copiază codul de embed pentru video în caseta de mai jos:"
+	},
+	"time_ago_seconds": {
+		"message": "Acum mai puţin de un minut."
+	},
+	"time_ago_minutes": {
+		"message": "În urmă cu $1 minute"
+	},
+	"time_ago_hours": {
+		"message": "În urmă cu $1 ore"
+	},
+	"time_ago_days": {
+		"message": "În urmă cu $1 zile"
+	},
+	"confirm_not_saved": {
+		"message": "Eşti sigur că vrei să selectezi alt post? Nu ai salvat încă versiunea curentă a acestui post.\n(Click pe \"salvează progres\" în josul paginii.)"
+	},
+	"zemanta_related_articles": {
+		"message": "Articole"
+	},
+	"zemanta_instructions": {
+		"message": "Selectaţi articolele pe care doriţi să le includeţi în acest post:"
+	},
+	"action_zemanta_add": {
+		"message": "Adăugaţi link-uri spre articole asemănătoare"
+	},
+	"zemanta_tos_description": {
+		"message": "Pentru a continua trebuie sa fiţi de acord cu termenii serviciului de la Zemanta (descrişi mai jos)."
+	},
+	"zemanta_tos_accept_request": {
+		"message": "Dacă sunteţi de acord cu termenii, click pe \"Continuă\""
+	},
+	"zemanta_tracking_optin": {
+		"message": "Este OK ca ScribeFire să adauge un mesaj invizibil postului tău pentru a realiza statistici de folosire ale Zemanta? Nu vei simţi vreo diferenţă şi chiar daca spui nu, nu vei mai fi întrebat din nou."
 	}
 }

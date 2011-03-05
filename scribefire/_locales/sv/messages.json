@@ -35,12 +35,6 @@
 	"notification_blog_add": {
 		"message": "Din blogg har lagts till!"
 	},
-	"notification_publish": {
-		"message": "Publicerat!"
-	},
-	"notification_publish_update": {
-		"message": "Uppdaterat!"
-	},
 	"action_openBlogInTab": {
 		"message": "Öppna bloggen på en ny flik"
 	},
@@ -77,9 +71,6 @@
 	"action_editVisual": {
 		"message": "Byt till den visuella editorn"
 	},
-	"action_category_add": {
-		"message": "Ny kategori"
-	},
 	"action_customField_add": {
 		"message": "Lägg till eget fält"
 	},
@@ -100,17 +91,6 @@
 	},
 	"action_insert": {
 		"message": "Infoga"
-	},
-	"action_reset": {
-		"message": "Töm alla fält och börja på ett nytt $ignore1$ inlägg $ignore2$",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
 	},
 	"action_publishUpdate": {
 		"message": "Uppdatera $ignore1$ inlägge $ignore2$",
@@ -189,9 +169,6 @@
 	"option_publish_month12": {
 		"message": "dec"
 	},
-	"label_blog": {
-		"message": "Blogg:"
-	},
 	"label_blog_type": {
 		"message": "Bloggtyp:"
 	},
@@ -227,12 +204,6 @@
 	},
 	"label_excerpt": {
 		"message": "Sammanfattning:"
-	},
-	"label_categories": {
-		"message": "Kategorier:"
-	},
-	"label_tags": {
-		"message": "Taggar:"
 	},
 	"label_customFields": {
 		"message": "Egna fält"

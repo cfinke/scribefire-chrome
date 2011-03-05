@@ -2,14 +2,17 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
+	"extDescription": {
+		"message": "Un editor de blogs fácil de usar que te permite postear en todos tus blogs."
+	},
 	"continue": {
 		"message": "Continuar"
 	},
 	"firsttime_header": {
-		"message": "¡Bienvenidos a ScribeFire!"
+		"message": "¡Bienvenido a ScribeFire!"
 	},
 	"firsttime_text": {
-		"message": "Probablemente lo primero que querrá hacer es agregar su blog. Cierre este diálogo y haga clic en 'Agregar un Nuevo Blog' para empezar."
+		"message": "Probablemente lo primero que querrás hacer es agregar tu blog. Cierra este diálogo y haz clic en 'Agregar un Nuevo Blog' para empezar."
 	},
 	"entry_new_label": {
 		"message": "(nueva)"
@@ -21,7 +24,7 @@
 		"message": "Borrador"
 	},
 	"entry_scheduled_label": {
-		"message": "Programada"
+		"message": "Programado"
 	},
 	"notification_draft_delete": {
 		"message": "Borrador eliminado."
@@ -33,13 +36,7 @@
 		"message": "Entrada eliminada exitosamente."
 	},
 	"notification_blog_add": {
-		"message": "¡Su blog ha sido agregado exitosamente!"
-	},
-	"notification_publish": {
-		"message": "¡Publicado exitosamente!"
-	},
-	"notification_publish_update": {
-		"message": "¡Actualizado exitosamente!"
+		"message": "¡Tu blog ha sido agregado exitosamente!"
 	},
 	"action_openBlogInTab": {
 		"message": "Abrir blog en una nueva pestaña"
@@ -77,9 +74,6 @@
 	"action_editVisual": {
 		"message": "Cambiar a Editor Visual"
 	},
-	"action_category_add": {
-		"message": "Nueva Categoría"
-	},
 	"action_customField_add": {
 		"message": "Agregar un Campo Personalizado"
 	},
@@ -100,17 +94,6 @@
 	},
 	"action_insert": {
 		"message": "Insertar"
-	},
-	"action_reset": {
-		"message": "Borrar Todos los Campos y Empezar una Nueva $ignore1$ Entrada $ignore2$",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
 	},
 	"action_publishUpdate": {
 		"message": "Actualizar $ignore1$ Entrada $ignore2$",
@@ -189,9 +172,6 @@
 	"option_publish_month12": {
 		"message": "Dic"
 	},
-	"label_blog": {
-		"message": "Blog:"
-	},
 	"label_blog_type": {
 		"message": "Tipo de Blog:"
 	},
@@ -228,12 +208,6 @@
 	"label_excerpt": {
 		"message": "Extracto:"
 	},
-	"label_categories": {
-		"message": "Categorías:"
-	},
-	"label_tags": {
-		"message": "Etiquetas:"
-	},
 	"label_customFields": {
 		"message": "Campos Personalizados"
 	},
@@ -250,7 +224,7 @@
 		"message": "Bueno, esto es vergonzoso..."
 	},
 	"error_post_delete": {
-		"message": "ScribeFire encontró este pequeño error cuando trataba de eliminar su entrada: $status$\n\n$msg$",
+		"message": "ScribeFire encontró este pequeño error cuando trataba de eliminar tu entrada: $status$\n\n$msg$",
 		"placeholders": {
 			"status": {
 				"content": "$1"
@@ -269,7 +243,7 @@
 		}
 	},
 	"error_post_publish": {
-		"message": "ScribeFire no pudo publicar su entrada. Aquí está el mensaje de error que surgió: $message$",
+		"message": "ScribeFire no pudo publicar tu entrada. Aquí está el mensaje de error que surgió: $message$",
 		"placeholders": {
 			"message": {
 				"content": "\n\n$1"
@@ -277,7 +251,7 @@
 		}
 	},
 	"error_page_publish": {
-		"message": "ScribeFire no pudo publicar su página. Aquí está el mensaje de error que surgió: $message$",
+		"message": "ScribeFire no pudo publicar tu página. Aquí está el mensaje de error que surgió: $message$",
 		"placeholders": {
 			"message": {
 				"content": "\n\n$1"
@@ -288,7 +262,7 @@
 		"message": "Se produjo un error inesperado."
 	},
 	"error_api_getBlogs": {
-		"message": "ScribeFire no pudo obtener la información necesaria acerca de su blog. Por suerte, su blog retornó este mensaje: $message$",
+		"message": "ScribeFire no pudo obtener la información necesaria acerca de tu blog. Por suerte, tu blog retornó este mensaje: $message$",
 		"placeholders": {
 			"message": {
 				"content": "\n\n$1"
@@ -296,7 +270,7 @@
 		}
 	},
 	"error_api_invalid": {
-		"message": "No es su culpa, pero ScribeFire está buscando una API ($api_type$) que no existe.\n\nSi usted es un probador alfa, es necesario eliminar este blog y agregarlo de nuevo.",
+		"message": "No es tu culpa, pero ScribeFire está buscando una API ($api_type$) que no existe.\n\nSi eres un probador alfa, es necesario eliminar este blog y agregarlo de nuevo.",
 		"placeholders": {
 			"api_type": {
 				"content": "$1"
@@ -304,7 +278,7 @@
 		}
 	},
 	"error_api_noBlog": {
-		"message": "Tranquilo... Usted necesita agregar su blog antes de poder publicar."
+		"message": "Tranquilo... Necesitas agregar tu blog antes de poder publicar."
 	},
 	"error_api_noCategorySupport": {
 		"message": "Este blog no es compatible con la adición de categorías."
@@ -313,10 +287,10 @@
 		"message": "Este blog no es compatible con la carga de archivos."
 	},
 	"error_api_cannotConnect": {
-		"message": "ScribeFire no pudo correctamente conectarse a su blog."
+		"message": "ScribeFire no pudo conectarse con éxito a tu blog."
 	},
 	"error_api_setup": {
-		"message": "Al tratar de determinar la configuración de su blog, ScribeFire tropezó con este código: $code$",
+		"message": "Al tratar de determinar la configuración de tu blog, ScribeFire tropezó con este código: $code$",
 		"placeholders": {
 			"code": {
 				"content": "$1"
@@ -324,10 +298,10 @@
 		}
 	},
 	"error_api_setup_unknownBlogType": {
-		"message": "Le invitamos a probar y configurar su blog manualmente."
+		"message": "Te invitamos a probar y configurar tu blog manualmente."
 	},
 	"error_api_code412": {
-		"message": "El blog ha devuelto un código de error 412. Es posible que pueda solucionar este problema siguiendo las instrucciones en $url$",
+		"message": "El blog ha devuelto un código de error 412. Es posible que puedas solucionar este problema siguiendo las instrucciones en $url$",
 		"placeholders": {
 			"url": {
 				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
@@ -343,28 +317,28 @@
 		}
 	},
 	"error_api_blogger_authentication": {
-		"message": "Blogger dice que escribió el nombre de usuario o contraseña equivocados."
+		"message": "Blogger dice que ingresaste un nombre de usuario o contraseña equivocados."
 	},
 	"error_api_blogger_verify": {
-		"message": "Blogger dice que usted necesita verificar la dirección de correo electrónico de su cuenta; acceda a su cuenta directamente para resolver esto."
+		"message": "Blogger dice que necesitas verificar la dirección de correo electrónico de tu cuenta; accede a tu cuenta directamente para resolver esto."
 	},
 	"error_api_blogger_tos": {
-		"message": "Blogger dice que aún debe aceptar los Términos de Servicio de Google; acceda a su cuenta directamente para resolver esto."
+		"message": "Blogger dice que debes aceptar los Términos de Servicio de Google; accede a tu cuenta directamente para resolver esto."
 	},
 	"error_api_blogger_deleted": {
-		"message": "Blogger dice que la cuenta que está utilizando ha sido eliminada."
+		"message": "Blogger dice que la cuenta que estás utilizando ha sido eliminada."
 	},
 	"error_api_blogger_disabled": {
-		"message": "Blogger dice que su acceso a Blogger ha sido desactivado."
+		"message": "Blogger dice que tu acceso a Blogger ha sido desactivado."
 	},
 	"error_api_blogger_unavailable": {
 		"message": "Blogger dice que el servicio de Blogger no está disponible temporalmente."
 	},
 	"error_api_blogger_captcha": {
-		"message": "Google requiere que complete este TEXTO-ALEATORIO para poder continuar:"
+		"message": "Google requiere que completes este CAPTCHA para poder continuar:"
 	},
 	"error_api_blogger_unknown": {
-		"message": "Blogger no se está comportando bien; está dando a ScribeFire un error: $error$",
+		"message": "Blogger no está funcionando bien; está arrojando a ScribeFire un error: $error$",
 		"placeholders": {
 			"error": {
 				"content": "\n\n$1"
@@ -372,25 +346,25 @@
 		}
 	},
 	"error_api_blogger_authToken": {
-		"message": "No se pudo adquirir un token de autenticación."
+		"message": "No se pudo recibir un token de autenticación."
 	},
 	"error_api_blogger_uploadAPIUnavailable": {
-		"message": "No se pudo contactar con la carga de imágenes de la API."
+		"message": "No se pudo contactar con la API de carga de imágenes."
 	},
 	"error_api_posterous_noDeleteSupport": {
-		"message": "Posterous no acepta la eliminación de entradas por el momento."
+		"message": "Posterous no acepta eliminación de entradas por el momento."
 	},
 	"error_video_noEmbed": {
-		"message": "ScribeFire no pudo generar un código de inserción para la dirección URL del video. Por favor, revise la dirección URL, o de forma manual pegue el código de inserción en el cuadro inferior."
+		"message": "ScribeFire no pudo generar un código de inserción para el URL del video. Por favor, revisa el URL, o pega el código de inserción en el cuadro inferior manualmente."
 	},
 	"prompt_newCategory": {
 		"message": "Nuevo nombre de categoría:"
 	},
 	"confirm_deletePost": {
-		"message": "¿Está seguro que quiere eliminar esta entrada? Será eliminada del servidor de su blog y ya no aparecerá en su blog."
+		"message": "¿Estás seguro que quieres eliminar esta entrada? Será eliminada del servidor y ya no aparecerá en tu blog."
 	},
 	"text_inlinks1": {
-		"message": "ScribeFire se ha asociado con $website$ para ofrecerle una solución fácil de usar de monetización para su blog.",
+		"message": "ScribeFire se ha asociado con $website$ para ofrecerte una solución de monetización fácil de usar para tu blog.",
 		"placeholders": {
 			"website": {
 				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
@@ -401,25 +375,25 @@
 		"message": "¿Qué son InLinks?"
 	},
 	"text_inlinks2": {
-		"message": "InLinks son anuncios estáticos de HTML situados en las áreas de contenido de sitios web. Es simplemente el vínculo más naturalmente pagado en el mercado. Los beneficios para usted son:"
+		"message": "InLinks son anuncios HTML estáticos situados en el contenido de sitios web. Simplemente es el vínculo mejor pagado en forma natural del mercado. Los beneficios para ti son:"
 	},
 	"text_inlinksBenefit1": {
-		"message": "Anuncios que no lastiman los ojos. ¡No molestos pop-ups!"
+		"message": "Anuncios que no lastiman los ojos. ¡Sin pop-ups molestos!"
 	},
 	"text_inlinksBenefit2": {
-		"message": "Ingresos predecibles. Se le paga una tarifa plana\/mes\/anuncio vendido."
+		"message": "Ingresos predecibles. Se paga una tarifa plana por mes por anuncio vendido."
 	},
 	"text_inlinksBenefit3": {
 		"message": "Compatible con Blogs. Instale nuestro simple plugin y nosotros nos encargamos del resto. Sólo siéntese y colecte sus ganancias mensuales."
 	},
 	"text_inlinksBlogs": {
-		"message": "De los blogs que ha creado en ScribeFire, los siguientes pueden ser compatibles con InLinks:"
+		"message": "De los blogs que has creado en ScribeFire, los siguientes pueden ser compatibles con InLinks:"
 	},
 	"text_inlinksCompatibility": {
 		"message": "(Por ahora, InLinks sólo funciona en los blogs que usan Wordpress.org, Drupal, o MovableType.)"
 	},
 	"text_inlinks3": {
-		"message": "$link_open$ ¡Visite InLinks.com $link_close$ para descargar el plugin InLinks y comience a ganar dinero con sus blogs hoy mismo!",
+		"message": "$link_open$ ¡Visita InLinks.com $link_close$ para descargar el plugin InLinks y comienza a ganar dinero con tus blogs hoy mismo!",
 		"placeholders": {
 			"link_open": {
 				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
@@ -433,13 +407,13 @@
 		"message": "Propiedades del Blog"
 	},
 	"text_blogProperties1": {
-		"message": "Puede editar el nombre y la dirección URL de su blog aquí. Para actualizar su nombre de usuario, contraseña, dirección URL de la API, o la identificación del blog, haga clic en el botón \"Eliminar\" para eliminar el blog y luego volver a agregarlo haciendo clic en el botón \"Agregar un Nuevo Blog\"."
+		"message": "Puedes editar el nombre y la dirección URL de tu blog aquí. Para actualizar tu nombre de usuario, contraseña, URL de la API, o la identificación del blog, haz clic en el botón \"Eliminar\" para eliminar tu blog y luego volver a agregarlo haciendo clic en el botón \"Agregar un Nuevo Blog\"."
 	},
 	"header_video": {
 		"message": "Insertar un Video"
 	},
 	"text_video1": {
-		"message": "Pegue la dirección URL del vídeo en el cuadro inferior."
+		"message": "Pega la dirección URL del vídeo en el cuadro inferior."
 	},
 	"text_video2": {
 		"message": "ej., $url1$ o $url2$",
@@ -453,6 +427,39 @@
 		}
 	},
 	"text_video3": {
-		"message": "O bien, copie el código de inserción proveído del vídeo en este cuadro:"
+		"message": "O bien, copia el código de inserción suministrado para tu vídeo en este cuadro:"
+	},
+	"time_ago_seconds": {
+		"message": "Hace menos de un minuto"
+	},
+	"time_ago_minutes": {
+		"message": "Hace $1 minutos"
+	},
+	"time_ago_hours": {
+		"message": "Hace $1 horas"
+	},
+	"time_ago_days": {
+		"message": "Hace $1 días"
+	},
+	"confirm_not_saved": {
+		"message": "¿Estás seguro que deseas cambiar los posts? Aún no haz guardado la versión actual de esta entrada.\n\n(Pulsa \"Guardar progreso\" al final de la página para guardar los cambios)"
+	},
+	"zemanta_related_articles": {
+		"message": "Artículos relacionados, cortesía de Zemanta:"
+	},
+	"zemanta_instructions": {
+		"message": "Selecciona los artículos que deseas incluir en tu entrada:"
+	},
+	"action_zemanta_add": {
+		"message": "Añadir enlaces a los artículos relacionados"
+	},
+	"zemanta_tos_description": {
+		"message": "Para continuar, necesitas aceptar las condiciones de servicio de Zemanta (mostradas abajo)."
+	},
+	"zemanta_tos_accept_request": {
+		"message": "Si estás de acuerdo con las condiciones, haz click en 'Continuar.'"
+	},
+	"zemanta_tracking_optin": {
+		"message": "¿Estás de acuerdo en que ScribeFire añada una imagen invisible a tu entrada para rastrear estadísticas de uso de Zemanta? No notarás ninguna diferencia, y si decides no aceptar, no se te preguntará de nuevo."
 	}
 }

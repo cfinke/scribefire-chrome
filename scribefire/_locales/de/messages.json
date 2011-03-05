@@ -2,6 +2,9 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
+	"extDescription": {
+		"message": "Ein benutzerfreundlicher Blog-Editor für das Posten zu all deinen Blogs."
+	},
 	"continue": {
 		"message": "Fortfahren"
 	},
@@ -9,7 +12,7 @@
 		"message": "Willkommen bei ScribeFire!"
 	},
 	"firsttime_text": {
-		"message": "Das erste, was Du vermutlich wollen wirst, ist Dein Blog hinzufügen. Schließe dieses Dialogfenster und klicke 'Neues Blog hinzufügen' um zu beginnen."
+		"message": "Als erstes willst Du wahrscheinlich Dein Blog hinzufügen. Schließe dieses Dialogfenster und klicke auf  'Neues Blog hinzufügen' um loszulegen."
 	},
 	"entry_new_label": {
 		"message": "(neu)"
@@ -33,13 +36,7 @@
 		"message": "Posting erfolgreich gelöscht."
 	},
 	"notification_blog_add": {
-		"message": "Das Blog wurde erfolgreich angelegt."
-	},
-	"notification_publish": {
-		"message": "Erfolgreich veröffentlicht!"
-	},
-	"notification_publish_update": {
-		"message": "Erfolgreich aktualisiert!"
+		"message": "Das Blog wurde erfolgreich hinzugefügt."
 	},
 	"action_openBlogInTab": {
 		"message": "Blog in neuem Tab öffnen"
@@ -54,7 +51,7 @@
 		"message": "Entfernen"
 	},
 	"action_blog_add": {
-		"message": "Neues Blog anlegen"
+		"message": "Neues Blog hinzufügen"
 	},
 	"action_next": {
 		"message": "Weiter"
@@ -77,9 +74,6 @@
 	"action_editVisual": {
 		"message": "Zum visuellen Editor wechseln"
 	},
-	"action_category_add": {
-		"message": "Neue Kategorie"
-	},
 	"action_customField_add": {
 		"message": "Benutzerdefiniertes Feld anlegen"
 	},
@@ -100,17 +94,6 @@
 	},
 	"action_insert": {
 		"message": "Einfügen"
-	},
-	"action_reset": {
-		"message": "Alle Felder löschen und einen neuen $ignore1$ Post $ignore2$ beginnen",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
 	},
 	"action_publishUpdate": {
 		"message": "$ignore1$ Post $ignore2$ aktualisieren.",
@@ -189,9 +172,6 @@
 	"option_publish_month12": {
 		"message": "Dez"
 	},
-	"label_blog": {
-		"message": "Blog:"
-	},
 	"label_blog_type": {
 		"message": "Blog-Typ:"
 	},
@@ -227,12 +207,6 @@
 	},
 	"label_excerpt": {
 		"message": "Auszug:"
-	},
-	"label_categories": {
-		"message": "Kategorien:"
-	},
-	"label_tags": {
-		"message": "Tags:"
 	},
 	"label_customFields": {
 		"message": "Benutzerdefinierte Felder"
@@ -285,7 +259,7 @@
 		}
 	},
 	"error_unknown": {
-		"message": "Ein unerwarteter Fehler ist passiert."
+		"message": "Ein unerwarteter Fehler ist aufgetreten."
 	},
 	"error_api_getBlogs": {
 		"message": "ScribeFire konnte die notwendigen Informationen über Dein Blog nicht erhalten. Hilfreicherweise antwortete Dein Blogserver mit dieser Nachricht: $message$",
@@ -378,7 +352,7 @@
 		"message": "Konnte die API des Bildladers nicht erreichen."
 	},
 	"error_api_posterous_noDeleteSupport": {
-		"message": "Posterius unterstützt das Löschen von Postings gegenwärtig nicht."
+		"message": "Posterous unterstützt das Löschen von Postings gegenwärtig nicht."
 	},
 	"error_video_noEmbed": {
 		"message": "ScribeFire konnte keinen eingebetteten Code für diese Video URL erzeugen. Bitte überprüfe die URL oder kopiere den eingebetteten Code von Hand in das untenstehende Feld."
@@ -453,6 +427,39 @@
 		}
 	},
 	"text_video3": {
-		"message": "Oder, kopiere den eingebetteten Code für Dein Video in dieses Feld:"
+		"message": "Oder kopiere den Einbettungs-Code für Dein Video in dieses Feld:"
+	},
+	"time_ago_seconds": {
+		"message": "vor weniger als 1 Minute"
+	},
+	"time_ago_minutes": {
+		"message": "vor $1 Minuten"
+	},
+	"time_ago_hours": {
+		"message": "vor $1 Stunden"
+	},
+	"time_ago_days": {
+		"message": "vor $1 Tagen"
+	},
+	"confirm_not_saved": {
+		"message": "Willst Du wirklich zu einem anderen Posting wechseln? Du hast die aktuelle Version dieses Postings noch nicht gespeichert.\n\n(Klicke 'Fortschritt speichern' am Ende der Seite um deinen Fortschritt zu speichern.)"
+	},
+	"zemanta_related_articles": {
+		"message": "Verwandte Artikel, zur Verfügung gestellt von Zemanta:"
+	},
+	"zemanta_instructions": {
+		"message": "Wähle die Artikel aus, die Du in Dein Posting einbinden möchtest:"
+	},
+	"action_zemanta_add": {
+		"message": "Links zu verwandten Artikeln hinzufügen"
+	},
+	"zemanta_tos_description": {
+		"message": "Um fortzufahren, musst Du die Nutzungsbedingungen von Zemanta akzeptieren (siehe unten)."
+	},
+	"zemanta_tos_accept_request": {
+		"message": "Wenn Du den Bedingungen zustimmst, klick auf 'Fortfahren'."
+	},
+	"zemanta_tracking_optin": {
+		"message": "Bist Du damit einverstanden, dass ScribeFire Deinem Posting ein unsichtbares Bild hinzufügt, um Zemanta-Nutzerstatistiken zu erheben? Du wirst keinen Unterschied feststellen, egal wie Du dich entscheidest - und wenn Du ablehnst, wird Dir diese Frage nie wieder gestellt."
 	}
 }

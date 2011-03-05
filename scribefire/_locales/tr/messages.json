@@ -1,0 +1,465 @@
+{
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"extDescription": {
+		"message": "Tüm bloglarınıza gönderi yapabileceğiniz kullanılması kolay bir blog düzenleyicisi."
+	},
+	"continue": {
+		"message": "Devam"
+	},
+	"firsttime_header": {
+		"message": "Scribefire'a Hoşgeldiniz!"
+	},
+	"firsttime_text": {
+		"message": "İlk yapmak isteyeceğiniz muhtemelen blogunuzu eklemek olacaktır. Bu iletiyi kapatın ve başlamak için \"Yeni bir Blog Ekle\" butonuna tıklayın."
+	},
+	"entry_new_label": {
+		"message": "(yeni)"
+	},
+	"entry_localDraft_label": {
+		"message": "Yerel Taslak"
+	},
+	"entry_draft_label": {
+		"message": "Taslak"
+	},
+	"entry_scheduled_label": {
+		"message": "Zamanlandı"
+	},
+	"notification_draft_delete": {
+		"message": "Taslak silindi."
+	},
+	"notification_draft_save": {
+		"message": "Taslak kaydedildi."
+	},
+	"notification_post_delete": {
+		"message": "Gönderi başarıyla silindi."
+	},
+	"notification_blog_add": {
+		"message": "Blogunuz başarıyla eklendi."
+	},
+	"action_openBlogInTab": {
+		"message": "Blogu yeni sekmede aç"
+	},
+	"action_view": {
+		"message": "Görüntüle"
+	},
+	"action_edit": {
+		"message": "Düzenle"
+	},
+	"action_remove": {
+		"message": "Çıkart"
+	},
+	"action_blog_add": {
+		"message": "Yeni bir Blog Ekle"
+	},
+	"action_next": {
+		"message": "Sıradaki"
+	},
+	"action_cancel": {
+		"message": "İptal"
+	},
+	"action_makeMoney": {
+		"message": "Bu blogdan para kazan"
+	},
+	"action_finish": {
+		"message": "Bitir"
+	},
+	"action_delete": {
+		"message": "Sil"
+	},
+	"action_editHTML": {
+		"message": "HTML moduna geç"
+	},
+	"action_editVisual": {
+		"message": "Görsel düzenleyiciye geç"
+	},
+	"action_customField_add": {
+		"message": "Özel alan ekle"
+	},
+	"action_draft_save": {
+		"message": "İlerleyişi kaydet"
+	},
+	"action_publish": {
+		"message": "Yayınla"
+	},
+	"action_permalink_edit": {
+		"message": "Kalıcı bağlantı"
+	},
+	"action_schedule": {
+		"message": "Zamanla"
+	},
+	"action_save": {
+		"message": "Kaydet"
+	},
+	"action_insert": {
+		"message": "Yerleştir"
+	},
+	"action_publishUpdate": {
+		"message": "Gönderiyi $ignore1$ güncelle $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_video_add": {
+		"message": "Bir video yerleştir"
+	},
+	"option_blogType_select": {
+		"message": "(seç)"
+	},
+	"option_blogType_atom": {
+		"message": "Atom"
+	},
+	"option_blogType_blogger": {
+		"message": "Blogger"
+	},
+	"option_blogType_wordpress": {
+		"message": "Wordpress"
+	},
+	"option_blogType_tumblr": {
+		"message": "Tumblr"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
+	},
+	"option_blogType_movabletype": {
+		"message": "MovableType"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous"
+	},
+	"option_publish_immediately": {
+		"message": "Hemen yayınla"
+	},
+	"option_publish_month1": {
+		"message": "Oca"
+	},
+	"option_publish_month2": {
+		"message": "Şub"
+	},
+	"option_publish_month3": {
+		"message": "Mar"
+	},
+	"option_publish_month4": {
+		"message": "Nis"
+	},
+	"option_publish_month5": {
+		"message": "May"
+	},
+	"option_publish_month6": {
+		"message": "Haz"
+	},
+	"option_publish_month7": {
+		"message": "Tem"
+	},
+	"option_publish_month8": {
+		"message": "Ağu"
+	},
+	"option_publish_month9": {
+		"message": "Eyl"
+	},
+	"option_publish_month10": {
+		"message": "Eki"
+	},
+	"option_publish_month11": {
+		"message": "Kas"
+	},
+	"option_publish_month12": {
+		"message": "Ara"
+	},
+	"label_blog_type": {
+		"message": "Blog tipi:"
+	},
+	"label_url": {
+		"message": "URL:"
+	},
+	"label_apiUrl": {
+		"message": "API URL:"
+	},
+	"label_blogId": {
+		"message": "Blog ID:"
+	},
+	"label_loginCredentials": {
+		"message": "Kimlik bilgileri"
+	},
+	"label_username": {
+		"message": "Kullanıcı adı"
+	},
+	"label_password": {
+		"message": "Şifre"
+	},
+	"label_entry": {
+		"message": "Giriş"
+	},
+	"label_help": {
+		"message": "YARDIM!"
+	},
+	"label_title": {
+		"message": "Başlık:"
+	},
+	"label_content": {
+		"message": "İçeriği yayınla"
+	},
+	"label_excerpt": {
+		"message": "Alıntı"
+	},
+	"label_customFields": {
+		"message": "Özel alanlar"
+	},
+	"label_publish": {
+		"message": "Yayınla"
+	},
+	"label_private": {
+		"message": "Özel"
+	},
+	"label_name": {
+		"message": "Adı:"
+	},
+	"error_header": {
+		"message": "Şey, bu utanç verici..."
+	},
+	"error_post_delete": {
+		"message": "ScribeFire gönderinizi silmeye çalışırken bu küçük hatayı buldu: $status$\n$msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
+			},
+			"msg": {
+				"content": "$2"
+			}
+		}
+	},
+	"error_category_add": {
+		"message": "ScribeFire yardım etmek istiyor, fakat kategori eklmeye çalışırken bir sorun çıktı. Hata kodu $error_code$",
+		"placeholders": {
+			"error_code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_post_publish": {
+		"message": "ScribeFire gönderinizi yayınlayamadı. Hata mesajınız:  $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish": {
+		"message": "ScribeFire sayfanızı yayınlayamadı. Hata mesajınız:  $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_unknown": {
+		"message": "Beklenmeyen bir hata meydana geldi."
+	},
+	"error_api_getBlogs": {
+		"message": "ScribeFire blogunuzla ilgili gerekli bilgiyi elde edemedi. Yardımcı olması açısında blogunuz şu hata mesajını verdi: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_invalid": {
+		"message": "Sizin hatanız değil, ama ScribeFire'ın aradığı API ($api_type$) mevcut değil.\nBir alfa test kullanıcısıysanız, bu blogu çıkrtıp tekrar ekleyin.",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_noBlog": {
+		"message": "Sakin ol... Yayınlamadan önce blogunu eklemen gerekir."
+	},
+	"error_api_noCategorySupport": {
+		"message": "Bu blog kategori eklemeyi desteklemiyor."
+	},
+	"error_api_noUploadSupport": {
+		"message": "Bu blog dosya göndermeyi desteklemiyor."
+	},
+	"error_api_cannotConnect": {
+		"message": "ScribeFire blogunuza başarılı bir şekilde bağlanamadı."
+	},
+	"error_api_setup": {
+		"message": "Blog ayarlarınızı algılamaya çalışırken, ScribeFire şu hatayla karşılaştı: $code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_setup_unknownBlogType": {
+		"message": "Blogunuzu elle ayarlamayı deneyebilirsiniz."
+	},
+	"error_api_code412": {
+		"message": "Bu blog 412 hata kodu verdi. Bu sorunu $url$ bağlantısındaki talimatlarla düzeltebilirsiniz.",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
+			}
+		}
+	},
+	"error_api_noMessage": {
+		"message": "Bu blog $code$ hata kodu verdi, ancak hata mesajı bulunamıyor.",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_blogger_authentication": {
+		"message": "Blogger'a hatalı kullanıcı adı ve şifresi girdiniz."
+	},
+	"error_api_blogger_verify": {
+		"message": "Blogger, hesabınızdaki mail adresini teyit etmeniz gerektiğini söylüyor; hesabınıza direk girerek bunu düzeltebilirsiniz."
+	},
+	"error_api_blogger_tos": {
+		"message": "Blogger, yine de Google kullanıcı şartnamesine uymanız gerektiğini söylüyor; hesabınıza direk girerek bunu düzeltebilirsiniz."
+	},
+	"error_api_blogger_deleted": {
+		"message": "Blogger kullanmakta olduğunuz hesabın silindiğini söylüyor."
+	},
+	"error_api_blogger_disabled": {
+		"message": "Blogger hesabınıza erişimin kaldırıldığını söylüyor."
+	},
+	"error_api_blogger_unavailable": {
+		"message": "Blogger, Blogger hizmetinin geçici olarak kullanım dışı olduğunu söylüyor."
+	},
+	"error_api_blogger_captcha": {
+		"message": "Google devam etmek için CAPTCHA yı girmeniz gerektiğini söylüyor."
+	},
+	"error_api_blogger_unknown": {
+		"message": "Blogger iyi davranmıyor; ScribeFire'a $error$ hatası veriyor.",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_authToken": {
+		"message": "Doğrulama kaydını alamıyor."
+	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "Görüntü gönderme API siyle temas kuramıyor."
+	},
+	"error_api_posterous_noDeleteSupport": {
+		"message": "Posterous şu anda gönderi silmeyi desteklemiyor."
+	},
+	"error_video_noEmbed": {
+		"message": "ScribeFire bu video için içerik yerleştirme kodu oluşturamadı. URL yi kontrol edin, veya kodu alt kutuya kendiniz yapıştırın."
+	},
+	"prompt_newCategory": {
+		"message": "Yeni kategori adı."
+	},
+	"confirm_deletePost": {
+		"message": "Bu gönderiyi silmekten emin misiniz?  Blogunuzdan kaldırılacak ve bir daha görünmeyecek."
+	},
+	"text_inlinks1": {
+		"message": "ScribeFire $website$ sitesiyle blogunuzdan kolayca para kazanabilmeniz için ortaklık kurdu.",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
+			}
+		}
+	},
+	"header_inlinks": {
+		"message": "InLinks nedir?"
+	},
+	"text_inlinks2": {
+		"message": "InLinks websitelerin içerik alanlarında yer alan statik reklamlardır. Basitçe piyasadaki en doğal paralı bağlantılardır. Size yararları:"
+	},
+	"text_inlinksBenefit1": {
+		"message": "Göze rahatsızlık vermeyen reklamlar. Sinir bozucu pop-up lar yok!"
+	},
+	"text_inlinksBenefit2": {
+		"message": "Tahmin edilebilir gelir. Sabit oranlı\/aylık\/satış başına."
+	},
+	"text_inlinksBenefit3": {
+		"message": "Blog-dostu. Basit pluginimizi yerleştirin ve gerisini biz halledelim. Siz sadece geriye yaslanın ve aylık kazancınızı tahsil edin."
+	},
+	"text_inlinksBlogs": {
+		"message": "ScribeFire'a kaydetmiş olduğunuz bloglardan, şunlar InLinks için uygun olabilir:"
+	},
+	"text_inlinksCompatibility": {
+		"message": "(Şimdilik, InLinks sadece Wordpress.org, Drupal veya MovebleType blogları ile çalışıyor.)"
+	},
+	"text_inlinks3": {
+		"message": "$link_open$ InLinks.com u ziyaret edin $link_close$ ve InLinks pluginini indirip blogunuzdan para kazanmaya bugün başlayın!",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
+			},
+			"link_close": {
+				"content": "<\/a>"
+			}
+		}
+	},
+	"header_blogProperties": {
+		"message": "Blog Özellikleri"
+	},
+	"text_blogProperties1": {
+		"message": "Blogunuzun adını ve adresini buradan değiştirebilirsiniz. Kullanıcı adınız, şifreniz, API URL, veya Blog ID sini güncellemek için \"Çıkart\" butonuna tıklayın ve sonradan \"Yeni bir Blog Ekle\" den yeniden ekleyin."
+	},
+	"header_video": {
+		"message": "Video ekle"
+	},
+	"text_video1": {
+		"message": "Video URL sini aşağıdaki kutuya yapıştırın."
+	},
+	"text_video2": {
+		"message": "örnek. $url1$ veya $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "Veya videonuz için bu kutuda verilen kodu kopyalayın:"
+	},
+	"time_ago_seconds": {
+		"message": "Bir dakikadan önce"
+	},
+	"time_ago_minutes": {
+		"message": "$1 dakika önce"
+	},
+	"time_ago_hours": {
+		"message": "$1 saat önce"
+	},
+	"time_ago_days": {
+		"message": "$1 gün önce"
+	},
+	"confirm_not_saved": {
+		"message": "Gönderileri değiştirmekten emin misin? Halihazırdaki gönderiyi henüz kaydetmedin. \n(İlerleyişinizi kaydetmek için sayfanın altında yer alan \"İlerleyişi Kaydet\" butonuna tıklayın.)"
+	},
+	"zemanta_related_articles": {
+		"message": "İlgili makaleler, Zemanta'dan:"
+	},
+	"zemanta_instructions": {
+		"message": "Gönderinizi eklemek istedğiniz makaleleri seçin:"
+	},
+	"action_zemanta_add": {
+		"message": "İlgili makalelere bağlantı ver"
+	},
+	"zemanta_tos_description": {
+		"message": "Devam etmeden önce, Zemanta'nın Hizmet Şartnamesini (altta) kabul etmelisiniz."
+	},
+	"zemanta_tos_accept_request": {
+		"message": "Şartları kabul ediyorsanız, \"Devam\" butonuna tıklayın."
+	},
+	"zemanta_tracking_optin": {
+		"message": "Zemanta kullanıcı istatistiklerine erişebilmek amacıyla ScribeFire gönderinize görünmez bir resim yerleştirse sizin için bir sorun olur mu? Zaten bir fark görmeyeceksiniz, kabul etmezseniz de bir daha sorulmayacakç"
+	}
+}

@@ -35,12 +35,6 @@
 	"notification_blog_add": {
 		"message": "Bloggen din ble lagt til!"
 	},
-	"notification_publish": {
-		"message": "Pubisert"
-	},
-	"notification_publish_update": {
-		"message": "Oppdatert"
-	},
 	"action_openBlogInTab": {
 		"message": "Åpne bloggen i en ny fane"
 	},
@@ -77,9 +71,6 @@
 	"action_editVisual": {
 		"message": "Bytt til Visuell editor"
 	},
-	"action_category_add": {
-		"message": "Ny kategori"
-	},
 	"action_customField_add": {
 		"message": "Legg til egendefinert felt"
 	},
@@ -100,17 +91,6 @@
 	},
 	"action_insert": {
 		"message": "Legg til"
-	},
-	"action_reset": {
-		"message": "Fjern alle felter og opprett et nytt $ignore1$ Innlegg $ignore2$",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
 	},
 	"action_publishUpdate": {
 		"message": "Oppdater $ignore1$ Innlegg $ignore2$",
@@ -189,9 +169,6 @@
 	"option_publish_month12": {
 		"message": "Des"
 	},
-	"label_blog": {
-		"message": "Blogg:"
-	},
 	"label_blog_type": {
 		"message": "Bloggtype:"
 	},
@@ -227,12 +204,6 @@
 	},
 	"label_excerpt": {
 		"message": "Utdrag:"
-	},
-	"label_categories": {
-		"message": "Kategorier"
-	},
-	"label_tags": {
-		"message": "Tagger:"
 	},
 	"label_customFields": {
 		"message": "Egendefinerte felter"

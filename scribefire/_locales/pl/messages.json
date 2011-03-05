@@ -2,6 +2,9 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
+	"extDescription": {
+		"message": "Łatwy w użyciu edytor blogowy, który pozwala publikować wpisy na wszystkie Twoje blogi."
+	},
 	"continue": {
 		"message": "Kontynuuj"
 	},
@@ -34,12 +37,6 @@
 	},
 	"notification_blog_add": {
 		"message": "Twój blog został dodany!"
-	},
-	"notification_publish": {
-		"message": "Opublikowano!"
-	},
-	"notification_publish_update": {
-		"message": "Załadowano!"
 	},
 	"action_openBlogInTab": {
 		"message": "Otwórz blog w nowej karcie"
@@ -77,9 +74,6 @@
 	"action_editVisual": {
 		"message": "Przełącz w tryb Edytora"
 	},
-	"action_category_add": {
-		"message": "Nowa kategoria"
-	},
 	"action_customField_add": {
 		"message": "Dodaj własne pole"
 	},
@@ -100,17 +94,6 @@
 	},
 	"action_insert": {
 		"message": "Wstaw"
-	},
-	"action_reset": {
-		"message": "Wyczyść wszystkie pola i utwórz nowy $ignore1$ wpis $ignore2$",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
 	},
 	"action_publishUpdate": {
 		"message": "Aktualizuj $ignore1$ wpis $ignore2$",
@@ -134,6 +117,9 @@
 	},
 	"option_blogType_blogger": {
 		"message": "Blogger"
+	},
+	"option_blogType_wordpress": {
+		"message": "Wordpress"
 	},
 	"option_blogType_tumblr": {
 		"message": "Tumblr"
@@ -186,9 +172,6 @@
 	"option_publish_month12": {
 		"message": "Gru"
 	},
-	"label_blog": {
-		"message": "Blog:"
-	},
 	"label_blog_type": {
 		"message": "Rodzaj bloga:"
 	},
@@ -222,11 +205,8 @@
 	"label_content": {
 		"message": "Treść wpisu"
 	},
-	"label_categories": {
-		"message": "Kategorie:"
-	},
-	"label_tags": {
-		"message": "Tagi:"
+	"label_excerpt": {
+		"message": "Skrót wpisu"
 	},
 	"label_customFields": {
 		"message": "Własne pola"
@@ -368,6 +348,9 @@
 	"error_api_blogger_authToken": {
 		"message": "Nie można było uzyskać tokena uwierzytelniającego."
 	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "Nie można było się połączyć z API wysyłania obrazów."
+	},
 	"error_api_posterous_noDeleteSupport": {
 		"message": "Posterous nie umożliwia usuwania wpisów w tym momencie."
 	},
@@ -380,11 +363,39 @@
 	"confirm_deletePost": {
 		"message": "Jesteś pewien, że chcesz skasować ten wpis? Zostanie on usunięty z serwera bloga i nie pojawi się już na Twoim blogu."
 	},
+	"text_inlinks1": {
+		"message": "ScribeFire podjęło współpracę z $website$, by dostarczyć Ci łatwe w użyciu rozwiązanie na zarabianiu na Twoim blogu.",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
+			}
+		}
+	},
 	"header_inlinks": {
 		"message": "Co to jest InLinks?"
 	},
+	"text_inlinks2": {
+		"message": "InLinks to statyczne reklamy umieszczone w obszarach stron internetowych zawierających treść. To najbardziej naturalne płatne linki dostępne na rynku. Oto korzyści z ich wykorzystania:"
+	},
 	"text_inlinksBenefit1": {
 		"message": "Reklamy, które są przyjazne dla oczu. Bez denerwujących wyskakujących okienek!"
+	},
+	"text_inlinksBlogs": {
+		"message": "Z blogów skonfigurowanych za pomocą ScribeFire, następujące mogą być kompatybilne z InLinks:"
+	},
+	"text_inlinksCompatibility": {
+		"message": "(Obecnie InLinks działa tylko na blogach założonych w serwisach Wordpress.org, Drupal czy MovableType.)"
+	},
+	"text_inlinks3": {
+		"message": "$link_open$ Odwiedź InLinks.com $link_close$, aby ściągnąć wtyczkę InLinks i już dziś zacząć zarabiać na swoich blogach!",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
+			},
+			"link_close": {
+				"content": "<\/a>"
+			}
+		}
 	},
 	"header_blogProperties": {
 		"message": "Właściwości bloga"
@@ -411,5 +422,32 @@
 	},
 	"text_video3": {
 		"message": "Albo skopiuj kod wbudowany dla Twojego filmu wideo w poniższe pole:"
+	},
+	"time_ago_seconds": {
+		"message": "Niecałą minutę temu"
+	},
+	"time_ago_minutes": {
+		"message": "$1 minut temu"
+	},
+	"time_ago_hours": {
+		"message": "$1 godzin temu"
+	},
+	"time_ago_days": {
+		"message": "$1 dni temu"
+	},
+	"zemanta_instructions": {
+		"message": "Wybierz artykuły, które chciałbyś załączyć do swojego wpisu:"
+	},
+	"action_zemanta_add": {
+		"message": "Dodaj linki do powiązanych artykułów"
+	},
+	"zemanta_tos_description": {
+		"message": "Aby kontynuować, musisz wyrazić zgodę na Warunki korzystania z serwisu Zemanta (przedstawione poniżej)."
+	},
+	"zemanta_tos_accept_request": {
+		"message": "Jeśli wyrażasz zgodę, kliknij \"Kontynuuj\"."
+	},
+	"zemanta_tracking_optin": {
+		"message": "Czy zgadzasz się, by ScribeFire dołączył niewidoczną grafikę w celu śledzenia statystyk serwisu Zemanta? Nie zauważysz różnicy, a jeśli nie wyrazisz zgody, nie zostaniesz zapytany ponownie."
 	}
 }

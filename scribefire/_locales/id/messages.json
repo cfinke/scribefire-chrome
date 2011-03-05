@@ -35,12 +35,6 @@
 	"notification_blog_add": {
 		"message": "Blog Anda berhasil dimasukkan"
 	},
-	"notification_publish": {
-		"message": "Penerbitan berhasil!"
-	},
-	"notification_publish_update": {
-		"message": "Pemutakhiran berhasil!"
-	},
 	"action_openBlogInTab": {
 		"message": "Buka blog pada tab baru"
 	},
@@ -77,9 +71,6 @@
 	"action_editVisual": {
 		"message": "Pindah ke Editor Visual"
 	},
-	"action_category_add": {
-		"message": "Kategori Baru"
-	},
 	"action_customField_add": {
 		"message": "Tambahkan Bidang Kustom"
 	},
@@ -100,17 +91,6 @@
 	},
 	"action_insert": {
 		"message": "Masukkan"
-	},
-	"action_reset": {
-		"message": "Bersihkan semua dan mulai $ignore1$ Tulisan $ignore2$  baru",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
 	},
 	"action_publishUpdate": {
 		"message": "Perbaharui $ignore1$ Tulisan $ignore2$",
@@ -189,9 +169,6 @@
 	"option_publish_month12": {
 		"message": "Des"
 	},
-	"label_blog": {
-		"message": "Blog:"
-	},
 	"label_blog_type": {
 		"message": "Jenis Blog:"
 	},
@@ -227,12 +204,6 @@
 	},
 	"label_excerpt": {
 		"message": "Kutipan:"
-	},
-	"label_categories": {
-		"message": "Kategori:"
-	},
-	"label_tags": {
-		"message": "Tag:"
 	},
 	"label_customFields": {
 		"message": "Kostum"

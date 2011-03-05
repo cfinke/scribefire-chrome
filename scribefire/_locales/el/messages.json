@@ -35,12 +35,6 @@
 	"notification_blog_add": {
 		"message": "Το blog σας προστέθηκε με επιτυχία!"
 	},
-	"notification_publish": {
-		"message": "Το άρθρο δημοσιεύτηκε με επιτυχία!"
-	},
-	"notification_publish_update": {
-		"message": "Το άρθρο ενημερώθηκε με επιτυχία!"
-	},
 	"action_openBlogInTab": {
 		"message": "Άνοιγμα του blog σε νέα καρτέλα"
 	},
@@ -73,9 +67,6 @@
 	},
 	"action_editHTML": {
 		"message": "Αλλαγή σε στυλ HTML"
-	},
-	"action_category_add": {
-		"message": "Νέα κατηγορία"
 	},
 	"action_draft_save": {
 		"message": "Αποθήκευση πρόχειρου"
@@ -158,9 +149,6 @@
 	"option_publish_month12": {
 		"message": "Δεκ"
 	},
-	"label_blog": {
-		"message": "Blog"
-	},
 	"label_blog_type": {
 		"message": "Τύπος Blog"
 	},
@@ -196,12 +184,6 @@
 	},
 	"label_excerpt": {
 		"message": "Απόσπασμα"
-	},
-	"label_categories": {
-		"message": "Κατηγορίες:"
-	},
-	"label_tags": {
-		"message": "Tags:"
 	},
 	"label_customFields": {
 		"message": "Ειδικά πεδία:"

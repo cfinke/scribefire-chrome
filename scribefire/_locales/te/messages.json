@@ -26,12 +26,6 @@
 	"notification_post_delete": {
 		"message": "విజయవంతంగా టపా తొలగించబడింది"
 	},
-	"notification_publish": {
-		"message": "విజయవంతంగా అచ్చువేయబడింది!"
-	},
-	"notification_publish_update": {
-		"message": "విజయవంతంగా మార్చబడింది!"
-	},
 	"action_remove": {
 		"message": "తొలగించు"
 	},
@@ -49,9 +43,6 @@
 	},
 	"action_delete": {
 		"message": "తొలగించు"
-	},
-	"action_category_add": {
-		"message": "కొత్త వర్గం"
 	},
 	"action_publish": {
 		"message": "ప్రచురించు"
@@ -119,9 +110,6 @@
 	"option_publish_month12": {
 		"message": "డిసెం"
 	},
-	"label_blog": {
-		"message": "బ్లాగు:"
-	},
 	"label_blog_type": {
 		"message": "బ్లాగు రకం:"
 	},
@@ -148,12 +136,6 @@
 	},
 	"label_excerpt": {
 		"message": "సంగ్రహం:"
-	},
-	"label_categories": {
-		"message": "వర్గాలు:"
-	},
-	"label_tags": {
-		"message": "ట్యాగులు:"
 	},
 	"label_publish": {
 		"message": "ప్రచురణ"

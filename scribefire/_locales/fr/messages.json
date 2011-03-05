@@ -2,6 +2,9 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
+	"extDescription": {
+		"message": "Un éditeur de blog facile à utiliser qui vous permet de poster sur tous vos blogs."
+	},
 	"continue": {
 		"message": "Continuer"
 	},
@@ -34,12 +37,6 @@
 	},
 	"notification_blog_add": {
 		"message": "Votre blog a été ajouté avec succès !"
-	},
-	"notification_publish": {
-		"message": "Publié avec succès !"
-	},
-	"notification_publish_update": {
-		"message": "Mis à jour avec succès !"
 	},
 	"action_openBlogInTab": {
 		"message": "Ouvrir le blog dans un nouvel onglet"
@@ -77,9 +74,6 @@
 	"action_editVisual": {
 		"message": "Passer au mode visuel"
 	},
-	"action_category_add": {
-		"message": "Nouvelle catégorie"
-	},
 	"action_customField_add": {
 		"message": "Ajouter un champ personnalisé"
 	},
@@ -100,17 +94,6 @@
 	},
 	"action_insert": {
 		"message": "Insérer"
-	},
-	"action_reset": {
-		"message": "Vider tous les champs et commencer à nouveau $ignore1$ Publier $ignore2$",
-		"placeholders": {
-			"ignore1": {
-				"content": "<span class=\"entry-type-text\">"
-			},
-			"ignore2": {
-				"content": "<\/span>"
-			}
-		}
 	},
 	"action_publishUpdate": {
 		"message": "Mettre à jour $ignore1$ Publier $ignore2$",
@@ -189,9 +172,6 @@
 	"option_publish_month12": {
 		"message": "Déc"
 	},
-	"label_blog": {
-		"message": "Blog :"
-	},
 	"label_blog_type": {
 		"message": "Type de blog :"
 	},
@@ -227,12 +207,6 @@
 	},
 	"label_excerpt": {
 		"message": "Extrait :"
-	},
-	"label_categories": {
-		"message": "Catégories :"
-	},
-	"label_tags": {
-		"message": "Étiquettes :"
 	},
 	"label_customFields": {
 		"message": "Champs personnalisés"
@@ -313,21 +287,66 @@
 		"message": "Ce blog ne supporte pas le téléchargement de fichiers."
 	},
 	"error_api_cannotConnect": {
-		"message": "ScribeFire n'arrive pas à connecter à votre blog."
+		"message": "ScribeFire n'arrive pas à se connecter à votre blog."
+	},
+	"error_api_setup": {
+		"message": "En essayant de trouver les préférences de votre blog, ScribeFire est tombé sur le code suivant: $code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
 	},
 	"error_api_setup_unknownBlogType": {
 		"message": "Vous pouvez essayer de configurer votre blog manuellement."
+	},
+	"error_api_code412": {
+		"message": "Votre blog a retourné une erreur 412. Vous devriez pouvoir corriger ce problème en suivant les instructions sur cette page: $url$",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
+			}
+		}
+	},
+	"error_api_noMessage": {
+		"message": "Votre blog a retourné une erreur $code$, mais aucun message d'erreur n'a pu être trouvé.",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_blogger_authentication": {
+		"message": "Blogger dit que votre identifiant ou mot de passe est erroné."
+	},
+	"error_api_blogger_verify": {
+		"message": "Blogger dit que vous devez vérifier l'adresse e-mail liée à votre compte; identifiez-vous directement pour résoudre le problème."
+	},
+	"error_api_blogger_tos": {
+		"message": "Blogger dit que vous devez accepter les Conditions Générales d'Utilisation de Google; identifiez-vous directement pour résoudre le problème."
+	},
+	"error_api_blogger_deleted": {
+		"message": "Blogger dit que le compte que vous utilisez a été supprimé."
+	},
+	"error_api_blogger_disabled": {
+		"message": "Blogger dit que votre accès à Blogger a été suspendu."
+	},
+	"error_api_blogger_unavailable": {
+		"message": "Le service Blogger est momentanément indisponible."
 	},
 	"error_api_blogger_captcha": {
 		"message": "Google exige que vous remplissiez ce test Captcha a fin de continuer :"
 	},
 	"error_api_blogger_unknown": {
-		"message": "Blogger ne marche pas bien avec ScribeFire. Il l'a transmis cette erreur : $error$",
+		"message": "Blogger ne marche pas bien avec ScribeFire. Il a transmis cette erreur : $error$",
 		"placeholders": {
 			"error": {
 				"content": "\n\n$1"
 			}
 		}
+	},
+	"error_api_blogger_authToken": {
+		"message": "Authentification impossible."
 	},
 	"error_api_blogger_uploadAPIUnavailable": {
 		"message": "On n'arrive pas à contacter la fonction de téléchargement d'images de l'interface de programmation (API)."
@@ -335,11 +354,22 @@
 	"error_api_posterous_noDeleteSupport": {
 		"message": "Posterous ne supporte encore la suppression de billets."
 	},
+	"error_video_noEmbed": {
+		"message": "ScribeFire ne peut générer un code embed pour l'URL de cette vidéo. Veuillez vérifier l'URL ou collez manuellement le code embed dans le champ suivant."
+	},
 	"prompt_newCategory": {
 		"message": "Nom de la nouvelle catégorie :"
 	},
 	"confirm_deletePost": {
 		"message": "Êtes-vous sûr de vouloir supprimer ce billet ? On l'enlèvera du serveur de votre blog et il n'apparaîtra plus dans votre blog."
+	},
+	"text_inlinks1": {
+		"message": "ScribeFire s'est associé avec $website$ pour vous apporter un moyen facile à utiliser de rentabiliser votre blog.",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
+			}
+		}
 	},
 	"header_inlinks": {
 		"message": "Qu'est-ce que InLinks ?"
@@ -349,6 +379,15 @@
 	},
 	"text_inlinksBenefit1": {
 		"message": "Pubs qui ne nous dérange pas. Plus de pubs surgissants ou intruse !"
+	},
+	"text_inlinksBenefit2": {
+		"message": "Projection des revenus."
+	},
+	"text_inlinksBenefit3": {
+		"message": "Notre plug-in est utilisable sur les blogs. Installez-le et nous nous occupons du reste. Détentez-vous et recevez vos revenus mensuels."
+	},
+	"text_inlinksBlogs": {
+		"message": "Parmi les blogs que vous avez lié à ScribeFire, les suivants ne sont pas compatibles avec InLinks:"
 	},
 	"text_inlinksCompatibility": {
 		"message": "Pour l'instant, Inlinks ne marche que pour les blogs utilisant Wordpress.org, Drupal, or MovableType."
@@ -389,5 +428,38 @@
 	},
 	"text_video3": {
 		"message": "Ou plutôt copier le code intégrable fourni pour votre vidéo dans cette boîte :"
+	},
+	"time_ago_seconds": {
+		"message": "Il y a moins d'une minute"
+	},
+	"time_ago_minutes": {
+		"message": "Il y a $1 minutes"
+	},
+	"time_ago_hours": {
+		"message": "Il y a $1 heures"
+	},
+	"time_ago_days": {
+		"message": "Il y a $1 jours"
+	},
+	"confirm_not_saved": {
+		"message": "Êtes-vous sûr de vouloir changer de billet? Vous n'avez pas enregistré la version actuelle de ce billet.\n\n(Cliquez \"Enregistrer les modifications\" en bas de page pour enregistrer."
+	},
+	"zemanta_related_articles": {
+		"message": "Autres articles relatifs à celui-ci, grâce à Zemanta:"
+	},
+	"zemanta_instructions": {
+		"message": "Choisissez les articles que vous désirez inclure dans votre billet:"
+	},
+	"action_zemanta_add": {
+		"message": "Ajouter des liens vers les articles similaires"
+	},
+	"zemanta_tos_description": {
+		"message": "Pour continuer, veuillez accepter les Conditions d'Utilisation de Zemanta (ci-dessous)."
+	},
+	"zemanta_tos_accept_request": {
+		"message": "Si vous acceptez les conditions, cliquez sur \"Continuer\"."
+	},
+	"zemanta_tracking_optin": {
+		"message": "Acceptez-vous que ScribeFire ajoute une image invisible à votre billet pour tracer les statistiques de l'utilisation de Zemanta? Vous ne verrez aucune différence et si vous refusez, la question ne sera plus posée."
 	}
 }
