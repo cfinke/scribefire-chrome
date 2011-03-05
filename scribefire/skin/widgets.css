@@ -1,5 +1,9 @@
-input[type="text"], input[type="password"], input[type="url"], textarea, select {
+input[type="text"], input[type="password"], input[type="url"], input[type="email"], textarea, select {
 	width: 100%;
+}
+
+input.padded {
+	width: 80%;
 }
 
 button, input[type="submit"] {

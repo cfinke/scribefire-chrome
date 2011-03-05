@@ -26,6 +26,7 @@
 		<script type="text/javascript" src="lib/wordpress.js"></script>
 		<script type="text/javascript" src="migrate.js"></script>
 		<script type="text/javascript" src="lib/jquery-oembed.js"></script>
+		<!-- <script type="text/javascript" src="adbull.js"></script> -->
 	</head>
 	<body>
 		<table style="height: 99%; width: 100%;" cellspacing="0" cellpadding="0" id="content-body">
@@ -339,6 +340,75 @@
 				<button class="button-meta button-blog-view"><i18n data-key="action_openBlogInTab" /></button>
 				<button class="modal_close"><i18n data-key="action_continueEditing" /></button>
 				<button class="reset-button modal_close"><i18n data-key="action_startNewPost" /></button>
+			</div>
+		</div>
+		
+		<div id="panel-adbull-register">
+			<form method="post" id="form-adbull-register">
+				<input type="hidden" name="a" value="register" />
+				<h1>AdBull</h1>
+				<p>AdBull provides publishers with a new source of advertiser-driven revenue. AdBull has NO competitors, since it is the exclusive patent-protected provider of contextual cursor advertisements. As a result, AdBull can be incorporated alongside many of the other popular online ad platforms in the market today (from display ads to contextual feeds and beyond). <a href="http://www.adbull.com/faq">Read the AdBull FAQ.</a></p>
+				<p class="error-message" style="display: none;"></p>
+				<table style="width: 100%;">
+					<tr>
+						<td style="width: 45%;">
+							<p>
+								<label>Username:</label>
+								<input type="text" name="username" class="padded" />
+							</p>
+							<p>
+								<label>Password:</label>
+								<input type="password" name="password" class="padded" />
+							</p>
+							<p>
+								<label>Confirm Password:</label>
+								<input type="password" name="password2" class="padded" />
+							</p>
+							<p>
+								<label>Email:</label>
+								<input type="email" name="email" class="padded" />
+							</p>
+							<p>
+								<label>Your Site's URL:</label>
+								<input type="url" name="url" class="padded" />
+							</p>
+							<p>
+								<label>Name:</label>
+								<input type="text" name="name" class="padded" />
+							</p>
+						</td>
+						<td>
+							<p>
+								<label>Mailing Address:</label>
+								<input type="text" name="address" class="padded" />
+							</p>
+							<p>
+								<label>Country:</label>
+								<input type="text" name="country" class="padded" />
+							</p>
+							<p>
+								<label>City:</label>
+								<input type="text" name="city" class="padded" />
+							</p>
+							<p>
+								<label>State:</label>
+								<input type="text" name="state" class="padded" />
+							</p>
+							<p>
+								<label>Zipcode:</label>
+								<input type="text" name="zipcode" class="padded" />
+							</p>
+							<p>
+								<label>Phone:</label>
+								<input type="text" name="phone" class="padded" />
+							</p>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div class="buttons">
+				<button id="button-adbull-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
+				<button id="button-adbull-register-continue"><i18n data-key="continue" /></button>
 			</div>
 		</div>
 		

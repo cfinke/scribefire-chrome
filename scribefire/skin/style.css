@@ -206,3 +206,11 @@ p.throbber {
 	background-image: url(throbber-16.png);
 	background-repeat: no-repeat;
 }
+
+#form-adbull-register label {
+	display:block;
+}
+
+#form-adbull-register p.error, #form-adbull-register .error-message {
+	color: #f00;
+}
