@@ -301,7 +301,7 @@ var SF_ZEMANTA = {
 			$.facebox($("#panel-zemanta-tos"));
 		
 			$("#panel-zemanta-tos").show();
-			$("#container-zemanta-tos").html('<iframe src="http://www.zemanta.com/tos" style="width: 100%;"/>');
+			$("#container-zemanta-tos").html('<iframe src="http://www.zemanta.com/raw/tos/" style="width: 100%;"/>');
 		
 			$("#button-zemanta-tos-accept").die("click");
 			
