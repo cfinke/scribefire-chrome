@@ -8,11 +8,17 @@
 	"continue": {
 		"message": "Continuar"
 	},
+	"action_close": {
+		"message": "Cerrar"
+	},
 	"firsttime_header": {
 		"message": "¡Bienvenido a ScribeFire!"
 	},
 	"firsttime_text": {
 		"message": "Probablemente lo primero que querrás hacer es agregar tu blog. Cierra este diálogo y haz clic en 'Agregar un Nuevo Blog' para empezar."
+	},
+	"text_get_started": {
+		"message": "Clic en \"Añadir un Nuevo Blog\" para iniciar."
 	},
 	"entry_new_label": {
 		"message": "(nueva)"
@@ -38,6 +44,12 @@
 	"notification_blog_add": {
 		"message": "¡Tu blog ha sido agregado exitosamente!"
 	},
+	"notification_publish": {
+		"message": "Su entrada se publicó exitosamente."
+	},
+	"notification_publish_update": {
+		"message": "Su entrada se actualizó exitosamente."
+	},
 	"action_openBlogInTab": {
 		"message": "Abrir blog en una nueva pestaña"
 	},
@@ -48,7 +60,7 @@
 		"message": "Editar"
 	},
 	"action_remove": {
-		"message": "Remover"
+		"message": "Eliminar"
 	},
 	"action_blog_add": {
 		"message": "Agregar un Nuevo Blog"
@@ -74,6 +86,9 @@
 	"action_editVisual": {
 		"message": "Cambiar a Editor Visual"
 	},
+	"action_category_add": {
+		"message": "Añadir Nueva Categoría"
+	},
 	"action_customField_add": {
 		"message": "Agregar un Campo Personalizado"
 	},
@@ -94,6 +109,17 @@
 	},
 	"action_insert": {
 		"message": "Insertar"
+	},
+	"action_reset": {
+		"message": "Comenzar una Nueva $ignore1$ Entrada $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
 	},
 	"action_publishUpdate": {
 		"message": "Actualizar $ignore1$ Entrada $ignore2$",
@@ -172,6 +198,9 @@
 	"option_publish_month12": {
 		"message": "Dic"
 	},
+	"label_blog": {
+		"message": "Blog"
+	},
 	"label_blog_type": {
 		"message": "Tipo de Blog:"
 	},
@@ -207,6 +236,12 @@
 	},
 	"label_excerpt": {
 		"message": "Extracto:"
+	},
+	"label_categories": {
+		"message": "Categorías"
+	},
+	"label_tags": {
+		"message": "Etiquetas"
 	},
 	"label_customFields": {
 		"message": "Campos Personalizados"
@@ -278,7 +313,7 @@
 		}
 	},
 	"error_api_noBlog": {
-		"message": "Tranquilo... Necesitas agregar tu blog antes de poder publicar."
+		"message": "Cálmate... Necesitas agregar tu blog antes de poder publicar."
 	},
 	"error_api_noCategorySupport": {
 		"message": "Este blog no es compatible con la adición de categorías."
@@ -442,7 +477,7 @@
 		"message": "Hace $1 días"
 	},
 	"confirm_not_saved": {
-		"message": "¿Estás seguro que deseas cambiar los posts? Aún no haz guardado la versión actual de esta entrada.\n\n(Pulsa \"Guardar progreso\" al final de la página para guardar los cambios)"
+		"message": "¿Estás seguro que deseas cambiar los posts? Aún no has guardado la versión actual de esta entrada.\n\n(Pulsa \"Guardar Progreso\" al final de la página para guardar los cambios)"
 	},
 	"zemanta_related_articles": {
 		"message": "Artículos relacionados, cortesía de Zemanta:"
@@ -461,5 +496,44 @@
 	},
 	"zemanta_tracking_optin": {
 		"message": "¿Estás de acuerdo en que ScribeFire añada una imagen invisible a tu entrada para rastrear estadísticas de uso de Zemanta? No notarás ninguna diferencia, y si decides no aceptar, no se te preguntará de nuevo."
+	},
+	"zemanta_tracking_yes": {
+		"message": "Sí, ScribeFire puede añadir una imagen de rastreo a las entradas cuando yo use Zemanta."
+	},
+	"zemanta_tracking_no": {
+		"message": "No, prefiero no incluir una imagen de rastreo."
+	},
+	"zemanta_pixie_reminder": {
+		"message": "Por favor indica si ScribeFire puede o no añadir una imagen invisible a tus entradas cuando uses Zemanta."
+	},
+	"zemanta_selection_hint": {
+		"message": "¿Sabías que puedes seleccionar texto en tu entrada antes de hacer clic en el ícono de Zemanta para limitar el texto que Zemanta usa para encontrar artículos relacionados?"
+	},
+	"zemanta_no_results": {
+		"message": "Zemanta no pudo encontrar artículos relevantes para tu entrada."
+	},
+	"zemanta_introduction_header": {
+		"message": "Nuevo: Integración con Zemanta"
+	},
+	"zemanta_introduction": {
+		"message": "Zemanta de ayuda a crear entradas de blog ricas en contenido al reconocer el tópico de la misma y sugerirte links útiles relacionados. Solo escribe tu entrada, haz clic en el icono de la barra Zemanta (tal como se muestra abajo en la imagen), y selecciona el articulo que desees enlazar."
+	},
+	"zemanta_loading_message": {
+		"message": "Por favor espere mientras ScribeFire obtiene artículos relacionados desde Zemanta..."
+	},
+	"action_continueEditing": {
+		"message": "Continuar editando esta entrada"
+	},
+	"action_startNewPost": {
+		"message": "Comenzar una nueva entrada"
+	},
+	"action_hide": {
+		"message": "Esconder"
+	},
+	"label_genericQuestion": {
+		"message": "Deseas:"
+	},
+	"label_promoted": {
+		"message": "(promocionado)"
 	}
 }

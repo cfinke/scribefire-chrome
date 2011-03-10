@@ -8,11 +8,17 @@
 	"continue": {
 		"message": "Kontynuuj"
 	},
+	"action_close": {
+		"message": "Zamknij"
+	},
 	"firsttime_header": {
 		"message": "Witaj w ScribeFire!"
 	},
 	"firsttime_text": {
 		"message": "Pierwszą rzeczą jaką najprawdopodobniej chcesz zrobić, jest dodanie własnego bloga. Zamknij to okno i kliknij \"Dodaj nowy blog\", aby rozpocząć."
+	},
+	"text_get_started": {
+		"message": "Kliknij \"Dodaj nowy blog\", by rozpocząć."
 	},
 	"entry_new_label": {
 		"message": "(nowy)"
@@ -37,6 +43,12 @@
 	},
 	"notification_blog_add": {
 		"message": "Twój blog został dodany!"
+	},
+	"notification_publish": {
+		"message": "Twój wpis został opublikowany."
+	},
+	"notification_publish_update": {
+		"message": "Twój wpis został pomyślnie zaktualizowany."
 	},
 	"action_openBlogInTab": {
 		"message": "Otwórz blog w nowej karcie"
@@ -74,6 +86,9 @@
 	"action_editVisual": {
 		"message": "Przełącz w tryb Edytora"
 	},
+	"action_category_add": {
+		"message": "Dodaj nową kategorię"
+	},
 	"action_customField_add": {
 		"message": "Dodaj własne pole"
 	},
@@ -94,6 +109,17 @@
 	},
 	"action_insert": {
 		"message": "Wstaw"
+	},
+	"action_reset": {
+		"message": "Utwórz nowy $ignore1$ wpis $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
 	},
 	"action_publishUpdate": {
 		"message": "Aktualizuj $ignore1$ wpis $ignore2$",
@@ -172,6 +198,9 @@
 	"option_publish_month12": {
 		"message": "Gru"
 	},
+	"label_blog": {
+		"message": "Blog"
+	},
 	"label_blog_type": {
 		"message": "Rodzaj bloga:"
 	},
@@ -207,6 +236,12 @@
 	},
 	"label_excerpt": {
 		"message": "Skrót wpisu"
+	},
+	"label_categories": {
+		"message": "Kategorie"
+	},
+	"label_tags": {
+		"message": "Tagi"
 	},
 	"label_customFields": {
 		"message": "Własne pola"
@@ -435,6 +470,9 @@
 	"time_ago_days": {
 		"message": "$1 dni temu"
 	},
+	"confirm_not_saved": {
+		"message": "Czy jesteś pewien, że chcesz przełączyć wpisy? Obecna wersja wpisu nie została jeszcze zapisana.\n\n(Kliknij \"Zapisz\" na dole strony, by zapisać pr"
+	},
 	"zemanta_instructions": {
 		"message": "Wybierz artykuły, które chciałbyś załączyć do swojego wpisu:"
 	},
@@ -449,5 +487,14 @@
 	},
 	"zemanta_tracking_optin": {
 		"message": "Czy zgadzasz się, by ScribeFire dołączył niewidoczną grafikę w celu śledzenia statystyk serwisu Zemanta? Nie zauważysz różnicy, a jeśli nie wyrazisz zgody, nie zostaniesz zapytany ponownie."
+	},
+	"action_continueEditing": {
+		"message": "Kontynuuj edycję tego wpisu"
+	},
+	"action_startNewPost": {
+		"message": "Utwórz nowy wpis"
+	},
+	"action_hide": {
+		"message": "Schowaj"
 	}
 }

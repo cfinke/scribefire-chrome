@@ -8,11 +8,17 @@
 	"continue": {
 		"message": "Fortfahren"
 	},
+	"action_close": {
+		"message": "Schließen"
+	},
 	"firsttime_header": {
 		"message": "Willkommen bei ScribeFire!"
 	},
 	"firsttime_text": {
 		"message": "Als erstes willst Du wahrscheinlich Dein Blog hinzufügen. Schließe dieses Dialogfenster und klicke auf  'Neues Blog hinzufügen' um loszulegen."
+	},
+	"text_get_started": {
+		"message": "Klicke auf \"Neues Blog hinzufügen\" um loszulegen."
 	},
 	"entry_new_label": {
 		"message": "(neu)"
@@ -37,6 +43,12 @@
 	},
 	"notification_blog_add": {
 		"message": "Das Blog wurde erfolgreich hinzugefügt."
+	},
+	"notification_publish": {
+		"message": "Dein Posting wurde veröffentlicht."
+	},
+	"notification_publish_update": {
+		"message": "Dein Posting wurde aktualisiert."
 	},
 	"action_openBlogInTab": {
 		"message": "Blog in neuem Tab öffnen"
@@ -74,6 +86,9 @@
 	"action_editVisual": {
 		"message": "Zum visuellen Editor wechseln"
 	},
+	"action_category_add": {
+		"message": "Neue Kategorie hinzufügen"
+	},
 	"action_customField_add": {
 		"message": "Benutzerdefiniertes Feld anlegen"
 	},
@@ -95,8 +110,19 @@
 	"action_insert": {
 		"message": "Einfügen"
 	},
+	"action_reset": {
+		"message": "Neues $ignore1$ Posting $ignore2$ anlegen",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
 	"action_publishUpdate": {
-		"message": "$ignore1$ Post $ignore2$ aktualisieren.",
+		"message": "$ignore1$ Posting $ignore2$ aktualisieren.",
 		"placeholders": {
 			"ignore1": {
 				"content": "<span class=\"entry-type-text\">"
@@ -172,6 +198,9 @@
 	"option_publish_month12": {
 		"message": "Dez"
 	},
+	"label_blog": {
+		"message": "Blog"
+	},
 	"label_blog_type": {
 		"message": "Blog-Typ:"
 	},
@@ -207,6 +236,12 @@
 	},
 	"label_excerpt": {
 		"message": "Auszug:"
+	},
+	"label_categories": {
+		"message": "Kategorien"
+	},
+	"label_tags": {
+		"message": "Tags"
 	},
 	"label_customFields": {
 		"message": "Benutzerdefinierte Felder"
@@ -461,5 +496,44 @@
 	},
 	"zemanta_tracking_optin": {
 		"message": "Bist Du damit einverstanden, dass ScribeFire Deinem Posting ein unsichtbares Bild hinzufügt, um Zemanta-Nutzerstatistiken zu erheben? Du wirst keinen Unterschied feststellen, egal wie Du dich entscheidest - und wenn Du ablehnst, wird Dir diese Frage nie wieder gestellt."
+	},
+	"zemanta_tracking_yes": {
+		"message": "Ja, ScribeFire darf ein Tracking-Bild zu meinen Postings hinzufügen, wenn ich Zemanta nutze."
+	},
+	"zemanta_tracking_no": {
+		"message": "Nein, ich möchte nicht, dass ein Tracking-Bild beigefügt wird."
+	},
+	"zemanta_pixie_reminder": {
+		"message": "Gib bitte an, ob ScribeFire deinen Postings ein unsichtbares Bild hinzufügen soll, wenn du Zemanta nutzt."
+	},
+	"zemanta_selection_hint": {
+		"message": "Wusstest du, dass du Text markieren kannst, bevor du auf das Zemanta-Symbol klickst, um den Text zu begrenzen, den Zemanta für die Suche nach verwandten Artikeln nutzt?"
+	},
+	"zemanta_no_results": {
+		"message": "Zemanta konnte keine relevanten Artikel für dein Posting finden."
+	},
+	"zemanta_introduction_header": {
+		"message": "Neu: Integration mit Zemanta"
+	},
+	"zemanta_introduction": {
+		"message": "Zemanta hilft dir dabei, gehaltvolle Blog-Postings zu erschaffen, indem es dein Thema erkennt und nützliche verwandte Links vorschlägt. Schreib einfach dein Posting, klicke das Zementa-Symbol in der Werkzeugleiste (Abb. unten) und wähle die zu verlinkenden Artikel aus."
+	},
+	"zemanta_loading_message": {
+		"message": "Bitte warte während ScribeFire verwandte Artikel von Zemanta abruft..."
+	},
+	"action_continueEditing": {
+		"message": "Bearbeiten des Postings fortsetzen"
+	},
+	"action_startNewPost": {
+		"message": "Neues Posting anlegen"
+	},
+	"action_hide": {
+		"message": "Ausblenden"
+	},
+	"label_genericQuestion": {
+		"message": "Möchtest du:"
+	},
+	"label_promoted": {
+		"message": "(Anzeige)"
 	}
 }

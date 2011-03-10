@@ -8,11 +8,17 @@
 	"continue": {
 		"message": "Continuă"
 	},
+	"action_close": {
+		"message": "Închide"
+	},
 	"firsttime_header": {
 		"message": "Bine aţi venit în ScribeFire!"
 	},
 	"firsttime_text": {
 		"message": "Primul lucru pe care veţi dori să îl faceţi este să vă adăugaţi adresa blogului. Închideţi acest dialog şi daţi click pe \"Adaugă blog nou\" pentru a începe."
+	},
+	"text_get_started": {
+		"message": "Click pe \"adaugă blog nou\" pentru a începe."
 	},
 	"entry_new_label": {
 		"message": "(nou)"
@@ -37,6 +43,12 @@
 	},
 	"notification_blog_add": {
 		"message": "Blogul a fost adăugat cu succes!"
+	},
+	"notification_publish": {
+		"message": "Succes. Postul tău este acum publicat."
+	},
+	"notification_publish_update": {
+		"message": "Postul a fost modificat cu succes."
 	},
 	"action_openBlogInTab": {
 		"message": "Deschide blogul într-un tab nou"
@@ -73,6 +85,9 @@
 	},
 	"action_editVisual": {
 		"message": "Activează editorul vizual"
+	},
+	"action_category_add": {
+		"message": "Adaugă o categorie nouă"
 	},
 	"action_customField_add": {
 		"message": "Adaugă câmp custom"
@@ -172,6 +187,9 @@
 	"option_publish_month12": {
 		"message": "Dec"
 	},
+	"label_blog": {
+		"message": "Blog"
+	},
 	"label_blog_type": {
 		"message": "Tipul blogului:"
 	},
@@ -207,6 +225,12 @@
 	},
 	"label_excerpt": {
 		"message": "Extras"
+	},
+	"label_categories": {
+		"message": "Categorii"
+	},
+	"label_tags": {
+		"message": "Taguri"
 	},
 	"label_customFields": {
 		"message": "Câmpuri personalizate"

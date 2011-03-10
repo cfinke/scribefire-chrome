@@ -8,11 +8,17 @@
 	"continue": {
 		"message": "क्रमशः"
 	},
+	"action_close": {
+		"message": "बंद करें"
+	},
 	"firsttime_header": {
 		"message": "अग्निलेखक आपका स्वागत करता है!"
 	},
 	"firsttime_text": {
 		"message": "संभवतः आप सबसे पहले अपने ब्लॉग का पंजीकरण करवाना चाहेंगे I उसके लिये इस संदेश को बंद करें और \"नया ब्लॉग पंजीकृत करें\" पर क्लिक करें I"
+	},
+	"text_get_started": {
+		"message": "शुरुआत करने के लिये \"नया ब्लॉग पंजीकृत करें\" पर क्लिक करें"
 	},
 	"entry_new_label": {
 		"message": "(नया)"
@@ -37,6 +43,12 @@
 	},
 	"notification_blog_add": {
 		"message": "ब्लॉग पंजीकरण सफल!"
+	},
+	"notification_publish": {
+		"message": "आपकी रचना सफलतापूर्वक प्रकाशित हुई"
+	},
+	"notification_publish_update": {
+		"message": "आपकी रचना सफलतापूर्वक सम्पादित हुई"
 	},
 	"action_openBlogInTab": {
 		"message": "ब्लॉग नये टेब में खोलें"
@@ -74,8 +86,11 @@
 	"action_editVisual": {
 		"message": "दृश्य संपादक में देखें"
 	},
+	"action_category_add": {
+		"message": "नयी श्रेणी बनाएँ"
+	},
 	"action_customField_add": {
-		"message": "स्वःइक्षित जानकारी जोडें"
+		"message": "लेखक इक्षित जानकारी जोडें"
 	},
 	"action_draft_save": {
 		"message": "कार्य प्रगति सुरक्षित करें"
@@ -94,6 +109,17 @@
 	},
 	"action_insert": {
 		"message": "डालें"
+	},
+	"action_reset": {
+		"message": "नयी $ignore1$ रचना $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
 	},
 	"action_publishUpdate": {
 		"message": "नवीनीकृत सामग्री प्रकाशित करें $ignore1$ Post $ignore2$",
@@ -116,19 +142,22 @@
 		"message": "Atom प्रकार का ब्लॉग"
 	},
 	"option_blogType_blogger": {
-		"message": "blogger प्रकार का ब्लॉग"
+		"message": "Blogger प्रकार का ब्लॉग"
 	},
 	"option_blogType_wordpress": {
-		"message": "wordpress प्रकार का ब्लॉग"
+		"message": "Wordpress प्रकार का ब्लॉग"
 	},
 	"option_blogType_tumblr": {
-		"message": "tumblr प्रकार का ब्लॉग"
+		"message": "Tumblr प्रकार का ब्लॉग"
 	},
 	"option_blogType_metaweblog": {
 		"message": "MetaWeblog प्रकार का ब्लॉग"
 	},
 	"option_blogType_movabletype": {
 		"message": "Movabletype प्रकार का ब्लॉग"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous प्रकार का ब्लॉग"
 	},
 	"option_publish_immediately": {
 		"message": "तुरंत प्रकाशित करें"
@@ -169,6 +198,9 @@
 	"option_publish_month12": {
 		"message": "दिस"
 	},
+	"label_blog": {
+		"message": "ब्लॉग"
+	},
 	"label_blog_type": {
 		"message": "ब्लॉग का प्रकार"
 	},
@@ -205,8 +237,14 @@
 	"label_excerpt": {
 		"message": "उद्धरण"
 	},
+	"label_categories": {
+		"message": "श्रेणियाँ"
+	},
+	"label_tags": {
+		"message": "निशानी"
+	},
 	"label_customFields": {
-		"message": "स्वःइक्षित जानकारीयाँ"
+		"message": "लेखक इक्षित जानकारीयाँ"
 	},
 	"label_publish": {
 		"message": "प्रकाशित करें"
@@ -230,5 +268,272 @@
 				"content": "$2"
 			}
 		}
+	},
+	"error_category_add": {
+		"message": "अग्निलेखक आपकी सेवा करना चाहता है परंतु श्रेणियाँ बनाते हुए कुछ गडबड हुई है. त्रुटि $error_code$",
+		"placeholders": {
+			"error_code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_post_publish": {
+		"message": "अग्निलेखक आपकी रचना प्रकाशित नहीं कर पाया. ये त्रुटि सन्देश प्राप्त हुआ है: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish": {
+		"message": "अग्निलेखक ये पृष्ठ प्रकाशित नहीं कर पाया. ये त्रुटि सन्देश प्राप्त हुआ है: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_unknown": {
+		"message": "अनापेक्षित त्रुटि हुई है."
+	},
+	"error_api_getBlogs": {
+		"message": "अग्निलेखक आपके ब्लॉग के बारे में अपेक्षित जानकारी नहीं पा पाया. परंतु आपके ब्लॉग से ये सन्देश प्राप्त हुआ है: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_invalid": {
+		"message": "अग्निलेखक एक API ($api_type$) चाहता है जो की उपस्थित नहीं है. ये आपकी गलती नहीं है.\nअगर आप प्राथमिक परीक्षक (alpha tester) हैं तो इस ब्लॉग को हटा कर दोबारा जोड़ें.",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_noBlog": {
+		"message": "रुकिये...रचना प्रकाशित  करने से पहले अपना ब्लॉग तो जोड़ें."
+	},
+	"error_api_noCategorySupport": {
+		"message": "ये ब्लॉग में श्रेणियाँ बनाने की क्षमता नहीं है."
+	},
+	"error_api_noUploadSupport": {
+		"message": "इस ब्लॉग में बाहरी फाइल जोड़ने के क्षमता नहीं है"
+	},
+	"error_api_cannotConnect": {
+		"message": "अग्निलेखक आपके ब्लॉग से संपर्क नहीं कर कर पा रहा है"
+	},
+	"error_api_setup": {
+		"message": "आपके ब्लॉग की सेटिंग जांचते हुए अग्निलेखक को ये त्रुटि प्राप्त हुई है: $code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_setup_unknownBlogType": {
+		"message": "अपने ब्लॉग को स्वयं व्यवस्थित करने के लिये आप आमंत्रित है"
+	},
+	"error_api_code412": {
+		"message": "ब्लॉग से त्रुटि क्रमांक ४१२ प्राप्त हुआ है. संभवतः आप इसे ठीक कर सकते हैं इस पृष्ठ पर दिये गये निर्देशों के अनुसार  $url$",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
+			}
+		}
+	},
+	"error_api_noMessage": {
+		"message": "ब्लॉग से त्रुटि $code$ प्राप्त हुई है, पर कोई त्रुटि सन्देश नहीं मिल है.",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_blogger_authentication": {
+		"message": "Blogger के अनुसार आपने या तो खाता नाम या आज्ञां शब्द गलत दिया है"
+	},
+	"error_api_blogger_verify": {
+		"message": "Blogger का सन्देश कहता है की आपको अपने Blogger खाते का ईमेल सत्यापित करना होगा. इसके लिये कृपया अपने Blogger खाते का इस्तेमाल करें"
+	},
+	"error_api_blogger_tos": {
+		"message": "Blogger का सन्देश कहता है की आपको गूगल की सेवा शर्तें माननी होंगी. इसके लिये कृपया अपने Blogger खाते का इस्तेमाल करें"
+	},
+	"error_api_blogger_deleted": {
+		"message": "Blogger का सन्देश कहता है की आपका Blogger खाता रद्द कर दिया गया है"
+	},
+	"error_api_blogger_disabled": {
+		"message": "Blogger का सन्देश कहता है की आपको Blogger का उपयोग करने की आज्ञां नहीं है"
+	},
+	"error_api_blogger_unavailable": {
+		"message": "Blogger का सन्देश कहता है की आपको अपने Blogger सेवा अस्थायी तौर पर अनुपलब्ध है."
+	},
+	"error_api_blogger_captcha": {
+		"message": "आगे बढ़ने के लिये गूगल चाहता है की आप इस CAPTCHA को यहाँ लिखें"
+	},
+	"error_api_blogger_unknown": {
+		"message": "Blogger ठीक काम नहीं कर रहा है. उससे अग्निलेखक को त्रुटि प्राप्त हो रही है: $error$",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_authToken": {
+		"message": "स्वामित्व स्थापित करने में समस्या आ रही है"
+	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "चित्र प्रकाशक API से संपर्क नहीं हो पा रहा है"
+	},
+	"error_api_posterous_noDeleteSupport": {
+		"message": "Posterous में अभी रचना रद्द करने की व्यवस्था नहीं है"
+	},
+	"error_video_noEmbed": {
+		"message": "अग्निलेखक इस चलचित्र के लिये बाँटनें योग्य कोड नहीं बना पाया. कृपया चलचित्र के इन्टरनेट पते को जाँच लें अथवा एम्बेड कोड को नीचे दिये वर्ग में भरें"
+	},
+	"prompt_newCategory": {
+		"message": "नया श्रेणी नाम"
+	},
+	"confirm_deletePost": {
+		"message": "क्या आप इस रचना को रद्द करना चाहते हैं? ये आपके ब्लॉग के सर्वर से रद्द कर दी जायेगी और आपके ब्लॉग से भी"
+	},
+	"text_inlinks1": {
+		"message": "अग्निलेखक ने इस $website$ से साझा किया है ताकि आप अपने ब्लॉग से आसानी से धन कमा सकें",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
+			}
+		}
+	},
+	"header_inlinks": {
+		"message": "InLinks क्या होते हैं?"
+	},
+	"text_inlinks2": {
+		"message": "InLinks स्थाई HTML विज्ञापन हैं जो की वेबसाईटों के रचना क्षेत्र में रहते हैं. आसान शब्दों में ये पैसे देने वाले सबसे अच्छे विज्ञापन हैं. आपके लिये जो फायदे हैं वो हैं:"
+	},
+	"text_inlinksBenefit1": {
+		"message": "आँखों को ना चुभने वाले विज्ञापन. कोई फटाका विज्ञापन नहीं!"
+	},
+	"text_inlinksBenefit2": {
+		"message": "पूर्वनिश्चित आय. समान किराया हर महीना\/विज्ञापन विक्रीत कमाएँ."
+	},
+	"text_inlinksBenefit3": {
+		"message": "ब्लॉग-मित्रवत. सिर्फ हमारा आसान \"प्लगइन\" जोड़ें और बाकि फ़िक्र हम पर छोड दें. आराम करें और हर महीने कमाएँ"
+	},
+	"text_inlinksBlogs": {
+		"message": "आपने जो भी ब्लॉग अग्निलेखक में जोड़े हैं उनमें से ये ब्लॉग InLinks के साथ काम कर सकते हैं:"
+	},
+	"text_inlinksCompatibility": {
+		"message": "(अभी तक, InLinks सिर्फ वर्डप्रेस.ऑर्ग, Drupal, MovableType के ब्लोग्स में ही काम करते हैं .)"
+	},
+	"text_inlinks3": {
+		"message": "$link_open$ InLinks.com पर जायें $link_close$ InLinks plugin लगाने के लिये और अपने ब्लॉग से धन कमाने के लिये!",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
+			},
+			"link_close": {
+				"content": "<\/a>"
+			}
+		}
+	},
+	"header_blogProperties": {
+		"message": "ब्लॉग की विस्तृत जानकारी"
+	},
+	"text_blogProperties1": {
+		"message": "यहाँ पर आप अपने ब्लॉग का नाम और इन्टरनेट पता सम्पादित कर सकते हैं. अपना खाता नाम, आज्ञा शब्द, API इन्टरनेट पता या ब्लॉग पहचान (ID) बदलने के लिये \"हटाएँ\" बटन पर क्लिक करके ब्लॉग को हटाएँ और दोबारा जोडने के लिये \"नया ब्लॉग पंजीकृत करें\" बटन \nपर क्लिक करें"
+	},
+	"header_video": {
+		"message": "चलचित्र जोड़ें"
+	},
+	"text_video1": {
+		"message": "चलचित्र का इन्टरनेट पता नीचे दिये वर्ग में डालें"
+	},
+	"text_video2": {
+		"message": "उदहारण, $url1$ या $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "या चलचित्र का बाँटने योग्य कोड नीचे दिये वर्ग में डालें:"
+	},
+	"time_ago_seconds": {
+		"message": "एक मिनट से भी कम समय पहले"
+	},
+	"time_ago_minutes": {
+		"message": "$1 मिनट पहले"
+	},
+	"time_ago_hours": {
+		"message": "$1 घंटे पहले"
+	},
+	"time_ago_days": {
+		"message": "$1 दिन पहले"
+	},
+	"confirm_not_saved": {
+		"message": "क्या आप रचनायें बदलना चाहते हैं? आपने इस रचना की प्रगती को सुरक्षित नहीं किया है. (पृष्ठ पर नीचे दिये बटन 'कार्य प्रगति सुरक्षित करें' पर क्लिक करके अपने इस कार्य की प्रगती सुरक्षित करें.)"
+	},
+	"zemanta_related_articles": {
+		"message": "सम्बंधित रचनायें, साधान्यवाद Zemanta:"
+	},
+	"zemanta_instructions": {
+		"message": "उन रचनाओं को चुने जिन्हे आप अपनी रचना में स्थान देना चाहते हैं"
+	},
+	"action_zemanta_add": {
+		"message": "सम्बंधित रचनाओं के पते जोड़ें"
+	},
+	"zemanta_tos_description": {
+		"message": "आगे बढनें के लिये आपका Zemanta द्वारा नीचे दी गईं शर्ते स्वीकार करना आवश्यक है."
+	},
+	"zemanta_tos_accept_request": {
+		"message": "अगर आपको सेवा शर्तें स्वीकार्य हैं तो 'क्रमशः' पर क्लिक करें."
+	},
+	"zemanta_tracking_optin": {
+		"message": "क्या अग्निलेखक कोई खोजी चिन्ह (tracking image) आपकी रचनाओं में जोड़ सकता है ताकी Zemanta के इस्तेमाल के बारे में जानकारी इक्कट्ठा की जा सकें? इससे आपको ज़रा भी फरक नहीं पड़ेगा और अगर आप अभी मना करते हैं तो आपसे ये प्रश्न फिर कभी नहीं पूछा जायगा."
+	},
+	"zemanta_tracking_yes": {
+		"message": "हाँ, अग्निलेखक खोजी चिन्ह (tracking image) जोड़ सकता है सिर्फ तब ही जब मैं Zemanta का प्रयोग करता हूँ"
+	},
+	"zemanta_tracking_no": {
+		"message": "नहीं, मैं कोई खोजी चिन्ह (tracking image) नहीं जोड़ना चाहता हूँ"
+	},
+	"zemanta_pixie_reminder": {
+		"message": "कृपया स्पष्ट करें की जब आप Zemanta का प्रयोग करते हैं तो अग्निलेखक को कोई खोजी चिन्ह आपकी रचना में जोड़ने की आज्ञा है या नहीं?"
+	},
+	"zemanta_selection_hint": {
+		"message": "क्या आप जानते हैं की आप अपनी रचना में से कुछ पंक्तियाँ चुन कर Zemanta की खोज को दिशानिर्देशित कर सकते हैं?"
+	},
+	"zemanta_no_results": {
+		"message": "Zemanta को आपकी रचना से सम्बंधित अन्य रचनायें इन्टरनेट पर नहीं मिलीं"
+	},
+	"zemanta_introduction_header": {
+		"message": "नया: जोड़ें Zemanta"
+	},
+	"zemanta_introduction": {
+		"message": "Zemanta आपको आपकी रचना से सम्बंधित इन्टरनेट पर उपलब्ध अन्य रचनाओं के संपर्क प्रदान करता है. सिर्फ अपनी रचना लिखें, Zemanta टूलबार चिन्ह (नीचे चित्र देखें) पर क्लिक करें, और सुझावित समान रचनाओं के पते अपनी रचना में जोड़ें."
+	},
+	"zemanta_loading_message": {
+		"message": "कृपया प्रतीक्षा करें जब तक अग्निलेखक Zemanta से सम्बंधित रचनायें ला रहा है"
+	},
+	"action_continueEditing": {
+		"message": "रचना संपादन जारी रखें"
+	},
+	"action_startNewPost": {
+		"message": "नयी रचना शुरू करें"
+	},
+	"action_hide": {
+		"message": "छुपाएँ"
+	},
+	"label_genericQuestion": {
+		"message": "क्या आप:"
+	},
+	"label_promoted": {
+		"message": "उन्नत"
 	}
 }

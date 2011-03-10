@@ -8,11 +8,17 @@
 	"continue": {
 		"message": "Continuer"
 	},
+	"action_close": {
+		"message": "Fermer"
+	},
 	"firsttime_header": {
 		"message": "Bienvenue sur ScribeFire !"
 	},
 	"firsttime_text": {
 		"message": "Vous allez probablement vouloir d'abord ajouter votre blog. Fermez cette fenêtre et cliquez sur « Ajouter un nouveau blog » pour commencer."
+	},
+	"text_get_started": {
+		"message": "Cliquez sur « Ajouter un nouveau blog » pour commencer."
 	},
 	"entry_new_label": {
 		"message": "(nouveau)"
@@ -37,6 +43,12 @@
 	},
 	"notification_blog_add": {
 		"message": "Votre blog a été ajouté avec succès !"
+	},
+	"notification_publish": {
+		"message": "Votre billet a été publié avec succès."
+	},
+	"notification_publish_update": {
+		"message": "Votre billet a été mis à jour avec succès."
 	},
 	"action_openBlogInTab": {
 		"message": "Ouvrir le blog dans un nouvel onglet"
@@ -74,6 +86,9 @@
 	"action_editVisual": {
 		"message": "Passer au mode visuel"
 	},
+	"action_category_add": {
+		"message": "Ajouter une nouvelle catégorie"
+	},
 	"action_customField_add": {
 		"message": "Ajouter un champ personnalisé"
 	},
@@ -95,8 +110,19 @@
 	"action_insert": {
 		"message": "Insérer"
 	},
+	"action_reset": {
+		"message": "Démarrer un nouveau $ignore1$ billet $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
 	"action_publishUpdate": {
-		"message": "Mettre à jour $ignore1$ Publier $ignore2$",
+		"message": "Mettre à jour $ignore1$ le billet $ignore2$",
 		"placeholders": {
 			"ignore1": {
 				"content": "<span class=\"entry-type-text\">"
@@ -207,6 +233,12 @@
 	},
 	"label_excerpt": {
 		"message": "Extrait :"
+	},
+	"label_categories": {
+		"message": "Catégories"
+	},
+	"label_tags": {
+		"message": "Étiquettes"
 	},
 	"label_customFields": {
 		"message": "Champs personnalisés"
@@ -461,5 +493,14 @@
 	},
 	"zemanta_tracking_optin": {
 		"message": "Acceptez-vous que ScribeFire ajoute une image invisible à votre billet pour tracer les statistiques de l'utilisation de Zemanta? Vous ne verrez aucune différence et si vous refusez, la question ne sera plus posée."
+	},
+	"action_continueEditing": {
+		"message": "Continuer à éditer ce billet"
+	},
+	"action_startNewPost": {
+		"message": "Commencer un nouveau billet"
+	},
+	"action_hide": {
+		"message": "Masquer"
 	}
 }
