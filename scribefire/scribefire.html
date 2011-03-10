@@ -43,6 +43,7 @@
 								<div style="margin-top: 10px;">
 									<button class="button-blog-view" style="float: left;"><i18n data-key="action_view" /></button>
 									<button id="button-blog-edit" style="margin-left: 10px; float: left;"><i18n data-key="action_edit" /></button>
+									<!-- <button id="button-blog-adbull" style="margin-left: 10px; float: left;" class="adbull"><i18n data-key="action_adbull" /></button> -->
 									<button id="button-blog-remove" class="text-button"><i18n data-key="action_remove" /></button>
 								</div>
 							</div>
@@ -343,7 +344,6 @@
 			</div>
 		</div>
 		
-		<!--
 		<div id="panel-adbull-register" style="display: none;">
 			<form method="post" id="form-adbull-register">
 				<input type="hidden" name="a" value="register" />
@@ -355,64 +355,80 @@
 						<td style="width: 45%;">
 							<p>
 								<label>Username:</label>
-								<input type="text" name="username" class="padded" />
+								<input type="text" name="username" class="padded" value="cfinke" />
 							</p>
 							<p>
 								<label>Password:</label>
-								<input type="password" name="password" class="padded" />
+								<input type="password" name="password" class="padded" value="th1nmint"/>
 							</p>
 							<p>
 								<label>Confirm Password:</label>
-								<input type="password" name="password2" class="padded" />
-							</p>
-							<p>
-								<label>Email:</label>
-								<input type="email" name="email" class="padded" />
-							</p>
-							<p>
-								<label>Your Site's URL:</label>
-								<input type="url" name="url" class="padded" />
+								<input type="password" name="password2" class="padded" value="th1nmint"/>
 							</p>
 							<p>
 								<label>Name:</label>
-								<input type="text" name="name" class="padded" />
+								<input type="text" name="name" class="padded" value="Chris Finke" />
+							</p>
+							<p>
+								<label>Email:</label>
+								<input type="email" name="email" class="padded" value="cfinke@gmail.com"/>
+							</p>
+							<p>
+								<label>Your Site's URL:</label>
+								<input type="url" name="url" class="padded" value="http://www.chrisfinke.com/"/>
 							</p>
 						</td>
 						<td>
 							<p>
 								<label>Mailing Address:</label>
-								<input type="text" name="address" class="padded" />
-							</p>
-							<p>
-								<label>Country:</label>
-								<input type="text" name="country" class="padded" />
+								<input type="text" name="address" class="padded" value="2317 Boulder Road" />
 							</p>
 							<p>
 								<label>City:</label>
-								<input type="text" name="city" class="padded" />
+								<input type="text" name="city" class="padded" value="Chanhassen"/>
 							</p>
 							<p>
 								<label>State:</label>
-								<input type="text" name="state" class="padded" />
+								<input type="text" name="state" class="padded" value="Minnesota" />
 							</p>
 							<p>
 								<label>Zipcode:</label>
-								<input type="text" name="zipcode" class="padded" />
+								<input type="text" name="zipcode" class="padded" value="55317" />
+							</p>
+							<p>
+								<label>Country:</label>
+								<input type="text" name="country" class="padded" value="US" />
 							</p>
 							<p>
 								<label>Phone:</label>
-								<input type="text" name="phone" class="padded" />
+								<input type="text" name="phone" class="padded" value="6122299048"/>
 							</p>
 						</td>
 					</tr>
 				</table>
 			</form>
 			<div class="buttons">
-				<button id="button-adbull-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
+				<button class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
 				<button id="button-adbull-register-continue"><i18n data-key="continue" /></button>
 			</div>
 		</div>
-		-->
+
+		<div id="panel-adbull-add" style="display: none;">
+			<form method="post" id="form-adbull-add">
+				<input type="hidden" name="a" value="website" />
+				<h1>AdBull</h1>
+				<p>Add a new website to your AdBull account.</p>
+				<p class="error-message" style="display: none;"></p>
+				<p>
+					<label>Your Site's URL:</label>
+					<input type="url" name="url" class="padded" value="http://www.chrisfinke.com/"/>
+				</p>
+			</form>
+			<div class="buttons">
+				<button class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
+				<button id="button-adbull-add-continue"><i18n data-key="continue" /></button>
+			</div>
+		</div>
 		
 		<div id="dialog-blog-add" style="display:none;">
 			<h1 style="margin-top: 0;"><i18n data-key="action_blog_add" /></h1>

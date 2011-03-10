@@ -1269,7 +1269,7 @@ var genericAtomAPI = function () {
 		var req = new XMLHttpRequest();
 		// encodeURIComponent is used here because otherwise some requests were failing
 		// when the password contains special characters like "@"
-		req.open(method, url, false, encodeURIComponent(this.username), encodeURIComponent(this.password));
+		req.open(method, url, true, encodeURIComponent(this.username), encodeURIComponent(this.password));
 		req.setRequestHeader("Content-Type", "application/atom+xml");
 		
 		callback(req);
@@ -1390,7 +1390,31 @@ var bloggerAPI = function () {
 							case 'CaptchaRequired':
 								var imgUrl = "https://www.google.com/accounts/" + returnValues["CaptchaUrl"];
 								
-								$.facebox("<div><h4>" + scribefire_string("error_api_blogger_captcha") + "</h4><p><img src='"+imgUrl+"' /><p><input type='text' id='google-captcha' /><input type='submit' value='" + scribefire_string("continue") +"' id='captcha-continue' /></div>");
+								var container = $("<div/>");
+								
+								var header = $("<h4/>");
+								header.text(scribefire_string("error_api_blogger_captcha"));
+								container.append(header);
+								
+								var message = $("<p/>");
+								container.append(message);
+								
+								var image = $("<img/>");
+								image.attr("src", imgUrl);
+								message.append(image);
+								
+								var textbox = $("<input/>");
+								textbox.attr("type", "text");
+								textbox.attr("id", "google-captcha");
+								container.append(textbox);
+								
+								var submit = $("<input />");
+								submit.attr("type", "submit");
+								submit.val(scribefire_string("continue"));
+								submit.attr("id", "captcha-continue");
+								container.append(submit);
+								
+								$.facebox(container);
 								
 								$("#captcha-continue").live("click", function (e) {
 									var captcha = $("#google-captcha").val();

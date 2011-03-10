@@ -67,6 +67,9 @@
 	"action_remove": {
 		"message": "Remove"
 	},
+	"action_adbull": {
+		"message": "Advertise"
+	},
 	"action_blog_add": {
 		"message": "Add a New Blog"
 	},

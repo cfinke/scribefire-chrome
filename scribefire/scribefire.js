@@ -133,8 +133,17 @@ var SCRIBEFIRE = {
 		
 		if ($("#list-blogs option").length == 0) {
 			if (!SCRIBEFIRE.prefs.getBoolPref("firstrun")) {
-				// @todo localize
-				$.facebox($("<div><h2>" + scribefire_string("firsttime_header")+"</h2><p>" + scribefire_string("firsttime_text") + "</p></div>"));
+				var panel = $("<div/>");
+				
+				var header = $("<h2/>");
+				header.text(scribefire_string("firsttime_header"));
+				panel.append(header);
+				
+				var message = $("<p/>");
+				message.text(scribefire_string("firsttime_text"));
+				panel.append(message);
+				
+				$.facebox(panel);
 				SCRIBEFIRE.prefs.setBoolPref("firstrun", true);
 			}
 		}
@@ -1378,12 +1387,18 @@ var SCRIBEFIRE = {
 	*/
 	
 	error : function (msg, errorCode) {
-		msg = msg.replace(/</g, "&lt;").replace(/\n/g, "<br />");
+		var container = $("<div/>");
+		var header = $("<h3/>");
+		header.text(scribefire_string("error_header"));
+		container.append(header);
 		
-		var errorHTML = "<h3>" + scribefire_string("error_header") + "</h3><p>"+msg+"</p>";
+		var message = $("<p/>");
+		message.text(msg);
+		container.append(message);
 		
 		if ($("#dialog-blog-add").is(":visible")) {
-			$("#dialog-blog-add-error").html(msg).fadeIn();
+			$("#dialog-blog-add-error").html("").append(container).fadeIn();
+			$("button.busy").removeClass("busy");
 		}
 		else {
 			/*
@@ -1391,8 +1406,10 @@ var SCRIBEFIRE = {
 				errorHTML += '<p><a href="#" id="button-update-auth">Click here to update your username and password.</a></p>';
 			}
 			*/
-		
-			$.facebox("<div class='error'>" + errorHTML + "</div>");
+			
+			container.addClass("error");
+			
+			$.facebox(container);
 		}
 	}
 };
