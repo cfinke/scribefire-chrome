@@ -144,6 +144,8 @@ $(document).ready(function () {
 	$("#list-blog-types").live("change", function (e) {
 		var option = $(this).find("option:selected");
 		
+		$("#label-add-blog-type").text(option.text());
+		
 		if (option.attr("requires_id") == "true") {
 			$("#text-add-blog-id-container").show();
 		}
@@ -441,8 +443,16 @@ $(document).ready(function () {
 		$("#zemanta-promo").hide();
 	});
 	
+	$("#button-adbull-hide").live("click", function (e) {
+		SCRIBEFIRE.prefs.setBoolPref("adbull.hidePromo", true);
+		$("#adbull-promo").hide();
+	});
+	
 	if (!SCRIBEFIRE.prefs.getBoolPref("zemanta.hidePromo")) {
 		$("#zemanta-promo").show();
+	}
+	else if (!SCRIBEFIRE.prefs.getBoolPref("adbull.hidePromo")) {
+		$("#adbull-promo").show();
 	}
 	
 	$("#button-blog-add").live("click", function (e) {
@@ -455,11 +465,6 @@ $(document).ready(function () {
 			$("#label-add-blog-url").text($(this).val());
 		});
 
-		$("#list-blog-types").die("change");
-		$("#list-blog-types").live("change", function () {
-			$("#label-add-blog-type").text($(this).find("option:selected").text());
-		});
-		
 		$("#text-blog-api-url").die("change");
 		$("#text-blog-api-url").live("change", function () {
 			$("#label-add-blog-apiurl").text($(this).val());
@@ -478,9 +483,9 @@ $(document).ready(function () {
 
 			$("#list-blog-types").val("").change();
 			$("#text-blog-api-url").val("").change();
-			$("#text-blog-username").val("");
-			$("#text-blog-password").val("");
-			$("#text-addblog-id").val("").change();
+//			$("#text-blog-username").val("");
+//			$("#text-blog-password").val("");
+//			$("#text-addblog-id").val("").change();
 
 			SCRIBEFIRE.getBlogMetaData(
 				$("#text-blog-url").val(),
@@ -582,6 +587,7 @@ $(document).ready(function () {
 					button.removeClass("busy");
 
 					$(document).trigger("close.facebox");
+					
 	//				$("#dialog-blog-add").hide();
 
 					SCRIBEFIRE.notify(scribefire_string("notification_blog_add"));
@@ -590,6 +596,10 @@ $(document).ready(function () {
 						// Only select a new blog if the user wasn't working on an entry from another blog.
 						$("#list-blogs").val(rv[0].username + "@" + rv[0].url).change();
 					}
+					
+					if (SCRIBEFIRE.blogsToImport.length > 0) {
+						SCRIBEFIRE.importNextBlog();
+					}
 				},
 				function (rv) {
 					button.removeClass("busy");
@@ -597,8 +607,16 @@ $(document).ready(function () {
 			);
 		});
 		
+		if (SCRIBEFIRE.blogsToImport.length == 0) {
+			$("#dialog-blog-add-normal").show();
+			$("#dialog-blog-add-import").hide();
+		}
+		else {
+			$("#dialog-blog-add-import").show();
+			$("#dialog-blog-add-normal").hide();
+		}
+		
 		$("#dialog-blog-add").show();
-//		$("#dialog-blog-add").show();
 		
 		$("#text-blog-url").val("").change();
 		$("#list-blog-types").val("").change();
@@ -679,6 +697,14 @@ $(document).ready(function () {
 		$("#panel-blog-edit .blog-edit-field").each(function () {
 			$(this).val(blog[$(this).attr("name")]);
 		});
+		
+		if ("adbull_code" in blog) {
+			$("#panel-blog-edit code.adbull_code").text(blog.adbull_code);
+			$("div.adbull_code").show();
+		}
+		else {
+			$("div.adbull_code").hide();
+		}
 		
 		$.facebox($("#panel-blog-edit"));
 		$("#panel-blog-edit").show();
