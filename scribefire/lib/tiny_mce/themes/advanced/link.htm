@@ -12,9 +12,9 @@
 		<link rel="stylesheet" type="text/css" href="../../../../skin/widgets.css" />
 		<link rel="stylesheet" type="text/css" href="../../../../skin/dialog.css" />
 	</head>
-	<body id="link" style="display: none">
+	<body id="link" style="display: none;" level="../../../../">
 		<h2>Insert/edit link</h2>
-		<form onsubmit="LinkDialog.update();return false;" action="#">
+		<form onsubmit="LinkDialog.update(); return false;" action="#">
 			<div class="panel_wrapper">
 				<div id="general_panel" class="panel current">
 
@@ -50,9 +50,10 @@
 
 			<div class="mceActionPanel">
 				<button id="cancel" name="cancel" class="cancel-button" onclick="event.preventDefault(); tinyMCEPopup.close();">Cancel</button>
-				<button id="insert" name="insert">Insert</button>
+				<button id="insert" name="insert" class="accept-button">Insert</button>
 			</div>
 		</form>
 		<script type="text/javascript" src="../../../../lib/platform.js"></script>
+		<script type="text/javascript" src="../../../../lib/tinymce-popup.js"></script>
 	</body>
 </html>

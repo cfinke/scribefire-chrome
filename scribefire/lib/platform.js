@@ -178,8 +178,10 @@ function scribefire_string(key, substitutions) {
 	}
 }
 
+var level = $("body").attr("level") || "./";
+
 var style = document.createElement("link");
 style.setAttribute("rel", "stylesheet");
 style.setAttribute("type", "text/css");
-style.setAttribute("href", "skin/platform." + platform + ".css");
+style.setAttribute("href", level + "skin/platform." + platform + ".css");
 document.getElementsByTagName("head")[0].appendChild(style);
