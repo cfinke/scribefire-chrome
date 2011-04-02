@@ -86,7 +86,7 @@ if (platform == 'gecko') {
 			localeOrder.forEach(function (locale) {
 				var messagesFile = installLocation.getItemFile(extension_id, "chrome/content/_locales/" + locale + "/messages.json");
 				
-				var messagesText = FileIO.read(messagesFile);
+				var messagesText = FileIO.read(messagesFile, "utf-8");
 			
 				if (messagesText) {
 					var messages = {};
@@ -136,7 +136,7 @@ if (platform == 'gecko') {
 				localeOrder.forEach(function (locale) {
 					var messagesFile = addon.getResourceURI("chrome/content/_locales/" + locale + "/messages.json").QueryInterface(Components.interfaces.nsIFileURL).file;
 					
-					var messagesText = FileIO.read(messagesFile);
+					var messagesText = FileIO.read(messagesFile, "utf-8");
 			
 					if (messagesText) {
 						var messages = {};
