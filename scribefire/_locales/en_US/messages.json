@@ -73,6 +73,12 @@
 	"action_blog_add": {
 		"message": "Add a New Blog"
 	},
+	"action_blog_import": {
+		"message": "Import Your Blogs"
+	},
+	"message_blog_import": {
+		"message": "Let's import your blogs from the previous version of ScribeFire."
+	},
 	"action_next": {
 		"message": "Next"
 	},
@@ -560,5 +566,11 @@
 	"label_promoted": {
 		"message": "(promoted)",
 		"description": "Used to indicate that a link has been sponsored by an advertiser."
+	},
+	"label_adbull_code": {
+		"message": "Advertising Code:"
+	},
+	"adbull_code_instructions": {
+		"message": "Just copy and paste this code into your blog's template, and AdBull will do the rest."
 	}
 }
