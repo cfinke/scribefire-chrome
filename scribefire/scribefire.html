@@ -26,7 +26,7 @@
 		<script type="text/javascript" src="lib/wordpress.js"></script>
 		<script type="text/javascript" src="migrate.js"></script>
 		<script type="text/javascript" src="lib/jquery-oembed.js"></script>
-		<!-- <script type="text/javascript" src="adbull.js"></script> -->
+		<script type="text/javascript" src="adbull.js"></script>
 	</head>
 	<body>
 		<table style="height: 99%; width: 100%;" cellspacing="0" cellpadding="0" id="content-body">
@@ -43,7 +43,7 @@
 								<div style="margin-top: 10px;">
 									<button class="button-blog-view" style="float: left;"><i18n data-key="action_view" /></button>
 									<button id="button-blog-edit" style="margin-left: 10px; float: left;"><i18n data-key="action_edit" /></button>
-									<!-- <button id="button-blog-adbull" style="margin-left: 10px; float: left;" class="adbull"><i18n data-key="action_adbull" /></button> -->
+									<button id="button-blog-adbull" style="margin-left: 10px; float: left;" class="adbull"><i18n data-key="action_adbull" /></button>
 									<button id="button-blog-remove" class="text-button"><i18n data-key="action_remove" /></button>
 								</div>
 							</div>
@@ -95,6 +95,15 @@
 							<img src="skin/zemanta-logo.png" align="left" style="padding-right: 10px;"/>
 							<p><i18n data-key="zemanta_introduction" /></p>
 							<img src="skin/zemanta-screenshot.png" style="border: 1px solid #666;" />
+						</div>
+					</div>
+					<div class="ui-adbull" id="adbull-promo" style="display: none;">
+						<div class="bar fixed">
+							<label>NEW: MAKE MONEY WITH YOUR BLOG</label>
+							<button class="bar-meta" id="button-adbull-hide"><i18n data-key="action_hide" /></button>
+						</div>
+						<div class="underbar fixed">
+							<p>Click the "Advertise" button underneath your list of blogs to set up an account with AdBull and start making money with your blog today.</p>
 						</div>
 					</div>
 				</td>
@@ -223,7 +232,7 @@
 			<p><i18n data-key="text_inlinks3" /></p>
 		</div>
 		
-		<div id="panel-blog-edit" style="display: none;">
+		<div id="panel-blog-edit" class="modal" style="display: none;">
 			<h3><i18n data-key="header_blogProperties" /></h3>
 			<p><i18n data-key="text_blogProperties1" /></p>
 			<div>
@@ -237,6 +246,13 @@
 					<div class="bar fixed"><label><i18n data-key="label_url" /></label></div>
 					<div class="underbar" open="true" last="true">
 						<input type="text" class="blog-edit-field" name="url" />
+					</div>
+				</div>
+				<div class="adbull_code" style="display: none;">
+					<div class="bar fixed"><label><i18n data-key="label_adbull_code" /></label></div>
+					<div class="underbar" open="true" last="true" style="margin-top: 10px;">
+						<code class="adbull_code"></code>
+						<p><i18n data-key="adbull_code_instructions" /></p>
 					</div>
 				</div>
 			</div>
@@ -355,57 +371,121 @@
 						<td style="width: 45%;">
 							<p>
 								<label>Username:</label>
-								<input type="text" name="username" class="padded" value="cfinke" />
+								<input type="text" name="username" class="padded" value="" />
 							</p>
 							<p>
 								<label>Password:</label>
-								<input type="password" name="password" class="padded" value="th1nmint"/>
+								<input type="password" name="password" class="padded" value=""/>
 							</p>
 							<p>
 								<label>Confirm Password:</label>
-								<input type="password" name="password2" class="padded" value="th1nmint"/>
+								<input type="password" name="password2" class="padded" value=""/>
 							</p>
 							<p>
 								<label>Name:</label>
-								<input type="text" name="name" class="padded" value="Chris Finke" />
+								<input type="text" name="name" class="padded" value="" />
 							</p>
 							<p>
 								<label>Email:</label>
-								<input type="email" name="email" class="padded" value="cfinke@gmail.com"/>
+								<input type="email" name="email" class="padded" value=""/>
 							</p>
 							<p>
 								<label>Your Site's URL:</label>
-								<input type="url" name="url" class="padded" value="http://www.chrisfinke.com/"/>
+								<input type="url" name="url" class="padded" value=""/>
 							</p>
 						</td>
 						<td>
 							<p>
 								<label>Mailing Address:</label>
-								<input type="text" name="address" class="padded" value="2317 Boulder Road" />
+								<input type="text" name="address" class="padded" value="" />
 							</p>
 							<p>
 								<label>City:</label>
-								<input type="text" name="city" class="padded" value="Chanhassen"/>
+								<input type="text" name="city" class="padded" value=""/>
 							</p>
 							<p>
 								<label>State:</label>
-								<input type="text" name="state" class="padded" value="Minnesota" />
+								<select name="state" class="padded">
+									<option value="">Select a State</option> 
+									<option value="Alabama">Alabama</option> 
+									<option value="Alaska">Alaska</option> 
+									<option value="Arizona">Arizona</option> 
+									<option value="Arkansas">Arkansas</option> 
+									<option value="California">California</option> 
+									<option value="Colorado">Colorado</option> 
+									<option value="Connecticut">Connecticut</option> 
+									<option value="Delaware">Delaware</option> 
+									<option value="District Of Columbia">District Of Columbia</option> 
+									<option value="Florida">Florida</option> 
+									<option value="Georgia">Georgia</option> 
+									<option value="Hawaii">Hawaii</option> 
+									<option value="Idaho">Idaho</option> 
+									<option value="Illinois">Illinois</option> 
+									<option value="Indiana">Indiana</option> 
+									<option value="Iowa">Iowa</option> 
+									<option value="Kansas">Kansas</option> 
+									<option value="Kentucky">Kentucky</option> 
+									<option value="Louisiana">Louisiana</option> 
+									<option value="Maine">Maine</option> 
+									<option value="Maryland">Maryland</option> 
+									<option value="Massachusetts">Massachusetts</option> 
+									<option value="Michigan">Michigan</option> 
+									<option value="Minnesota">Minnesota</option> 
+									<option value="Mississippi">Mississippi</option> 
+									<option value="Missouri">Missouri</option> 
+									<option value="Montana">Montana</option> 
+									<option value="Nebraska">Nebraska</option> 
+									<option value="Nevada">Nevada</option> 
+									<option value="New Hampshire">New Hampshire</option> 
+									<option value="New Jersey">New Jersey</option> 
+									<option value="New Mexico">New Mexico</option> 
+									<option value="New York">New York</option> 
+									<option value="North Carolina">North Carolina</option> 
+									<option value="North Dakota">North Dakota</option> 
+									<option value="Ohio">Ohio</option> 
+									<option value="Oklahoma">Oklahoma</option> 
+									<option value="Oregon">Oregon</option> 
+									<option value="Pennsylvania">Pennsylvania</option> 
+									<option value="Rhode Island">Rhode Island</option> 
+									<option value="South Carolina">South Carolina</option> 
+									<option value="South Dakota">South Dakota</option> 
+									<option value="Tennessee">Tennessee</option> 
+									<option value="Texas">Texas</option> 
+									<option value="Utah">Utah</option> 
+									<option value="Vermont">Vermont</option> 
+									<option value="Virginia">Virginia</option> 
+									<option value="Washington">Washington</option> 
+									<option value="West Virginia">West Virginia</option> 
+									<option value="Wisconsin">Wisconsin</option> 
+									<option value="Wyoming">Wyoming</option>
+									<option value="Not Applicable">Not Applicable</option>
+								</select>
 							</p>
 							<p>
 								<label>Zipcode:</label>
-								<input type="text" name="zipcode" class="padded" value="55317" />
+								<input type="text" name="zipcode" class="padded" value="" />
 							</p>
 							<p>
 								<label>Country:</label>
-								<input type="text" name="country" class="padded" value="US" />
+								<input type="text" name="country" class="padded" value="" />
 							</p>
 							<p>
 								<label>Phone:</label>
-								<input type="text" name="phone" class="padded" value="6122299048"/>
+								<input type="text" name="phone" class="padded" value=""/>
 							</p>
 						</td>
 					</tr>
 				</table>
+				<p>
+					<input type="checkbox" name="tos" value="1" />
+					I agree that...
+					<ul>
+						<li>I will not click on AdBull ads that are displayed on my website.</li>
+				 		<li>I will not place AdBull ads on sites that include incentives to click on ads.</li>
+						<li>I will not place AdBull ads on sites that include pornographic or illegal content.</li>
+						<li>I certify that I have read and agree to AdBull's Terms and Conditions.</li>
+					</ul>
+				</p>
 			</form>
 			<div class="buttons">
 				<button class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
@@ -430,8 +510,23 @@
 			</div>
 		</div>
 		
+		<div id="panel-adbull-code" style="display: none;">
+			<h1>AdBull</h1>
+			<p><i18n data-key="adbull_code_instructions" /></p>
+			<code class="adbull_code"></code>
+			<div class="buttons">
+				<button class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
+			</div>
+		</div>
+		
 		<div id="dialog-blog-add" style="display:none;">
-			<h1 style="margin-top: 0;"><i18n data-key="action_blog_add" /></h1>
+			<div id="dialog-blog-add-normal">
+				<h1 style="margin-top: 0;"><i18n data-key="action_blog_add" /></h1>
+			</div>
+			<div id="dialog-blog-add-import" style="display: none;">
+				<h1 style="margin-top: 0;"><i18n data-key="action_blog_import" /></h1>
+				<p><i18n data-key="message_blogs_import" /></p>
+			</div>
 			<p id="dialog-blog-add-error" style="display: none;" class="error"></p>
 			<div id="dialog-blog-add-container">
 				<div class="step-1">
