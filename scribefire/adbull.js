@@ -39,8 +39,23 @@ var ADBULL = {
 		}
 	},
 	
+	showCode : function (code) {
+		$(document).trigger("close.facebox");
+		
+		$("#panel-adbull-code .adbull_code").text(code);
+		$.facebox($("#panel-adbull-code"));
+		$("#panel-adbull-code").show();
+	},
+	
 	addSite : function (site) {
-		if (SCRIBEFIRE.prefs.getBoolPref("adbull.username")) {
+		var blog = SCRIBEFIRE.getBlog();
+		
+		if (blog.url === site.url && "adbull_code" in blog) {
+			ADBULL.showCode(blog.adbull_code);
+			return;
+		}
+		
+		if (SCRIBEFIRE.prefs.getCharPref("adbull.username") && SCRIBEFIRE.prefs.getCharPref("adbull.password")) {
 			var panel = $("#panel-adbull-add");
 			
 			var form = $("#form-adbull-add");
@@ -48,22 +63,22 @@ var ADBULL = {
 			
 			form.die("submit").live("submit", function (e) { e.preventDefault(); });
 			
-			$("#button-adbull-register-continue").die("click").live("click", function (e) {
+			$("#button-adbull-add-continue").die("click").live("click", function (e) {
 				e.preventDefault();
 				
 				form.find("p").removeClass("error");
 				form.find(".error-message").hide();
 				
-				$("#button-adbull-register-continue").addClass("busy");
+				$("#button-adbull-add-continue").addClass("busy");
 				
-				var args = form.serializeArray();
-				args.push({ "name" : "username", "value": SCRIBEFIRE.prefs.getBoolPref("adbull.username") });
-				args.push({ "name" : "password", "value": SCRIBEFIRE.prefs.getBoolPref("adbull.password") });
+				var args = form.serialize();
+				args += "&username=" + encodeURIComponent(SCRIBEFIRE.prefs.getCharPref("adbull.username"));
+				args += "&password=" + encodeURIComponent(SCRIBEFIRE.prefs.getCharPref("adbull.password"));
 				
 				ADBULL.api.request("POST", args, function (data, status) {
-					$("#button-adbull-register-continue").removeClass("busy");
-
 					if (!data.status) {
+						$("#button-adbull-add-continue").removeClass("busy");
+
 						form.find(".error-message").text(data.msg).show();
 
 						if (data.field) {
@@ -71,10 +86,26 @@ var ADBULL = {
 						}
 					}
 					else {
-						alert(data.msg);
+						var url = form.find("input[name='url']:first").val();
+						
+						var argString = "a=code";
+						argString += "&username=" + encodeURIComponent(SCRIBEFIRE.prefs.getCharPref("adbull.username"));
+						argString += "&password=" + encodeURIComponent(SCRIBEFIRE.prefs.getCharPref("adbull.password"));
+						argString += "&url=" + encodeURIComponent(url);
+						
+						// Get the embed code for this website.
+						ADBULL.api.request("POST", argString, function (data, status) {
+							$("#button-adbull-add-continue").removeClass("busy");
 
-						SCRIBEFIRE.prefs.setCharPref("adbull.username", form.find("input[name='username']").val());
-						SCRIBEFIRE.prefs.setCharPref("adbull.password", form.find("input[name='password']").val());
+							var blog = SCRIBEFIRE.getBlog();
+							
+							if (blog.url === url) {
+								blog.adbull_code = data.data;
+								SCRIBEFIRE.setBlog(blog);
+							}
+							
+							ADBULL.showCode(data.data);
+						});
 					}
 				});
 			});
@@ -108,9 +139,9 @@ var ADBULL = {
 			$("#button-adbull-register-continue").addClass("busy");
 			
 			ADBULL.api.request("POST", form.serialize(), function (data, status) {
-				$("#button-adbull-register-continue").removeClass("busy");
-				
 				if (!data.status) {
+					$("#button-adbull-register-continue").removeClass("busy");
+
 					form.find(".error-message").text(data.msg).show();
 					
 					if (data.field) {
@@ -121,7 +152,17 @@ var ADBULL = {
 					SCRIBEFIRE.prefs.setCharPref("adbull.username", form.find("input[name='username']").val());
 					SCRIBEFIRE.prefs.setCharPref("adbull.password", form.find("input[name='password']").val());
 					
+					var argString = "a=code";
+					argString += "&username=" + encodeURIComponent(SCRIBEFIRE.prefs.getCharPref("adbull.username"));
+					argString += "&password=" + encodeURIComponent(SCRIBEFIRE.prefs.getCharPref("adbull.password"));
+					argString += "&url=" + encodeURIComponent(form.find("input[name='url']:first").val());
+					
 					// Get the embed code for this website.
+					ADBULL.api.request("POST", argString, function (data, status) {
+						$("#button-adbull-register-continue").removeClass("busy");
+						
+						ADBULL.showCode(data.data);
+					});
 				}
 			});
 		});
