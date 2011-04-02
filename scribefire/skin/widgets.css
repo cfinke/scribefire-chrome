@@ -2,7 +2,7 @@ input[type="text"], input[type="password"], input[type="url"], input[type="email
 	width: 100%;
 }
 
-input.padded {
+input.padded, select.padded {
 	width: 80%;
 }
 

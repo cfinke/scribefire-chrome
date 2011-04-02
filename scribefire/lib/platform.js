@@ -135,7 +135,7 @@ if (platform == 'gecko') {
 				// overwriting previous ones if necessary.
 				localeOrder.forEach(function (locale) {
 					var messagesFile = addon.getResourceURI("chrome/content/_locales/" + locale + "/messages.json").QueryInterface(Components.interfaces.nsIFileURL).file;
-					console.log(messagesFile);
+					
 					var messagesText = FileIO.read(messagesFile);
 			
 					if (messagesText) {

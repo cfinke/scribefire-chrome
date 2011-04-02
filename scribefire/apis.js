@@ -274,8 +274,6 @@ var genericMetaWeblogAPI = function () {
 							self.apiUrl,
 							xml, 
 							function (pages_rv) {
-								//console.log(pages_rv);
-								
 								// @todo Localize
 								var true_rv = { "Posts" : rv, "Pages" : [] };
 								

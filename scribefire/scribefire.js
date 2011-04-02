@@ -1346,6 +1346,36 @@ var SCRIBEFIRE = {
 		reader.readAsBinaryString(f);
 	},
 	
+	blogsToImport : [],
+	
+	importBlogs : function (blogs) {
+		alert("About to import");
+		SCRIBEFIRE.blogsToImport = blogs;
+		
+		SCRIBEFIRE.importNextBlog();
+	},
+	
+	importNextBlog : function () {
+		if (SCRIBEFIRE.blogsToImport.length > 0) {
+			var blog = SCRIBEFIRE.blogsToImport.shift();
+			
+			var existingBlogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
+			
+			if (!((blog.username + "@" + blog.url) in existingBlogs)) {
+				$("#button-blog-add").click();
+		
+				$("#text-blog-url").val(blog.url);
+				$("#text-blog-username").val(blog.username);
+				$("#text-blog-password").val(blog.password);
+				$("#text-addblog-id").val(blog.blog_id);
+				$("#button-blog-urlcheck").click();
+			}
+			else {
+				SCRIBEFIRE.importNextBlog();
+			}
+		}
+	},
+	
 	/*
 	import : function (json) {
 		if ("blogs" in json) {

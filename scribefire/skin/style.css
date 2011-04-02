@@ -37,6 +37,14 @@ a {
 	padding-left: 8px;
 }
 
+.modal .bar {
+	font-weight: bold;
+}
+
+.modal .underbar {
+	padding-bottom: 10px;
+}
+
 .subbar {
 	color: #fff;
 	border-top-color: #91a0c0;
@@ -211,6 +219,6 @@ p.throbber {
 	display:block;
 }
 
-#form-adbull-register p.error, #form-adbull-register .error-message {
+#form-adbull-register p.error, #form-adbull-register .error-message, #form-adbull-add p.error, #form-adbull-add .error-message {
 	color: #f00;
 }
