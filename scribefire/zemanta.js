@@ -123,7 +123,7 @@ var SF_ZEMANTA = {
 					req.open("POST", "http://api.zemanta.com/services/rest/0.0/", true);
 					req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 
-					var postData = "pc=1&method=zemanta.suggest&api_key=" + apiKey + "&format=json&text=";
+					var postData = "pc=1&method=zemanta.suggest&interface=scribefire&api_key=" + apiKey + "&format=json&text=";
 					postData += encodeURIComponent(content);
 
 					postData += "&pixie="+encodeURIComponent(zprefs.pixie);
@@ -378,7 +378,7 @@ var SF_ZEMANTA = {
 					
 					SF_ZEMANTA.getAPIKey(function (apiKey) {
 						SF_ZEMANTA.getZemantaPrefs(apiKey, function (zprefs) {
-							var postData = "method=zemanta.get_signature&api_key="+apiKey+"&pixie=301&format=json";
+							var postData = "method=zemanta.get_signature&interface=scribefire&api_key="+apiKey+"&pixie=301&format=json";
 							
 							var req = new XMLHttpRequest();
 							req.open("POST", "http://api.zemanta.com/services/rest/0.0/", true);
