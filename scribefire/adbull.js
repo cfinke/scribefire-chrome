@@ -78,9 +78,9 @@ var ADBULL = {
 				ADBULL.api.request("POST", args, function (data, status) {
 					if (!data.status) {
 						$("#button-adbull-add-continue").removeClass("busy");
-
+						
 						form.find(".error-message").text(data.msg).show();
-
+						
 						if (data.field) {
 							form.find("input[name='" + data.field + "']").closest("p").addClass("error");
 						}
@@ -96,7 +96,7 @@ var ADBULL = {
 						// Get the embed code for this website.
 						ADBULL.api.request("POST", argString, function (data, status) {
 							$("#button-adbull-add-continue").removeClass("busy");
-
+							
 							var blog = SCRIBEFIRE.getBlog();
 							
 							if (blog.url === url) {

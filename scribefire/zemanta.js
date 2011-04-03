@@ -104,8 +104,7 @@ var SF_ZEMANTA = {
 			$("#panel-zemanta .no-results").hide();
 			$("#panel-zemanta .zemanta-loading").show();
 			
-			$("#button-zemanta-insert").die("click");
-			$("#button-zemanta-insert").live("click", function (e) {
+			$("#button-zemanta-insert").die("click").live("click", function (e) {
 				e.preventDefault();
 				
 				SF_ZEMANTA.updateArticlesInEditor();
@@ -303,9 +302,7 @@ var SF_ZEMANTA = {
 			$("#panel-zemanta-tos").show();
 			$("#container-zemanta-tos").html('<iframe src="http://www.zemanta.com/raw/tos/" style="width: 100%;"/>');
 		
-			$("#button-zemanta-tos-accept").die("click");
-			
-			$("#button-zemanta-tos-accept").live("click", function () {
+			$("#button-zemanta-tos-accept").die("click").live("click", function () {
 				$("#zemanta_pixie_reminder").hide();
 				
 				if (!$("#zemanta_pixie_yes").is(":checked") && !$("#zemanta_pixie_no").is(":checked")) {

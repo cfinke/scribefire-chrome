@@ -477,17 +477,17 @@ var SCRIBEFIRE = {
 					
 					if (!rv[i].published) {
 						if (rv[i].id.toString().indexOf("local:") == 0) {
-							optionText = "[" + scribefire_string("entry_localDraft_label") + "] " + optionText;
+							optionText = scribefire_string("entry_label_format", [ scribefire_string("entry_localDraft_label"), optionText ]);
 						}
 						else {
-							optionText = "[" + scribefire_string("entry_draft_label") + "] " + optionText;
+							optionText = scribefire_string("entry_label_format", [ scribefire_string("entry_draft_label"), optionText ]);
 						}
 					}
 					else if (rv[i].timestamp) {
 						var publishDate = rv[i].timestamp;
 					
 						if (publishDate.getTime() > (new Date().getTime())) {
-							optionText = "[" + scribefire_string("entry_scheduled_label") + "] " + optionText;
+							optionText = scribefire_string("entry_label_format", [ scribefire_string("entry_scheduled_label"), optionText ]);
 						}
 					}
 					
@@ -1348,8 +1348,30 @@ var SCRIBEFIRE = {
 	
 	blogsToImport : [],
 	
+	migrate : function (blogs, notes) {
+		if (notes.length > 0) { 
+			for (var i = 0, _len = notes.length; i < _len; i++) {
+				var localDraft = true;
+				var params = {};
+				params.title = notes[i].title;
+				params.content = notes[i].content;
+				params.id = "local:imported:" + notes[i].modified;
+			
+				var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
+			
+				if (!(params.id in notes)) {
+					notes[params.id] = params;
+					SCRIBEFIRE.prefs.setJSONPref("notes", notes);
+				}
+			}
+		
+			SCRIBEFIRE.populateEntriesList(null, true);
+		}
+		
+		SCRIBEFIRE.importBlogs(blogs);
+	},
+	
 	importBlogs : function (blogs) {
-		alert("About to import");
 		SCRIBEFIRE.blogsToImport = blogs;
 		
 		SCRIBEFIRE.importNextBlog();

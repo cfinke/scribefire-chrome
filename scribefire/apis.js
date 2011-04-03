@@ -1988,107 +1988,21 @@ var posterousAPI = function () {
 	this.ui.upload = (platform == 'gecko');
 	this.ui.draft = false;
 	
-	this.getBlogs = function (params, success, failure) {
-		var url = "http://posterous.com/api/getsites";
+	this.getToken = function (params, success, failure) {
+		var url = "http://posterous.com/api/2/auth/token";
 		
 		var req = new XMLHttpRequest();
-		req.open("POST", url, true);
+		req.open("GET", url, true);
 		req.setRequestHeader("Authorization", "Basic " + btoa(params.username + ":" + params.password));
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
-					var xml = xmlFromRequest(req);
-					var jxml = $(xml);
+					var json = JSON.parse(req.responseText);
 					
-					var blogs = [];
+					var token = json.api_token;
 					
-					jxml.find("site").each(function () {
-						var blog = {};
-						blog.id = $(this).find("id:first").text();
-						blog.apiUrl = "http://posterous.com/api";
-						blog.type = params.type;
-						blog.username = params.username;
-						blog.password = params.password;
-						blog.name = $(this).find("name:first").text();
-						blog.url = $(this).find("url:first").text();
-						
-						blogs.push(blog);
-					});
-					
-					if (blogs.length) {	
-						success(blogs);
-					}
-					else {
-						if (failure) {
-							failure( {"status" : 200, "msg" : scribefire_string("error_api_cannotConnect")});
-						}
-					}
-				}
-				else {
-					if (failure) {
-						failure({"status": req.status, "msg": req.responseText});
-					}
-				}
-			}
-		};
-		
-		req.send(null);
-	};
-	
-	this.getPosts = function (params, success, failure) {
-		var url = "http://posterous.com/api/readposts";
-		
-		var args = {};
-		args.site_id = this.id;
-		args.num_posts = 50;
-		
-		// @todo-more-posts args.page = 1
-		
-		var argstring = "";
-
-		for (var i in args) {
-			argstring += encodeURIComponent(i) + "=" + encodeURIComponent(args[i]) + "&";
-		}
-
-		argstring = argstring.substr(0, argstring.length - 1);
-		
-		var req = new XMLHttpRequest();
-		req.open("POST", url, true);
-		req.setRequestHeader("Authorization", "Basic " + btoa(this.username + ":" + this.password));
-		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		
-		req.onreadystatechange = function () {
-			if (req.readyState == 4) {
-				if (req.status == 200) {
-
-					var xml = xmlFromRequest(req);
-					
-					var jxml = $(xml);
-					
-					var rv = [];
-					
-					jxml.find("post").each(function () {
-						var entry = {}
-						entry.id = $(this).find("id:first").text();
-						entry.content = $(this).find("body:first").text();
-						entry.title = $(this).find("title:first").text();
-						entry.published = true; // @todo Does Posterous support drafts?
-						entry.private = $(this).find("private:first").text() == 'true';
-						
-						var tags = [];
-						
-						$(this).find("tag").each(function () {
-							tags.push($(this).text());
-						});
-						
-						entry.tags = tags.join(", ");
-						entry.categories = [];
-						
-						rv.push(entry);
-					});
-					
-					success(rv);
+					success(token);
 				}
 				else {
 					failure({"status": req.status, "msg": req.responseText});
@@ -2096,7 +2010,109 @@ var posterousAPI = function () {
 			}
 		};
 		
-		req.send(argstring);
+		req.send(null);
+	};
+	
+	this.getBlogs = function (params, success, failure) {
+		this.getToken(params, function (token) {
+			var url = "http://posterous.com/api/2/users/me/sites?api_token=" + encodeURIComponent(token);
+		
+			var req = new XMLHttpRequest();
+			req.open("GET", url, true);
+		
+			req.onreadystatechange = function () {
+				if (req.readyState == 4) {
+					if (req.status == 200) {
+						var text = req.responseText;
+						var json = JSON.parse(text);
+						
+						var blogs = [];
+						
+						for (var i = 0, _len = json.length; i < _len; i++) {
+							var entry = json[i];
+							
+							var blog = {};
+							blog.id = entry.id;
+							blog.apiUrl = "http://posterous.com/api";
+							blog.type = params.type;
+							blog.username = params.username;
+							blog.password = params.password;
+							blog.name = entry.name;
+							blog.url = "http://" + entry.full_hostname;
+					
+							blogs.push(blog);
+						}
+				
+						if (blogs.length) {	
+							success(blogs);
+						}
+						else {
+							if (failure) {
+								failure( {"status" : 200, "msg" : scribefire_string("error_api_cannotConnect")});
+							}
+						}
+					}
+					else {
+						if (failure) {
+							failure({"status": req.status, "msg": req.responseText});
+						}
+					}
+				}
+			};
+			
+			req.send(null);
+		}, failure);
+	};
+	
+	this.getPosts = function (params, success, failure) {
+		var self = this;
+		
+		this.getToken(self, function (token) {
+			var url = "http://posterous.com/api/2/users/me/sites/" + self.id + "/posts?api_token=" + encodeURIComponent(token);
+			
+			var req = new XMLHttpRequest();
+			req.open("GET", url, true);
+		
+			req.onreadystatechange = function () {
+				if (req.readyState == 4) {
+					if (req.status == 200) {
+						var text = req.responseText;
+						var json = JSON.parse(text);
+						
+						var rv = [];
+						
+						for (var i = 0, _len = json.length; i < _len; i++) {
+							var json_entry = json[i];
+							
+							var entry = {}
+							entry.id = json_entry.id;
+							entry.content = json_entry.body_full;
+							entry.title = json_entry.title;
+							entry.published = true; // @todo Does Posterous support drafts?
+							entry.private = json_entry.is_private;
+							
+							var tags = [];
+							
+							for (var j = 0, _jlen = json_entry.tags.length; j < _jlen; j++) {
+								tags.push(json_entry.tags[j].tag);
+							}
+						
+							entry.tags = tags.join(", ");
+							entry.categories = [];
+						
+							rv.push(entry);
+						}
+					
+						success(rv);
+					}
+					else {
+						failure({"status": req.status, "msg": req.responseText});
+					}
+				}
+			};
+		
+			req.send(null);
+		}, failure);
 	};
 	
 	this.publish = function (params, success, failure) {

@@ -25,6 +25,20 @@
 		"message": "(new)",
 		"description": "The label that appears in the entries list to designate a new post."
 	},
+	"entry_label_format": {
+		"message": "[$entry_type$] $entry_title$",
+		"description": "The format used for showing entry types and titles in the dropdown list.  e.g, "[Draft] My Day at the Beach"
+		"placeholders": {
+			"entry_type": {
+				"content": "$1",
+				"example": "Draft"
+			},
+			"entry_title": {
+				"content": "$2",
+				"example": "My Day at the Beach"
+			}
+		}
+	},
 	"entry_localDraft_label": {
 		"message": "Local Draft",
 		"description": "The label that is prepended to drafts that are saved on the user's computer."
@@ -76,14 +90,17 @@
 	"action_blog_import": {
 		"message": "Import Your Blogs"
 	},
-	"message_blog_import": {
-		"message": "Let's import your blogs from the previous version of ScribeFire."
+	"message_blogs_import": {
+		"message": "Let's import your blogs from the previous version of ScribeFire. ScribeFire will populate as many fields as possible; it's up to you to click 'Finish' and then correct any errors."
 	},
 	"action_next": {
 		"message": "Next"
 	},
 	"action_cancel": {
 		"message": "Cancel"
+	},
+	"action_cancel_import": {
+		"message": "Don't Import This Blog"
 	},
 	"action_makeMoney": {
 		"message": "Make money with this blog"
@@ -243,10 +260,10 @@
 		"message": "Login Credentials"
 	},
 	"label_username": {
-		"message": "Username"
+		"message": "Username:"
 	},
 	"label_password": {
-		"message": "Password"
+		"message": "Password:"
 	},
 	"label_entry": {
 		"message": "Entry"
@@ -570,7 +587,67 @@
 	"label_adbull_code": {
 		"message": "Advertising Code:"
 	},
+	"adbull_company_name": {
+		"message": "AdBull"
+	},
 	"adbull_code_instructions": {
 		"message": "Just copy and paste this code into your blog's template, and AdBull will do the rest."
+	},
+	"adbull_introduction": {
+		"message": "AdBull provides publishers with a new source of advertiser-driven revenue. AdBull has NO competitors, since it is the exclusive patent-protected provider of contextual cursor advertisements. As a result, AdBull can be incorporated alongside many of the other popular online ad platforms in the market today (from display ads to contextual feeds and beyond)."
+	},
+	"adbull_faq_link": {
+		"message": "Read the AdBull FAQ."
+	},
+	"label_password_confirm": {
+		"message": "Confirm Password:"
+	},
+	"label_name": {
+		"message": "Name:"
+	},
+	"label_email": {
+		"message": "Email:"
+	},
+	"label_adbull_site_url": {
+		"message": "Your Site's URL:"
+	},
+	"label_mailing_address": {
+		"message": "Mailing Address:"
+	},
+	"label_city": {
+		"message": "City:"
+	},
+	"label_state": {
+		"message": "State:"
+	},
+	"option_select_state": {
+		"message": "Select a State"
+	},
+	"label_zipcode": {
+		"message": "Zipcode:"
+	},
+	"label_country": {
+		"message": "Country:"
+	},
+	"label_phone": {
+		"message": "Phone:"
+	},
+	"adbull_text_agree_introduction": {
+		"message": "I agree that...		"
+	},
+	"text_adbull_tos_1": {
+		"message": "I will not click on AdBull ads that are displayed on my website."
+	},
+	"text_adbull_tos_2": {
+		"message": "I will not place AdBull ads on sites that include incentives to click on ads."
+	},
+	"text_adbull_tos_3": {
+		"message": "I will not place AdBull ads on sites that include pornographic or illegal content."
+	},
+	"text_adbull_tos_4": {
+		"message": "I certify that I have read and agree to AdBull's Terms and Conditions."
+	},
+	"text_adbull_add_new_site": {
+		"message": "Add a new website to your AdBull account."
 	}
 }

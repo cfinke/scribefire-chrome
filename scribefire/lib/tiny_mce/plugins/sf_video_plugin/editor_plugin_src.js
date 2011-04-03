@@ -15,9 +15,7 @@
 				$("#textarea-video-insert").val("");
 				$("#text-video-insert-url").val("");
 				$("#error-video-insert").hide().text("");
-				$("#button-video-insert").die("click");
-				
-				$("#button-video-insert").live("click", function (e) {
+				$("#button-video-insert").die("click").live("click", function (e) {
 					e.preventDefault();
 					
 					$("#error-video-insert").hide().text("");

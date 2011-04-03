@@ -460,23 +460,19 @@ $(document).ready(function () {
 		
 		$.facebox($("#dialog-blog-add"));
 		
-		$("#text-blog-url").die("change");
-		$("#text-blog-url").live("change", function () {
+		$("#text-blog-url").die("change").live("change", function () {
 			$("#label-add-blog-url").text($(this).val());
 		});
 
-		$("#text-blog-api-url").die("change");
-		$("#text-blog-api-url").live("change", function () {
+		$("#text-blog-api-url").die("change").live("change", function () {
 			$("#label-add-blog-apiurl").text($(this).val());
 		});
 
-		$("#text-addblog-id").die("change");
-		$("#text-addblog-id").live("change", function () {
+		$("#text-addblog-id").die("change").live("change", function () {
 			$("#label-add-blog-blogid").text($(this).val());
 		});
 
-		$("#button-blog-urlcheck").die("click");
-		$("#button-blog-urlcheck").live("click", function (e) {
+		$("#button-blog-urlcheck").die("click").live("click", function (e) {
 			var button = $(this);
 
 			button.addClass("busy");
@@ -559,8 +555,7 @@ $(document).ready(function () {
 			);
 		});
 
-		$("#button-blog-logincheck").die("click");
-		$("#button-blog-logincheck").live("click", function (e) {
+		$("#button-blog-logincheck").die("click").live("click", function (e) {
 			var button = $(this);
 			button.addClass("busy");
 
@@ -608,12 +603,12 @@ $(document).ready(function () {
 		});
 		
 		if (SCRIBEFIRE.blogsToImport.length == 0) {
-			$("#dialog-blog-add-normal").show();
-			$("#dialog-blog-add-import").hide();
+			$(".dialog-blog-add-normal").show();
+			$(".dialog-blog-add-import").hide();
 		}
 		else {
-			$("#dialog-blog-add-import").show();
-			$("#dialog-blog-add-normal").hide();
+			$(".dialog-blog-add-import").show();
+			$(".dialog-blog-add-normal").hide();
 		}
 		
 		$("#dialog-blog-add").show();
@@ -724,6 +719,15 @@ $(document).ready(function () {
 		SCRIBEFIRE.setBlog(blog);
 		
 		$.facebox.close();
+	});
+	
+	$(".button-blog-add-cancel").live("click", function (e) {
+		if (SCRIBEFIRE.blogsToImport.length > 0) {
+			e.preventDefault();
+			e.stopPropagation();
+			
+			SCRIBEFIRE.importNextBlog();
+		}
 	});
 	
 	$("#button-inlinks").live("click", function (e) {

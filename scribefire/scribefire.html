@@ -99,11 +99,11 @@
 					</div>
 					<div class="ui-adbull" id="adbull-promo" style="display: none;">
 						<div class="bar fixed">
-							<label>NEW: MAKE MONEY WITH YOUR BLOG</label>
+							<label><i18n data-key="" />NEW: MAKE MONEY WITH YOUR BLOG</label>
 							<button class="bar-meta" id="button-adbull-hide"><i18n data-key="action_hide" /></button>
 						</div>
 						<div class="underbar fixed">
-							<p>Click the "Advertise" button underneath your list of blogs to set up an account with AdBull and start making money with your blog today.</p>
+							<p><i18n data-key="" />Click the "Advertise" button underneath your list of blogs to set up an account with AdBull and start making money with your blog today.</p>
 						</div>
 					</div>
 				</td>
@@ -363,50 +363,50 @@
 		<div id="panel-adbull-register" style="display: none;">
 			<form method="post" id="form-adbull-register">
 				<input type="hidden" name="a" value="register" />
-				<h1>AdBull</h1>
-				<p>AdBull provides publishers with a new source of advertiser-driven revenue. AdBull has NO competitors, since it is the exclusive patent-protected provider of contextual cursor advertisements. As a result, AdBull can be incorporated alongside many of the other popular online ad platforms in the market today (from display ads to contextual feeds and beyond). <a href="http://www.adbull.com/faq">Read the AdBull FAQ.</a></p>
+				<h1><i18n data-key="adbull_company_name" /></h1>
+				<p><i18n data-key="adbull_introduction" /> <a href="http://www.adbull.com/faq"><i18n data-key="adbull_faq_link" /></a></p>
 				<p class="error-message" style="display: none;"></p>
 				<table style="width: 100%;">
 					<tr>
 						<td style="width: 45%;">
 							<p>
-								<label>Username:</label>
+								<label><i18n data-key="label_username" /></label>
 								<input type="text" name="username" class="padded" value="" />
 							</p>
 							<p>
-								<label>Password:</label>
+								<label><i18n data-key="label_password" /></label>
 								<input type="password" name="password" class="padded" value=""/>
 							</p>
 							<p>
-								<label>Confirm Password:</label>
+								<label><i18n data-key="label_password_confirm" /></label>
 								<input type="password" name="password2" class="padded" value=""/>
 							</p>
 							<p>
-								<label>Name:</label>
+								<label><i18n data-key="label_name" /></label>
 								<input type="text" name="name" class="padded" value="" />
 							</p>
 							<p>
-								<label>Email:</label>
+								<label><i18n data-key="label_email" /></label>
 								<input type="email" name="email" class="padded" value=""/>
 							</p>
 							<p>
-								<label>Your Site's URL:</label>
+								<label><i18n data-key="label_adbull_site_url" /></label>
 								<input type="url" name="url" class="padded" value=""/>
 							</p>
 						</td>
 						<td>
 							<p>
-								<label>Mailing Address:</label>
+								<label><i18n data-key="label_mailing_address" /></label>
 								<input type="text" name="address" class="padded" value="" />
 							</p>
 							<p>
-								<label>City:</label>
+								<label><i18n data-key="label_city" /></label>
 								<input type="text" name="city" class="padded" value=""/>
 							</p>
 							<p>
-								<label>State:</label>
+								<label><i18n data-key="label_state" /></label>
 								<select name="state" class="padded">
-									<option value="">Select a State</option> 
+									<option value="" class="i18n" data-key="option_select_state"></option> 
 									<option value="Alabama">Alabama</option> 
 									<option value="Alaska">Alaska</option> 
 									<option value="Arizona">Arizona</option> 
@@ -462,15 +462,15 @@
 								</select>
 							</p>
 							<p>
-								<label>Zipcode:</label>
+								<label><i18n data-key="label_zipcode" /></label>
 								<input type="text" name="zipcode" class="padded" value="" />
 							</p>
 							<p>
-								<label>Country:</label>
+								<label><i18n data-key="label_country" /></label>
 								<input type="text" name="country" class="padded" value="" />
 							</p>
 							<p>
-								<label>Phone:</label>
+								<label><i18n data-key="label_phone" /></label>
 								<input type="text" name="phone" class="padded" value=""/>
 							</p>
 						</td>
@@ -478,12 +478,12 @@
 				</table>
 				<p>
 					<input type="checkbox" name="tos" value="1" />
-					I agree that...
+					<i18n data-key="adbull_text_agree_introduction" />
 					<ul>
-						<li>I will not click on AdBull ads that are displayed on my website.</li>
-				 		<li>I will not place AdBull ads on sites that include incentives to click on ads.</li>
-						<li>I will not place AdBull ads on sites that include pornographic or illegal content.</li>
-						<li>I certify that I have read and agree to AdBull's Terms and Conditions.</li>
+						<li><i18n data-key="text_adbull_tos_1" /></li>
+				 		<li><i18n data-key="text_adbull_tos_2" /></li>
+						<li><i18n data-key="text_adbull_tos_3" /></li>
+						<li><i18n data-key="text_adbull_tos_4" /></li>
 					</ul>
 				</p>
 			</form>
@@ -496,11 +496,11 @@
 		<div id="panel-adbull-add" style="display: none;">
 			<form method="post" id="form-adbull-add">
 				<input type="hidden" name="a" value="website" />
-				<h1>AdBull</h1>
-				<p>Add a new website to your AdBull account.</p>
+				<h1><i18n data-key="adbull_company_name" /></h1>
+				<p><i18n data-key="text_adbull_add_new_site" /></p>
 				<p class="error-message" style="display: none;"></p>
 				<p>
-					<label>Your Site's URL:</label>
+					<label><i18n data-key="label_adbull_site_url" /></label>
 					<input type="url" name="url" class="padded" value="http://www.chrisfinke.com/"/>
 				</p>
 			</form>
@@ -511,7 +511,7 @@
 		</div>
 		
 		<div id="panel-adbull-code" style="display: none;">
-			<h1>AdBull</h1>
+			<h1><i18n data-key="adbull_company_name" /></h1>
 			<p><i18n data-key="adbull_code_instructions" /></p>
 			<code class="adbull_code"></code>
 			<div class="buttons">
@@ -520,10 +520,10 @@
 		</div>
 		
 		<div id="dialog-blog-add" style="display:none;">
-			<div id="dialog-blog-add-normal">
+			<div class="dialog-blog-add-normal">
 				<h1 style="margin-top: 0;"><i18n data-key="action_blog_add" /></h1>
 			</div>
-			<div id="dialog-blog-add-import" style="display: none;">
+			<div class="dialog-blog-add-import" style="display: none;">
 				<h1 style="margin-top: 0;"><i18n data-key="action_blog_import" /></h1>
 				<p><i18n data-key="message_blogs_import" /></p>
 			</div>
@@ -537,7 +537,6 @@
 						<input type="url" id="text-blog-url" accept="button-blog-urlcheck" cancel="button-addblog-cancel" />
 						<p>
 							<button id="button-blog-urlcheck"><i18n data-key="action_next" /></button>
-							<!-- <button class="button-addblog-cancel cancel-button"><i18n data-key="action_cancel" /></button> -->
 						</p>
 					</div>
 				</div>
@@ -585,14 +584,13 @@
 						<input type="password" id="text-blog-password" accept="button-blog-logincheck" />
 						<p>
 							<button id="button-blog-logincheck"><i18n data-key="action_finish" /></button>
-							<!-- <button class="button-addblog-cancel cancel-button"><i18n data-key="action_cancel" /></button> -->
 						</p>
 					</div>
 				</div>
 			</div>
 			<div class="buttons">
-				<button id="button-blog-edit-cancel" class="modal_close cancel-button"><i18n data-key="action_cancel" /></button>
-				<!--<button id="button-blog-edit-finish"><i18n data-key="action_save" /></button> -->
+				<button class="button-blog-add-cancel modal_close cancel-button"><i18n data-key="action_cancel" /></button>
+				<button class="button-blog-add-cancel modal_close cancel-button dialog-blog-add-import" style="display: none;"><i18n data-key="action_cancel_import" /></button>
 			</div>
 		</div>
 		
