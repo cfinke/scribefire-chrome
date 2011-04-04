@@ -27,7 +27,7 @@
 	},
 	"entry_label_format": {
 		"message": "[$entry_type$] $entry_title$",
-		"description": "The format used for showing entry types and titles in the dropdown list.  e.g, "[Draft] My Day at the Beach"
+		"description": "The format used for showing entry types and titles in the dropdown list.  e.g, \"[Draft] My Day at the Beach\"",
 		"placeholders": {
 			"entry_type": {
 				"content": "$1",
@@ -602,9 +602,6 @@
 	"label_password_confirm": {
 		"message": "Confirm Password:"
 	},
-	"label_name": {
-		"message": "Name:"
-	},
 	"label_email": {
 		"message": "Email:"
 	},
@@ -633,7 +630,7 @@
 		"message": "Phone:"
 	},
 	"adbull_text_agree_introduction": {
-		"message": "I agree that...		"
+		"message": "I agree that..."
 	},
 	"text_adbull_tos_1": {
 		"message": "I will not click on AdBull ads that are displayed on my website."
