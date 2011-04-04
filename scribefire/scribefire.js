@@ -1351,17 +1351,16 @@ var SCRIBEFIRE = {
 	migrate : function (blogs, notes) {
 		if (notes.length > 0) { 
 			for (var i = 0, _len = notes.length; i < _len; i++) {
-				var localDraft = true;
 				var params = {};
 				params.title = notes[i].title;
 				params.content = notes[i].content;
 				params.id = "local:imported:" + notes[i].modified;
 			
-				var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
-			
+				var localDrafts = SCRIBEFIRE.prefs.getJSONPref("notes", {});
+				
 				if (!(params.id in notes)) {
-					notes[params.id] = params;
-					SCRIBEFIRE.prefs.setJSONPref("notes", notes);
+					localDrafts[params.id] = params;
+					SCRIBEFIRE.prefs.setJSONPref("notes", localDrafts);
 				}
 			}
 		
