@@ -1536,7 +1536,7 @@ var bloggerAPI = function () {
 									SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
 									SCRIBEFIRE.prefs.setCharPref("google_token", "");
 								
-									self.upload(file, success, failure);
+									self.upload(fileName, fileType, fileData, success, failure, file);
 								}
 							}
 							else if (upreq.responseText.match(/Must sign terms/i)) {
@@ -1982,7 +1982,7 @@ var posterousAPI = function () {
 	
 	//this.ui.tags = false;
 	this.ui.categories = false;
-	this.ui.deleteEntry = false;
+	this.ui.deleteEntry = true;
 	this.ui.timestamp = false;
 	this.ui.private = true;
 	this.ui.upload = (platform == 'gecko');
@@ -2014,12 +2014,15 @@ var posterousAPI = function () {
 	};
 	
 	this.getBlogs = function (params, success, failure) {
+		var self = this;
+		
 		this.getToken(params, function (token) {
 			var url = "http://posterous.com/api/2/users/me/sites?api_token=" + encodeURIComponent(token);
-		
+			
 			var req = new XMLHttpRequest();
 			req.open("GET", url, true);
-		
+			req.setRequestHeader("Authorization", "Basic " + btoa(params.username + ":" + params.password));
+			
 			req.onreadystatechange = function () {
 				if (req.readyState == 4) {
 					if (req.status == 200) {
@@ -2072,6 +2075,7 @@ var posterousAPI = function () {
 			
 			var req = new XMLHttpRequest();
 			req.open("GET", url, true);
+			req.setRequestHeader("Authorization", "Basic " + btoa(self.username + ":" + self.password));
 		
 			req.onreadystatechange = function () {
 				if (req.readyState == 4) {
@@ -2116,92 +2120,114 @@ var posterousAPI = function () {
 	};
 	
 	this.publish = function (params, success, failure) {
-		var args = {};
+		var self = this;
 		
-		if ("id" in params && params.id) {
-			var url = "http://posterous.com/api/updatepost";
+		this.getToken(self, function (token) {
+			if ("id" in params && params.id) {
+				var url = "http://posterous.com/api/2/users/me/sites/primary/posts/" + encodeURIComponent(params.id) + "?api_token=" + encodeURIComponent(token);
+				var method = "PUT";
+			}
+			else {
+				var url = "http://posterous.com/api/2/users/me/sites/primary/posts?api_token=" + encodeURIComponent(token);
+				var method = "POST";
+			}
 			
-			args.post_id = params.id;
-		}
-		else {
-			var url = "http://posterous.com/api/newpost";
-		}
-		
-		args.site_id = this.id;
-		args.title = params.title;
-		args.body = params.content;
-		args.tags = params.tags;
-		
-		if ("private" in params) {
-			args.private = params.private * 1;
-		}
-		
-		args.source = "ScribeFire";
-		args.sourceLink = "http://www.scribefire.com/";
-		
-		var req = new XMLHttpRequest();
-		req.open("POST", url, true);
-		req.setRequestHeader("Authorization", "Basic " + btoa(this.username + ":" + this.password));
-		
-		var images = args.body.match(/(<img[^>]+>)/g);
-		
-		if (this.ui.upload && images) {
-			if (images.length > 0) {
-				var ios = Components.classes["@mozilla.org/network/io-service;1"]. getService(Components.interfaces.nsIIOService);  
+			var req = new XMLHttpRequest();
+			req.open(method, url, true);
+			req.setRequestHeader("Authorization", "Basic " + btoa(self.username + ":" + self.password));
 			
-				for (var i = 0; i < images.length; i++) {
-					var src = images[i].match(/\ssrc=['"]([^'"]+)['"]/i)[1];
+			var args = {};
+			args["post[title]"] = params.title;
+			args["post[body]"] = params.content;
+			args["post[tags]"] = params.tags;
+			args["post[source]"] = "ScribeFire";
+			
+			if ("private" in params) {
+				args["post[is_private]"] = params.private * 1;
+			}
+			
+			var images = params.content.match(/(<img[^>]+>)/g);
+			
+			if (self.ui.upload && images) {
+				if (images.length > 0) {
+					var ios = Components.classes["@mozilla.org/network/io-service;1"]. getService(Components.interfaces.nsIIOService);  
 					
-					var url = ios.newURI(src, null, null);  
-					var theFile = url.QueryInterface(Components.interfaces.nsIFileURL).file;
-					
-					args["media["+i+"]"] = {
-						"file" : theFile,
-					};
+					for (var i = 0, _len = images.length; i < _len; i++) {
+						var src = images[i].match(/\ssrc=['"]([^'"]+)['"]/i)[1];
+						
+						var url = ios.newURI(src, null, null);  
+						var theFile = url.QueryInterface(Components.interfaces.nsIFileURL).file;
+						
+						args["media["+i+"]"] = {
+							"file" : theFile,
+						};
+					}
 				}
-			}
-			
-			var postRequest = createScribeFirePostRequest(args);
-			
-			req.setRequestHeader("Content-Length", (postRequest.requestBody.available()));
-			req.setRequestHeader("Content-Type","multipart/form-data; boundary="+postRequest.boundary);
-			
-			var argstring = postRequest.requestBody;
-		}
-		else {
-			var argstring = "";
-			
-			for (var i in args) {
-				argstring += encodeURIComponent(i) + "=" + encodeURIComponent(args[i]) + "&";
-			}
-			
-			argstring = argstring.substr(0, argstring.length - 1);
-			
-			req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		}
-		
-		req.onreadystatechange = function () {
-			if (req.readyState == 4) {
-				var xml = xmlFromRequest(req);
-				var jxml = $(xml);
 				
-				if (req.status == 200) {
-					success({ "id": jxml.find("id:first").text() });
-				}
-				else {
-					failure({"status": req.status, "msg": jxml.find("err:first").attr("msg")});
-				}
+				var postRequest = createScribeFirePostRequest(args);
+				
+				req.setRequestHeader("Content-Length", (postRequest.requestBody.available()));
+				req.setRequestHeader("Content-Type","multipart/form-data; boundary="+postRequest.boundary);
+				
+				var argstring = postRequest.requestBody;
 			}
-		};
-		
-		req.send(argstring);
+			else {
+				var argstring = "";
+				
+				for (var i in args) {
+					argstring += encodeURIComponent(i) + "=" + encodeURIComponent(args[i]) + "&";
+				}
+				
+				argstring = argstring.substr(0, argstring.length - 1);
+				
+				req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			}
+			
+			req.onreadystatechange = function () {
+				if (req.readyState == 4) {
+					var json = JSON.parse(req.responseText);
+					
+					if (req.status == 200) {
+						success({ "id": json.id });
+					}
+					else {
+						failure({"status": req.status, "msg": json.message });
+					}
+				}
+			};
+
+			req.send(argstring);
+		}, failure);
 	};
 	
 	this.deletePost = function (params, success, failure) {
-		failure({"status": 0, "msg": scribefire_string("error_api_posterous_noDeleteSupport")});
+		var self = this;
+		
+		this.getToken(self, function (token) {
+			var url = "http://posterous.com/api/2/users/me/sites/primary/posts/" + params.id + "?api_token=" + encodeURIComponent(token);
+			
+			var req = new XMLHttpRequest();
+			req.open("DELETE", url, true);
+			req.setRequestHeader("Authorization", "Basic " + btoa(self.username + ":" + self.password));
+			
+			req.onreadystatechange = function () {
+				if (req.readyState == 4) {
+					if (req.status == 200) {
+						success(true);
+					}
+					else {
+						if (failure) {
+							failure({"status": req.status, "msg": req.responseText});
+						}
+					}
+				}
+			};
+			
+			req.send(null);
+		}, failure);
 	};
 	
-	this.upload = function (file, success, failure) {
+	this.upload = function (fileName, fileType, fileData, success, failure, file) {
 		success( { "url" : "file://" + file.path } );
 	}
 };
