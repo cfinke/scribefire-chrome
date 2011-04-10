@@ -8,6 +8,28 @@
 		<link rel="stylesheet" type="text/css" href="skin/facebox.css" />
 		<link rel="stylesheet" type="text/css" href="skin/jquery-ui.css" />
 		<link rel="icon" type="image/png" href="skin/icon-16.png" />
+		<script type="text/javascript">
+			// Safari tries to use $platform before it's defined, so I added this...
+			
+			if (typeof opera != "undefined") {
+				var platform = "presto";
+				var browser = "opera";
+			}
+			else if (typeof Components != 'undefined') {
+				var platform = "gecko";
+				var browser = 'firefox';
+			}
+			else {
+				var platform = "webkit";
+
+				if (typeof chrome != 'undefined') {
+					var browser = 'chrome';
+				}
+				else {
+					var browser = 'safari';
+				}
+			}
+		</script>
 		<script type="text/javascript" src="io.js"></script><!-- FIREFOX ONLY -->
 		<script type="text/javascript" src="messages.js"></script><!-- SAFARI ONLY -->
 		<script type="text/javascript" src="util.js"></script>
@@ -103,7 +125,7 @@
 							<button class="bar-meta" id="button-adbull-hide"><i18n data-key="action_hide" /></button>
 						</div>
 						<div class="underbar fixed">
-							<p><i18n data-key="" />Click the "Advertise" button underneath your list of blogs to set up an account with AdBull and start making money with your blog today.</p>
+							<p><i18n data-key="" />Click the "Monetize" button underneath your list of blogs to set up an account with AdBull and start making money with your blog today.</p>
 						</div>
 					</div>
 				</td>
