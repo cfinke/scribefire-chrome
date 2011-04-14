@@ -14,10 +14,10 @@
 				var textContent = $.trim(editor.val());
 				
 				if (!textContent) {
-					alert("You must write something in the editor before adding articles from Zemanta.");
+					alert("You must write something in the editor before adding articles or images from Zemanta.");
 				}
 				else {
-					SF_ZEMANTA.getRelated("articles", textContent);
+					SF_ZEMANTA.getRelated(null, textContent);
 				}
 			});
 

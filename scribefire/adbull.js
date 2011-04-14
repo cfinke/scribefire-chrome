@@ -1,4 +1,18 @@
 var ADBULL = {
+	load : function () {
+		$(".ui-adbull").show();
+		
+		$("#button-blog-adbull").live("click", function (e) {
+			e.preventDefault();
+
+			ADBULL.addSite(SCRIBEFIRE.getBlog());
+		});
+		
+		var style = $("<link/>");
+		style.attr("rel", "stylesheet").attr("type", "text/css").attr("href", "skin/adbull.css");
+		$("head:first").append(style);
+	},
+	
 	api : {
 		request : function (method, argString, callback) {
 			var req = new XMLHttpRequest();
@@ -172,10 +186,4 @@ var ADBULL = {
 	}
 };
 
-$(document).ready(function () {
-	$("#button-blog-adbull").live("click", function (e) {
-		e.preventDefault();
-		
-		ADBULL.addSite(SCRIBEFIRE.getBlog());
-	});
-});
+$(document).ready(ADBULL.load);	

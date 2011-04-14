@@ -1,0 +1,7 @@
+#form-adbull-register label {
+	display:block;
+}
+
+#form-adbull-register p.error, #form-adbull-register .error-message, #form-adbull-add p.error, #form-adbull-add .error-message {
+	color: #f00;
+}

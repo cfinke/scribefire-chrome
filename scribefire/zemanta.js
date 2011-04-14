@@ -6,9 +6,8 @@ var SF_ZEMANTA = {
 	zprefs : null,
 	signature : "",
 	
-	signatureInserted : false,
-	
-	lastImage : null,
+	set lastType(_type) { SCRIBEFIRE.prefs.setCharPref("zemanta.lastType", _type); },
+	get lastType() { var _type = SCRIBEFIRE.prefs.getCharPref("zemanta.lastType"); if (!_type) { _type = "articles"; } return _type; },
 	
 	getAPIKey : function (callback) {
 		var storedKey = SCRIBEFIRE.prefs.getCharPref("zemanta.key");
@@ -95,6 +94,16 @@ var SF_ZEMANTA = {
 	},
 	
 	getRelated : function (type, content) {
+		if (!type) type = SF_ZEMANTA.lastType;
+		else SF_ZEMANTA.lastType = type;
+		
+		$(".zemanta-content-type-button").removeClass("active");
+		$("#zemanta-button-" + type).addClass("active");
+		
+		$("#panel-zemanta-images").hide();
+		$("#panel-zemanta-articles").hide();
+		$("#button-zemanta-insert-articles").hide();
+		
 		function _getRelated() {
 			if (!content) content = SF_ZEMANTA.getSelectedContent();
 			
@@ -102,17 +111,49 @@ var SF_ZEMANTA = {
 			
 			$("#panel-zemanta .loaded").hide();
 			$("#panel-zemanta .no-results").hide();
-			$("#panel-zemanta .zemanta-loading").show();
+			$("#panel-zemanta .zemanta-loading").hide();
 			
-			$("#button-zemanta-insert").die("click").live("click", function (e) {
-				e.preventDefault();
+			if (type === "articles") {
+				$("#panel-zemanta-articles .zemanta-loading").show();
+				$("#panel-zemanta-articles").show();
 				
-				SF_ZEMANTA.updateArticlesInEditor();
+				$("#button-zemanta-insert").die("click").live("click", function (e) {
+					e.preventDefault();
 				
-				$(document).trigger("close.facebox");
-			});
+					SF_ZEMANTA.updateArticlesInEditor();
+				
+					$(document).trigger("close.facebox");
+				});
 			
-			var container = $("#zemanta-articles-container").html("");
+				var container = $("#zemanta-articles-container").html("");
+			}
+			else {
+				$("#panel-zemanta-images .zemanta-loading").show();
+				$("#panel-zemanta-images").show();
+				
+				$(".zemanta-image-choice").die("click").live("click", function (e) {
+					var reference = $(this).data("reference");
+					
+					var aNode = $("<a/>");
+					aNode.attr("href", reference.source_url);
+					
+					var iNode = $("<img/>");
+					
+					if (reference.url_l_w > 300) {
+						iNode.attr("src", reference.url_m);
+					}
+					else {
+						iNode.attr("src", reference.url_l);
+					}
+					
+					aNode.append(iNode);
+					
+					var htmlToInsert = aNode.html();
+					SF_ZEMANTA.updateImageInEditor(htmlToInsert);
+				});
+			
+				var container = $("#zemanta-image-grid").html("");
+			}
 			
 			$("#panel-zemanta").show();
 			
@@ -133,20 +174,17 @@ var SF_ZEMANTA = {
 					if (SF_ZEMANTA.rid) {
 						postData += "&post_rid=" + encodeURIComponent(SF_ZEMANTA.rid);
 					}
-
-					switch (type) {
-						case 'articles':
-							postData += "&return_images=0";
-						break;
-						case 'images':
-							//var deck = _p.document.getElementById("zemanta-grid-deck");
-							//while (deck.firstChild) deck.removeChild(deck.firstChild);
-						break;
+					
+					if (type === "articles") {
+						postData += "&return_images=0";
+					}
+					else if (type === "images") {
+						postData += "&images_limit=50";
 					}
 					
 					req.onreadystatechange = function () {
 						if (req.readyState == 4) {
-							// Insert the articles.
+							// Insert the articles/images.
 							var json = JSON.parse(req.responseText);
 							
 							SF_ZEMANTA.signature = json.signature;
@@ -234,60 +272,39 @@ var SF_ZEMANTA = {
 										container.append(item);
 										j++;
 									}
+									
+									$("#button-zemanta-insert-articles").show();
 								}
 								else {
-									$("#panel-zemanta .no-results").show();
+									$("#panel-zemanta-articles .no-results").show();
 								}
 								
-								$("#panel-zemanta .zemanta-loading").hide();
-								$("#panel-zemanta .no-results").hide();
-								$("#panel-zemanta .loaded").show();
+								$("#panel-zemanta-articles .zemanta-loading").hide();
+								$("#panel-zemanta-articles .no-results").hide();
+								$("#panel-zemanta-articles .loaded").show();
 							} else if (type == "images") {
-								/*
 								var images = json.images;
-
+								
 								if (images && images.length > 0) {
-									var deck = _p.document.getElementById("zemanta-grid-deck");
-									var grid = _p.document.getElementById("zemanta-image-grid");
-
-									_p.document.getElementById("sidebar-deck").selectedIndex = 1;
-									_p.document.getElementById("sidebar-deck").style.width = "320px";
-									_p.document.getElementById("sidebar-deck").collapsed = false;
-									deck.selectedIndex = 0;
-
-									for (var i = 0; i < images.length; i++) {
-										if (i % 9 == 0) {
-											var currentGrid = grid.cloneNode(true);
-											currentGrid.style.display = "block";
-											currentGrid.id = "";
-											deck.appendChild(currentGrid);
-										}
-
-										if (i % 3 == 0) {
-											var currentRow = _p.document.createElement("row");
-											currentGrid.getElementsByTagName("rows")[0].appendChild(currentRow);
-										}
-
-										var currentImage = _p.document.createElement("image");
-										currentImage.setAttribute("src", images[i].url_s);
-										currentImage.setAttribute('onclick','var images = document.getElementById("zemanta-grid-deck").getElementsByTagName("image"); for (var i = 0; i < images.length; i++) { images[i].style.borderColor = "transparent"; } this.style.borderColor = "#FF9800"; performancingEditor.insertZemantaImage(this);');
-										currentImage.setAttribute("tooltiptext", images[i].license);
-										currentImage.reference = images[i];
-										currentRow.appendChild(currentImage);
+									for (var i = 0, _len = images.length; i < _len; i++) {
+										var image = images[i];
+										
+										var imageContainerNode = $("<div />");
+										imageContainerNode.addClass("zemanta-image-choice");
+										imageContainerNode.css("background-image", "url("+image.url_s+")");
+										imageContainerNode.attr("title", image.license);
+										imageContainerNode.data("reference", image);
+										container.append(imageContainerNode);
 									}
-
-									_p.document.getElementById('zemanta-image-pagelabel').value = "1 / " + Math.ceil(images.length / 9);
-									_p.document.getElementById('zemanta-image-refresh').removeAttribute("busy");
 								}
 								else {
-									alert(performancingUI.getLocaleString("zemanta.noImages"));
+									$("#panel-zemanta-images .no-results").show();
 								}
-								*/
+								
+								$("#panel-zemanta-images .zemanta-loading").hide();
+								$("#panel-zemanta-images .no-results").hide();
+								$("#panel-zemanta-images .loaded").show();
 							}
-
-			//				document.getElementById('zemanta-articles-button').removeAttribute("busy");
-			//				document.getElementById("image-button").removeAttribute("busy");
-
 						}
 					};
 
@@ -358,6 +375,21 @@ var SF_ZEMANTA = {
 			
 			SF_ZEMANTA.getTrackerHTML(callback);
 		}
+	},
+	
+	updateImageInEditor : function (html) {
+		function callback(trackerHTML) {
+			var ed = tinyMCE.get('text-content');
+			ed.getWin().focus();
+			ed.execCommand('mceInsertContent', false, html);
+			
+			var val = editor.val();
+			editor.val(val + "\n\n" + trackerHTML);
+			
+			$(document).trigger("close.facebox");
+		}
+		
+		SF_ZEMANTA.getTrackerHTML(callback);
 	},
 	
 	getTrackerHTML : function (callback) {

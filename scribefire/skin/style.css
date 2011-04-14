@@ -215,10 +215,23 @@ p.throbber {
 	background-repeat: no-repeat;
 }
 
-#form-adbull-register label {
-	display:block;
+.zemanta-image-choice {
+	width: 100px;
+	height: 100px;
+	margin: 5px !important;
+	border: 5px solid transparent !important;
+	cursor: pointer;
+	background-position: center center;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	display: inline-block;
 }
 
-#form-adbull-register p.error, #form-adbull-register .error-message, #form-adbull-add p.error, #form-adbull-add .error-message {
-	color: #f00;
+.zemanta-image-choice:hover {
+	border: 5px solid #FF9800 !important;
+}
+
+.zemanta-content-type-button.active {
+	background: transparent;
+	border-color: transparent;
 }

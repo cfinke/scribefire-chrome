@@ -531,6 +531,9 @@
 	"zemanta_instructions": {
 		"message": "Select the articles you'd like to include in your post:"
 	},
+	"zemanta_image_instructions": {
+		"message": "Click on an image to add it to your post."
+	},
 	"action_zemanta_add": {
 		"message": "Add links to related articles"
 	},
@@ -564,8 +567,17 @@
 	"zemanta_introduction": {
 		"message": "Zemanta helps you create rich blog posts by recognizing your topic and suggesting useful related links. Just write your post, click the Zemanta toolbar icon (screenshot shown below), and then select the articles you'd like to link to."
 	},
-	"zemanta_loading_message": {
+	"zemanta_loading_articles_message": {
 		"message": "Please wait while ScribeFire retrieves related articles from Zemanta..."
+	},
+	"zemanta_loading_images_message": {
+		"message": "Please wait while ScribeFire retrieves related articles from Zemanta..."
+	},
+	"zemanta_articles_button_text": {
+		"message": "Link to Articles"
+	},
+	"zemanta_images_button_text": {
+		"message": "Find Images"
 	},
 	"action_continueEditing": {
 		"message": "Continue editing this post"
