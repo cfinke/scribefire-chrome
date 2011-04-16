@@ -378,12 +378,19 @@ var SF_ZEMANTA = {
 	},
 	
 	updateImageInEditor : function (html) {
+		var val = editor.val();
+		val = val.replace(/<div class="zemanta-pixie">[\s\S]*?<\/div>/mig, "");
+		val = val.replace(/<div class="zemanta-articles">[\s\S]*?<\/div>/mi, "");
+		val = $.trim(val);
+		editor.val(val);
+		
 		function callback(trackerHTML) {
 			var ed = tinyMCE.get('text-content');
 			ed.getWin().focus();
 			ed.execCommand('mceInsertContent', false, html);
 			
 			var val = editor.val();
+			val = val.replace(/<div class="zemanta-pixie">[\s\S]*?<\/div>/mig, "");
 			editor.val(val + "\n\n" + trackerHTML);
 			
 			$(document).trigger("close.facebox");
