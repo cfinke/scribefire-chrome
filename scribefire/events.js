@@ -862,6 +862,8 @@ $(document).ready(function () {
 			theme_advanced_resizing : true,
 			more_colors_func : false,
 			
+			extended_valid_elements : "iframe[title|width|height|src|frameborder|allowfullscreen]",
+			
 			// Example content CSS (should be your site CSS)
 			content_css : "skin/editor_content.css",
 			oninit : function () {
