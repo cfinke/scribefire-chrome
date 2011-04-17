@@ -829,9 +829,20 @@ $(document).ready(function () {
 		var dropArea = document.getElementById("hidden-file-upload");
 		
 		var handleDrop = function (evt) {
+			evt.preventDefault();
+			evt.stopPropagation();
+			
 			SCRIBEFIRE.disableDragAndDropUpload();
 			
-			var numFiles = evt.target.files.length;
+			if ("dataTransfer" in evt && "files" in evt.dataTransfer) {
+				// Firefox
+				var files = evt.dataTransfer.files;
+			} else if ("files" in evt.target) {
+				// Chrome
+				var files = evt.target.files;
+			}
+			
+			var numFiles = files.length;
 			
 			if (numFiles > 0) {
 				if (numFiles === 1) {
@@ -849,7 +860,7 @@ $(document).ready(function () {
 				
 				$.facebox(loadingNotice);
 				
-				SCRIBEFIRE_UPLOAD.upload(evt.target.files, SCRIBEFIRE.getAPI(), function (urls) {
+				SCRIBEFIRE_UPLOAD.upload(files, SCRIBEFIRE.getAPI(), function (urls) {
 					$(document).trigger("close.facebox");
 					
 					if (urls.length > 0) {
@@ -873,8 +884,9 @@ $(document).ready(function () {
 				});
 			}
 		};
-	
-		dropArea.addEventListener("change", handleDrop, false);
+		
+		dropArea.addEventListener("change", handleDrop, false); // Chrome
+		document.getElementById("drag-and-drop-upload-form").addEventListener("drop", handleDrop, false); // Firefox
 	}
 	
 	SCRIBEFIRE.load();
