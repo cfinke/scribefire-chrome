@@ -658,5 +658,11 @@
 	},
 	"text_adbull_add_new_site": {
 		"message": "Add a new website to your AdBull account."
+	},
+	"text_uploading_image": {
+		"message": "Uploading your image..."
+	},
+	"text_uploading_images": {
+		"message": "Uploading $1 images..."
 	}
 }

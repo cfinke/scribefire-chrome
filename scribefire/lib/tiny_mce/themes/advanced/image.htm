@@ -8,6 +8,7 @@
 		<script type="text/javascript" src="../../utils/form_utils.js"></script>
 		<script type="text/javascript" src="js/image.js"></script>
 		<script type="text/javascript" src="../../../../lib/jquery.js"></script>
+		<script type="text/javascript" src="../../../../lib/upload.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../../../skin/base.css" />
 		<link rel="stylesheet" type="text/css" href="../../../../skin/widgets.css" />
 		<link rel="stylesheet" type="text/css" href="../../../../skin/dialog.css" />
@@ -148,59 +149,27 @@
 				
 				var button = $("#image_upload").addClass("busy");
 				
-				var f = files[0];
+				$("#insert").addClass("busy").text("Uploading...");
 				
-				var reader = new FileReader();
-				reader.onload = (function (theFile) {
-					return function (e) {
-						$("#insert").addClass("busy").text("Uploading...");
+				SCRIBEFIRE_UPLOAD.upload(files, tinyMCEPopup.getWin().SCRIBEFIRE.getAPI(), function (urls) {
+						$("#insert").removeClass("busy").text("Insert");
+					
+						$("#image_upload").val("");
+						$("#upload-drag").show();
+						$("#upload-working").hide();
+					
+						$("#src").val(urls[0]).change();
+					},
+					function (msg) {
+						$("#insert").removeClass("busy").text("Insert");
 						
-						var binaryData = e.target.result;
-						var filename = theFile.name;
-						
-						var fileType = theFile.type;
-						
-						if (!fileType) {
-							fileType = "image/";
-						
-							var extension = filename.split(".").pop();
-						
-							if (extension) {
-								fileType += extension.toLowerCase();
-							}
-							else {
-								fileType += "jpg";
-							}
-						}
-						
-						tinyMCEPopup.getWin().SCRIBEFIRE.getAPI().upload(
-							filename,
-							fileType,
-							binaryData,
-							function success (rv) {
-								$("#insert").removeClass("busy").text("Insert");
-								
-								$("#image_upload").val("");
-								$("#upload-drag").show();
-								$("#upload-working").hide();
-								
-								$("#src").val(rv.url).change();
-							},
-							function (rv) {
-								$("#insert").removeClass("busy").text("Insert");
-								
-								$("#image_upload").val("");
-								$("#upload-drag").show();
-								$("#upload-working").hide();
+						$("#image_upload").val("");
+						$("#upload-drag").show();
+						$("#upload-working").hide();
 
-								tinyMCEPopup.getWin().SCRIBEFIRE.error("ScribeFire couldn't upload your file. Here's the error message that bubbled up:\n\n"+rv.msg);
-							},
-							theFile
-						);
-					};
-				})(f);
-				
-				reader.readAsBinaryString(f);
+						tinyMCEPopup.getWin().SCRIBEFIRE.error(msg);
+					}
+				);
 			}
 			
 		</script>

@@ -1397,6 +1397,22 @@ var SCRIBEFIRE = {
 		}
 	},
 	
+	dragAndDropUploadTimer : null,
+	
+	enableDragAndDropUpload : function () {
+		clearTimeout(SCRIBEFIRE.dragAndDropUploadTimer);
+		
+		$("#hidden-file-upload").attr("active", true);
+		
+		SCRIBEFIRE.dragAndDropUploadTimer = setTimeout(SCRIBEFIRE.disableDragAndDropUpload, 2000);
+	},
+	
+	disableDragAndDropUpload : function () {
+		$("#hidden-file-upload").removeAttr("active");
+		
+		clearTimeout(SCRIBEFIRE.dragAndDropUploadTimer);
+	},
+	
 	/*
 	import : function (json) {
 		if ("blogs" in json) {

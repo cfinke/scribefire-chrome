@@ -48,6 +48,7 @@
 		<script type="text/javascript" src="lib/wordpress.js"></script>
 		<script type="text/javascript" src="migrate.js"></script>
 		<script type="text/javascript" src="lib/jquery-oembed.js"></script>
+		<script type="text/javascript" src="lib/upload.js"></script>
 		<script type="text/javascript" src="adbull.js"></script>
 	</head>
 	<body>
@@ -148,8 +149,11 @@
 								<a id="edButtonPreview" style="display: none;" onclick="event.stopPropagation(); switchEditors.go('text-content', 'tinymce');"><i18n data-key="action_editVisual" /></a>
 							</div>
 						</div>
-						<div class="underbar" open="true">
-							<textarea rows="10" name="text-content" id="text-content"></textarea>
+						<div class="underbar" open="true" ondragenter="SCRIBEFIRE.enableDragAndDropUpload();">
+							<form id="drag-and-drop-upload-form">
+								<textarea rows="10" name="text-content" id="text-content"></textarea>
+								<input type="file" multiple="true" id="hidden-file-upload" class="ui-upload" onclick="event.preventDefault();"/>
+							</form>
 					
 							<div class="ui-excerpt" style="margin-top: 1em;">
 								<div class="subbar" id="bar-excerpt">

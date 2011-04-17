@@ -24,6 +24,10 @@ var editor = {
 		}
 	},
 	
+	insertContent : function (html) {
+		editor.val(editor.val() + "\n\n" + html);
+	},
+	
 	change : function () {
 		SCRIBEFIRE.dirty = true;
 	}
@@ -819,6 +823,59 @@ $(document).ready(function () {
 		
 		$(this).persist("value");
 	});
+	
+	if (window.File && window.FileReader && window.FileList && window.Blob) {
+		// Set up drag and drop upload.
+		var dropArea = document.getElementById("hidden-file-upload");
+		
+		var handleDrop = function (evt) {
+			SCRIBEFIRE.disableDragAndDropUpload();
+			
+			var numFiles = evt.target.files.length;
+			
+			if (numFiles > 0) {
+				if (numFiles === 1) {
+					var imageUploadText = scribefire_string("text_uploading_image");
+				}
+				else {
+					var imageUploadText = scribefire_string("text_uploading_images", numFiles);
+				}
+				
+				var loadingNotice = $("<p/>");
+				loadingNotice.text(imageUploadText);
+				var buttonContainer = $("<span/>");
+				buttonContainer.addClass("buttons");
+				loadingNotice.append(buttonContainer);
+				
+				$.facebox(loadingNotice);
+				
+				SCRIBEFIRE_UPLOAD.upload(evt.target.files, SCRIBEFIRE.getAPI(), function (urls) {
+					$(document).trigger("close.facebox");
+					
+					if (urls.length > 0) {
+						var container = $("<div/>");
+					
+						for (var i = 0, _len = urls.length; i < _len; i++) {
+							var img = $("<img/>");
+							img.attr("src", urls[i]);
+							container.append(img);
+							container.append("\n\n");
+						}
+					
+						var html = container.html();
+					
+						editor.insertContent(html);
+					}
+				}, function (error) {
+					$(document).trigger("close.facebox");
+				
+					alert(error);
+				});
+			}
+		};
+	
+		dropArea.addEventListener("change", handleDrop, false);
+	}
 	
 	SCRIBEFIRE.load();
 	
