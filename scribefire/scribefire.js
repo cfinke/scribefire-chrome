@@ -154,6 +154,28 @@ var SCRIBEFIRE = {
 		}
 	},
 	
+	localize : function (page) {
+		$(page).find("i18n").each(function () {
+			var $this = $(this);
+		
+			var string = scribefire_string($this.attr("data-key"));
+		
+			if (string) {
+				$this.replaceWith(string);
+			}
+		});
+	
+		$(page).find(".i18n").each(function () {
+			var $this = $(this);
+		
+			var string = scribefire_string($this.attr("data-key"));
+		
+			if (string) {
+				$this.text(string);
+			}
+		});
+	},
+	
 	genericError : function (rv) {
 		//console.log("Error ("+rv.status+"): " + rv.msg);
 		
@@ -1280,16 +1302,20 @@ var SCRIBEFIRE = {
 		
 		adjustForSize();
 	},
-	/*
+	
 	export : function () {
-		var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
-		var google_tokens = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
-		var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
-		
 		var exportJSON = {
-			"blogs" : blogs,
-			"google_tokens" : google_tokens,
-			"notes" : notes
+			"blogs" : SCRIBEFIRE.prefs.getJSONPref("blogs", {}),
+			"google_tokens" : SCRIBEFIRE.prefs.getJSONPref("google_tokens", {}),
+			"notes" : SCRIBEFIRE.prefs.getJSONPref("notes", {}),
+			"adbull.username" : SCRIBEFIRE.prefs.getCharPref("adbull.username"),
+			"adbull.password" : SCRIBEFIRE.prefs.getCharPref("adbull.password"),
+			"zemanta.tos" : SCRIBEFIRE.prefs.getBoolPref("zemanta.tos"),
+			"zemanta.track" : SCRIBEFIRE.prefs.getBoolPref("zemanta.track"),
+			"zemanta.key" : SCRIBEFIRE.prefs.getCharPref("zemanta.key"),
+			"zemanta.config_url" : SCRIBEFIRE.prefs.getCharPref("zemanta.config_url"),
+			"zemanta.hidePromo" : SCRIBEFIRE.prefs.getBoolPref("zemanta.hidePromo"),
+			"zemanta.lastType" : SCRIBEFIRE.prefs.getCharPref("zemanta.lastType")
 		};
 		
 		var jsonText = JSON.stringify(exportJSON);
@@ -1297,6 +1323,15 @@ var SCRIBEFIRE = {
 		var exportComment = "/" + "**\n";
 		exportComment += " * Save this file to your hard drive; you can import it into\n";
 		exportComment += " * ScribeFire on another computer to transfer your blogs and settings.\n";
+		exportComment += " * Once you've imported it, make sure to delete this file, as it\n";
+		exportComment += " * contains encoded versions of your usernames and passwords.\n";
+		
+		if (browser === "chrome") {
+			exportComment += " *\n";
+			exportComment += " * You may need to copy and paste the contents of this file into \n";
+			exportComment += " * a text file in order to save it.\n";
+		}
+		
 		exportComment += " *" + "/\n\n";
 		
 		var formatComment = "/" + "* format=application/json;base64 *" + "/";
@@ -1315,9 +1350,85 @@ var SCRIBEFIRE = {
 		
 		window.open("data:text/plain;base64,"+btoa(exportFileText));
 	},
-	*/
 	
-	importHelper : function (files) {
+	import : function (files) {
+		SCRIBEFIRE.importHelper(files, function (json) {
+			if ("blogs" in json) {
+				var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
+			
+				for (var i in json.blogs) {
+					blogs[i] = json.blogs[i];
+				}
+			
+				SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
+			}
+		
+			if ("google_tokens" in json) {
+				var google_tokens = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+			
+				for (var i in json.google_tokens) {
+					google_tokens[i] = json.google_tokens[i];
+				}
+			
+				SCRIBEFIRE.prefs.setJSONPref("google_tokens", google_tokens);
+			}
+		
+			if ("notes" in json) {
+				var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
+				
+				for (var i in json.notes) {
+					var noteKey = i;
+					
+					/*
+					while (noteKey in notes && (notes[noteKey] != json.notes[i])) {
+						noteKey += "" + Math.floor(Math.random() * 9);
+					}
+					*/
+					
+					notes[noteKey] = json.notes[i];
+				}
+			
+				SCRIBEFIRE.prefs.setJSONPref("notes", notes);
+			}
+			
+			if ("adbull.username" in json && json["adbull.username"] && !SCRIBEFIRE.prefs.getCharPref("adbull.username")) {
+				SCRIBEFIRE.prefs.setCharPref("adbull.username", json["adbull.username"]);
+			}
+			
+			if ("adbull.password" in json && json["adbull.password"] && !SCRIBEFIRE.prefs.getCharPref("adbull.password")) {
+				SCRIBEFIRE.prefs.setCharPref("adbull.password", json["adbull.password"]);
+			}
+			
+			if ("zemanta.tos" in json && json["zemanta.tos"] && !SCRIBEFIRE.prefs.getBoolPref("zemanta.tos")) {
+				SCRIBEFIRE.prefs.setBoolPref("zemanta.tos", true);
+			}
+
+			if ("zemanta.track" in json && json["zemanta.track"] && !SCRIBEFIRE.prefs.getBoolPref("zemanta.track")) {
+				SCRIBEFIRE.prefs.setBoolPref("zemanta.track", true);
+			}
+
+			if ("zemanta.key" in json && json["zemanta.key"] && !SCRIBEFIRE.prefs.getCharPref("zemanta.key")) {
+				SCRIBEFIRE.prefs.setCharPref("zemanta.key", json["zemanta.key"]);
+			}
+
+			if ("zemanta.config_url" in json && json["zemanta.config_url"] && !SCRIBEFIRE.prefs.getCharPref("zemanta.config_url")) {
+				SCRIBEFIRE.prefs.setCharPref("zemanta.config_url", json["zemanta.config_url"]);
+			}
+			
+			if ("zemanta.hidePromo" in json && json["zemanta.hidePromo"] && !SCRIBEFIRE.prefs.getBoolPref("zemanta.hidePromo")) {
+				SCRIBEFIRE.prefs.setBoolPref("zemanta.hidePromo", true);
+			}
+
+			if ("zemanta.lastType" in json && json["zemanta.lastType"] && !SCRIBEFIRE.prefs.getCharPref("zemanta.lastType")) {
+				SCRIBEFIRE.prefs.setCharPref("zemanta.lastType", json["zemanta.lastType"]);
+			}
+			
+			$("#import-file").val("");
+			alert("Import complete. Close and re-open ScribeFire to continue.");
+		});
+	},
+	
+	importHelper : function (files, callback) {
 		var f = files[0];
 		
 		var reader = new FileReader();
@@ -1340,6 +1451,8 @@ var SCRIBEFIRE = {
 				// json.blogs
 				// json.notes
 				// json.google_tokens
+				
+				callback(json);
 			};
 		})(f);
 		
@@ -1412,46 +1525,6 @@ var SCRIBEFIRE = {
 		
 		clearTimeout(SCRIBEFIRE.dragAndDropUploadTimer);
 	},
-	
-	/*
-	import : function (json) {
-		if ("blogs" in json) {
-			var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
-			
-			for (var i in json.blogs) {
-				blogs[i] = json.blogs[i];
-			}
-			
-			SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
-		}
-		
-		if ("google_tokens" in json) {
-			var google_tokens = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
-			
-			for (var i in json.google_tokens) {
-				google_tokens[i] = json.google_tokens[i];
-			}
-			
-			SCRIBEFIRE.prefs.setJSONPref("google_tokens", google_tokens);
-		}
-		
-		if ("notes" in json) {
-			var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
-			
-			for (var i in json.notes) {
-				var noteKey = i;
-				
-				while (noteKey in notes && (notes[noteKey] != json.notes[i])) {
-					noteKey += "" + Math.floor(Math.random() * 9);
-				}
-				
-				notes[noteKey] = json.notes[i];
-			}
-			
-			SCRIBEFIRE.prefs.setJSONPref("notes", notes);
-		}
-	},
-	*/
 	
 	error : function (msg, errorCode) {
 		var container = $("<div/>");

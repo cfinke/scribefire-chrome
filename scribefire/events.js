@@ -69,30 +69,8 @@ function setTimestamp(date) {
 	}
 }
 
-function localize() {
-	$("i18n").each(function () {
-		var $this = $(this);
-		
-		var string = scribefire_string($this.attr("data-key"));
-		
-		if (string) {
-			$this.replaceWith(string);
-		}
-	});
-	
-	$(".i18n").each(function () {
-		var $this = $(this);
-		
-		var string = scribefire_string($this.attr("data-key"));
-		
-		if (string) {
-			$this.text(string);
-		}
-	});
-}
-
 $(document).ready(function () {
-	localize();
+	SCRIBEFIRE.localize(document);
 	
 	$(".post-meta").hide();
 	

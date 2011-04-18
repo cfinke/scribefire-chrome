@@ -153,7 +153,7 @@ if (platform == 'gecko') {
 					}
 				});
 				
-				localize();
+				SCRIBEFIRE.localize(document);
 			});
 		})("next@scribefire.com", SCRIBEFIRE_STRINGS.strings);
 	}

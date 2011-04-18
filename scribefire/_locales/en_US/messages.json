@@ -6,6 +6,9 @@
 		"message": "An easy-to-use blog editor lets you post to all of your blogs.",
 		"description": "One-line description of ScribeFire."
 	},
+	"preferences": {
+		"message": "Preferences"
+	},
 	"continue": {
 		"message": "Continue"
 	},
@@ -664,5 +667,23 @@
 	},
 	"text_uploading_images": {
 		"message": "Uploading $1 images..."
+	},
+	"options_page_title": {
+		"message": "Options"
+	},
+	"settings_migrate": {
+		"message": "Import/Export"
+	},
+	"action_import": {
+		"message": "Import"
+	},
+	"action_export": {
+		"message": "Export"
+	},
+	"instructions_import": {
+		"message": "Select an exported ScribeFire configuration file in order the blogs and settings."
+	},
+	"instructions_export": {
+		"message": "Click the button below to export your ScribeFire blogs and settings."
 	}
 }
