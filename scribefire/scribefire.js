@@ -1303,7 +1303,7 @@ var SCRIBEFIRE = {
 		adjustForSize();
 	},
 	
-	export : function () {
+	exportData : function () {
 		var exportJSON = {
 			"blogs" : SCRIBEFIRE.prefs.getJSONPref("blogs", {}),
 			"google_tokens" : SCRIBEFIRE.prefs.getJSONPref("google_tokens", {}),
@@ -1346,86 +1346,161 @@ var SCRIBEFIRE = {
 			return body.match(new RegExp(".{0," + chunklen + "}", "g")).join(end);
 		}
 		
+		/*
+		for (var i = 0, _len = jsonText.length; i < _len; i++) {
+			console.log(jsonText[i]);
+			btoa(jsonText.substring(0, i));
+		}
+		*/
+		
 		var exportFileText = exportComment + chunk_split(btoa(jsonText), 78, "\n") + "\n" + formatComment;
 		
-		window.open("data:text/plain;base64,"+btoa(exportFileText));
+		if (platform === 'gecko') {
+			var nsIFilePicker = Components.interfaces.nsIFilePicker;
+			var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+			fp.init(window, "Save as...", nsIFilePicker.modeSave);
+			
+			fp.appendFilter("Text file", "*.txt");
+			fp.defaultString = "scribefire-export.txt";
+			
+			var result = fp.show();
+			
+			if (result !== nsIFilePicker.returnCancel){
+				var file = fp.file;
+				
+				//convert to utf-8 from native unicode
+				var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].getService(Components.interfaces.nsIScriptableUnicodeConverter);
+				converter.charset = 'UTF-8';
+				exportFileText = converter.ConvertFromUnicode(exportFileText);
+				var outputStream = Components.classes["@mozilla.org/network/file-output-stream;1"].createInstance(Components.interfaces.nsIFileOutputStream);
+				
+				outputStream.init(file, 0x04 | 0x08 | 0x20, 420, 0 );
+				outputStream.write(exportFileText, exportFileText.length);
+				outputStream.close();
+			}
+		}
+		else {
+			window.open("data:text/plain;base64,"+btoa(exportFileText));
+		}
 	},
 	
-	import : function (files) {
-		SCRIBEFIRE.importHelper(files, function (json) {
-			if ("blogs" in json) {
-				var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
+	importData : function (files) {
+		SCRIBEFIRE.importHelper(files, function (exportFileText) {
+			// File Format is: 
+			// Part 1: Comment to user.
+			// Part 2: base64-encoded JSON
+			// Part 3: Format comment
 			
-				for (var i in json.blogs) {
-					blogs[i] = json.blogs[i];
-				}
+			// @todo Error handler.
 			
-				SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
-			}
-		
-			if ("google_tokens" in json) {
-				var google_tokens = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+			var base64 = exportFileText.replace(/\/\*[\s\S]*?\*\//mg, "").replace(/\s/g, "");
+			var jsonText = atob(base64);
+			var json = JSON.parse(jsonText);
 			
-				for (var i in json.google_tokens) {
-					google_tokens[i] = json.google_tokens[i];
-				}
-			
-				SCRIBEFIRE.prefs.setJSONPref("google_tokens", google_tokens);
-			}
-		
-			if ("notes" in json) {
-				var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
-				
-				for (var i in json.notes) {
-					var noteKey = i;
-					
-					/*
-					while (noteKey in notes && (notes[noteKey] != json.notes[i])) {
-						noteKey += "" + Math.floor(Math.random() * 9);
-					}
-					*/
-					
-					notes[noteKey] = json.notes[i];
-				}
-			
-				SCRIBEFIRE.prefs.setJSONPref("notes", notes);
-			}
-			
-			if ("adbull.username" in json && json["adbull.username"] && !SCRIBEFIRE.prefs.getCharPref("adbull.username")) {
-				SCRIBEFIRE.prefs.setCharPref("adbull.username", json["adbull.username"]);
-			}
-			
-			if ("adbull.password" in json && json["adbull.password"] && !SCRIBEFIRE.prefs.getCharPref("adbull.password")) {
-				SCRIBEFIRE.prefs.setCharPref("adbull.password", json["adbull.password"]);
-			}
-			
-			if ("zemanta.tos" in json && json["zemanta.tos"] && !SCRIBEFIRE.prefs.getBoolPref("zemanta.tos")) {
-				SCRIBEFIRE.prefs.setBoolPref("zemanta.tos", true);
-			}
-
-			if ("zemanta.track" in json && json["zemanta.track"] && !SCRIBEFIRE.prefs.getBoolPref("zemanta.track")) {
-				SCRIBEFIRE.prefs.setBoolPref("zemanta.track", true);
-			}
-
-			if ("zemanta.key" in json && json["zemanta.key"] && !SCRIBEFIRE.prefs.getCharPref("zemanta.key")) {
-				SCRIBEFIRE.prefs.setCharPref("zemanta.key", json["zemanta.key"]);
-			}
-
-			if ("zemanta.config_url" in json && json["zemanta.config_url"] && !SCRIBEFIRE.prefs.getCharPref("zemanta.config_url")) {
-				SCRIBEFIRE.prefs.setCharPref("zemanta.config_url", json["zemanta.config_url"]);
-			}
-			
-			if ("zemanta.hidePromo" in json && json["zemanta.hidePromo"] && !SCRIBEFIRE.prefs.getBoolPref("zemanta.hidePromo")) {
-				SCRIBEFIRE.prefs.setBoolPref("zemanta.hidePromo", true);
-			}
-
-			if ("zemanta.lastType" in json && json["zemanta.lastType"] && !SCRIBEFIRE.prefs.getCharPref("zemanta.lastType")) {
-				SCRIBEFIRE.prefs.setCharPref("zemanta.lastType", json["zemanta.lastType"]);
-			}
+			SCRIBEFIRE.doImport(json);
 			
 			$("#import-file").val("");
 			alert("Import complete. Close and re-open ScribeFire to continue.");
 		});
+	},
+	
+	doImport : function (json) {
+		if ("blogs" in json) {
+			var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
+		
+			for (var i in json.blogs) {
+				blogs[i] = json.blogs[i];
+			}
+		
+			SCRIBEFIRE.prefs.setJSONPref("blogs", blogs);
+		}
+	
+		if ("google_tokens" in json) {
+			var google_tokens = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+		
+			for (var i in json.google_tokens) {
+				google_tokens[i] = json.google_tokens[i];
+			}
+		
+			SCRIBEFIRE.prefs.setJSONPref("google_tokens", google_tokens);
+		}
+	
+		if ("notes" in json) {
+			var notes = SCRIBEFIRE.prefs.getJSONPref("notes", {});
+			
+			for (var i in json.notes) {
+				var noteKey = i;
+				
+				/*
+				while (noteKey in notes && (notes[noteKey] != json.notes[i])) {
+					noteKey += "" + Math.floor(Math.random() * 9);
+				}
+				*/
+				
+				notes[noteKey] = json.notes[i];
+			}
+		
+			SCRIBEFIRE.prefs.setJSONPref("notes", notes);
+		}
+		
+		if ("adbull.username" in json && json["adbull.username"] && !SCRIBEFIRE.prefs.getCharPref("adbull.username")) {
+			SCRIBEFIRE.prefs.setCharPref("adbull.username", json["adbull.username"]);
+		}
+		
+		if ("adbull.password" in json && json["adbull.password"] && !SCRIBEFIRE.prefs.getCharPref("adbull.password")) {
+			SCRIBEFIRE.prefs.setCharPref("adbull.password", json["adbull.password"]);
+		}
+		
+		if ("zemanta.tos" in json && json["zemanta.tos"] && !SCRIBEFIRE.prefs.getBoolPref("zemanta.tos")) {
+			SCRIBEFIRE.prefs.setBoolPref("zemanta.tos", true);
+		}
+
+		if ("zemanta.track" in json && json["zemanta.track"] && !SCRIBEFIRE.prefs.getBoolPref("zemanta.track")) {
+			SCRIBEFIRE.prefs.setBoolPref("zemanta.track", true);
+		}
+
+		if ("zemanta.key" in json && json["zemanta.key"] && !SCRIBEFIRE.prefs.getCharPref("zemanta.key")) {
+			SCRIBEFIRE.prefs.setCharPref("zemanta.key", json["zemanta.key"]);
+		}
+
+		if ("zemanta.config_url" in json && json["zemanta.config_url"] && !SCRIBEFIRE.prefs.getCharPref("zemanta.config_url")) {
+			SCRIBEFIRE.prefs.setCharPref("zemanta.config_url", json["zemanta.config_url"]);
+		}
+		
+		if ("zemanta.hidePromo" in json && json["zemanta.hidePromo"] && !SCRIBEFIRE.prefs.getBoolPref("zemanta.hidePromo")) {
+			SCRIBEFIRE.prefs.setBoolPref("zemanta.hidePromo", true);
+		}
+
+		if ("zemanta.lastType" in json && json["zemanta.lastType"] && !SCRIBEFIRE.prefs.getCharPref("zemanta.lastType")) {
+			SCRIBEFIRE.prefs.setCharPref("zemanta.lastType", json["zemanta.lastType"]);
+		}
+	},
+	
+	importMozilla : function () {
+		var nsIFilePicker = Components.interfaces.nsIFilePicker;
+		var fp = Components.classes["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+		fp.init(window, "Select a file", nsIFilePicker.modeOpen);
+		var res = fp.show();
+		
+		if (res == nsIFilePicker.returnOK){
+			var file = fp.file;
+			
+			var fileInStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream); 
+			fileInStream.init(file, 0x01, 0644, false);
+			
+			var binaryInStream = Components.classes["@mozilla.org/binaryinputstream;1"] .createInstance(Components.interfaces.nsIBinaryInputStream); 
+			binaryInStream.setInputStream(fileInStream); 
+			
+			var exportFileText = binaryInStream.readBytes(binaryInStream.available());
+			
+			var base64 = exportFileText.replace(/\/\*[\s\S]*?\*\//mg, "").replace(/\s/g, "");
+			var jsonText = atob(base64);
+			var json = JSON.parse(jsonText);
+			
+			SCRIBEFIRE.doImport(json);
+			
+			alert("Import complete. Close and re-open ScribeFire to continue.");
+		}
 	},
 	
 	importHelper : function (files, callback) {
@@ -1437,22 +1512,7 @@ var SCRIBEFIRE = {
 			return function (e) {
 				var binaryData = e.target.result;
 				
-				// File Format is: 
-				// Part 1: Comment to user.
-				// Part 2: base64-encoded JSON
-				// Part 3: Format comment
-				
-				// @todo Error handler.
-				
-				var base64 = binaryData.replace(/\/\*[\s\S]*?\*\//mg, "").replace(/\s/g, "");
-				var jsonText = atob(base64);
-				var json = JSON.parse(jsonText);
-				
-				// json.blogs
-				// json.notes
-				// json.google_tokens
-				
-				callback(json);
+				callback(binaryData);
 			};
 		})(f);
 		

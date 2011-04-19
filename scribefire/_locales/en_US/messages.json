@@ -662,6 +662,12 @@
 	"text_adbull_add_new_site": {
 		"message": "Add a new website to your AdBull account."
 	},
+	"text_adbull_header": {
+		"message": "NEW: MAKE MONEY WITH YOUR BLOG"
+	},
+	"text_adbull_introduction": {
+		"message": "Click the \"Monetize\" button underneath your list of blogs to set up an account with AdBull and start making money with your blog today."
+	},
 	"text_uploading_image": {
 		"message": "Uploading your image..."
 	},
@@ -681,9 +687,15 @@
 		"message": "Export"
 	},
 	"instructions_import": {
-		"message": "Select an exported ScribeFire configuration file in order the blogs and settings."
+		"message": "Select an exported configuration file in order to import the blogs and settings."
 	},
 	"instructions_export": {
-		"message": "Click the button below to export your ScribeFire blogs and settings."
+		"message": "Click the button below to export your blogs and settings."
+	},
+	"label_settings_section": {
+		"message": "Settings and Data"
+	},
+	"button_migrate": {
+		"message": "Transfer your ScribeFire data to another computer."
 	}
 }

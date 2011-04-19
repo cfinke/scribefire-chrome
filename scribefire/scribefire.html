@@ -122,11 +122,21 @@
 					</div>
 					<div class="ui-adbull" id="adbull-promo" style="display: none;">
 						<div class="bar fixed">
-							<label><i18n data-key="" />NEW: MAKE MONEY WITH YOUR BLOG</label>
+							<label><i18n data-key="text_adbull_header" /></label>
 							<button class="bar-meta" id="button-adbull-hide"><i18n data-key="action_hide" /></button>
 						</div>
 						<div class="underbar fixed">
-							<p><i18n data-key="" />Click the "Monetize" button underneath your list of blogs to set up an account with AdBull and start making money with your blog today.</p>
+							<p><i18n data-key="text-adbull-introduction" /></p>
+						</div>
+					</div>
+					<div>
+						<div class="bar fixed">
+							<label><i18n data-key="label_settings_section" /></label>
+						</div>
+						<div class="underbar fixed">
+							<p>
+								<button id="button-migrate"><i18n data-key="button_migrate" /></button>
+							</p>
 						</div>
 					</div>
 				</td>
@@ -632,6 +642,24 @@
 				<button class="button-blog-add-cancel modal_close cancel-button dialog-blog-add-normal"><i18n data-key="action_cancel" /></button>
 				<button class="button-blog-add-cancel modal_close cancel-button dialog-blog-add-import" style="display: none;"><i18n data-key="action_cancel_import" /></button>
 			</div>
+		</div>
+		
+		<div id="panel-migrate" style="display: none;">
+			<section>
+				<h3><i18n data-key="action_export" /></h3>
+				<div>
+					<p><i18n data-key="instructions_export" /></p>
+					<button onclick="SCRIBEFIRE.exportData();"><i18n data-key="action_export" /></button>
+				</div>
+			</section>
+			
+			<section>
+				<h3><i18n data-key="action_import" /></h3>
+				<div>
+					<p><i18n data-key="instructions_import" /></p>
+					<input type="file" onchange="SCRIBEFIRE.importData(this.files);" id="import-file" />
+				</div>
+			</section>
 		</div>
 		
 		<script type="text/javascript" src="lib/platform.js"></script>

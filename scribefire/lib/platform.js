@@ -178,10 +178,17 @@ function scribefire_string(key, substitutions) {
 	}
 }
 
-var level = $("body").attr("level") || "./";
+var bodies = document.getElementsByTagName("body");
+var heads = document.getElementsByTagName("head");
 
-var style = document.createElement("link");
-style.setAttribute("rel", "stylesheet");
-style.setAttribute("type", "text/css");
-style.setAttribute("href", level + "skin/platform." + platform + ".css");
-document.getElementsByTagName("head")[0].appendChild(style);
+if (bodies.length > 0 && heads.length > 0) {
+	var body = bodies[0];
+	var head = heads[0];
+	var level = body.getAttribute("level") || "./";
+	
+	var style = document.createElement("link");
+	style.setAttribute("rel", "stylesheet");
+	style.setAttribute("type", "text/css");
+	style.setAttribute("href", level + "skin/platform." + platform + ".css");
+	head.appendChild(style);
+}
