@@ -874,6 +874,9 @@ $(document).ready(function () {
 		dropArea.addEventListener("change", handleDrop, false); // Chrome
 		document.getElementById("drag-and-drop-upload-form").addEventListener("drop", handleDrop, false); // Firefox
 	}
+	else {
+		$(".ui-import-export").hide();
+	}
 	
 	SCRIBEFIRE.load();
 	
