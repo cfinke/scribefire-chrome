@@ -352,7 +352,7 @@ $(document).ready(function () {
 				}
 				
 				$("#text-slug").val(entry.data("slug"));
-				$("#checkbox-private").attr("checked", entry.data("private"));
+				$("#checkbox-private").each(function () { this.checked = entry.data("private"); });
 				
 				try { $("#text-excerpt").val(entry.data("excerpt")).change(); } catch (e) { 
 					//console.log(e); 

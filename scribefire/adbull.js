@@ -17,7 +17,7 @@ var ADBULL = {
 		request : function (method, argString, callback) {
 			var req = new XMLHttpRequest();
 			
-			var fullUrl = "http://www.chrisfinke.com/adbull/";
+			var fullUrl = "http://www.scribefire.com/adbull/";
 			
 			if (method === "GET" && argString) {
 				fullUrl += "?" + argString;

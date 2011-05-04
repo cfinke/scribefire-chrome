@@ -211,7 +211,7 @@ var SF_ZEMANTA = {
 										cb.attr("title", articles[i].title);
 										
 										if ("pc" in articles[i] || i < 4) {
-											cb.attr("checked", "checked");
+											cb.get(0).checked = true;
 										}
 
 										var desc = item.find("a:first");
