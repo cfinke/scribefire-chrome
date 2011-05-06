@@ -70,8 +70,6 @@ function setTimestamp(date) {
 }
 
 $(document).ready(function () {
-	SCRIBEFIRE.localize(document);
-	
 	$(".post-meta").hide();
 	
 	if (!supports_input_placeholder()) {
