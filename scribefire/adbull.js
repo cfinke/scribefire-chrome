@@ -17,7 +17,7 @@ var ADBULL = {
 		request : function (method, argString, callback) {
 			var req = new XMLHttpRequest();
 			
-			var fullUrl = "http://www.scribefire.com/adbull/";
+			var fullUrl = "http://www.chrisfinke.com/adbull/";
 			
 			if (method === "GET" && argString) {
 				fullUrl += "?" + argString;
@@ -93,7 +93,7 @@ var ADBULL = {
 					if (!data.status) {
 						$("#button-adbull-add-continue").removeClass("busy");
 						
-						form.find(".error-message").text(data.msg).show();
+						$(form.find(".error-message")).text(data.msg).show();
 						
 						if (data.field) {
 							form.find("input[name='" + data.field + "']").closest("p").addClass("error");
@@ -109,16 +109,21 @@ var ADBULL = {
 						
 						// Get the embed code for this website.
 						ADBULL.api.request("POST", argString, function (data, status) {
-							$("#button-adbull-add-continue").removeClass("busy");
-							
-							var blog = SCRIBEFIRE.getBlog();
-							
-							if (blog.url === url) {
-								blog.adbull_code = data.data;
-								SCRIBEFIRE.setBlog(blog);
+							if (data.status) {
+								$("#button-adbull-add-continue").removeClass("busy");
+
+								var blog = SCRIBEFIRE.getBlog();
+
+								if (blog.url === url) {
+									blog.adbull_code = data.data;
+									SCRIBEFIRE.setBlog(blog);
+								}
+
+								ADBULL.showCode(data.data);
 							}
-							
-							ADBULL.showCode(data.data);
+							else {
+								alert(data.msg);
+							}
 						});
 					}
 				});
