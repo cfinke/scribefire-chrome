@@ -1264,9 +1264,17 @@ var genericAtomAPI = function () {
 
 	this.buildRequest = function (method, url, callback) {
 		var req = new XMLHttpRequest();
-		// encodeURIComponent is used here because otherwise some requests were failing
-		// when the password contains special characters like "@"
-		req.open(method, url, true, encodeURIComponent(this.username), encodeURIComponent(this.password));
+		
+		if (platform === 'presto') {
+			req.open(method, url, true);
+			req.setRequestHeader("Authorization", "Basic " + btoa(this.username + ":" + this.password));
+		}
+		else {
+			// encodeURIComponent is used here because otherwise some requests were failing
+			// when the password contains special characters like "@"
+			req.open(method, url, true, encodeURIComponent(this.username), encodeURIComponent(this.password));
+		}
+		
 		req.setRequestHeader("Content-Type", "application/atom+xml");
 		
 		callback(req);
