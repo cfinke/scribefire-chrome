@@ -440,7 +440,7 @@ $(document).ready(function () {
 		$("#zemanta-promo").show();
 	}
 	else if (!SCRIBEFIRE.prefs.getBoolPref("adbull.hidePromo")) {
-		$("#adbull-promo").show();
+		// $("#adbull-promo").show();
 	}
 	
 	$("#button-blog-add").live("click", function (e) {
