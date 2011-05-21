@@ -1353,7 +1353,7 @@ var SCRIBEFIRE = {
 		}
 		*/
 		
-		var exportFileText = exportComment + chunk_split(btoa(jsonText), 78, "\n") + "\n" + formatComment;
+		var exportFileText = exportComment + chunk_split(btoa(unescape(encodeURIComponent(jsonText))), 78, "\n") + "\n" + formatComment;
 		
 		if (platform === 'gecko') {
 			var nsIFilePicker = Components.interfaces.nsIFilePicker;
@@ -1382,6 +1382,8 @@ var SCRIBEFIRE = {
 		else {
 			window.open("data:text/plain;base64,"+btoa(exportFileText));
 		}
+		
+		$(document).trigger("close.facebox");
 	},
 	
 	importData : function (files) {
@@ -1394,12 +1396,13 @@ var SCRIBEFIRE = {
 			// @todo Error handler.
 			
 			var base64 = exportFileText.replace(/\/\*[\s\S]*?\*\//mg, "").replace(/\s/g, "");
-			var jsonText = atob(base64);
+			var jsonText = decodeURIComponent(escape(atob(base64)));
 			var json = JSON.parse(jsonText);
 			
 			SCRIBEFIRE.doImport(json);
 			
 			$("#import-file").val("");
+			$(document).trigger("close.facebox");
 			alert("Import complete. Close and re-open ScribeFire to continue.");
 		});
 	},
@@ -1623,4 +1626,19 @@ if (typeof chrome != 'undefined') {
 			}
 		}
 	);
+}
+else if (typeof opera != "undefined") {
+	/*
+	opera.extension.onmessage(function (evt) {
+		opera.postError("Got message");
+		
+		var msg = JSON.parse(evt.data);
+		
+		if (msg.subject == 'token') {
+			opera.postError("Is token");
+
+			SCRIBEFIRE.prefs.setCharPref("google_token", msg.token);
+		}
+	}, false);
+	*/
 }
