@@ -696,6 +696,6 @@
 		"message": "Settings and Data"
 	},
 	"button_migrate": {
-		"message": "Transfer your ScribeFire data to another computer."
+		"message": "Transfer your ScribeFire data to/from another computer."
 	}
 }
