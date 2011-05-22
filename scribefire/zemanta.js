@@ -117,7 +117,7 @@ var SF_ZEMANTA = {
 				$("#panel-zemanta-articles .zemanta-loading").show();
 				$("#panel-zemanta-articles").show();
 				
-				$("#button-zemanta-insert").die("click").live("click", function (e) {
+				$("#button-zemanta-insert-articles").die("click").live("click", function (e) {
 					e.preventDefault();
 				
 					SF_ZEMANTA.updateArticlesInEditor();
