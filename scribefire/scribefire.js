@@ -1346,13 +1346,6 @@ var SCRIBEFIRE = {
 			return body.match(new RegExp(".{0," + chunklen + "}", "g")).join(end);
 		}
 		
-		/*
-		for (var i = 0, _len = jsonText.length; i < _len; i++) {
-			console.log(jsonText[i]);
-			btoa(jsonText.substring(0, i));
-		}
-		*/
-		
 		var exportFileText = exportComment + chunk_split(btoa(unescape(encodeURIComponent(jsonText))), 78, "\n") + "\n" + formatComment;
 		
 		if (platform === 'gecko') {
