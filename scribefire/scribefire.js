@@ -1150,6 +1150,7 @@ var SCRIBEFIRE = {
 		$("#status-draft").val("0").change();
 		$("#list-categories").val("").change();
 		$("#text-slug").val("").change();
+		$("#checkbox-private").get(0).checked = false;
 		
 		editor.val('');
 		
