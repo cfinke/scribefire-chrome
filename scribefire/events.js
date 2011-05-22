@@ -781,6 +781,9 @@ $(document).ready(function () {
 		$(this).autocomplete(customFieldAutocompleteData);
 	});
 	
+	var is_private = SCRIBEFIRE.prefs.getBoolPref("state.private");
+	$("#checkbox-private").get(0).checked = is_private;
+	
 	$("#text-tags").val(SCRIBEFIRE.prefs.getCharPref("state.tags"));
 	SCRIBEFIRE.prefs.setCharPref("state.tags", "");
 	
@@ -945,7 +948,7 @@ $(document).ready(function () {
 			SCRIBEFIRE.prefs.setCharPref("state.slug", $("#text-slug").val());
 			SCRIBEFIRE.prefs.setJSONPref("state.customFields", SCRIBEFIRE.getCustomFields(true));
 			SCRIBEFIRE.prefs.setCharPref("state.excerpt", $("#text-excerpt").val());
-
+			SCRIBEFIRE.prefs.setBoolPref("state.private", $("#checkbox-private").get(0).checked);
 			SCRIBEFIRE.prefs.setCharPref("state.editor", switchEditors.mode);
 		}
 		
