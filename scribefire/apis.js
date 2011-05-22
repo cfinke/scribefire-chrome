@@ -2194,7 +2194,7 @@ var posterousAPI = function () {
 				if (req.readyState == 4) {
 					var json = JSON.parse(req.responseText);
 					
-					if (req.status == 200) {
+					if (req.status == 200 || req.status == 201) {
 						success({ "id": json.id });
 					}
 					else {
