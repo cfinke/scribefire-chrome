@@ -1288,7 +1288,7 @@ var bloggerAPI = function () {
 	this.ui = newUi;
 	
 	this.ui.categories = true;
-	this.ui.upload = !!((platform == 'gecko') || (window.File && window.FileReader && window.FileList && window.Blob));
+	this.ui.upload = !!(((platform == 'gecko') || (window.File && window.FileReader && window.FileList && window.Blob)) && (browser != 'opera'));
 	this.ui.draft = true;
 	
 	this.authToken = null;
