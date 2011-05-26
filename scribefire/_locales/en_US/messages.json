@@ -603,13 +603,16 @@
 		"message": "Advertising Code:"
 	},
 	"adbull_company_name": {
-		"message": "AdBull"
+		"message": "Start Making Money With AdBull"
 	},
 	"adbull_code_instructions": {
 		"message": "Just copy and paste this code into your blog's template, and AdBull will do the rest."
 	},
 	"adbull_introduction": {
-		"message": "AdBull provides publishers with a new source of advertiser-driven revenue. AdBull has NO competitors, since it is the exclusive patent-protected provider of contextual cursor advertisements. As a result, AdBull can be incorporated alongside many of the other popular online ad platforms in the market today (from display ads to contextual feeds and beyond)."
+		"message": "AdBull ads are delivered to the user's cursor upon visiting a participating publisher's website. The patented ad delivery solution changes the state of the cursor for a few seconds while the ad is clickable. The cursor then returns to its normal state after the ad fades out or if the user chooses to close the ad. If a user clicks on an advertisement, a new window containing the advertiser’s landing page or website destination opens."
+	},
+	"adbull_learn_more": {
+		"message": "Click here to learn more about AdBull before signing up."
 	},
 	"adbull_faq_link": {
 		"message": "Read the AdBull FAQ."
@@ -657,7 +660,7 @@
 		"message": "I will not place AdBull ads on sites that include pornographic or illegal content."
 	},
 	"text_adbull_tos_4": {
-		"message": "I certify that I have read and agree to AdBull's Terms and Conditions."
+		"message": "I certify that I have read and agree to <a href=\"http://www.adbull.com/terms\" target=\"_blank\">AdBull's Terms and Conditions</a>."
 	},
 	"text_adbull_add_new_site": {
 		"message": "Add a new website to your AdBull account."
