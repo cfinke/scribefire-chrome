@@ -71,6 +71,16 @@
 					
 					deepEqual(array, [1, "1", 2, "abc", 0, false]);
 				});
+				
+				test("util.resolveHref", function () {
+					equal(resolveHref("http://google.com/", "abc/def/ghi"), "http://google.com/abc/def/ghi");
+					equal(resolveHref("http://google.com/", "/abc/def/ghi"), "http://google.com/abc/def/ghi");
+					equal(resolveHref("http://google.com/", "//abc/def/ghi"), "http://abc/def/ghi");
+					equal(resolveHref("http://google.com/", "http://abc.com/def/ghi"), "http://abc.com/def/ghi");
+					equal(resolveHref("http://google.com/xxx/yyy", "abc/def/ghi"), "http://google.com/xxx/abc/def/ghi");
+					equal(resolveHref("http://google.com/xxx/yyy/", "abc/def/ghi"), "http://google.com/xxx/yyy/abc/def/ghi");
+					equal(resolveHref("http://google.com/xxx/yyy", "/abc/def/ghi"), "http://google.com/abc/def/ghi");
+				});
 			}
 				
 		</script>

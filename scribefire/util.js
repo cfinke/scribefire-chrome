@@ -37,6 +37,13 @@ Array.prototype.unique = function () {
 	return this;
 };
 
+/**
+ * Resolves a relative path to an absolute path.
+ *
+ * @param {String} path The base path of the URL.
+ * @param {String} href The path to resolve
+ * @returns {String} The normalized path.
+ */ 
 function resolveHref(path, href) {
 	if (href.indexOf("://") != -1) {
 		return href;
