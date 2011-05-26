@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<meta charset="ISO8859-1">
+		<title>ScribeFire Test Suite</title>
+		<link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/qunit/git/qunit.js"></script>
+		<script type="text/javascript">
+			if (typeof opera != "undefined") {
+				var platform = "presto";
+				var browser = "opera";
+			}
+			else if (typeof Components != 'undefined') {
+				var platform = "gecko";
+				var browser = 'firefox';
+			}
+			else {
+				var platform = "webkit";
+
+				if (typeof chrome != 'undefined') {
+					var browser = 'chrome';
+				}
+				else {
+					var browser = 'safari';
+				}
+			}
+		</script>
+		<script type="text/javascript" src="io.js"></script><!-- FIREFOX ONLY -->
+		<script type="text/javascript" src="messages.js"></script><!-- SAFARI ONLY -->
+		<script type="text/javascript" src="util.js"></script>
+		<script type="text/javascript" src="xmlrpc.js"></script>
+		<script type="text/javascript" src="apis.js"></script>
+		<script type="text/javascript" src="scribefire.js"></script>
+		<script type="text/javascript" src="zemanta.js"></script>
+		<script type="text/javascript" src="lib/jquery-ui.js"></script>
+		<script type="text/javascript" src="lib/jquery-resize.js"></script>
+		<script type="text/javascript" src="lib/parseUri.js"></script>
+		<script type="text/javascript" src="lib/facebox.js"></script>
+		<script type="text/javascript" src="lib/tiny_mce/tiny_mce_src.js"></script>
+		<script type="text/javascript" src="lib/persist.js"></script>
+		<script type="text/javascript" src="lib/keyboard.js"></script>
+		<script type="text/javascript" src="lib/wordpress.js"></script>
+		<script type="text/javascript" src="migrate.js"></script>
+		<script type="text/javascript" src="lib/jquery-oembed.js"></script>
+		<script type="text/javascript" src="lib/upload.js"></script>
+		<script type="text/javascript" src="adbull.js"></script>
+		
+		<script type="text/javascript">
+			function run() {
+				test("util.pad", function () {
+					deepEqual(pad(4), "04");
+					deepEqual(pad(10), "10");
+					deepEqual(pad(100), "100");
+					deepEqual(pad(0), "00");
+					deepEqual(pad(-1), "00");
+				});
+				
+				test("Array.unique", function () {
+					var array = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+					array.unique();
+					
+					deepEqual(array, [1, 2, 3, 4, 5]);
+
+					var array = [1];
+					array.unique();
+					
+					deepEqual(array, [1]);
+					
+					var array = [1, "1", 2, "abc", 0, false];
+					array.unique();
+					
+					deepEqual(array, [1, "1", 2, "abc", 0, false]);
+				});
+			}
+				
+		</script>
+	</head>
+	<body onload="run();">
+		<h1 id="qunit-header">ScribeFire Test Suite</h1>
+		<h2 id="qunit-banner"></h2>
+		<div id="qunit-testrunner-toolbar"></div>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+	</body>
+</html>

@@ -1,12 +1,33 @@
+/**
+ * Takes a number and returns a padded string.
+ *
+ * @param {Number} n The number to pad.
+ * @return {String} n padded with a zero, if necessary.
+ */
 function pad(n) {
-	if (n < 10) { return "0" + (n/1); }
-	return n;
+	// Remove any existing leading zeroes.
+	n = n / 1;
+	
+	if (n <= 0) {
+		return "00";
+	}
+	else if (n < 10) {
+		return "0" + n;
+	}
+	else {
+		return n.toString();
+	}
 }
 
+/**
+ * Removes any duplicate (strict) items in an array.
+ * 
+ * @return {Array} Returns itself, but also modifies the array directly.
+ */
 Array.prototype.unique = function () {
 	for (var i = 0; i < this.length; i++) {
 		for (var j = 0; j < this.length - 1; j++) {
-			if (this[i] == this[i + j + 1]) {
+			if (this[i] === this[i + j + 1]) {
 				this.splice(i + j + 1, 1);
 				j--;
 			}
