@@ -64,22 +64,49 @@ function resolveHref(path, href) {
 	}
 }
 
+/**
+ * Tries to get XML from an XMLHttpRequest response via multiple methods.
+ *
+ * @todo Write tests.
+ * @param {XMLHttpRequest} req A completed XMLHttpRequest.
+ * @returns {Object|Boolean} Either an XMLDocument or false, if no 
+ *          document could be found.
+ */
 function xmlFromRequest(req) {
 	if (req.responseXML) {
 		return req.responseXML;
 	}
 	else {
-		var text = $.trim(req.responseText);
+		if ("responseText" in req) {
+			var text = $.trim(req.responseText);
 		
-		if (typeof DOMParser != 'undefined') {
-			var parser = new DOMParser();
-			var xml = parser.parseFromString(text, "text/xml");
-			return xml;
-		}
-		else {
-			return false;
+			if (typeof DOMParser != 'undefined') {
+				var parser = new DOMParser();
+				var xml = parser.parseFromString(text, "text/xml");
+				return xml;
+			}
 		}
 	}
+	
+	return false;
+}
+
+/**
+ * Returns the class name of the argument or undefined if it's not a valid JavaScript object.
+ * 
+ * @param {Object} An object.
+ * @returns {String} The class name of the object.
+ */
+function getObjectClass(obj) {
+	if (obj && obj.constructor && obj.constructor.toString) {
+		var arr = obj.constructor.toString().match(/function\s*(\w+)/);
+		
+		if (arr && arr.length == 2) {
+			return arr[1];
+		}
+	}
+
+	return undefined;
 }
 
 function supports_input_placeholder() {
