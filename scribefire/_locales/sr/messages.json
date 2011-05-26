@@ -92,12 +92,6 @@
 	"option_publish_month12": {
 		"message": "Дец"
 	},
-	"label_username": {
-		"message": "Корисничко име"
-	},
-	"label_password": {
-		"message": "Лозинка"
-	},
 	"label_help": {
 		"message": "ПОМОЋ!"
 	},

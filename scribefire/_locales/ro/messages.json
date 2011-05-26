@@ -205,12 +205,6 @@
 	"label_loginCredentials": {
 		"message": "Detalii de logare"
 	},
-	"label_username": {
-		"message": "Nume Utilizator"
-	},
-	"label_password": {
-		"message": "Parola"
-	},
 	"label_entry": {
 		"message": "Intrare"
 	},

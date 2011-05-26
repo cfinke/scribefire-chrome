@@ -184,12 +184,6 @@
 	"label_loginCredentials": {
 		"message": "Опции входа"
 	},
-	"label_username": {
-		"message": "Имя пользователя:"
-	},
-	"label_password": {
-		"message": "Пароль"
-	},
 	"label_entry": {
 		"message": "Запись"
 	},

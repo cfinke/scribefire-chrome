@@ -72,7 +72,7 @@
 		"message": "Abbrechen"
 	},
 	"action_makeMoney": {
-		"message": "Mit diesem Blog Geld verdienen"
+		"message": "Verdiene Geld mit diesem Blog"
 	},
 	"action_finish": {
 		"message": "Beenden"
@@ -214,13 +214,7 @@
 		"message": "Blog-ID:"
 	},
 	"label_loginCredentials": {
-		"message": "Zugangsdaten"
-	},
-	"label_username": {
-		"message": "Benutzername"
-	},
-	"label_password": {
-		"message": "Passwort"
+		"message": "Login-Daten"
 	},
 	"label_entry": {
 		"message": "Eintrag"
@@ -297,7 +291,7 @@
 		"message": "Ein unerwarteter Fehler ist aufgetreten."
 	},
 	"error_api_getBlogs": {
-		"message": "ScribeFire konnte die notwendigen Informationen über Dein Blog nicht erhalten. Hilfreicherweise antwortete Dein Blogserver mit dieser Nachricht: $message$",
+		"message": "ScribeFire konnte die notwendigen Informationen über Dein Blog nicht erhalten. Glücklicherweise antwortete Dein Blogserver mit dieser Nachricht: $message$",
 		"placeholders": {
 			"message": {
 				"content": "\n\n$1"
@@ -336,7 +330,7 @@
 		"message": "Du bist herzlich dazu eingeladen, Dein Blog manuell zu konfigurieren."
 	},
 	"error_api_code412": {
-		"message": "Das Blog gab Fehlercode 412 zurück. Du kannst dies möglicherweise beheben, indem Du den Instruktionen unter $url$ folgst.",
+		"message": "Das Blog gab Fehlercode 412 zurück. Du kannst dies möglicherweise beheben, indem Du den Anweisungen unter $url$ folgst.",
 		"placeholders": {
 			"url": {
 				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
@@ -517,9 +511,6 @@
 	},
 	"zemanta_introduction": {
 		"message": "Zemanta hilft dir dabei, gehaltvolle Blog-Postings zu erschaffen, indem es dein Thema erkennt und nützliche verwandte Links vorschlägt. Schreib einfach dein Posting, klicke das Zementa-Symbol in der Werkzeugleiste (Abb. unten) und wähle die zu verlinkenden Artikel aus."
-	},
-	"zemanta_loading_message": {
-		"message": "Bitte warte während ScribeFire verwandte Artikel von Zemanta abruft..."
 	},
 	"action_continueEditing": {
 		"message": "Bearbeiten des Postings fortsetzen"

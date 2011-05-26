@@ -2,14 +2,23 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
+	"extDescription": {
+		"message": "Blog editor yang memudahkan Anda posting tulisan ke semua blog Anda."
+	},
 	"continue": {
 		"message": "Lanjut"
+	},
+	"action_close": {
+		"message": "Tutup"
 	},
 	"firsttime_header": {
 		"message": "Selamat Datang di ScribeFire!"
 	},
 	"firsttime_text": {
 		"message": "Hal pertama yang mungkin ingin Anda lakukan adalah menambahkan blog Anda. Silahkan tutup dialog ini dan klik 'Tambah Blog Baru' untuk memulai."
+	},
+	"text_get_started": {
+		"message": "Klik \"Tambah Blog Baru\" untuk memulai."
 	},
 	"entry_new_label": {
 		"message": "(baru)"
@@ -33,7 +42,13 @@
 		"message": "Tulisan berhasil dihapus"
 	},
 	"notification_blog_add": {
-		"message": "Blog Anda berhasil dimasukkan"
+		"message": "Blog Anda berhasil ditambahkan."
+	},
+	"notification_publish": {
+		"message": "Tulisan Anda berhasil diterbitkan."
+	},
+	"notification_publish_update": {
+		"message": "Tulisan Anda berhasil diperbaharui."
 	},
 	"action_openBlogInTab": {
 		"message": "Buka blog pada tab baru"
@@ -70,6 +85,9 @@
 	},
 	"action_editVisual": {
 		"message": "Pindah ke Editor Visual"
+	},
+	"action_category_add": {
+		"message": "Tambah Katehori"
 	},
 	"action_customField_add": {
 		"message": "Tambahkan Bidang Kustom"
@@ -169,6 +187,9 @@
 	"option_publish_month12": {
 		"message": "Des"
 	},
+	"label_blog": {
+		"message": "Blog"
+	},
 	"label_blog_type": {
 		"message": "Jenis Blog:"
 	},
@@ -183,12 +204,6 @@
 	},
 	"label_loginCredentials": {
 		"message": "Login Kredensial"
-	},
-	"label_username": {
-		"message": "Nama Pemakai"
-	},
-	"label_password": {
-		"message": "Kata Sandi"
 	},
 	"label_entry": {
 		"message": "Entri"
@@ -205,8 +220,14 @@
 	"label_excerpt": {
 		"message": "Kutipan:"
 	},
+	"label_categories": {
+		"message": "Kategori"
+	},
+	"label_tags": {
+		"message": "Tag"
+	},
 	"label_customFields": {
-		"message": "Kostum"
+		"message": "Bidang Kustom"
 	},
 	"label_publish": {
 		"message": "Terbitkan"
@@ -265,6 +286,18 @@
 				"content": "\n\n$1"
 			}
 		}
+	},
+	"error_api_noBlog": {
+		"message": "Tenang... Anda harus menambahkan blog dulu sebelum mengirim tulisan"
+	},
+	"error_api_noCategorySupport": {
+		"message": "Blog ini tidak mendukung penambahan kategori"
+	},
+	"error_api_noUploadSupport": {
+		"message": "Blog ini tidak mendukung upload file"
+	},
+	"error_api_cannotConnect": {
+		"message": "ScribeFire gagal tersambung ke blog Anda."
 	},
 	"header_video": {
 		"message": "Masukkan Video"

@@ -660,7 +660,7 @@
 		"message": "I will not place AdBull ads on sites that include pornographic or illegal content."
 	},
 	"text_adbull_tos_4": {
-		"message": "I certify that I have read and agree to <a href=\"http://www.adbull.com/terms\" target=\"_blank\">AdBull's Terms and Conditions</a>."
+		"message": "I certify that I have read and agree to <a href=\"http:\/\/www.adbull.com\/terms\" target=\"_blank\">AdBull's Terms and Conditions<\/a>."
 	},
 	"text_adbull_add_new_site": {
 		"message": "Add a new website to your AdBull account."
@@ -681,7 +681,7 @@
 		"message": "Options"
 	},
 	"settings_migrate": {
-		"message": "Import/Export"
+		"message": "Import\/Export"
 	},
 	"action_import": {
 		"message": "Import"
@@ -699,6 +699,6 @@
 		"message": "Settings and Data"
 	},
 	"button_migrate": {
-		"message": "Transfer your ScribeFire data to/from another computer."
+		"message": "Transfer your ScribeFire data to\/from another computer."
 	}
 }

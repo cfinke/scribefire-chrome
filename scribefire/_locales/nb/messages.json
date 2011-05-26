@@ -184,12 +184,6 @@
 	"label_loginCredentials": {
 		"message": "Brukerinfo"
 	},
-	"label_username": {
-		"message": "Brukernavn"
-	},
-	"label_password": {
-		"message": "Passord"
-	},
 	"label_entry": {
 		"message": "Oppføring"
 	},

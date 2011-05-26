@@ -187,12 +187,6 @@
 	"label_loginCredentials": {
 		"message": "Kimlik bilgileri"
 	},
-	"label_username": {
-		"message": "Kullanıcı adı"
-	},
-	"label_password": {
-		"message": "Şifre"
-	},
 	"label_entry": {
 		"message": "Giriş"
 	},

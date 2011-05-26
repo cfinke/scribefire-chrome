@@ -184,12 +184,6 @@
 	"label_loginCredentials": {
 		"message": "Login-oplysninger"
 	},
-	"label_username": {
-		"message": "Brugernavn"
-	},
-	"label_password": {
-		"message": "Password"
-	},
 	"label_entry": {
 		"message": "Indtastning"
 	},

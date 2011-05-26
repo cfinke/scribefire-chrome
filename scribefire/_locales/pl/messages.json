@@ -66,7 +66,7 @@
 		"message": "Dodaj nowy blog"
 	},
 	"action_next": {
-		"message": "Następny"
+		"message": "Dalej"
 	},
 	"action_cancel": {
 		"message": "Anuluj"
@@ -96,7 +96,7 @@
 		"message": "Zapisz postęp"
 	},
 	"action_publish": {
-		"message": "Opublikuj"
+		"message": "Publikuj"
 	},
 	"action_permalink_edit": {
 		"message": "Stały link (permalink)"
@@ -160,7 +160,7 @@
 		"message": "Posterous"
 	},
 	"option_publish_immediately": {
-		"message": "Opublikuj natychmiast"
+		"message": "Publikuj natychmiast"
 	},
 	"option_publish_month1": {
 		"message": "Sty"
@@ -216,12 +216,6 @@
 	"label_loginCredentials": {
 		"message": "Dane logowania"
 	},
-	"label_username": {
-		"message": "Nazwa"
-	},
-	"label_password": {
-		"message": "Hasło"
-	},
 	"label_entry": {
 		"message": "Wpis"
 	},
@@ -256,7 +250,7 @@
 		"message": "Nazwa:"
 	},
 	"error_header": {
-		"message": "Żem chyba coś zepsuł..."
+		"message": "Chyba coś się zepsuło..."
 	},
 	"error_post_delete": {
 		"message": "ScribeFire napotkał ten błąd, kiedy starał się skasować Twój wpis: $status$\n$msg$",
@@ -297,7 +291,7 @@
 		"message": "Wystąpił niespodziewany błąd."
 	},
 	"error_api_getBlogs": {
-		"message": "ScribeFire nie mógł pozyskać potrzebnych informacji o Twoim blogu, który zwrócił następujący błąd: $message$",
+		"message": "ScribeFire nie mógł uzyskać potrzebnych informacji o Twoim blogu, który zwrócił następujący błąd: $message$",
 		"placeholders": {
 			"message": {
 				"content": "\n\n$1"
@@ -471,7 +465,7 @@
 		"message": "$1 dni temu"
 	},
 	"confirm_not_saved": {
-		"message": "Czy jesteś pewien, że chcesz przełączyć wpisy? Obecna wersja wpisu nie została jeszcze zapisana.\n\n(Kliknij \"Zapisz\" na dole strony, by zapisać pr"
+		"message": "Czy jesteś pewien, że chcesz przełączyć wpisy? Obecna wersja wpisu nie została jeszcze zapisana.\n\n(Kliknij \"Zapisz\" na dole strony, by zapisać obecny wpis.)"
 	},
 	"zemanta_instructions": {
 		"message": "Wybierz artykuły, które chciałbyś załączyć do swojego wpisu:"

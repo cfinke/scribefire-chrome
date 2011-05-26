@@ -184,12 +184,6 @@
 	"label_loginCredentials": {
 		"message": "登录信息"
 	},
-	"label_username": {
-		"message": "用户名"
-	},
-	"label_password": {
-		"message": "密码"
-	},
 	"label_entry": {
 		"message": "输入"
 	},

@@ -116,12 +116,6 @@
 	"label_loginCredentials": {
 		"message": "ప్రవేశ వివరాలు"
 	},
-	"label_username": {
-		"message": "వాడుకరిపేరు"
-	},
-	"label_password": {
-		"message": "సంకేతపదం"
-	},
 	"label_entry": {
 		"message": "టపా"
 	},

@@ -216,12 +216,6 @@
 	"label_loginCredentials": {
 		"message": "Credenciales de Inicio Sesión"
 	},
-	"label_username": {
-		"message": "Nombre de Usuario"
-	},
-	"label_password": {
-		"message": "Contraseña"
-	},
 	"label_entry": {
 		"message": "Entrada"
 	},
@@ -517,9 +511,6 @@
 	},
 	"zemanta_introduction": {
 		"message": "Zemanta de ayuda a crear entradas de blog ricas en contenido al reconocer el tópico de la misma y sugerirte links útiles relacionados. Solo escribe tu entrada, haz clic en el icono de la barra Zemanta (tal como se muestra abajo en la imagen), y selecciona el articulo que desees enlazar."
-	},
-	"zemanta_loading_message": {
-		"message": "Por favor espere mientras ScribeFire obtiene artículos relacionados desde Zemanta..."
 	},
 	"action_continueEditing": {
 		"message": "Continuar editando esta entrada"

@@ -184,12 +184,6 @@
 	"label_loginCredentials": {
 		"message": "Inloggningsuppgifter:"
 	},
-	"label_username": {
-		"message": "Användarnamn"
-	},
-	"label_password": {
-		"message": "Lösenord"
-	},
 	"label_entry": {
 		"message": "Inlägg"
 	},

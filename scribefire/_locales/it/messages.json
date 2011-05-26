@@ -187,12 +187,6 @@
 	"label_loginCredentials": {
 		"message": "Credenziali di accesso"
 	},
-	"label_username": {
-		"message": "Nome Utente"
-	},
-	"label_password": {
-		"message": "Password"
-	},
 	"label_entry": {
 		"message": "Conferma"
 	},

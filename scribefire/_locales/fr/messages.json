@@ -213,12 +213,6 @@
 	"label_loginCredentials": {
 		"message": "Identifiants de connexion"
 	},
-	"label_username": {
-		"message": "Nom d'utilisateur"
-	},
-	"label_password": {
-		"message": "Mot de passe"
-	},
 	"label_entry": {
 		"message": "Entrée"
 	},
@@ -494,6 +488,9 @@
 	"zemanta_tracking_optin": {
 		"message": "Acceptez-vous que ScribeFire ajoute une image invisible à votre billet pour tracer les statistiques de l'utilisation de Zemanta? Vous ne verrez aucune différence et si vous refusez, la question ne sera plus posée."
 	},
+	"zemanta_tracking_yes": {
+		"message": "Oui, ScribeFire peut ajouter une image témoin aux billets quand j'utilise Zemanta."
+	},
 	"action_continueEditing": {
 		"message": "Continuer à éditer ce billet"
 	},
@@ -502,5 +499,11 @@
 	},
 	"action_hide": {
 		"message": "Masquer"
+	},
+	"label_genericQuestion": {
+		"message": "Voulez-vous :"
+	},
+	"label_promoted": {
+		"message": "(en vedette)"
 	}
 }

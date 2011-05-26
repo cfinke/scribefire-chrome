@@ -164,12 +164,6 @@
 	"label_loginCredentials": {
 		"message": "Διαπιστευτήρια εισόδου"
 	},
-	"label_username": {
-		"message": "Όνομα χρήστη"
-	},
-	"label_password": {
-		"message": "Κωδικός"
-	},
 	"label_entry": {
 		"message": "Είσοδος"
 	},
