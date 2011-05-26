@@ -25,6 +25,7 @@ var SF_ZEMANTA = {
 			postData += "&api_key="+SF_ZEMANTA.key;
 			postData += "&partner_id=sf-000014";
 			postData += "&format=json";
+			postData += "&interface=scribefire";
 			
 			var req = new XMLHttpRequest();
 			req.open("POST", "http://api.zemanta.com/services/rest/0.0/", true);
