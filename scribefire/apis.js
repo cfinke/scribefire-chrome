@@ -1991,7 +1991,7 @@ var posterousAPI = function () {
 	this.ui.categories = false;
 	this.ui.deleteEntry = true;
 	this.ui.timestamp = false;
-	this.ui.private = true;
+	this.ui.private = false; // until posterous fixes their bug
 	this.ui.upload = (platform == 'gecko');
 	this.ui.draft = false;
 	
