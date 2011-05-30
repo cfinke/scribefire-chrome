@@ -89,25 +89,30 @@ var XMLRPC_LIB = {
 		req.send(xml);
 	},
 	
-	makeXML : function(method, myParams, isAtom) {
-		if (!isAtom) {
-			var xml = '<methodCall>';
-			xml += '<methodName><![CDATA['+method+']]></methodName>';
+	/**
+	 * Generates an XML-RPC request body.
+	 * 
+	 * @param {String} method The XML-RPC method name.
+	 * @param {Array} [myParams] An array of parameters.
+	 * @returns {String} A string describing the XML request body.
+	 */
+	makeXML : function(method, myParams) {
+		var xml = '<methodCall>';
+		xml += '<methodName><![CDATA['+method+']]></methodName>';
+		
+		if (myParams) {
 			xml += '<params>';
 			
-			// i->0 is the URL
-			for (var i = 1; i < myParams.length; i++){
+			for (var i = 0, _len = myParams.length; i < _len; i++) {
 				xml += '<param><value>'+XMLRPC_LIB.convertToXML(myParams[i])+'</value></param>';
 			}
 			
 			xml += '</params>';
-			xml += '</methodCall>';
-			
-			var theBlogCharType = "UTF-8";
-			return '<?xml version="1.0" encoding="' + theBlogCharType + '" ?>' + "\n" +  xml;
 		}
 		
-		return 0;
+		xml += '</methodCall>';
+		
+		return '<?xml version="1.0" encoding="UTF-8" ?>' + "\n" +  xml;
 	},
 	
 	convertToXML : function (myParams) {
@@ -122,7 +127,7 @@ var XMLRPC_LIB = {
 		
 		switch (paramType) {
 			case "Number":
-				if (myParams == parseInt(myParams)) {
+				if (myParams == parseInt(myParams, 10)) {
 					paramTemp = "<int>" + myParams + "</int>";
 				}
 				else {
@@ -140,12 +145,14 @@ var XMLRPC_LIB = {
 					paramTemp = "<string><![CDATA[" + myParams + "]]></string>";
 				}
 			break;
-			case "Boolean"://0,1, true, false
+			case "Boolean":
 				paramTemp = "<boolean>" + myParams + "</boolean>";
 			break;
 			case "Date":
 				var theDate = XMLRPC_LIB.iso8601Format(myParams).toString();
+				
 				var theErrorString = "NaNNaNNaNTNaN:NaN:NaN";
+				
 				if (theDate != theErrorString) {
 					paramTemp = "<dateTime.iso8601>" + theDate + "Z</dateTime.iso8601>";
 				}
@@ -168,39 +175,21 @@ var XMLRPC_LIB = {
 				
 				for (x in myParams) {
 					if (typeof myParams[x] != 'undefined') {
-						if (myParams[x].constructor.name == 'String') {
-							if (x == "bits") {
-								tempVal += "<member><name>" + x + "</name><value><base64>" +myParams[x] + "</base64></value></member>";
-							}
-							else{
-								tempVal += "<member><name>" + x + "</name><value>" +XMLRPC_LIB.convertToXML(myParams[x]) + "</value></member>";
-							}
-						}
-						else if (myParams[x].constructor.name == 'Date') {
-							var theDate = XMLRPC_LIB.iso8601Format(myParams[x]).toString();
-							var theErrorString = "NaNNaNNaNTNaN:NaN:NaN";
-							if (theDate != theErrorString) {
-								tempVal += "<member><name>" + x + "</name><value><dateTime.iso8601>" + theDate + "Z</dateTime.iso8601></value></member>";
-							}
-							else {
-								tempVal += "<member><name>" + x + "</name><value><dateTime.iso8601></dateTime.iso8601></value></member>";
-							}
-						}
-						else if (myParams[x].constructor.name == 'Number') {
-							if (myParams[x] == parseInt(myParams[x])) {
-								tempVal += "<member><name>" + x + "</name><value><int>"  +XMLRPC_LIB.convertToXML(myParams[x]) + "</int></value></member>";
-							}
-							else {
-								tempVal += "<member><name>" + x + "</name><value><double>" + XMLRPC_LIB.convertToXML(myParams[x]) + "</double></value></member>";
-							}
+						tempVal += "<member><name><![CDATA[" + x + "]]></name><value>";
+						
+						if (myParams[x].constructor.name == 'String' && x === "bits") {
+							tempVal += "<base64>" + myParams[x] + "</base64>";
 						}
 						else {
-							tempVal += "<member><name>" + x + "</name><value>" +XMLRPC_LIB.convertToXML(myParams[x]) + "</value></member>";
+							tempVal += XMLRPC_LIB.convertToXML(myParams[x]);
 						}
+						
+						tempVal += "</value></member>";
 					}
 				}
 				
 				tempVal += "</struct>";
+				
 				paramTemp = tempVal;
 			break;
 			default:

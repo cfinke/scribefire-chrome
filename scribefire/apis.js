@@ -164,7 +164,7 @@ var genericMetaWeblogAPI = function () {
 			params.id = "0";
 		}
 		
-		var args = [params.apiUrl, params.id, params.username, params.password];
+		var args = [params.id, params.username, params.password];
 		var xml = performancingAPICalls.blogger_getUsersBlogs(args);
 		
 		XMLRPC_LIB.doCommand(
@@ -210,7 +210,7 @@ var genericMetaWeblogAPI = function () {
 		
 		if (!("limit" in params)) params.limit = 100;
 		
-		var args = [this.apiUrl, this.id, this.username, this.password, params.limit];
+		var args = [this.id, this.username, this.password, params.limit];
 		
 		var xml = performancingAPICalls.metaWeblog_getRecentPosts(args);
 		
@@ -267,7 +267,7 @@ var genericMetaWeblogAPI = function () {
 					// success(rv);
 					
 					if (self.ui.pages) {
-						var args = [self.apiUrl, self.id, self.username, self.password, params.limit];
+						var args = [self.id, self.username, self.password, params.limit];
 						var xml = performancingAPICalls.wp_getPages(args);
 						
 						XMLRPC_LIB.doCommand(
@@ -409,11 +409,11 @@ var genericMetaWeblogAPI = function () {
 		}
 
 		if (("id" in params) && params.id) {
-			var args = [this.apiUrl, params.id, this.username, this.password, contentStruct, publish];
+			var args = [params.id, this.username, this.password, contentStruct, publish];
 			var xml = performancingAPICalls.metaWeblog_editPost(args);
 		}
 		else {
-			var args = [this.apiUrl, this.id, this.username, this.password, contentStruct, publish];
+			var args = [this.id, this.username, this.password, contentStruct, publish];
 			var xml = performancingAPICalls.metaWeblog_newPost(args);
 		}
 		
@@ -443,7 +443,7 @@ var genericMetaWeblogAPI = function () {
 	};
 	
 	this.doDeletePost = function (params, success, failure) {
-		var args = [this.apiUrl, "0123456789ABCDEF", params.id, this.username, this.password, true];
+		var args = ["0123456789ABCDEF", params.id, this.username, this.password, true];
 		var xml = performancingAPICalls.blogger_deletePost(args);
 
 		XMLRPC_LIB.doCommand(
@@ -465,7 +465,7 @@ var genericMetaWeblogAPI = function () {
 	this.upload = function (fileName, fileType, fileData, success, failure) {
 		var bits = btoa(fileData);
 		
-		var args = [this.apiUrl, this.id, this.username, this.password, { name : fileName, type : fileType, bits : bits } ];
+		var args = [this.id, this.username, this.password, { name : fileName, type : fileType, bits : bits } ];
 		var xml = performancingAPICalls.metaWeblog_newMediaObject(args);
 		
 		XMLRPC_LIB.doCommand(
@@ -561,7 +561,7 @@ var genericMovableTypeAPI = function () {
 	};
 	
 	this.getCategories = function (params, success, failure) {
-		var args = [this.apiUrl, this.id, this.username, this.password];
+		var args = [this.id, this.username, this.password];
 		var xml = performancingAPICalls.mt_getCategoryList(args);
 		
 		XMLRPC_LIB.doCommand(
@@ -595,7 +595,7 @@ var genericMovableTypeAPI = function () {
 			categories.push({"categoryId" : params.categories[i]});
 		}
 		
-		var args = [this.apiUrl, params.id, this.username, this.password, categories];
+		var args = [params.id, this.username, this.password, categories];
 		
 		var xml = performancingAPICalls.mt_setPostCategories(args);
 		
@@ -617,7 +617,7 @@ var genericMovableTypeAPI = function () {
 	};
 	
 	this.getPostCategories = function (params, success, failure) {
-		var args = [this.apiUrl, params.id, this.username, this.password];
+		var args = [params.id, this.username, this.password];
 		var xml = performancingAPICalls.mt_getPostCategories(args);
 		
 		XMLRPC_LIB.doCommand(
@@ -643,7 +643,7 @@ var genericMovableTypeAPI = function () {
 	};
 	
 	this.publishPost = function (params, success, failure) {
-		var args = [this.apiUrl, params.id, this.username, this.password];
+		var args = [params.id, this.username, this.password];
 		
 		var xml = performancingAPICalls.mt_publishPost(args);
 		
@@ -726,11 +726,11 @@ var wordpressAPI = function () {
 			}
 
 			if (("id" in params) && params.id) {
-				var args = [this.apiUrl, params.id, this.username, this.password, contentStruct, publish];
+				var args = [params.id, this.username, this.password, contentStruct, publish];
 				var xml = performancingAPICalls.metaWeblog_editPost(args);
 			}
 			else {
-				var args = [this.apiUrl, this.id, this.username, this.password, contentStruct, publish];
+				var args = [this.id, this.username, this.password, contentStruct, publish];
 				var xml = performancingAPICalls.wp_newPage(args);
 			}
 		
@@ -757,7 +757,7 @@ var wordpressAPI = function () {
 	};
 	
 	this.getBlogs = function (params, success, failure) {
-		var args = [params.apiUrl, params.username, params.password];
+		var args = [params.username, params.password];
 		var xml = performancingAPICalls.wp_getUsersBlogs(args);
 		
 		XMLRPC_LIB.doCommand(
@@ -799,7 +799,7 @@ var wordpressAPI = function () {
 	};
 	
 	this.getCategories = function (params, success, failure) {
-		var args = [this.apiUrl, this.id, this.username, this.password];
+		var args = [this.id, this.username, this.password];
 		var xml = performancingAPICalls.mt_getCategoryList(args);
 		
 		XMLRPC_LIB.doCommand(
@@ -827,7 +827,7 @@ var wordpressAPI = function () {
 	};
 	
 	this.addCategory = function (params, success, failure) {
-		var args = [this.apiUrl, this.id, this.username, this.password, { name : params.name } ];
+		var args = [this.id, this.username, this.password, { name : params.name } ];
 		var xml = performancingAPICalls.wp_newCategory(args);
 		
 		XMLRPC_LIB.doCommand(
@@ -851,7 +851,7 @@ var wordpressAPI = function () {
 			this.doDeletePost(params, success, failure);
 		}
 		else {
-			var args = [this.apiUrl, params.id, this.username, this.password, params.id];
+			var args = [params.id, this.username, this.password, params.id];
 			var xml = performancingAPICalls.wp_deletePage(args);
 
 			XMLRPC_LIB.doCommand(

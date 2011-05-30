@@ -81,6 +81,31 @@
 					equal(resolveHref("http://google.com/xxx/yyy/", "abc/def/ghi"), "http://google.com/xxx/yyy/abc/def/ghi");
 					equal(resolveHref("http://google.com/xxx/yyy", "/abc/def/ghi"), "http://google.com/abc/def/ghi");
 				});
+				
+				test("xmlrpc.convertToXML", function () {
+					equal(XMLRPC_LIB.convertToXML("def"), "<string><![CDATA[def]]></string>");
+					
+					// @todo Check support. equal(XMLRPC_LIB.convertToXML(true), "<boolean>1</boolean>");
+					// @todo Check support. equal(XMLRPC_LIB.convertToXML(false), "<boolean>0</boolean>");
+					
+					var date = new Date();
+					date.setTime(5000);
+					
+					equal(XMLRPC_LIB.convertToXML(date), "<dateTime.iso8601>19700101T00:00:05Z</dateTime.iso8601>");
+					equal(XMLRPC_LIB.convertToXML(123), "<int>123</int>");
+					equal(XMLRPC_LIB.convertToXML(0), "<int>0</int>");
+					equal(XMLRPC_LIB.convertToXML(-4), "<int>-4</int>");
+					equal(XMLRPC_LIB.convertToXML(12.4), "<double>12.4</double>");
+					equal(XMLRPC_LIB.convertToXML(-12.4), "<double>-12.4</double>");
+					equal(XMLRPC_LIB.convertToXML([ 1, "2", 3.5, date ]), "<array><data><value><int>1</int></value><value><string><![CDATA[2]]></string></value><value><double>3.5</double></value><value><dateTime.iso8601>19700101T00:00:05Z</dateTime.iso8601></value></data></array>");
+					equal(XMLRPC_LIB.convertToXML([ 1, [ 5 ]]), "<array><data><value><int>1</int></value><value><array><data><value><int>5</int></value></data></array></value></data></array>");
+					equal(XMLRPC_LIB.convertToXML({ "a" : 4, "b" : "thirty" }), "<struct><member><name><![CDATA[a]]></name><value><int>4</int></value></member><member><name><![CDATA[b]]></name><value><string><![CDATA[thirty]]></string></value></member></struct>");
+				});
+				
+				test("xmlrpc.makeXML", function () {
+					equal(XMLRPC_LIB.makeXML("abc"), '<?xml version="1.0" encoding="UTF-8" ?>' + "\n" + '<methodCall><methodName><![CDATA[abc]]></methodName></methodCall>');
+					equal(XMLRPC_LIB.makeXML("abc", [ "def" ]), '<?xml version="1.0" encoding="UTF-8" ?>' + "\n" + '<methodCall><methodName><![CDATA[abc]]></methodName><params><param><value><string><![CDATA[def]]></string></value></param></params></methodCall>');
+				});
 			}
 				
 		</script>
