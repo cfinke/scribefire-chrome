@@ -94,6 +94,7 @@ function xmlFromRequest(req) {
 /**
  * Returns the class name of the argument or undefined if it's not a valid JavaScript object.
  * 
+ * @todo Write tests.
  * @param {Object} An object.
  * @returns {String} The class name of the object.
  */
@@ -109,6 +110,12 @@ function getObjectClass(obj) {
 	return undefined;
 }
 
+/**
+ * Checks whether placeholder="" support exists here.
+ * 
+ * @todo Write tests.
+ * @returns {Boolean}
+ */
 function supports_input_placeholder() {
 	var i = document.createElement('input');
 	return 'placeholder' in i;

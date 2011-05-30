@@ -1,15 +1,3 @@
-function childNodes(xml) {
-	var nodes = [];
-	
-	for (var i = 0; i < xml.childNodes.length; i++) {
-		if (xml.childNodes[i].get(0).nodeName != "#text") {
-			nodes.push(xml.childNodes[i]);
-		}
-	}
-	
-	return nodes;
-}
-	
 var XMLRPC_LIB = {
 	doCommand : function (apiUrl, xml, callback, callbackFailure) {
 		var req = new XMLHttpRequest();
