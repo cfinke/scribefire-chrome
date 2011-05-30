@@ -115,6 +115,13 @@ var XMLRPC_LIB = {
 		return '<?xml version="1.0" encoding="UTF-8" ?>' + "\n" +  xml;
 	},
 	
+	/**
+	 * Converts a piece of data to an XML-RPC format XML node.
+	 *
+	 * @see http://en.wikipedia.org/wiki/XML-RPC
+	 * @param {Mixed} myParams Some data.
+	 * @returns {String} A string representation of the XML for sending myParams as an XML-RPC member.
+	 */
 	convertToXML : function (myParams) {
 		try {
 			var paramType = myParams.constructor.name;
@@ -151,10 +158,10 @@ var XMLRPC_LIB = {
 			case "Date":
 				var theDate = XMLRPC_LIB.iso8601Format(myParams).toString();
 				
-				var theErrorString = "NaNNaNNaNTNaN:NaN:NaN";
+				var theErrorString = "NaNNaNNaNTNaN:NaN:NaNZ";
 				
 				if (theDate != theErrorString) {
-					paramTemp = "<dateTime.iso8601>" + theDate + "Z</dateTime.iso8601>";
+					paramTemp = "<dateTime.iso8601>" + theDate + "</dateTime.iso8601>";
 				}
 				else {
 					paramTemp = "<dateTime.iso8601></dateTime.iso8601>";
@@ -311,6 +318,12 @@ var XMLRPC_LIB = {
 		}
 	},
 	
+	/**
+	 * Converts a date object to an ISO 8601 format string.
+	 * 
+	 * @param {Date} date A date object.
+	 * @returns {String} The string representation of date.
+	 */
 	iso8601Format : function (date) {
 		var datetime = date.getUTCFullYear();
 		var month = String(date.getUTCMonth() + 1);
@@ -328,11 +341,8 @@ var XMLRPC_LIB = {
 		var seconds = date.getUTCSeconds();
 		datetime += (seconds < 10 ? '0' + seconds : seconds);
 		
+		datetime += "Z";
+		
 		return datetime;
-	},
-	
-	makePingXML : function (theMethodName, theBlogName, theBlogURL) {
-		var thePingXML = '<methodCall><methodName><![CDATA['+theMethodName+']]></methodName><params><param><value><![CDATA['+theBlogName+']]></value></param><param><value><![CDATA['+theBlogURL+']]></value></param></params></methodCall>';
-		return '<?xml version="1.0"?>' + "\n" + thePingXML;
 	}
 };

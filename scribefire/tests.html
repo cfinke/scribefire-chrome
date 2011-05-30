@@ -106,6 +106,21 @@
 					equal(XMLRPC_LIB.makeXML("abc"), '<?xml version="1.0" encoding="UTF-8" ?>' + "\n" + '<methodCall><methodName><![CDATA[abc]]></methodName></methodCall>');
 					equal(XMLRPC_LIB.makeXML("abc", [ "def" ]), '<?xml version="1.0" encoding="UTF-8" ?>' + "\n" + '<methodCall><methodName><![CDATA[abc]]></methodName><params><param><value><string><![CDATA[def]]></string></value></param></params></methodCall>');
 				});
+				
+				test("xmlrpc.XMLToObject", function () {
+//					equal(XMLRPC_LIB.XMLToObject(
+				});
+				
+				test("xmlrpc.iso8601Format", function () {
+					var date = new Date();
+					date.setTime(5000);
+					
+					equal(XMLRPC_LIB.iso8601Format(date), "19700101T00:00:05Z");
+					
+					date.setTime(-10000);
+					
+					equal(XMLRPC_LIB.iso8601Format(date), "19691231T23:59:50Z");
+				});
 			}
 				
 		</script>
