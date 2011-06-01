@@ -207,6 +207,14 @@ var XMLRPC_LIB = {
 		return paramTemp;
 	},
 	
+	/**
+	 * Converts an XML-RPC response into a JavaScript object.
+	 * 
+	 * @param {Element} node The root element.
+	 * @param {String} nodeName the name of the node, for when it's not available via node.
+	 * @returns {Mixed} The Javascript object representation of the node.
+	 */
+	
 	XMLToObject : function (node, nodeName) {
 		var jNode = $(node);
 		var node = jNode.get(0);
@@ -214,10 +222,10 @@ var XMLRPC_LIB = {
 		switch (node.nodeName.toString().toLowerCase()) {
 			case 'int':
 			case 'i4':
-				return parseInt(jNode.text());
+				return parseInt(jNode.text(), 10);
 			break;
 			case 'boolean':
-				return (parseInt(jNode.text()) == 1);
+				return (parseInt(jNode.text(), 10) == 1);
 			break;
 			case 'string':
 				return (jNode.text());

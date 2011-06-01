@@ -108,7 +108,18 @@
 				});
 				
 				test("xmlrpc.XMLToObject", function () {
-//					equal(XMLRPC_LIB.XMLToObject(
+					deepEqual(XMLRPC_LIB.XMLToObject($("<int>01234</int>")), 1234);
+					deepEqual(XMLRPC_LIB.XMLToObject($("<int>567</int>")), 567);
+					deepEqual(XMLRPC_LIB.XMLToObject($("<i4>01234</i4>")), 1234);
+					deepEqual(XMLRPC_LIB.XMLToObject($("<i4>567</i4>")), 567);
+					deepEqual(XMLRPC_LIB.XMLToObject($("<boolean>1</boolean>")), true);
+					deepEqual(XMLRPC_LIB.XMLToObject($("<boolean>0</boolean>")), false);
+					deepEqual(XMLRPC_LIB.XMLToObject($("<foo>true</foo>")), undefined);
+					deepEqual(XMLRPC_LIB.XMLToObject($("<string>hello there</string>")), "hello there");
+					deepEqual(XMLRPC_LIB.XMLToObject($("<double>567</double>")), 567);
+					deepEqual(XMLRPC_LIB.XMLToObject($("<double>567.435555</double>")), 567.435555);
+					deepEqual(XMLRPC_LIB.XMLToObject($("<struct><member><name>abc</name><value><int>123</int></value></member><member><name>def</name><value><double>456.7</double></value></member></struct>")), { "abc" : 123, "def" : 456.7 });
+					deepEqual(XMLRPC_LIB.XMLToObject($("<array><data><value><int>123</int></value><value><double>15.2</double></value><value><string>hi there</string></value></data></array>")), [ 123, 15.2, "hi there" ]);
 				});
 				
 				test("xmlrpc.iso8601Format", function () {
