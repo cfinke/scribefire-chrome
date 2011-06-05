@@ -5,6 +5,7 @@
 		<link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/qunit/git/qunit.js"></script>
+		<script type="text/javascript" src="tests.config.js"></script>
 		<script type="text/javascript">
 			if (typeof opera != "undefined") {
 				var platform = "presto";
@@ -47,6 +48,8 @@
 		
 		<script type="text/javascript">
 			function run() {
+				module("util.js");
+				
 				test("util.pad", function () {
 					deepEqual(pad(4), "04");
 					deepEqual(pad(10), "10");
@@ -81,6 +84,8 @@
 					equal(resolveHref("http://google.com/xxx/yyy/", "abc/def/ghi"), "http://google.com/xxx/yyy/abc/def/ghi");
 					equal(resolveHref("http://google.com/xxx/yyy", "/abc/def/ghi"), "http://google.com/abc/def/ghi");
 				});
+				
+				module("xmlrpc.js");
 				
 				test("xmlrpc.convertToXML", function () {
 					equal(XMLRPC_LIB.convertToXML("def"), "<string><![CDATA[def]]></string>");
@@ -132,6 +137,269 @@
 					
 					equal(XMLRPC_LIB.iso8601Format(date), "19691231T23:59:50Z");
 				});
+				
+				module("getBlogMetaData");
+				
+				test("scribefire.getBlogMetaData => wordpress.com", function () {
+					stop();
+					
+					SCRIBEFIRE.getBlogMetaData(
+						"foo.wordpress.com", 
+						function success(data) { 
+							equal(data.url, "http://foo.wordpress.com/");
+							equal(data.type, "wordpress");
+							equal(data.apiUrl, "http://wordpress.com/xmlrpc.php");
+							start();
+						}, 
+						function failure(msg) { 
+							ok(false, msg);
+							start();
+						}
+					);
+				});
+				
+				test("scribefire.getBlogMetaData => tumblr", function () {
+					stop();
+					
+					SCRIBEFIRE.getBlogMetaData(
+						"http://foo.tumblr.com", 
+						function success(data) {
+							equal(data.url, "http://foo.tumblr.com/");
+							equal(data.type, "tumblr");
+							equal(data.apiUrl, "http://www.tumblr.com/api");
+							start();
+						}, 
+						function failure(msg) { 
+							ok(false, msg);
+							start();
+						}
+					);
+				});
+				
+				test("scribefire.getBlogMetaData => posterous", function () {
+					stop();
+					
+					SCRIBEFIRE.getBlogMetaData(
+						"foo.posterous.com/", 
+						function success(data) { 
+							equal(data.url, "http://foo.posterous.com/");
+							equal(data.type, "posterous");
+							equal(data.apiUrl, "http://posterous.com/api");
+							start();
+						}, 
+						function failure(msg) { 
+							ok(false, msg);
+							start();
+						}
+					);
+				});
+				
+				test("scribefire.getBlogMetaData => xanga", function () {
+					stop();
+					
+					SCRIBEFIRE.getBlogMetaData(
+						"foo.xanga.com/", 
+						function success(data) { 
+							equal(data.url, "http://foo.xanga.com/");
+							equal(data.type, "metaweblog");
+							equal(data.apiUrl, "http://api.xanga.com/metaweblogapi");
+							equal(data.id, 1);
+							start();
+						}, 
+						function failure(msg) { 
+							ok(false, msg);
+							start();
+						}
+					);
+				});
+				
+				test("scribefire.getBlogMetaData => wordpress.org", function () {
+					stop();
+					
+					SCRIBEFIRE.getBlogMetaData(
+						"chrisfinke.com", 
+						function success(data) { 
+							equal(data.url, "http://chrisfinke.com/");
+							equal(data.type, "wordpress");
+							equal(data.apiUrl, "http://www.chrisfinke.com/xmlrpc.php");
+							start();
+						}, 
+						function failure(msg) { 
+							ok(false, msg);
+							start();
+						}
+					);
+				});
+				
+				test("scribefire.getBlogMetaData => blogger", function () {
+					stop();
+					
+					SCRIBEFIRE.getBlogMetaData(
+						"http://mywifeandyourmom.blogspot.com", 
+						function success(data) { 
+							equal(data.url, "http://mywifeandyourmom.blogspot.com/");
+							equal(data.type, "blogger");
+							deepEqual(data.atomAPIs, { "service.post" : "http://www.blogger.com/feeds/5123683377216095177/posts/default", "service.feed" : "http://www.blogger.com/feeds/5123683377216095177/posts/default" });
+							equal(data.apiUrl, "http://www.blogger.com/feeds/5123683377216095177/posts/default");
+							start();
+						}, 
+						function failure(msg) { 
+							ok(false, msg);
+							start();
+						}
+					);
+				});
+				
+				module("publish");
+				
+				if (typeof passwords != 'undefined' && document.location.href.indexOf("publish") != -1) {
+					var postTemplates = {
+						"published" : {
+							title : now.getTime().toString(),
+							content : "The timestamp is now " + now.getTime(),
+							tags : "tag1, tag2, tag3",
+							draft : false,
+							//categories : ["cat1", "cat2"],
+							slug : "this-is-the-slug-" + now.getTime(),
+							"private" : false,
+							type : "posts"
+						},
+						"draft" : {
+							title : now.getTime().toString(),
+							content : "The timestamp is now " + now.getTime(),
+							tags : "",
+							draft : true,
+							//categories : ["cat1", "cat2"],
+							slug : "this-is-the-slug-" + now.getTime(),
+							"private" : true,
+							type : "posts"
+						}
+					};
+					
+					for (var aService in passwords) {
+						for (postKey in postTemplates) {
+							(function (service, originalPost) {
+								test("api." + service + ".publish", function () {
+									stop();
+								
+									var api = getBlogAPI(passwords[service].type, passwords[service].apiUrl);
+									api.init(passwords[service]);
+								
+									var thePostID = null;
+									var thePost = null;
+								
+									var now = new Date();
+								
+									var originalPost = {
+										title : now.getTime().toString(),
+										content : "The timestamp is now " + now.getTime(),
+										tags : "tag1, tag2, tag3",
+										draft : false,
+										//categories : ["cat1", "cat2"],
+										slug : "this-is-the-slug-" + now.getTime(),
+										"private" : false,
+										type : "posts"
+									};
+								
+									var now = new Date();
+								
+									api.publish(originalPost, 
+										function (data) {
+											ok("id" in data && data.id, "Publish returned an ID.");
+											
+											thePostID = data.id;
+										
+											api.getPosts({}, function (data) {
+												if (typeof data == 'object' && "Posts" in data) data = data.Posts;
+											
+												for (var i = 0, _len = data.length; i < _len; i++) {
+													var post = data[i];
+												
+													if (post.id == thePostID) {
+														thePost = post;
+														thePost.type = originalPost.type;
+														break;
+													}
+												}
+											
+												if (api.ui.getPosts) {
+													ok(thePost, "Found the published post in the list of recent posts.");
+												}
+												else {
+													thePost = originalPost;
+													thePost.id = thePostID;
+													thePost.published = !originalPost.draft;
+												}
+											
+												if (thePost) {
+													/*
+													if (api.ui.categories) {
+														if (!("categories" in thePost)) {
+															ok(false, "Categories missing from post.");
+														}
+														else {
+															equal(thePost.categories.length, originalPost.categories.length, "Number of categories");
+														}
+													}
+													*/
+													if (api.ui.draft) {
+														equal(thePost.published, !originalPost.draft, "Draft status");
+													}
+												
+													if (api.ui.tags) {
+														equal(thePost.tags, originalPost.tags, "Tags");
+													}
+												
+													if (api.ui.slug) {
+														equal(thePost.slug, originalPost.slug, "Slug");
+													}
+												
+													equal(thePost.title, originalPost.title, "Title");
+													ok(thePost.content == originalPost.content || ("<p>" + originalPost.content + "</p>") == thePost.content, "Content");
+												
+													var now = new Date();
+										
+													thePost.content = "The timestamp is *now* " + now.getTime();
+										
+													api.publish(thePost, 
+														function (data) {
+															ok("id" in data && data.id, "The edit returned an ID.");
+											
+															// @todo Check that this was saved successfully.
+															api.deletePost(thePost, function (data) {
+																ok(true, "Post deleted.");
+																start();
+															},
+															function (data) {
+																ok(false, "Post not deleted.");
+																start();
+															});
+														},
+														function (data) {
+															ok(false, data.msg);
+															start();
+														}
+													);
+												}
+												else {
+													start();
+												}
+											},
+											function (data) {
+												ok(false, data.msg);
+												start();
+											});
+										},
+										function (data) {
+											ok(false, data.msg);
+											start();
+										}
+									);
+								});
+							})(aService, postTemplates[postKey]);
+						}
+					}
+				}
 			}
 				
 		</script>
