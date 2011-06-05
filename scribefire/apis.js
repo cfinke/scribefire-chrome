@@ -57,6 +57,7 @@ var blogAPI = function () {
 	this.ui["custom-fields"] = false;
 	this.ui.excerpt = false;
 	this.ui.pages = false;
+	this.ui.getPosts = true;
 };
 
 blogAPI.prototype = {
@@ -154,7 +155,7 @@ var genericMetaWeblogAPI = function () {
 
 	this.ui.categories = false;
 	this.ui.timestamp = true;
-	this.ui.slug = true;
+	this.ui.tags = false;
 	this.ui.upload = !!((platform == 'gecko') || (window.File && window.FileReader && window.FileList && window.Blob));
 	
 	this.getBlogs = function (params, success, failure) {
@@ -443,9 +444,9 @@ var genericMetaWeblogAPI = function () {
 	};
 	
 	this.doDeletePost = function (params, success, failure) {
-		var args = ["0123456789ABCDEF", params.id, this.username, this.password, true];
+		var args = ["0123456789ABCDEF", params.id, this.username, this.password, "bool1"];
 		var xml = performancingAPICalls.blogger_deletePost(args);
-
+		
 		XMLRPC_LIB.doCommand(
 			this.apiUrl,
 			xml,
@@ -1061,13 +1062,15 @@ var genericAtomAPI = function () {
 			body += '<id>'+params.id+'</id>';
 		}
 		
-		var title = params.title;
+		if ("title" in params) {
+			body += '<title><![CDATA[' + params.title + ']]></title>';
+		}
 		
-		body += '<title><![CDATA[' + title + ']]></title>';
-		
-		for (var i = 0; i < params.categories.length; i++) {
-			// Not all Atom APIs will respect this.
-			body += '<category scheme="http://www.blogger.com/atom/ns#" term="'+params.categories[i].replace(/&/g,'&amp;')+'"/>';
+		if ("categories" in params) {
+			for (var i = 0; i < params.categories.length; i++) {
+				// Not all Atom APIs will respect this.
+				body += '<category scheme="http://www.blogger.com/atom/ns#" term="'+params.categories[i].replace(/&/g,'&amp;')+'"/>';
+			}
 		}
 		
 		if ("timestamp" in params && params.timestamp) {
@@ -1076,14 +1079,11 @@ var genericAtomAPI = function () {
 			body += '<published>' + date.getUTCFullYear() + "-" + pad(date.getUTCMonth() + 1) + "-" + pad(date.getUTCDate()) + "T" + pad(date.getUTCHours()) + ":" + pad(date.getUTCMinutes()) + ":00.000Z" + '</published>';
 		}
 		
-		body += '<content type="html"><![CDATA['
-		
-		var content = params.content;
-		
-		body += content;
-		body += ']]></content>';
-		
-		if (params.draft) {
+		if ("content" in params) {
+			body += '<content type="html"><![CDATA[' + params.content + ']]></content>';
+		}
+
+		if ("draft" in params && params.draft) {
 			body += '<app:control>';
 				body += '<app:draft>yes</app:draft>';
 			body += '</app:control>';
@@ -1113,6 +1113,11 @@ var genericAtomAPI = function () {
 							var jxml = $(xml);
 							
 							var postId = jxml.find("id:first").text();//.split(".post-")[1];
+							
+							if (!postId && params.id) {
+								postId = params.id;
+							}
+							
 							success({ "id": postId });
 						}
 						else {
@@ -1746,6 +1751,14 @@ var tumblrAPI = function () {
 	this.ui.slug = true;
 	this.ui.private = true;
 	
+	this.init = function (blogObject) {
+		for (x in blogObject) {
+			this[x] = blogObject[x];
+		}
+		
+		this.ui.getPosts = !this.isPrivate;
+	};
+	
 	this.getBlogs = function (params, success, failure) {
 		var url = "http://www.tumblr.com/api/authenticate";
 		
@@ -1822,10 +1835,11 @@ var tumblrAPI = function () {
 		if (!("limit" in params)) params.limit = 50;
 		
 		if (this.isPrivate) {
-			var url = this.url;
+			success([]);
+			return;
 		}
 		else {
-			var url = this.url + "api/read/xml";//?start=0&num="+params.limit+"&type=regular";
+			var url = this.url + "api/read";//?start=0&num="+params.limit+"&type=regular";
 		}
 		
 		var args = {};
@@ -1893,7 +1907,13 @@ var tumblrAPI = function () {
 		args.email = this.username;
 		args.password = this.password;
 		args.generator = "ScribeFire";
-		args.group = this.url.split("//")[1].split("/")[0];
+		
+		if (!this.isPrivate) {
+			args.group = this.url.split("//")[1].split("/")[0];
+		}
+		else {
+			args.group = this.id;
+		}
 		
 		args.tags = params.tags;
 		args.type = 'regular';
