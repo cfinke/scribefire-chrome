@@ -787,9 +787,22 @@ var SCRIBEFIRE = {
 		return api;
 	},
 	
+	/**
+	 * Given a URL, retrieve any discoverable metadata about the blog's publishing system.
+	 *
+	 * @param {String} url The URL of the blog.
+	 * @param {Function} callbackSuccess The function to call if no errors occur.
+	 * @param {Function} callbackFailure The function to call if an error occurs.
+	 */
+	
 	getBlogMetaData : function (url, callbackSuccess, callbackFailure) {
 		if (!url.match(/^https?:\/\//)) {
 			url = "http://" + url;
+		}
+		
+		if (url.indexOf("/", url.indexOf("://") + 3) == -1) {
+			// Add a trailing slash to domain-only URLs
+			url += "/";
 		}
 		
 		var parsed = parseUri(url);
@@ -838,7 +851,7 @@ var SCRIBEFIRE = {
 						var atomAPIs = {};
 						
 						if (linkTags) {
-							for (var i = 0; i < linkTags.length; i++) {
+							for (var i = 0, _len = linkTags.length; i < _len; i++) {
 								var link = $(linkTags[i]);
 								
 								if (link.attr("rel").match(/^service\./i) && link.attr("type") == 'application/atom+xml') {
@@ -1608,6 +1621,181 @@ var SCRIBEFIRE = {
 			
 			$.facebox(container);
 		}
+	}
+};
+
+var SCRIBEFIRE_ACCOUNT_WIZARD = {
+	accountWizardBlog : {},
+	
+	add : function () {
+		SCRIBEFIRE_ACCOUNT_WIZARD.accountWizardBlog = {};
+
+		$.facebox($("#dialog-blog-add"));
+
+		$("#text-blog-url").die("change").live("change", function () {
+			$("#label-add-blog-url").text($(this).val());
+		});
+
+		$("#text-blog-api-url").die("change").live("change", function () {
+			$("#label-add-blog-apiurl").text($(this).val());
+		});
+
+		$("#text-addblog-id").die("change").live("change", function () {
+			$("#label-add-blog-blogid").text($(this).val());
+		});
+
+		$("#button-blog-urlcheck").die("click").live("click", function (e) {
+			var button = $(this);
+
+			button.addClass("busy");
+
+			$("#list-blog-types").val("").change();
+			$("#text-blog-api-url").val("").change();
+//			$("#text-blog-username").val("");
+//			$("#text-blog-password").val("");
+//			$("#text-addblog-id").val("").change();
+
+			SCRIBEFIRE.getBlogMetaData(
+				$("#text-blog-url").val(),
+				function (metaData) {
+					button.removeClass("busy");
+
+					$("#text-add-blog-id-container").hide();
+
+					SCRIBEFIRE_ACCOUNT_WIZARD.accountWizardBlog = metaData;
+
+					$("#list-blog-types").val(metaData.type).change();
+					$("#list-blog-types").removeAttr("disabled");
+
+					$("#text-blog-api-url").val(metaData.apiUrl).change();
+					$("#text-blog-api-url").removeAttr("disabled");
+
+					if (metaData.id) {
+						$("#text-addblog-id").val(metaData.id).change();
+					}
+					else {
+						$("#text-addblog-id").val("").change();
+					}
+
+					$("#dialog-blog-add .step-2 *[disabled]").removeAttr("disabled");
+
+					$("#dialog-blog-add .step-2 .subbar").each(function () {
+						if (!$(this).attr("open") == "true") {
+							$(this).click();
+						}
+					});
+
+					// Collapse the URL container
+					// Collapse the blog type container
+					// Collapse the API URL container.
+					$("#bar-add-blog-url, #bar-add-blog-type, #bar-add-blog-apiurl").each(function () {
+						if ($(this).attr("open") == "true") {
+							$(this).click();
+						}
+					});
+
+					$("#bar-add-blog-credentials").each(function () {
+						if (!$(this).attr("open") || $(this).attr("open") == "false") {
+							$(this).click();
+						}
+					});
+
+					$("#text-blog-username").focus();
+				},
+				function failure(code, status) {
+					button.removeClass("busy");
+
+					var error = scribefire_string("error_api_setup", code);
+
+					if (code == "UNKNOWN_BLOG_TYPE") {
+						error += "\n\n" + scribefire_string("error_api_setup_unknownBlogType");
+
+						$("#list-blog-types").removeAttr("disabled");
+						$("#text-blog-api-url").removeAttr("disabled");
+
+						$("#dialog-blog-add .step-2 *[disabled]").removeAttr("disabled");
+
+						$("#dialog-blog-add .step-2 .subbar").each(function () {
+							if (!$(this).attr("open") == "true") {
+								$(this).click();
+							}
+						});
+					}
+
+					SCRIBEFIRE.error(error);
+				}
+			);
+		});
+
+		$("#button-blog-logincheck").die("click").live("click", function (e) {
+			var button = $(this);
+			button.addClass("busy");
+
+			var params = SCRIBEFIRE_ACCOUNT_WIZARD.accountWizardBlog;
+
+			params.apiUrl = $("#text-blog-api-url").val();
+			params.type = $("#list-blog-types").val();
+			params.username = $("#text-blog-username").val();
+			params.password = $("#text-blog-password").val();
+			params.blogUrl = $("#text-blog-url").val();
+
+			if ("url" in params) {
+				params.blogUrl = params.url;
+				delete params.url;
+			}
+
+			if ($("#text-addblog-id").val()) {
+				params.id = $("#text-addblog-id").val();
+			}
+
+			SCRIBEFIRE.getBlogs(
+				params,
+				function (rv) {
+					button.removeClass("busy");
+
+					$(document).trigger("close.facebox");
+
+	//				$("#dialog-blog-add").hide();
+
+					SCRIBEFIRE.notify(scribefire_string("notification_blog_add"));
+
+					if ($("#list-entries").val().indexOf("scribefire:new") == 0) {
+						// Only select a new blog if the user wasn't working on an entry from another blog.
+						$("#list-blogs").val(rv[0].username + "@" + rv[0].url).change();
+					}
+
+					if (SCRIBEFIRE.blogsToImport.length > 0) {
+						SCRIBEFIRE.importNextBlog();
+					}
+				},
+				function (rv) {
+					button.removeClass("busy");
+				}
+			);
+		});
+
+		if (SCRIBEFIRE.blogsToImport.length == 0) {
+			$(".dialog-blog-add-normal").show();
+			$(".dialog-blog-add-import").hide();
+		}
+		else {
+			$(".dialog-blog-add-import").show();
+			$(".dialog-blog-add-normal").hide();
+		}
+
+		$("#dialog-blog-add").show();
+
+		$("#text-blog-url").val("").change();
+		$("#list-blog-types").val("").change();
+		$("#text-blog-api-url").val("").change();
+		$("#text-blog-username").val("");
+		$("#text-blog-password").val("");
+		$("#text-addblog-id").val("").change();
+
+		$("#dialog-blog-add .subbar[open='true']").click();
+		$("#bar-add-blog-url").click();
+
+		$("#text-blog-url").focus();
 	}
 };
 
