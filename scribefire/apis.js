@@ -136,7 +136,12 @@ blogAPI.prototype = {
 		 * success(params) = { "id": 1, "name": "Category" }
 		 */
 		
-		failure({ "status": 0, "msg": scribefire_string("error_api_noCategorySupport")});
+		if (failure) {
+			failure({ "status": 0, "msg": scribefire_string("error_api_noCategorySupport")});
+		}
+		else {
+			success(false);
+		}
 	},
 	
 	upload : function () {
@@ -382,18 +387,25 @@ var genericMetaWeblogAPI = function () {
 			contentStruct.post_status = "private";
 		}
 		
-		/*
-		if ("custom_fields" in params && params.custom_fields.length > 0) {
-			contentStruct.custom_fields = custom_fields;
-		}
-		*/
-		
 		if ("slug" in params && params.slug) {
 			contentStruct.wp_slug = params.slug;
 		}
 
 		if ("draft" in params) {
 			var publish = params.draft ? "bool0" : "bool1";
+			
+			if (params.draft) {
+				// At least in Wordpress, a private post marked as a draft will just be published.
+				if ("private" in params && params.private) {
+					if (confirm("Due to limitations of your blogging service, a private post can't be saved as a draft.\n\nDo you want to save it as a draft and set it as private when you publish it?")) {
+						delete contentStruct.post_status;
+					}
+					else {
+						failure({"status" : -1, "msg" : "Ok, I'll let you make whatever changes you need to make before saving this as a private post." });
+						return;
+					}
+				}
+			}
 		}
 		else {
 			var publish = "bool1";
