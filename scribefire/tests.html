@@ -279,9 +279,9 @@
 					
 					for (var aService in passwords) {
 						for (postKey in postTemplates) {
-							(function (service, originalPost) {
+							(function (service, originalPost, aPostKey) {
 								test(
-									"api." + service,
+									"api." + service + " (" + aPostKey + ")",
 									function () {
 										stop();
 									
@@ -308,7 +308,7 @@
 														ok("id" in data && data.id, "Publish returned an ID.");
 									
 														thePostID = data.id;
-									
+														
 														api.getPosts(
 															{}, 
 															function (data) {
@@ -407,7 +407,7 @@
 										);
 									}
 								);
-							})(aService, postTemplates[postKey]);
+							})(aService, postTemplates[postKey], postKey);
 						}
 					}
 				}
