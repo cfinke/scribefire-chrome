@@ -2137,7 +2137,7 @@ var posterousAPI = function () {
 							var tags = [];
 							
 							for (var j = 0, _jlen = json_entry.tags.length; j < _jlen; j++) {
-								tags.push(json_entry.tags[j].tag);
+								tags.push(json_entry.tags[j].name);
 							}
 						
 							entry.tags = tags.join(", ");
@@ -2163,11 +2163,11 @@ var posterousAPI = function () {
 		
 		this.getToken(self, function (token) {
 			if ("id" in params && params.id) {
-				var url = "http://posterous.com/api/2/users/me/sites/primary/posts/" + encodeURIComponent(params.id) + "?api_token=" + encodeURIComponent(token);
+				var url = "http://posterous.com/api/2/users/me/sites/" + self.id + "/posts/" + encodeURIComponent(params.id) + "?api_token=" + encodeURIComponent(token);
 				var method = "PUT";
 			}
 			else {
-				var url = "http://posterous.com/api/2/users/me/sites/primary/posts?api_token=" + encodeURIComponent(token);
+				var url = "http://posterous.com/api/2/users/me/sites/" + self.id + "/posts?api_token=" + encodeURIComponent(token);
 				var method = "POST";
 			}
 			
@@ -2243,7 +2243,7 @@ var posterousAPI = function () {
 		var self = this;
 		
 		this.getToken(self, function (token) {
-			var url = "http://posterous.com/api/2/users/me/sites/primary/posts/" + params.id + "?api_token=" + encodeURIComponent(token);
+			var url = "http://posterous.com/api/2/users/me/sites/" + self.id + "/posts/" + params.id + "?api_token=" + encodeURIComponent(token);
 			
 			var req = new XMLHttpRequest();
 			req.open("DELETE", url, true);
