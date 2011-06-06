@@ -851,7 +851,7 @@ function adjustForSize() {
 			var editorWidth = $("#text-content_ifr").width();
 	
 			var contentWidth = $("#content").width();
-			var newEditorWidth = contentWidth - 40;
+			var newEditorWidth = contentWidth - 50;
 	
 			var contentHeight = $("#content").height();
 			

@@ -1,4 +1,8 @@
 var SCRIBEFIRE = {
+	error_codes : {
+		USER_TRIGGERED_FAILURE : -1
+	},
+	
 	// Whether the current content needs to be saved somewhere to avoid losing it.
 	dirty : false,
 	
@@ -1016,7 +1020,6 @@ var SCRIBEFIRE = {
 		params.slug = $("#text-slug").val();
 		params.private = $("#checkbox-private").is(":checked");
 		params.excerpt = $("#text-excerpt").val();
-		
 		params.custom_fields = SCRIBEFIRE.getCustomFields();
 		
 		if ($("#toggle-schedule-scheduled").is(":visible")) {
@@ -1133,7 +1136,15 @@ var SCRIBEFIRE = {
 				params,
 				success,
 				function (rv) {
-					SCRIBEFIRE.error(scribefire_string("error_post_publish", rv.msg));
+					if (rv.status == SCRIBEFIRE.error_codes.USER_TRIGGERED_FAILURE) {
+						if (rv.msg) {
+							SCRIBEFIRE.notify(rv.msg);
+						}
+					}
+					else {
+						SCRIBEFIRE.error(scribefire_string("error_post_publish", rv.msg));
+					}
+					
 					callbackFailure();
 				}
 			);
