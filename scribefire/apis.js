@@ -65,7 +65,11 @@ blogAPI.prototype = {
 		for (x in blogObject) {
 			this[x] = blogObject[x];
 		}
+		
+		this.postInit();
 	},
+	
+	postInit : function () { },
 	
 	getBlogs : function (params, success, failure) {
 		/**
@@ -162,6 +166,10 @@ var genericMetaWeblogAPI = function () {
 	this.ui.timestamp = true;
 	this.ui.tags = false;
 	this.ui.upload = !!((platform == 'gecko') || (window.File && window.FileReader && window.FileList && window.Blob));
+	
+	this.postInit = function () {
+		this.ui.timestamp = !(this.apiUrl.indexOf("http://api.xanga.com/") == 0);
+	};
 	
 	this.getBlogs = function (params, success, failure) {
 		// How safe is it to assume that MetaWeblog APIs implement the blogger_ methods?
@@ -957,9 +965,8 @@ var genericAtomAPI = function () {
 					if (req.readyState == 4) {
 						if (req.status < 300) {
 							var xml = xmlFromRequest(req);
-							
 							var jxml = $(xml);
-						
+							
 							var posts = [];
 						
 							jxml.find("entry").each(function () {
@@ -969,7 +976,7 @@ var genericAtomAPI = function () {
 								post.title = $(this).find("title:first").text();
 								
 								var val = $(this).find("published:first").text();
-
+								
 								// Check for a timezone offset
 								var possibleOffset = val.substr(-6);
 								var hasTimezone = false;
@@ -1763,11 +1770,7 @@ var tumblrAPI = function () {
 	this.ui.slug = true;
 	this.ui.private = true;
 	
-	this.init = function (blogObject) {
-		for (x in blogObject) {
-			this[x] = blogObject[x];
-		}
-		
+	this.postInit = function () {
 		this.ui.getPosts = !this.isPrivate;
 	};
 	
@@ -1890,7 +1893,12 @@ var tumblrAPI = function () {
 						post.url = $(this).attr("url");
 						post.published = true;
 						post.categories = [];
-						post.private = $(this).attr("private") && ($(this).attr("private") == "true");
+						post.private = false;
+						
+						if ($(this).attr("private") && $(this).attr("private") == "true") {
+							post.private = true;
+						}
+						
 						post.tags = [];
 						
 						$(this).find("tag").each(function () {
@@ -2037,7 +2045,12 @@ var posterousAPI = function () {
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
-					var json = JSON.parse(req.responseText);
+					try {
+						var json = JSON.parse(req.responseText);
+					} catch (e) {
+						failure({"status" : req.status, "msg" : "Invalid response from server: " + req.responseText });
+						return;
+					}
 					
 					var token = json.api_token;
 					
@@ -2065,8 +2078,12 @@ var posterousAPI = function () {
 			req.onreadystatechange = function () {
 				if (req.readyState == 4) {
 					if (req.status == 200) {
-						var text = req.responseText;
-						var json = JSON.parse(text);
+						try {
+							var json = JSON.parse(req.responseText);
+						} catch (e) {
+							failure({"status" : req.status, "msg" : "Invalid response from server: " + req.responseText });
+							return;
+						}
 						
 						var blogs = [];
 						
@@ -2119,8 +2136,12 @@ var posterousAPI = function () {
 			req.onreadystatechange = function () {
 				if (req.readyState == 4) {
 					if (req.status == 200) {
-						var text = req.responseText;
-						var json = JSON.parse(text);
+						try {
+							var json = JSON.parse(req.responseText);
+						} catch (e) {
+							failure({"status" : req.status, "msg" : "Invalid response from server: " + req.responseText });
+							return;
+						}
 						
 						var rv = [];
 						
@@ -2224,9 +2245,15 @@ var posterousAPI = function () {
 			
 			req.onreadystatechange = function () {
 				if (req.readyState == 4) {
-					var json = JSON.parse(req.responseText);
 					
 					if (req.status == 200 || req.status == 201) {
+						try {
+							var json = JSON.parse(req.responseText);
+						} catch (e) {
+							failure({ "status" : req.status, "msg" : "Invalid response from the blog server: " + req.responseText });
+							return;
+						}
+						
 						success({ "id": json.id });
 					}
 					else {

@@ -255,7 +255,7 @@
 				if (typeof passwords != 'undefined' && document.location.href.indexOf("publish") != -1) {
 					var postTemplates = {
 						"published" : {
-							title : "This post should be a private draft.",//now.getTime().toString(),
+							title : now.getTime().toString(),
 							content : "The timestamp is now " + now.getTime(),
 							tags : "tag1, tag2, tag3",
 							draft : false,
@@ -271,6 +271,16 @@
 							slug : "this-is-the-slug-" + (now.getTime() + 1),
 							"private" : false,
 							type : "posts"
+						},
+						"scheduled" : {
+							title : now.getTime().toString(),
+							content : "The timestamp is now " + now.getTime(),
+							tags : "",
+							draft : false,
+							slug : "this-is-the-slug-" + (now.getTime() + 1),
+							"private" : false,
+							type : "posts",
+							timestamp : (function () { var timestamp = new Date(); timestamp.setFullYear(2012); timestamp.setMonth(5); timestamp.setDate(15); timestamp.setHours(6); timestamp.setMinutes(12); timestamp.setSeconds(0); timestamp.setMilliseconds(0); return timestamp; })()
 						}
 					};
 					
@@ -306,24 +316,24 @@
 													originalPost, 
 													function (data) {
 														ok("id" in data && data.id, "Publish returned an ID.");
-									
+
 														thePostID = data.id;
 														
 														api.getPosts(
 															{}, 
 															function (data) {
 																if (typeof data == 'object' && "Posts" in data) data = data.Posts;
-									
+																
 																for (var i = 0, _len = data.length; i < _len; i++) {
 																	var post = data[i];
-										
+																	
 																	if (post.id == thePostID) {
 																		thePost = post;
 																		thePost.type = originalPost.type;
 																		break;
 																	}
 																}
-									
+																
 																if (api.ui.getPosts) {
 																	ok(thePost, "Found the published post in the list of recent posts.");
 																}
@@ -332,7 +342,7 @@
 																	thePost.id = thePostID;
 																	thePost.published = !originalPost.draft;
 																}
-									
+																
 																if (thePost) {
 																	if (api.ui.categories) {
 																		if (!("categories" in thePost)) {
@@ -360,27 +370,117 @@
 																		equal(thePost["private"], originalPost["private"], "Privacy");
 																	}
 																	
+																	if (api.ui.timestamp && "timestamp" in originalPost && service != "livejournal") { // LJ's scheduling support is broken.
+																		equal(
+																			thePost.timestamp.getTime(), 
+																			originalPost.timestamp.getTime(), 
+																			"Timestamp");
+																	}
+																	
 																	equal(thePost.title, originalPost.title, "Title");
 																	ok(thePost.content == originalPost.content || ("<p>" + originalPost.content + "</p>") == thePost.content, "Content");
 										
 																	var now = new Date();
-								
-																	thePost.content = "The timestamp is *now* " + now.getTime();
-								
+																	
+																	originalPost.content = "The timestamp is *now* " + now.getTime();
+																	
+																	// Put the original parameters back into the object
+																	// This gets things like .draft set properly, since it's not returned
+																	// as a field from the API, even though I should have done that.
+																	for (var i in originalPost) thePost[i] = originalPost[i];
+																	
 																	api.publish(
 																		thePost, 
 																		function (data) {
 																			ok("id" in data && data.id, "The edit returned an ID.");
 																			
-																			// @todo Check that this was saved successfully.
-																			api.deletePost(thePost, function (data) {
-																				ok(true, "Post deleted.");
-																				start();
-																			},
-																			function (data) {
-																				ok(false, "Post not deleted.");
-																				start();
-																			});
+																			// Check that this was saved successfully.
+																			
+																			api.getPosts(
+																				{}, 
+																				function (data) {
+																					if (typeof data == 'object' && "Posts" in data) data = data.Posts;
+																					
+																					thePost = null;
+																					
+																					for (var i = 0, _len = data.length; i < _len; i++) {
+																						var post = data[i];
+
+																						if (post.id == thePostID) {
+																							thePost = post;
+																							thePost.type = originalPost.type;
+																							break;
+																						}
+																					}
+
+																					if (api.ui.getPosts) {
+																						ok(thePost, "[Edit] Found the published post in the list of recent posts.");
+																					}
+																					else {
+																						thePost = originalPost;
+																						thePost.id = thePostID;
+																						thePost.published = !originalPost.draft;
+																					}
+
+																					if (thePost) {
+																						if (api.ui.categories) {
+																							if (!("categories" in thePost)) {
+																								ok(false, "[Edit] Categories missing from post.");
+																							}
+																							else {
+																								equal(thePost.categories.length, originalPost.categories.length, "[Edit] Number of categories");
+																								equal(thePost.categories[0], originalPost.categories[0], "[Edit] Equal category ID");
+																							}
+																						}
+
+																						if (api.ui.draft) {
+																							equal(thePost.published, !originalPost.draft, "[Edit] Published status");
+																						}
+
+																						if (api.ui.tags) {
+																							equal(thePost.tags, originalPost.tags, "[Edit] Tags");
+																						}
+
+																						if (api.ui.slug) {
+																							equal(thePost.slug, originalPost.slug, "[Edit] Slug");
+																						}
+
+																						if (api.ui["private"]) {
+																							equal(thePost["private"], originalPost["private"], "[Edit] Privacy");
+																						}
+																						
+																						if (api.ui.timestamp && "timestamp" in originalPost && service != "livejournal") { // LJ's scheduling support is broken.
+																							equal(
+																								thePost.timestamp.getTime(), 
+																								originalPost.timestamp.getTime(), "[Edit] Timestamp");
+																						}
+
+																						equal(thePost.title, originalPost.title, "[Edit] Title");
+																						ok(thePost.content == originalPost.content || ("<p>" + originalPost.content + "</p>") == thePost.content, "[Edit] Content");
+																						
+																						// Put the original parameters back into the object
+																						// This gets things like .draft set properly, since it's not returned
+																						// as a field from the API, even though I should have done that.
+																						for (var i in originalPost) thePost[i] = originalPost[i];
+																						
+																						api.deletePost(
+																							thePost, 
+																							function (data) {
+																								ok(true, "Post deleted.");
+																								start();
+																							},
+																							function (data) {
+																								ok(false, "Post not deleted.");
+																								start();
+																							}
+																						);
+																					}
+																				},
+																				function (data) {
+																					ok(false, data.msg);
+																					start();
+																				}
+																			);
 																		},
 																		function (data) {
 																			ok(false, data.msg);
