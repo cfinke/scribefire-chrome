@@ -797,9 +797,11 @@ var SCRIBEFIRE = {
 	 * @param {String} url The URL of the blog.
 	 * @param {Function} callbackSuccess The function to call if no errors occur.
 	 * @param {Function} callbackFailure The function to call if an error occurs.
+	 * @param {Boolean} secondTry Whether or not we've already tried bypassing adult content
+	 *        notices on the blog.
 	 */
 	
-	getBlogMetaData : function (url, callbackSuccess, callbackFailure) {
+	getBlogMetaData : function (url, callbackSuccess, callbackFailure, secondTry) {
 		if (!url.match(/^https?:\/\//)) {
 			url = "http://" + url;
 		}
@@ -971,6 +973,22 @@ var SCRIBEFIRE = {
 								callbackSuccess(metaData);
 								return;
 							}
+						}
+						
+						// Hack for LiveJournal Adult Content Notice pages
+						if (!secondTry && req.responseText.indexOf("http://www.livejournal.com/misc/adult_concepts.bml") != -1) {
+							var adultReq = new XMLHttpRequest();
+							adultReq.open("POST", "http://www.livejournal.com/misc/adult_concepts.bml", true);
+							adultReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+							
+							adultReq.onreadystatechange = function () {
+								if (adultReq.readyState == 4) {
+									SCRIBEFIRE.getBlogMetaData(url, callbackSuccess, callbackFailure, true);
+								}
+							};
+							
+							adultReq.send("ret=" + encodeURIComponent(url) + "&adult_check=" + encodeURIComponent("Yes, I am at least 14 years old."));
+							return;
 						}
 						
 						callbackFailure("UNKNOWN_BLOG_TYPE");
