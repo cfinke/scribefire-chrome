@@ -802,6 +802,8 @@ var SCRIBEFIRE = {
 	 */
 	
 	getBlogMetaData : function (url, callbackSuccess, callbackFailure, secondTry) {
+		url = $.trim(url);
+		
 		if (!url.match(/^https?:\/\//)) {
 			url = "http://" + url;
 		}
