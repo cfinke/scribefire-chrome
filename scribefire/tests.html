@@ -140,115 +140,62 @@
 				
 				module("getBlogMetaData");
 				
-				test("scribefire.getBlogMetaData => wordpress.com", function () {
-					stop();
-					
-					SCRIBEFIRE.getBlogMetaData(
-						"foo.wordpress.com", 
-						function success(data) { 
-							equal(data.url, "http://foo.wordpress.com/");
-							equal(data.type, "wordpress");
-							equal(data.apiUrl, "http://wordpress.com/xmlrpc.php");
-							start();
-						}, 
-						function failure(msg) { 
-							ok(false, msg);
-							start();
-						}
-					);
-				});
+				var blogs = {
+					"foo.wordpress.com" : {
+						url : "http://foo.wordpress.com/",
+						type : "wordpress",
+						apiUrl : "http://wordpress.com/xmlrpc.php"
+					},
+					"http://foo.tumblr.com" : {
+						url : "http://foo.tumblr.com/",
+						type : "tumblr",
+						apiUrl : "http://www.tumblr.com/api"
+					},
+					"foo.posterous.com/" : {
+						url : "http://foo.posterous.com/",
+						type : "posterous",
+						apiUrl : "http://posterous.com/api"
+					},
+					"foo.xanga.com/" : {
+						url : "http://foo.xanga.com/",
+						type : "metaweblog",
+						apiUrl : "http://api.xanga.com/metaweblogapi"
+					},
+					"chrisfinke.com" : {
+						url : "http://chrisfinke.com/",
+						type : "wordpress",
+						apiUrl : "http://www.chrisfinke.com/xmlrpc.php"
+					},
+					"http://mywifeandyourmom.blogspot.com" : {
+						url : "http://mywifeandyourmom.blogspot.com/",
+						type : "blogger",
+						atomAPIs : { "service.post" : "http://www.blogger.com/feeds/5123683377216095177/posts/default", "service.feed" : "http://www.blogger.com/feeds/5123683377216095177/posts/default" },
+						apiUrl : "http://www.blogger.com/feeds/5123683377216095177/posts/default"
+					}
+				};
 				
-				test("scribefire.getBlogMetaData => tumblr", function () {
-					stop();
-					
-					SCRIBEFIRE.getBlogMetaData(
-						"http://foo.tumblr.com", 
-						function success(data) {
-							equal(data.url, "http://foo.tumblr.com/");
-							equal(data.type, "tumblr");
-							equal(data.apiUrl, "http://www.tumblr.com/api");
-							start();
-						}, 
-						function failure(msg) { 
-							ok(false, msg);
-							start();
-						}
-					);
-				});
-				
-				test("scribefire.getBlogMetaData => posterous", function () {
-					stop();
-					
-					SCRIBEFIRE.getBlogMetaData(
-						"foo.posterous.com/", 
-						function success(data) { 
-							equal(data.url, "http://foo.posterous.com/");
-							equal(data.type, "posterous");
-							equal(data.apiUrl, "http://posterous.com/api");
-							start();
-						}, 
-						function failure(msg) { 
-							ok(false, msg);
-							start();
-						}
-					);
-				});
-				
-				test("scribefire.getBlogMetaData => xanga", function () {
-					stop();
-					
-					SCRIBEFIRE.getBlogMetaData(
-						"foo.xanga.com/", 
-						function success(data) { 
-							equal(data.url, "http://foo.xanga.com/");
-							equal(data.type, "metaweblog");
-							equal(data.apiUrl, "http://api.xanga.com/metaweblogapi");
-							equal(data.id, 1);
-							start();
-						}, 
-						function failure(msg) { 
-							ok(false, msg);
-							start();
-						}
-					);
-				});
-				
-				test("scribefire.getBlogMetaData => wordpress.org", function () {
-					stop();
-					
-					SCRIBEFIRE.getBlogMetaData(
-						"chrisfinke.com", 
-						function success(data) { 
-							equal(data.url, "http://chrisfinke.com/");
-							equal(data.type, "wordpress");
-							equal(data.apiUrl, "http://www.chrisfinke.com/xmlrpc.php");
-							start();
-						}, 
-						function failure(msg) { 
-							ok(false, msg);
-							start();
-						}
-					);
-				});
-				
-				test("scribefire.getBlogMetaData => blogger", function () {
-					stop();
-					
-					SCRIBEFIRE.getBlogMetaData(
-						"http://mywifeandyourmom.blogspot.com", 
-						function success(data) { 
-							equal(data.url, "http://mywifeandyourmom.blogspot.com/");
-							equal(data.type, "blogger");
-							deepEqual(data.atomAPIs, { "service.post" : "http://www.blogger.com/feeds/5123683377216095177/posts/default", "service.feed" : "http://www.blogger.com/feeds/5123683377216095177/posts/default" });
-							equal(data.apiUrl, "http://www.blogger.com/feeds/5123683377216095177/posts/default");
-							start();
-						}, 
-						function failure(msg) { 
-							ok(false, msg);
-							start();
-						}
-					);
-				});
+				for (var i in blogs) {
+					(function (blogKey, blogData) {
+						test("scribefire.getBlogMetaData => " + blogKey, function () {
+							stop();
+							
+							SCRIBEFIRE.getBlogMetaData(
+								blogKey,
+								function success(data) { 
+									for (var x in blogData) {
+										deepEqual(data[x], blogData[x]);
+									}
+									
+									start();
+								}, 
+								function failure(msg) { 
+									ok(false, msg);
+									start();
+								}
+							);
+						});
+					})(i, blogs[i]);
+				}
 				
 				module("publish");
 				
