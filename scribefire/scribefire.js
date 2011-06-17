@@ -159,7 +159,9 @@ var SCRIBEFIRE = {
 	},
 	
 	localize : function (page) {
-		$(page).find("i18n").each(function () {
+		page = $(page);
+		
+		page.find("i18n").each(function () {
 			var $this = $(this);
 		
 			var string = scribefire_string($this.attr("data-key"));
@@ -169,7 +171,7 @@ var SCRIBEFIRE = {
 			}
 		});
 	
-		$(page).find(".i18n").each(function () {
+		page.find(".i18n").each(function () {
 			var $this = $(this);
 		
 			var string = scribefire_string($this.attr("data-key"));
