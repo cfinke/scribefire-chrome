@@ -2035,7 +2035,11 @@ var posterousAPI = function () {
 	this.ui.upload = (platform == 'gecko');
 	this.ui.draft = false;
 	
+	this.token = "AFEuheynrHoJlBJqwHzoFEngfEkebtEI";
+	
 	this.getToken = function (params, success, failure) {
+		success(this.token);
+		/*
 		var url = "http://posterous.com/api/2/auth/token";
 		
 		var req = new XMLHttpRequest();
@@ -2063,6 +2067,7 @@ var posterousAPI = function () {
 		};
 		
 		req.send(null);
+		*/
 	};
 	
 	this.getBlogs = function (params, success, failure) {
