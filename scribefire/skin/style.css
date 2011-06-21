@@ -128,6 +128,7 @@ a {
 #text-content_path_row{
 	/* Hides the path stuff below Tiny MCE */
     display: none;
+	float: right;
 }
 
 #sidebar {
@@ -256,5 +257,6 @@ p.throbber {
 
 #text-content_word_count {
 	display: inline-block;
+	float: left;
 	padding: 3px;
 }
