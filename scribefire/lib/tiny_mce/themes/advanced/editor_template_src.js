@@ -793,6 +793,8 @@
 
 			n = DOM.add(tb, 'tr');
 			n = td = DOM.add(n, 'td', {'class' : 'mceStatusbar'});
+			// added by @finke for word count support
+			DOM.add(n, 'span', {id : ed.id + '_word_count'}, "");
 			n = DOM.add(n, 'div', {id : ed.id + '_path_row'}, s.theme_advanced_path ? ed.translate('advanced.path') + ': ' : '&#160;');
 			DOM.add(n, 'a', {href : '#', accesskey : 'x'});
 

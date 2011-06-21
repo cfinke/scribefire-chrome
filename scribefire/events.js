@@ -761,7 +761,28 @@ $(document).ready(function () {
 					switchEditors.go('text-content', 'html');
 				}
 			},
-			onchange_callback : "editor.change"
+			onchange_callback : "editor.change",
+			
+			setup : function (ed) {
+				ed.wordCountTimer = null;
+				
+				tinymce.DOM.setHTML(tinymce.DOM.get(ed.id + "_path_row"), "");
+				
+				ed.onKeyUp.add(function (ed, e) {
+					clearTimeout(ed.wordCountTimer);
+					
+					ed.wordCountTimer = setTimeout(function () {
+						var bareText = (tinyMCE.activeEditor.getContent()).replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
+					
+						var wordCount = bareText.split(" ").length;
+						var charCount = bareText.length;
+					
+						var str = scribefire_string("text_count", [ wordCount, charCount ]);
+					
+						tinymce.DOM.setHTML(tinymce.DOM.get(ed.id + "_word_count"),  str);
+					}, 250);
+				});
+			}
 		});
 		
 		// We use .parent() here because putting an id on the element breaks the flex box model someho

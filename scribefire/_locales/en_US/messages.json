@@ -700,5 +700,8 @@
 	},
 	"button_migrate": {
 		"message": "Transfer your ScribeFire data to\/from another computer."
+	},
+	"text_count": {
+		"message": "$1 words; $2 characters"
 	}
 }
