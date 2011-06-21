@@ -200,6 +200,8 @@
 				module("publish");
 				
 				if (typeof passwords != 'undefined' && document.location.href.indexOf("publish") != -1) {
+					var now = new Date();
+					
 					var postTemplates = {
 						"published" : {
 							title : now.getTime().toString(),
@@ -248,8 +250,6 @@
 										var thePostID = null;
 										var thePost = null;
 									
-										var now = new Date();
-										
 										api.addCategory(
 											{ name : category },
 											function (data) {
@@ -327,9 +327,9 @@
 																	equal(thePost.title, originalPost.title, "Title");
 																	ok(thePost.content == originalPost.content || ("<p>" + originalPost.content + "</p>") == thePost.content, "Content");
 										
-																	var now = new Date();
+																	var newNow = new Date();
 																	
-																	originalPost.content = "The timestamp is *now* " + now.getTime();
+																	originalPost.content = "The timestamp is *now* " + newNow.getTime();
 																	
 																	// Put the original parameters back into the object
 																	// This gets things like .draft set properly, since it's not returned
