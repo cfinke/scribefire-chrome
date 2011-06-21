@@ -5,6 +5,9 @@
 	"extDescription": {
 		"message": "एक सरल ब्लॉग संपादक जो ब्लॉग लेखन और संपादन आसान बनाये"
 	},
+	"preferences": {
+		"message": "पसंद"
+	},
 	"continue": {
 		"message": "क्रमशः"
 	},
@@ -22,6 +25,19 @@
 	},
 	"entry_new_label": {
 		"message": "(नया)"
+	},
+	"entry_label_format": {
+		"message": "[$entry_type$] $entry_title$",
+		"placeholders": {
+			"entry_type": {
+				"content": "$1",
+				"example": "Draft"
+			},
+			"entry_title": {
+				"content": "$2",
+				"example": "My Day at the Beach"
+			}
+		}
 	},
 	"entry_localDraft_label": {
 		"message": "अप्रकाशित प्रारूप"

@@ -5,6 +5,9 @@
 	"extDescription": {
 		"message": "Un éditeur de blog facile à utiliser qui vous permet de poster sur tous vos blogs."
 	},
+	"preferences": {
+		"message": "Préférences"
+	},
 	"continue": {
 		"message": "Continuer"
 	},
@@ -22,6 +25,19 @@
 	},
 	"entry_new_label": {
 		"message": "(nouveau)"
+	},
+	"entry_label_format": {
+		"message": "[$entry_type$]  $entry_title$",
+		"placeholders": {
+			"entry_type": {
+				"content": "$1",
+				"example": "Draft"
+			},
+			"entry_title": {
+				"content": "$2",
+				"example": "My Day at the Beach"
+			}
+		}
 	},
 	"entry_localDraft_label": {
 		"message": "Brouillon local"
@@ -62,14 +78,26 @@
 	"action_remove": {
 		"message": "Supprimer"
 	},
+	"action_adbull": {
+		"message": "Monétiser"
+	},
 	"action_blog_add": {
 		"message": "Ajouter un nouveau blog"
+	},
+	"action_blog_import": {
+		"message": "Importez Vos Blogs"
+	},
+	"message_blogs_import": {
+		"message": "Nous allons importer vos blogs de la version précédente de ScribeFire. ScribeFire remplira autant de champs que possible, c'est à vous de cliquer sur «Terminer» puis corriger les erreurs."
 	},
 	"action_next": {
 		"message": "Suivant"
 	},
 	"action_cancel": {
 		"message": "Annuler"
+	},
+	"action_cancel_import": {
+		"message": "Ne Pas Importer ce Blog"
 	},
 	"action_makeMoney": {
 		"message": "Gagner de l'argent avec ce blog"
@@ -198,6 +226,9 @@
 	"option_publish_month12": {
 		"message": "Déc"
 	},
+	"label_blog": {
+		"message": "Blog"
+	},
 	"label_blog_type": {
 		"message": "Type de blog :"
 	},
@@ -212,6 +243,12 @@
 	},
 	"label_loginCredentials": {
 		"message": "Identifiants de connexion"
+	},
+	"label_username": {
+		"message": "Utilisateur:"
+	},
+	"label_password": {
+		"message": "Mot de passe :"
 	},
 	"label_entry": {
 		"message": "Entrée"
@@ -476,6 +513,9 @@
 	"zemanta_instructions": {
 		"message": "Choisissez les articles que vous désirez inclure dans votre billet:"
 	},
+	"zemanta_image_instructions": {
+		"message": "Click sur l'image pour l'ajouter a ton post."
+	},
 	"action_zemanta_add": {
 		"message": "Ajouter des liens vers les articles similaires"
 	},
@@ -491,6 +531,36 @@
 	"zemanta_tracking_yes": {
 		"message": "Oui, ScribeFire peut ajouter une image témoin aux billets quand j'utilise Zemanta."
 	},
+	"zemanta_tracking_no": {
+		"message": "Non, Je préfère ne pas ajouter d'image ."
+	},
+	"zemanta_pixie_reminder": {
+		"message": "S'il vous plaît indiquer si oui ou non ScribeFire peut ajouter une image invisible à vos messages lorsque vous utilisez Zemanta."
+	},
+	"zemanta_selection_hint": {
+		"message": "Saviez-vous que vous pouvez sélectionner du texte dans votre message avant de cliquer sur l'icône Zemanta pour limiter le texte qu'utilise Zemanta pour trouver des articles connexes?"
+	},
+	"zemanta_no_results": {
+		"message": "Zemanta ne peut pas trouver les articles pertinents pour votre message."
+	},
+	"zemanta_introduction_header": {
+		"message": "Nouveau: Intégration Zemanta"
+	},
+	"zemanta_introduction": {
+		"message": "Zemanta vous aide à créer des postes blog riche en reconnaissant votre sujet et en suggérant des liens utiles relatifs. Il suffit d'écrire votre message, cliquez sur l'icône barre Zemanta (capture d'écran ci-dessous), puis sélectionnez les articles que vous souhaitez créer un lien."
+	},
+	"zemanta_loading_articles_message": {
+		"message": "S'il vous plaît patienter pendant que ScribeFire récupère les articles connexes du Zemanta ."
+	},
+	"zemanta_loading_images_message": {
+		"message": "S'il vous plaît patienter pendant que ScribeFire récupère les images liées  de Zemanta ..."
+	},
+	"zemanta_articles_button_text": {
+		"message": "Lien vers les articles"
+	},
+	"zemanta_images_button_text": {
+		"message": "Trouver les Images"
+	},
 	"action_continueEditing": {
 		"message": "Continuer à éditer ce billet"
 	},
@@ -505,5 +575,107 @@
 	},
 	"label_promoted": {
 		"message": "(en vedette)"
+	},
+	"label_adbull_code": {
+		"message": "Code de Publicité"
+	},
+	"adbull_company_name": {
+		"message": "Commencez à faire de l'argent avec AdBull"
+	},
+	"adbull_code_instructions": {
+		"message": "Il suffit de copier et coller ce code dans le template de votre blog, et AdBull fera le reste."
+	},
+	"adbull_introduction": {
+		"message": "Les annonces AdBull sont livrés à curseur de l'utilisateur visitant le site Web sur un éditeur participant. La solution brevetée de livraison ad change l'état du curseur pendant quelques secondes alors que la publicité est cliquable. Le pointeur retourne ensuite à son état normal après les fondus ad sortir ou si l'utilisateur choisit de fermer l'annonce. Si un utilisateur clique sur une publicité, une nouvelle fenêtre contenant la page d'atterrissage de l'annonceur ou site Web de destination s'ouvre."
+	},
+	"adbull_learn_more": {
+		"message": "Cliquez ici pour en savoir plus sur AdBull avant de vous inscrire."
+	},
+	"adbull_faq_link": {
+		"message": "Lire la FAQ AdBull."
+	},
+	"label_password_confirm": {
+		"message": "Confirmer le Mot de Passe:"
+	},
+	"label_email": {
+		"message": "Email:"
+	},
+	"label_adbull_site_url": {
+		"message": "URL de Votre Site:"
+	},
+	"label_mailing_address": {
+		"message": "Adresse postale:"
+	},
+	"label_city": {
+		"message": "Ville:"
+	},
+	"label_state": {
+		"message": "provaince:"
+	},
+	"option_select_state": {
+		"message": "Sélectionner une Province"
+	},
+	"label_zipcode": {
+		"message": "Code Postal:"
+	},
+	"label_country": {
+		"message": "Pays:"
+	},
+	"label_phone": {
+		"message": "Téléphone:"
+	},
+	"adbull_text_agree_introduction": {
+		"message": "J'accepte..."
+	},
+	"text_adbull_tos_1": {
+		"message": "Je ne vais pas cliquer sur les annonces AdBull qui sont affichées sur mon site."
+	},
+	"text_adbull_tos_2": {
+		"message": "Je ne vais pas placer des annonces sur des sites qui AdBull inclure des incitations à cliquer sur les annonces."
+	},
+	"text_adbull_tos_3": {
+		"message": "Je ne vais pas placer des annonces sur des sites qui AdBull inclure du contenu pornographique ou illégal."
+	},
+	"text_adbull_tos_4": {
+		"message": "Je certifie que j'ai lu et j'accepte les Termes <a href=\"http:\/\/www.adbull.com\/terms\" target=\"_blank\"> AdBull et conditions <\/ a>."
+	},
+	"text_adbull_add_new_site": {
+		"message": "Ajouter un nouveau site à votre compte AdBull."
+	},
+	"text_adbull_header": {
+		"message": "NOUVEAU: FAIRE DE L'ARGENT AVEC VOTRE BLOG"
+	},
+	"text_adbull_introduction": {
+		"message": "Cliquez sur le bouton \"monétiser\" ci-dessous créer un compte avec AdBull et commencer à faire de l'argent avec votre blog aujourd'hui, en ajoutant des annonces Adbull du curseur contextuel."
+	},
+	"text_uploading_image": {
+		"message": "téléchargement de votre image ..."
+	},
+	"text_uploading_images": {
+		"message": "téléchargement de $1 images ..."
+	},
+	"options_page_title": {
+		"message": "Options"
+	},
+	"settings_migrate": {
+		"message": "Importation\/Exportation"
+	},
+	"action_import": {
+		"message": "Importation"
+	},
+	"action_export": {
+		"message": "Exportation"
+	},
+	"instructions_import": {
+		"message": "Sélectionnez un fichier de configuration exporté en vue d'importer les blogs et les réglages."
+	},
+	"instructions_export": {
+		"message": "Cliquez sur le bouton ci-dessous pour exporter vos blogs et les réglages."
+	},
+	"label_settings_section": {
+		"message": "Données et Configurations"
+	},
+	"button_migrate": {
+		"message": "Transférer Vos Données ScribFire depuis\/Vers un autre Ordinateur."
 	}
 }

@@ -2,8 +2,17 @@
 	"extName": {
 		"message": "ScribeFire"
 	},
+	"extDescription": {
+		"message": "En brukervennlig tekstbehandler som enkelt lar deg poste til alle bloggene dine."
+	},
+	"preferences": {
+		"message": "Innstillinger"
+	},
 	"continue": {
 		"message": "Fortsett"
+	},
+	"action_close": {
+		"message": "Lukk"
 	},
 	"firsttime_header": {
 		"message": "Velkommen til ScribeFire"
@@ -11,8 +20,24 @@
 	"firsttime_text": {
 		"message": "Det første du trolig vil gjøre er å legge til bloggen din.  Lukk denne dialogen og klikk 'Legg til en ny blogg' for å komme igang."
 	},
+	"text_get_started": {
+		"message": "Trykk \"Legg til en ny blogg\" for å starte."
+	},
 	"entry_new_label": {
 		"message": "(ny)"
+	},
+	"entry_label_format": {
+		"message": "[$entry_type$] $entry_title$",
+		"placeholders": {
+			"entry_type": {
+				"content": "$1",
+				"example": "Draft"
+			},
+			"entry_title": {
+				"content": "$2",
+				"example": "My Day at the Beach"
+			}
+		}
 	},
 	"entry_localDraft_label": {
 		"message": "Lokalt utkast"
@@ -35,6 +60,12 @@
 	"notification_blog_add": {
 		"message": "Bloggen din ble lagt til!"
 	},
+	"notification_publish": {
+		"message": "Ditt innlegg ble vellykket postet."
+	},
+	"notification_publish_update": {
+		"message": "Ditt innlegg ble vellykket oppdatert."
+	},
 	"action_openBlogInTab": {
 		"message": "Åpne bloggen i en ny fane"
 	},
@@ -47,14 +78,26 @@
 	"action_remove": {
 		"message": "Fjern"
 	},
+	"action_adbull": {
+		"message": "Tjen penger"
+	},
 	"action_blog_add": {
 		"message": "Legg til en ny blogg"
+	},
+	"action_blog_import": {
+		"message": "Importer dine blogger"
+	},
+	"message_blogs_import": {
+		"message": "Importer dine blogger fra den tidligere versjonen av SribeFire.  ScribeFire will populere så mange felter som mulig; det er opp til deg å fullføre og så rette eventuelle feil."
 	},
 	"action_next": {
 		"message": "Neste"
 	},
 	"action_cancel": {
 		"message": "Avbryt"
+	},
+	"action_cancel_import": {
+		"message": "Ikke importer denne bloggen"
 	},
 	"action_makeMoney": {
 		"message": "Tjen penger på denne bloggen"
@@ -70,6 +113,9 @@
 	},
 	"action_editVisual": {
 		"message": "Bytt til Visuell editor"
+	},
+	"action_category_add": {
+		"message": "Legg til en ny kategori"
 	},
 	"action_customField_add": {
 		"message": "Legg til egendefinert felt"
@@ -91,6 +137,17 @@
 	},
 	"action_insert": {
 		"message": "Legg til"
+	},
+	"action_reset": {
+		"message": "Start en ny $ignore1$ post $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
 	},
 	"action_publishUpdate": {
 		"message": "Oppdater $ignore1$ Innlegg $ignore2$",
@@ -169,6 +226,9 @@
 	"option_publish_month12": {
 		"message": "Des"
 	},
+	"label_blog": {
+		"message": "Blogg"
+	},
 	"label_blog_type": {
 		"message": "Bloggtype:"
 	},
@@ -184,6 +244,12 @@
 	"label_loginCredentials": {
 		"message": "Brukerinfo"
 	},
+	"label_username": {
+		"message": "Brukernavn:"
+	},
+	"label_password": {
+		"message": "Passord:"
+	},
 	"label_entry": {
 		"message": "Oppføring"
 	},
@@ -198,6 +264,12 @@
 	},
 	"label_excerpt": {
 		"message": "Utdrag:"
+	},
+	"label_categories": {
+		"message": "Kategorier"
+	},
+	"label_tags": {
+		"message": "Tagger"
 	},
 	"label_customFields": {
 		"message": "Egendefinerte felter"
@@ -419,5 +491,38 @@
 	},
 	"text_video3": {
 		"message": "Eller kopier embed-koden for videoen din inn i denne boksen:"
+	},
+	"time_ago_seconds": {
+		"message": "Mindre enn ett minutt siden"
+	},
+	"time_ago_minutes": {
+		"message": "$1 minutter siden"
+	},
+	"time_ago_hours": {
+		"message": "$1 timer siden"
+	},
+	"time_ago_days": {
+		"message": "$1 dager siden"
+	},
+	"confirm_not_saved": {
+		"message": "Er du sikker på at du vil bytte innlegg?  Du har ikke lagret den gjeldende versjonen av innlegget enda. Trykk \"Lagre oppdatering\" på bunnen av siden for å lagre oppdateringen."
+	},
+	"zemanta_related_articles": {
+		"message": "Relaterte artikler, fra Zemanta"
+	},
+	"zemanta_instructions": {
+		"message": "Velg artiklene du vil inkludere i innlegget."
+	},
+	"zemanta_image_instructions": {
+		"message": "Klikk på et bilde for å legge det til i innlegget ditt."
+	},
+	"action_zemanta_add": {
+		"message": "Legg til lenker til relaterte artikler"
+	},
+	"zemanta_tos_description": {
+		"message": "For å fortsette må du godta betingelsene fra Zemanta (se under)."
+	},
+	"zemanta_tos_accept_request": {
+		"message": "Hvis du godtar betingelsene, trykk \"Fortsett\"."
 	}
 }

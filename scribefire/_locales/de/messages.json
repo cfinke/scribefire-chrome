@@ -5,6 +5,9 @@
 	"extDescription": {
 		"message": "Ein benutzerfreundlicher Blog-Editor für das Posten zu all deinen Blogs."
 	},
+	"preferences": {
+		"message": "Einstellungen"
+	},
 	"continue": {
 		"message": "Fortfahren"
 	},
@@ -22,6 +25,19 @@
 	},
 	"entry_new_label": {
 		"message": "(neu)"
+	},
+	"entry_label_format": {
+		"message": "[$entry_type$] $entry_title$",
+		"placeholders": {
+			"entry_type": {
+				"content": "$1",
+				"example": "Draft"
+			},
+			"entry_title": {
+				"content": "$2",
+				"example": "My Day at the Beach"
+			}
+		}
 	},
 	"entry_localDraft_label": {
 		"message": "Lokaler Entwurf"
@@ -62,14 +78,26 @@
 	"action_remove": {
 		"message": "Entfernen"
 	},
+	"action_adbull": {
+		"message": "Geld verdienen"
+	},
 	"action_blog_add": {
 		"message": "Neues Blog hinzufügen"
+	},
+	"action_blog_import": {
+		"message": "Deine Blogs importieren"
+	},
+	"message_blogs_import": {
+		"message": "Wir importieren deine Blogs aus einer vorherigen Version von ScribeFire. ScribeFire wird so viele Felder wie möglich automatisch ausfüllen; es liegt an dir, auf \"Beenden\" zu klicken und dann etwaige Fehler zu korrigieren."
 	},
 	"action_next": {
 		"message": "Weiter"
 	},
 	"action_cancel": {
 		"message": "Abbrechen"
+	},
+	"action_cancel_import": {
+		"message": "Diesen Blog nicht importieren"
 	},
 	"action_makeMoney": {
 		"message": "Verdiene Geld mit diesem Blog"
@@ -169,7 +197,7 @@
 		"message": "Feb"
 	},
 	"option_publish_month3": {
-		"message": "Mär"
+		"message": "Mrz"
 	},
 	"option_publish_month4": {
 		"message": "Apr"
@@ -215,6 +243,12 @@
 	},
 	"label_loginCredentials": {
 		"message": "Login-Daten"
+	},
+	"label_username": {
+		"message": "Benutzername:"
+	},
+	"label_password": {
+		"message": "Passwort:"
 	},
 	"label_entry": {
 		"message": "Eintrag"
@@ -479,6 +513,9 @@
 	"zemanta_instructions": {
 		"message": "Wähle die Artikel aus, die Du in Dein Posting einbinden möchtest:"
 	},
+	"zemanta_image_instructions": {
+		"message": "Klicke auf ein Bild um es deinem Eintrag hinzuzufügen."
+	},
 	"action_zemanta_add": {
 		"message": "Links zu verwandten Artikeln hinzufügen"
 	},
@@ -512,6 +549,18 @@
 	"zemanta_introduction": {
 		"message": "Zemanta hilft dir dabei, gehaltvolle Blog-Postings zu erschaffen, indem es dein Thema erkennt und nützliche verwandte Links vorschlägt. Schreib einfach dein Posting, klicke das Zementa-Symbol in der Werkzeugleiste (Abb. unten) und wähle die zu verlinkenden Artikel aus."
 	},
+	"zemanta_loading_articles_message": {
+		"message": "Bitte warte während ScribeFire verwandte Artikel von Zemanta sucht..."
+	},
+	"zemanta_loading_images_message": {
+		"message": "Bitte warte während ScribeFire verwandte Artikel von Zemanta sucht..."
+	},
+	"zemanta_articles_button_text": {
+		"message": "Link zu Artikeln"
+	},
+	"zemanta_images_button_text": {
+		"message": "Bilder suchen"
+	},
 	"action_continueEditing": {
 		"message": "Bearbeiten des Postings fortsetzen"
 	},
@@ -526,5 +575,107 @@
 	},
 	"label_promoted": {
 		"message": "(Anzeige)"
+	},
+	"label_adbull_code": {
+		"message": "Werbungs-Code:"
+	},
+	"adbull_company_name": {
+		"message": "Verdiene Geld mit AdBull"
+	},
+	"adbull_code_instructions": {
+		"message": "Kopiere diesen Code einfach in dein Blog-Template und AdBull erledigt den Rest."
+	},
+	"adbull_introduction": {
+		"message": "Adbull-Anzeigen erscheinen unter dem Mauszeiger des Nutzers, wenn er eine teilnehmende Webseite besucht. Die patentierte Anzeigenlösung ändert den Zustand des Mauszeigers für ein paar Sekunden, in denen die Anzeige anklickbar ist. Der Mauszeiger wird wieder normal, sobald die Anzeige ausgeblendet oder vom Nutzer geschlossen wird. Wenn der Nutzer auf die Werbung klickt, öffnet sich die Landing-Page des Anzeigenkunden in einem neuen Fenster."
+	},
+	"adbull_learn_more": {
+		"message": "Klicke hier, um mehr über AdBull zu erfahren."
+	},
+	"adbull_faq_link": {
+		"message": "AdBull FAQ lesen"
+	},
+	"label_password_confirm": {
+		"message": "Passwort bestätigen:"
+	},
+	"label_email": {
+		"message": "E-Mail:"
+	},
+	"label_adbull_site_url": {
+		"message": "URL-Adresse deiner Seite:"
+	},
+	"label_mailing_address": {
+		"message": "Anschrift:"
+	},
+	"label_city": {
+		"message": "Stadt:"
+	},
+	"label_state": {
+		"message": "Bundesland:"
+	},
+	"option_select_state": {
+		"message": "Bundesland auswählen"
+	},
+	"label_zipcode": {
+		"message": "Postleitzahl:"
+	},
+	"label_country": {
+		"message": "Land:"
+	},
+	"label_phone": {
+		"message": "Telefon:"
+	},
+	"adbull_text_agree_introduction": {
+		"message": "Ich stimme zu..."
+	},
+	"text_adbull_tos_1": {
+		"message": "Ich werde nicht auf AdBull-Anzeigen auf meiner Webseite klicken."
+	},
+	"text_adbull_tos_2": {
+		"message": "Ich werde AdBull-Anzeigen nicht auf Seiten platzieren, die einen Anreiz beinhalten, auf Werbung zu klicken."
+	},
+	"text_adbull_tos_3": {
+		"message": "Ich werde AdBull-Anzeigen nicht auf Seiten mit pornografischem oder illegalem Inhalt platzieren."
+	},
+	"text_adbull_tos_4": {
+		"message": "Ich bestätige, dass ich die <a href=\"http:\/\/www.adbull.com\/terms\" target=\"_blank\">Geschäftsbedingen von AdBull<\/a> gelesen habe und ihnen zustimme."
+	},
+	"text_adbull_add_new_site": {
+		"message": "Deinem AdBull-Konto eine neue Webseite hinzufügen."
+	},
+	"text_adbull_header": {
+		"message": "NEU: VERDIENE GELD MIT DEINEM BLOG"
+	},
+	"text_adbull_introduction": {
+		"message": "Klicke die \"Geld verdienen\"-Schaltfläche unter deiner Blogliste um ein AdBull-Konto anzulegen und beginne heute, mit AdBull's kontextsensitiven Mauscursor-Anzeigen Geld zu verdienen."
+	},
+	"text_uploading_image": {
+		"message": "Hochladen deines Bildes..."
+	},
+	"text_uploading_images": {
+		"message": "Hochladen von $1 Bildern..."
+	},
+	"options_page_title": {
+		"message": "Optionen"
+	},
+	"settings_migrate": {
+		"message": "Importieren\/Exportieren"
+	},
+	"action_import": {
+		"message": "Importieren"
+	},
+	"action_export": {
+		"message": "Exportieren"
+	},
+	"instructions_import": {
+		"message": "Wähle eine exportierte Konfigurationsdatei aus, um die Blogs und Einstellungen zu importieren."
+	},
+	"instructions_export": {
+		"message": "Klicke die untere Schaltfläche um deine Blogs und Einstellungen zu exportieren."
+	},
+	"label_settings_section": {
+		"message": "Einstellungen und Daten"
+	},
+	"button_migrate": {
+		"message": "Übertrage deine ScribeFire-Daten auf\/von einen anderen Computer."
 	}
 }

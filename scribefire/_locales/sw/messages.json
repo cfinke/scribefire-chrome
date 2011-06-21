@@ -1,0 +1,35 @@
+{
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"action_edit": {
+		"message": "Hariri"
+	},
+	"action_cancel": {
+		"message": "Ghairi"
+	},
+	"action_delete": {
+		"message": "Futa"
+	},
+	"option_blogType_atom": {
+		"message": "Atom"
+	},
+	"option_blogType_blogger": {
+		"message": "Blogger"
+	},
+	"option_blogType_wordpress": {
+		"message": "WordPress"
+	},
+	"option_blogType_tumblr": {
+		"message": "Tublr"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
+	},
+	"option_blogType_movabletype": {
+		"message": "MovableType"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous"
+	}
+}

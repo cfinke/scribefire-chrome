@@ -1,0 +1,681 @@
+{
+	"extName": {
+		"message": "سكريب فاير"
+	},
+	"extDescription": {
+		"message": "محرر مدونات سهل الاستخدام يتيح لك إضافة المقالات لجميع مدوناتك"
+	},
+	"preferences": {
+		"message": "الإعدادات"
+	},
+	"continue": {
+		"message": "متابعة"
+	},
+	"action_close": {
+		"message": "إغلاق"
+	},
+	"firsttime_header": {
+		"message": "أهلا بك في سكريب فاير"
+	},
+	"firsttime_text": {
+		"message": "أول شيء تريد القيام به هو اضافة  مدونة خاصة بك. أغلق هذا الحوار وأنقر فوق \"إضافة مدونة جديدة\" للبدء"
+	},
+	"text_get_started": {
+		"message": "أنقر فوق \"إضافة مدونة جديدة\" للبدء"
+	},
+	"entry_new_label": {
+		"message": "(جديد)"
+	},
+	"entry_label_format": {
+		"message": "$entry_title$ [$entry_type$]",
+		"placeholders": {
+			"entry_type": {
+				"content": "$1",
+				"example": "Draft"
+			},
+			"entry_title": {
+				"content": "$2",
+				"example": "My Day at the Beach"
+			}
+		}
+	},
+	"entry_localDraft_label": {
+		"message": "مسودة محلية"
+	},
+	"entry_draft_label": {
+		"message": "مسودة"
+	},
+	"entry_scheduled_label": {
+		"message": "المقالات المجدولة"
+	},
+	"notification_draft_delete": {
+		"message": "تم حذف المسودة"
+	},
+	"notification_draft_save": {
+		"message": "تم حفظ المسودة"
+	},
+	"notification_post_delete": {
+		"message": "تم حذف المقال بنجاح"
+	},
+	"notification_blog_add": {
+		"message": "تم إضافة المدونة بنجاح"
+	},
+	"notification_publish": {
+		"message": "تم نشر المقال بنجاح"
+	},
+	"notification_publish_update": {
+		"message": "تم تحديث المقال بنجاح"
+	},
+	"action_openBlogInTab": {
+		"message": "إفتح المدونة في لسان جديد"
+	},
+	"action_view": {
+		"message": "عرض"
+	},
+	"action_edit": {
+		"message": "تحرير"
+	},
+	"action_remove": {
+		"message": "إزالة"
+	},
+	"action_adbull": {
+		"message": "نقد"
+	},
+	"action_blog_add": {
+		"message": "إضافة مدونة جديدة"
+	},
+	"action_blog_import": {
+		"message": "إستورد مدونات"
+	},
+	"message_blogs_import": {
+		"message": "لنقم بإستيراد مدوناتك من نسخ سابقة لسكريب فاير. سيقوم بعدها سكريب فاير بتعبئة الحقول تلقائيا و يمكنك تصحيح الأخطاء بعد الضغط على الزر 'إنهاء'"
+	},
+	"action_next": {
+		"message": "التالي"
+	},
+	"action_cancel": {
+		"message": "إلغاء"
+	},
+	"action_cancel_import": {
+		"message": "لا تقم بإستيراد هذه المدونة"
+	},
+	"action_makeMoney": {
+		"message": "إربح المال بواسطة هذه المدونة"
+	},
+	"action_finish": {
+		"message": "إنهاء"
+	},
+	"action_delete": {
+		"message": "حذف"
+	},
+	"action_editHTML": {
+		"message": "التحول إلى نمط HTML"
+	},
+	"action_editVisual": {
+		"message": "التحول إلى المحرر الصوري"
+	},
+	"action_category_add": {
+		"message": "إضافة قسم جديد"
+	},
+	"action_customField_add": {
+		"message": "إضافة حقل خاص"
+	},
+	"action_draft_save": {
+		"message": "حفظ التقدم"
+	},
+	"action_publish": {
+		"message": "نشر"
+	},
+	"action_permalink_edit": {
+		"message": "رابط دائم"
+	},
+	"action_schedule": {
+		"message": "الجدول الزمني"
+	},
+	"action_save": {
+		"message": "حفظ"
+	},
+	"action_insert": {
+		"message": "إدراج"
+	},
+	"action_reset": {
+		"message": "إبدأ مقال $ignore1$ جديد $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_publishUpdate": {
+		"message": "تحديث $ignore1$ المقال $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
+	"action_video_add": {
+		"message": "إدراج فيديو"
+	},
+	"option_blogType_select": {
+		"message": "(تحديد)"
+	},
+	"option_blogType_atom": {
+		"message": "أتوم"
+	},
+	"option_blogType_blogger": {
+		"message": "بلوغر"
+	},
+	"option_blogType_wordpress": {
+		"message": "ووردبريس"
+	},
+	"option_blogType_tumblr": {
+		"message": "تومبلر"
+	},
+	"option_blogType_metaweblog": {
+		"message": "ميتاويبلوغ"
+	},
+	"option_blogType_movabletype": {
+		"message": "موفابلتايب"
+	},
+	"option_blogType_posterous": {
+		"message": "بوستيروس"
+	},
+	"option_publish_immediately": {
+		"message": "نشر الآن"
+	},
+	"option_publish_month1": {
+		"message": "جانفي"
+	},
+	"option_publish_month2": {
+		"message": "فيفري"
+	},
+	"option_publish_month3": {
+		"message": "مارس"
+	},
+	"option_publish_month4": {
+		"message": "أفريل"
+	},
+	"option_publish_month5": {
+		"message": "ماي"
+	},
+	"option_publish_month6": {
+		"message": "جوان"
+	},
+	"option_publish_month7": {
+		"message": "جويلية"
+	},
+	"option_publish_month8": {
+		"message": "أوت"
+	},
+	"option_publish_month9": {
+		"message": "سبتمبر"
+	},
+	"option_publish_month10": {
+		"message": "أكتوبر"
+	},
+	"option_publish_month11": {
+		"message": "نوفمبر"
+	},
+	"option_publish_month12": {
+		"message": "ديسمبر"
+	},
+	"label_blog": {
+		"message": "مدونة"
+	},
+	"label_blog_type": {
+		"message": "نوع المدونة"
+	},
+	"label_url": {
+		"message": "رابط"
+	},
+	"label_apiUrl": {
+		"message": "رابط الآ بي إي"
+	},
+	"label_blogId": {
+		"message": "رقم المدونة"
+	},
+	"label_loginCredentials": {
+		"message": "معلومات الدخول"
+	},
+	"label_username": {
+		"message": "إسم المستخدم"
+	},
+	"label_password": {
+		"message": "كلمة السر"
+	},
+	"label_entry": {
+		"message": "مدخل"
+	},
+	"label_help": {
+		"message": "مساعدة"
+	},
+	"label_title": {
+		"message": "العنوان"
+	},
+	"label_content": {
+		"message": "محتويات المقال"
+	},
+	"label_excerpt": {
+		"message": "مقتطفات"
+	},
+	"label_categories": {
+		"message": "الأقسام"
+	},
+	"label_tags": {
+		"message": "كلمات إستدلالية"
+	},
+	"label_customFields": {
+		"message": "حقول خاصة"
+	},
+	"label_publish": {
+		"message": "خصائص النشر"
+	},
+	"label_private": {
+		"message": "خاص"
+	},
+	"label_name": {
+		"message": "الإسم"
+	},
+	"error_header": {
+		"message": "معذرة"
+	},
+	"error_post_delete": {
+		"message": "سكريب فاير وجد الأخطاء التالية عند محاولت حذف المقال : $status$\n$msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
+			},
+			"msg": {
+				"content": "$2"
+			}
+		}
+	},
+	"error_category_add": {
+		"message": "سكريب فاير أراد المساعدة ولكن حصل خطأ اثناء إضافة قسم. رقم الخطأ هو $error_code$.",
+		"placeholders": {
+			"error_code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_post_publish": {
+		"message": "سكريب فاير لم يستطع نشر المقال. تم التعرض للخطأ التالي: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish": {
+		"message": "سكريب فاير لم يستطع نشر الصفحة . تم التعرض للخطأ التالي: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_unknown": {
+		"message": "تم التعرض لخطأ غير منتظر"
+	},
+	"error_api_getBlogs": {
+		"message": "سكريب فاير لم يستطع الحصول على المعلومات اللازمة من مدونتك. تمت الإجابة بالنص التالي : $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_invalid": {
+		"message": "ليس خطأ المستخدم لكن سكريب فاير يبحث عن الآ بي إي ($api_type$) الغير موجود.\nإذا كنت ضمن مجموعة تجريب النسخ ألفا رجاءا إحذف هذه المدونة و أعد إضافتها مرة أخرى",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_noBlog": {
+		"message": "لا داعي للعجلة... يجب إضافة مدونتك قبل التمكن من النشر."
+	},
+	"error_api_noCategorySupport": {
+		"message": "هذه المدونة لا تتيح إضافة أقسام"
+	},
+	"error_api_noUploadSupport": {
+		"message": "هذه المدونة لا تتيح رفع الملفات"
+	},
+	"error_api_cannotConnect": {
+		"message": "لم يستطع سكريب فاير الإتصال بمدونتك."
+	},
+	"error_api_setup": {
+		"message": "عند محاولة سكريب فاير تحديد إعدادات مدونتك تعرض للكود التالي: $code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_setup_unknownBlogType": {
+		"message": "ندعوك لتحديد إعدادات مدونتك بطريقة يدوية"
+	},
+	"error_api_code412": {
+		"message": "المدونة تجيب برمز الخطأ 412. يمكنك محاولة تصليح الخطأ بتتبع الإرشادات في $url$",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
+			}
+		}
+	},
+	"error_api_noMessage": {
+		"message": "المدونة أرجعت رقم الخطأ $code$, لم يتم العثور على اي نص للخطأ.",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_blogger_authentication": {
+		"message": "بلوغر يشير إلى ان إسم المستخدم أو كلمة السر خاطئة"
+	},
+	"error_api_blogger_verify": {
+		"message": "بلوغر يشير إلى أنه يجب التأكد من عنوان البريد الإلكتروني ؛ سجل الدخول لحسابك مباشرة لحل هذا الأمر."
+	},
+	"error_api_blogger_tos": {
+		"message": "بلوغر يشير إلى أنه يجب عليك الموافقة على شروط الإستخدام الخاصة بجوجل ؛ سجل الدخول لحسابك مباشرة لحل هذا الأمر."
+	},
+	"error_api_blogger_deleted": {
+		"message": "بلوغر يشير إلى أن الحساب الذي تحاول إستعماله قد تم حذفه"
+	},
+	"error_api_blogger_disabled": {
+		"message": "بلوغر يشير إلى أن الحساب الذي تحاول إستعماله قد تم تعطيله"
+	},
+	"error_api_blogger_unavailable": {
+		"message": "بلوغر يشير بأن خدمات بلوغر غير متوفرة حاليا"
+	},
+	"error_api_blogger_captcha": {
+		"message": "جوجل يوجب عليك إكمال الـ CAPTCHA حتى تتمكن من المواصلة:"
+	},
+	"error_api_blogger_unknown": {
+		"message": "بلوغر يرسل رسالة الخطأ التالية : $error$",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_authToken": {
+		"message": "لا يمكن الحصول على تصريح الموافقة"
+	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "لا يمكن الإتصال بالآ بي إي الخاص برفع الصور"
+	},
+	"error_api_posterous_noDeleteSupport": {
+		"message": "بوستيروس لا يسمح بحذف المقالات في الوقت الحالي."
+	},
+	"error_video_noEmbed": {
+		"message": "سكريب فاير لم يتمكن من تحديد كود الإدراج الخاص برابط الفيديو. رجاءا التأكد من الرابط أو إدخال كود الإدراج بطريقة يدوية في المكان المخصص."
+	},
+	"prompt_newCategory": {
+		"message": "الإسم الجديد للقسم:"
+	},
+	"confirm_deletePost": {
+		"message": "هل أنت متأكد بأنك تريد حذف هذا المقال؟ سيتم حذفه من خادم مدونتك ولن يتم عرضه في مدونتك."
+	},
+	"text_inlinks1": {
+		"message": "سكريب فاير عقد شراكة مع $website$ ليوفر لك طرق سهلة للحصول على سيولة من مدونتك.",
+		"placeholders": {
+			"website": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
+			}
+		}
+	},
+	"header_inlinks": {
+		"message": "ما هي الإينلينك؟"
+	},
+	"text_inlinks2": {
+		"message": "الإينلينك عبارة عن إشهارات ثابتة بالـ HTML تكون في محتوى مواقع الأنترنيت.تعتبر ببساطة أسهل روابط مدفوعة في السوق. الفوائد منها هي:"
+	},
+	"text_inlinksBenefit1": {
+		"message": "الإشهارات السهلة والغير معقدة بدون نوافذ البوب آب المزعجة"
+	},
+	"text_inlinksBenefit2": {
+		"message": "مداخيل محددة. يتم الدفع بـ نسبة ثابتة عن كل شهر \/ إشهار يباع"
+	},
+	"text_inlinksBenefit3": {
+		"message": "سهولة الإستخدام. فقط قم بتثبيت الإضافة ونحن نتكفل بالباقي. إسترح و تحصل على مدخول شهري خاص بك."
+	},
+	"text_inlinksBlogs": {
+		"message": "بالإضافة للمدونات التي قمت بإضافتها لسكريب فاير ، المدونات التالية قد تكون متوافقة مع الإينلينك:"
+	},
+	"text_inlinksCompatibility": {
+		"message": "(حاليا الإينلينك متوافق مع المدونات التي تستعمل ووردبريس ، دروبال ، موفابلتايب)"
+	},
+	"text_inlinks3": {
+		"message": "$link_open$ قم بزيارة inLinks.com $link_close$ لتحميل إضافة الإينلينك و الشروع في كسب المال بمدونتك اليوم!",
+		"placeholders": {
+			"link_open": {
+				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
+			},
+			"link_close": {
+				"content": "<\/a>"
+			}
+		}
+	},
+	"header_blogProperties": {
+		"message": "خصائص المدونة"
+	},
+	"text_blogProperties1": {
+		"message": "يمكنك تحرير اسم و عنوان المدونة هنا. لتحديث اسم المستخدم وكلمة المرور، رابط الآي بي إي أو رقم المدونة ، انقر فوق الزر \"إزالة\" لإزالة المدونة ثم إعادة إضافتها بالنقر على \"أضف مدونة جديدة\"."
+	},
+	"header_video": {
+		"message": "إدراج فيديو"
+	},
+	"text_video1": {
+		"message": "أدخل رابط الفيديو في المكان المخصص"
+	},
+	"text_video2": {
+		"message": "مثلا ، $url1$ أو $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "أو قم بنسخ كود الإدراج الخاص بالفيديو الذي تريد إضافته في المكان المخصص:"
+	},
+	"time_ago_seconds": {
+		"message": "أقل من دقيقة"
+	},
+	"time_ago_minutes": {
+		"message": "قبل $1 دقيقة"
+	},
+	"time_ago_hours": {
+		"message": "قبل $1 ساعة"
+	},
+	"time_ago_days": {
+		"message": "قبل $1 ايام"
+	},
+	"confirm_not_saved": {
+		"message": "هل أنت متأكد بأنك تريد أن تغير المقال؟ لم تقم بحفظ النشخة الحالية للمقال بعد.\n(إضغط على 'حفظ التقدم' في أسفل الصفحة لحفظ عملك في هذه النسخة)"
+	},
+	"zemanta_related_articles": {
+		"message": "مقالات ذات صلة، شكرا لـ زيمانتا :"
+	},
+	"zemanta_instructions": {
+		"message": "رجاءا إختيار المقالات التي تريد إدراجها في مقالك"
+	},
+	"zemanta_image_instructions": {
+		"message": "إضغط على صورة لإضافتها لمقالك."
+	},
+	"action_zemanta_add": {
+		"message": "إضافة روابط للمواضيع ذات صلة."
+	},
+	"zemanta_tos_description": {
+		"message": "للمتابعة يجب عليك الموافقة على شروط إستخدام زيمانتا ( المعروضة أسفل)"
+	},
+	"zemanta_tos_accept_request": {
+		"message": "إذا كنت موافق على الشروط إضغط على 'متابعة'."
+	},
+	"zemanta_tracking_optin": {
+		"message": "هل يمكن لسكريب فاير إضافة صورة مخفية لتتبع إحصائيات الإستخدام الخاصة بزيمانتا؟ لن تلاحظ الفرق على العموم، في حالة الرفض لن يتم الطلب مرة ثانية."
+	},
+	"zemanta_tracking_yes": {
+		"message": "نعم، يمكن لسكريب فاير أن يضيف صورة التتبع للمقالات عندما أستعمل زيمانتا."
+	},
+	"zemanta_tracking_no": {
+		"message": "لا، أفضل عدم إضافة الصورة."
+	},
+	"zemanta_pixie_reminder": {
+		"message": "رجاءا حدد إذا يمكن لكريب فاير ان يضيف صورة التتبع لمقالاتك عند إستخدامك زيمانتا"
+	},
+	"zemanta_selection_hint": {
+		"message": "هل تعلم انه يمكنك تحديد النص قبل النقر على زر زيمانتا لتحديد النص المستعمل في إيجاد المواضيع ذات الصلة؟"
+	},
+	"zemanta_no_results": {
+		"message": "لم يستطع زيمانتا العثور على اي مواضيع مناسبة لمقالك."
+	},
+	"zemanta_introduction_header": {
+		"message": "جديد : إضافة زيمانتا"
+	},
+	"zemanta_introduction": {
+		"message": "زيمانتا يساعد على إضافة وظائف غنية عن طريق إقتراح الارتباطات ذات الصلة مفيدة. بمجرد كتابة المقال ، انقر فوق رمز شريط زيمانتا (الصورة المبينة أدناه) ، ومن ثم تحديد المواضيع التي ترغب في الارتباط بها."
+	},
+	"zemanta_loading_articles_message": {
+		"message": "رجاءا الإنتظار ريثما يقوم سكريب فاير بالحصول على قائمة المواضيع من زيمانتا"
+	},
+	"zemanta_loading_images_message": {
+		"message": "رجاءا الإنتظار ريثما يقوم سكريب فاير بالحصول على قائمة الصور من زيمانتا"
+	},
+	"zemanta_articles_button_text": {
+		"message": "ربط بالمقالات"
+	},
+	"zemanta_images_button_text": {
+		"message": "العثور على صور"
+	},
+	"action_continueEditing": {
+		"message": "مواصلة كتابة هذا المقال"
+	},
+	"action_startNewPost": {
+		"message": "كتابة مقال جديد"
+	},
+	"action_hide": {
+		"message": "إخفاء"
+	},
+	"label_genericQuestion": {
+		"message": "هل تريد أن :"
+	},
+	"label_promoted": {
+		"message": "(محتوى ترقية)"
+	},
+	"label_adbull_code": {
+		"message": "كود الإشهار :"
+	},
+	"adbull_company_name": {
+		"message": "إبدأ في جني المال مع آي دي بل"
+	},
+	"adbull_code_instructions": {
+		"message": "فقط قم بنسخ الكود في ستايل مدونتك ، و آي دي بل يقوم بالباقي."
+	},
+	"adbull_introduction": {
+		"message": "آي دي بل يتم تسليمها الى المؤشر المستخدم على زيارة موقع ناشر المشاركة. تسليم إعلان براءة اختراع حل التغييرات الدولة من المؤشر لبضع ثوان في حين أن الإعلان نقر. المؤشر ثم يعود إلى حالته الطبيعية بعد إعلان يتلاشى بها أو إذا اختار المستخدم لإغلاق الإعلان. إذا كان ينقر المستخدم على الإعلان ، نافذة جديدة تحتوي على صفحة المعلن، أو الوجهة المقصودة يفتح في الموقع."
+	},
+	"adbull_learn_more": {
+		"message": "إضغط هنا لمعرفة المزيد على الآي دي بل قبل الإشتراك."
+	},
+	"adbull_faq_link": {
+		"message": "إقرأ الأسئلة الشائعة حول الآي دي بل."
+	},
+	"label_password_confirm": {
+		"message": "تأكيد كلمة السر :"
+	},
+	"label_email": {
+		"message": "البريد الإلكتروني :"
+	},
+	"label_adbull_site_url": {
+		"message": "عنوان موقعك الإلكتروني :"
+	},
+	"label_mailing_address": {
+		"message": "العنوان البريدي :"
+	},
+	"label_city": {
+		"message": "المدينة :"
+	},
+	"label_state": {
+		"message": "المقاطعة :"
+	},
+	"option_select_state": {
+		"message": "إختيار المقاطعة :"
+	},
+	"label_zipcode": {
+		"message": "الرمز البريدي :"
+	},
+	"label_country": {
+		"message": "الدولة :"
+	},
+	"label_phone": {
+		"message": "الهاتف :"
+	},
+	"adbull_text_agree_introduction": {
+		"message": "أوافق على ..."
+	},
+	"text_adbull_tos_1": {
+		"message": "لن اقوم بالنقر على إشهارات آي دي بل المعروضة في موقعي."
+	},
+	"text_adbull_tos_2": {
+		"message": "لن اقوم بوضع إشهارات آي دي بل في  مواقع تحفز على النقر عليها."
+	},
+	"text_adbull_tos_3": {
+		"message": "لن اقوم بوضع إشهارات آي دي بل في  مواقع إباحية أو ذات محتوى غير قانوني."
+	},
+	"text_adbull_tos_4": {
+		"message": "أشهد أني قد قرأت وتوافق على شروط <a href=\"http:\/\/www.adbull.com\/terms\" target=\"_blank\">شروط إستخدام آي دي بل <\/ a>."
+	},
+	"text_adbull_add_new_site": {
+		"message": "إضافة موقع جديد لحساب الآي دي بل الخاص بك"
+	},
+	"text_adbull_header": {
+		"message": "جديد : إحصل على المال من خلال مدونتك"
+	},
+	"text_adbull_introduction": {
+		"message": "إضغط على زر \"نقد\" أسفل قائمة المدونات لتنصيب حساب آي دي بل و الشروع في كسب المال بمدونتك بإضافة مؤشرات آي دي بل الإشهارية."
+	},
+	"text_uploading_image": {
+		"message": "جاري رفع الصورة..."
+	},
+	"text_uploading_images": {
+		"message": "جاري رفع $1 صورة"
+	},
+	"options_page_title": {
+		"message": "إعدادات"
+	},
+	"settings_migrate": {
+		"message": "إستيراد\/تصدير"
+	},
+	"action_import": {
+		"message": "إستيراد"
+	},
+	"action_export": {
+		"message": "تصدير"
+	},
+	"instructions_import": {
+		"message": "رجاءا إختيار ملف لإستيراد المدونات و الإعدادات الخاصة بها"
+	},
+	"instructions_export": {
+		"message": "إضغط على الزر أدناه لتصدير المدونة والإعدادات الخاصة بها."
+	},
+	"label_settings_section": {
+		"message": "الإعدادات و المعلومات"
+	},
+	"button_migrate": {
+		"message": "نقل معلومات سكريب فاير من وإلى جهاز أخر."
+	}
+}
