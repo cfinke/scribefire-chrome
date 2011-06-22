@@ -979,6 +979,21 @@ var SCRIBEFIRE = {
 							}
 						}
 						
+						var metaTags = req.responseText.match(/<meta(?:(?:\s+\w+(?:\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/g); //'
+						
+						if (metaTags) {
+							for (var i = 0, _len = metaTags.length; i < _len; i++) {
+								var meta = $(metaTags[i]);
+								
+								if (meta.attr("name") == "generator" && meta.attr("content") == "Posterous") {
+									metaData.type = "posterous";
+									metaData.apiUrl = "http://posterous.com/api";
+									callbackSuccess(metaData);
+									return;
+								}
+							}
+						}
+						
 						// Hack for LiveJournal Adult Content Notice pages
 						if (!secondTry && req.responseText.indexOf("http://www.livejournal.com/misc/adult_concepts.bml") != -1) {
 							var adultReq = new XMLHttpRequest();
