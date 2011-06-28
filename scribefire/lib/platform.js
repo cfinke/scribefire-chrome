@@ -101,20 +101,20 @@ if (platform == 'gecko') {
 		var xulChromeReg = chromeRegService.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
 		// The "official" locale, especially on Linux.
 		var browserLocale = xulChromeReg.getSelectedLocale("global");
-
+		
 		if (browserLocale != localeOrder[0]) {
 			localeOrder.push(browserLocale);
 		}
-
+		
 		// The user-specified locale from prefs.
 		var userLocale = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("general.useragent.").getCharPref("locale");
-
+		
 		if (userLocale != localeOrder[localeOrder.length - 1]) {
 			localeOrder.push(userLocale);
 		}
-
+		
 		var finalLocaleOrder = [];
-
+		
 		// Convert the locale codes to Chrome style.
 		for (var i = 0, _len = localeOrder.length; i < _len; i++) {
 			var localeParts = localeOrder[i].split("-");
@@ -141,7 +141,14 @@ if (platform == 'gecko') {
 				var locale = finalLocaleOrder.shift();
 
 				var req = new XMLHttpRequest();
-				req.open("GET", "chrome://" + extension_namespace + "/content/_locales/" + locale + "/messages.json", true);
+				
+				try {
+					req.open("GET", "chrome://" + extension_namespace + "/content/_locales/" + locale + "/messages.json", true);
+				} catch (e) {
+					// Most likely the file doesn't exist.
+					readNextLocale();
+				}
+				
 				req.overrideMimeType("text/plain;charset=UTF-8");
 
 				req.onload = function () {
