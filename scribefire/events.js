@@ -222,24 +222,6 @@ $(document).ready(function () {
 		}
 	});
 	
-	$("#sidebar .bar").live("click", function () {
-		if ($(this).hasClass("fixed")) return;
-		
-		if ($(this).attr("disabled") != "true") {
-			if ($(this).attr("open") == "true") {
-				$(this).attr("open", "false");
-				$(this).parent().find(".underbar:first").attr("open", "false");
-			}
-			else {
-				$(this).attr("open", "true");
-				$(this).parent().find(".underbar:first").attr("open", "true");
-			}
-		}
-		
-		$(this).persist("open");
-		$(this).parent().find(".underbar:first").persist("open");
-	});
-	
 	$(".subbar").live("click", function () {
 		if ($(this).attr("disabled") != "true") {
 			$(this).parent().find(".subunderbar:first").toggle();
