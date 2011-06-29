@@ -93,16 +93,17 @@ var switchEditors = {
 				return false;
 
 			// setUserSetting( 'editor', 'tinymce' );
-			this.mode = 'tinymce';
 
 			P.className = 'active';
 			H.className = '';
+			
 			edCloseAllTags(); // :-(
 			//qt.style.display = 'none';
 
 			ta.style.color = '#FFF';
-			ta.value = this.wpautop(ta.value);
-
+			
+			ta.value = editor.val();
+			
 			try {
 				if ( ed )
 					ed.show();
@@ -111,13 +112,14 @@ var switchEditors = {
 			} catch(e) {}
 
 			ta.style.color = '#000';
+			
+			this.mode = 'tinymce';
 		} else {
 			$("#edButtonHTML").hide();
 			$("#edButtonPreview").show();
 			
 			// setUserSetting( 'editor', 'html' );
 			ta.style.color = '#000';
-			this.mode = 'html';
 			H.className = 'active';
 			P.className = '';
 			
@@ -129,6 +131,7 @@ var switchEditors = {
 			ta.value = switchEditors.pre_wpautop(ta.value);
 			
 			//qt.style.display = 'block';
+			this.mode = 'html';
 		}
 		return false;
 	},

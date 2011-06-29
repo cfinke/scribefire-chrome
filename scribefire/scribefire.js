@@ -133,6 +133,8 @@ var SCRIBEFIRE = {
 			}
 		}
 		
+		pref("markdown", true);
+		
 		SCRIBEFIRE.populateBlogsList();
 		
 		if ($("#list-blogs option").length == 0) {

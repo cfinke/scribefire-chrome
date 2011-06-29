@@ -115,10 +115,10 @@
 		"message": "Delete"
 	},
 	"action_editHTML": {
-		"message": "Switch to HTML Mode"
+		"message": "Edit Code"
 	},
 	"action_editVisual": {
-		"message": "Switch to Visual Editor"
+		"message": "Edit Visually"
 	},
 	"action_category_add": {
 		"message": "Add a New Category"

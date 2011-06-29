@@ -74,7 +74,7 @@ var SF_ZEMANTA = {
 					try {
 						callback(SF_ZEMANTA.zprefs);
 					} catch (e) { 
-						console.log(e);
+						//console.log(e);
 					}
 				}
 			} catch (e) {
@@ -435,7 +435,7 @@ var SF_ZEMANTA = {
 										}
 									}
 								} catch (e) {
-									console.log(e);
+									//console.log(e);
 									callback("", 3);
 								}
 							};

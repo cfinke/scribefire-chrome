@@ -146,6 +146,7 @@ if (platform == 'gecko') {
 					req.open("GET", "chrome://" + extension_namespace + "/content/_locales/" + locale + "/messages.json", true);
 				} catch (e) {
 					// Most likely the file doesn't exist.
+					//console.log(e);
 					readNextLocale();
 				}
 				
@@ -158,6 +159,7 @@ if (platform == 'gecko') {
 						var messages = JSON.parse(messagesText);
 					} catch (e) {
 						// Invalid JSON.
+						//console.log(e);
 						var messages = {};
 					}
 
@@ -175,6 +177,7 @@ if (platform == 'gecko') {
 				try {
 					req.send(null);
 				} catch (e) {
+					//console.log(e);
 					// Most likely the file doesn't exist.
 					readNextLocale();
 				}

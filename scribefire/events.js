@@ -19,8 +19,25 @@ var editor = {
 				return tinyMCE.get('text-content').getContent().replace(/^\s+|\s+$/g, "");
 			}
 			else {
-				return switchEditors._wp_Autop($("#text-content").val().replace(/^\s+|\s+$/g, ""));
+				var rv = editor.text();
+				
+				if (SCRIBEFIRE.prefs.getBoolPref("markdown")) {
+					rv = showdownConverter.makeHtml(rv);
+				}
+				
+				rv = rv.replace(/^\s+|\s+$/g, "");
+				
+				return switchEditors._wp_Autop(rv);
 			}
+		}
+	},
+	
+	text : function () {
+		if (switchEditors.mode == 'tinymce') {
+			return tinyMCE.get('text-content').getContent();
+		}
+		else {
+			return $("#text-content").val();
 		}
 	},
 	
