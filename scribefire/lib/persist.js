@@ -53,7 +53,7 @@ jQuery(document).ready(function () {
 				try {
 					$("#" + id).attr(property, persistence[id][property]);
 				} catch (e) {
-					//console.log(e);
+					console.log(e);
 				}
 			}
 		}
@@ -75,12 +75,16 @@ jQuery(document).ready(function () {
 		}
 	}
 	
+	console.log(persistence);
+	
 	for (var id in persistence) {
-		for (var property in persistence[id]) {
-			try {
-				$("#" + id).attr(property, persistence[id][property]);
-			} catch (e) {
-				//console.log(e);
+		if (id) {
+			for (var property in persistence[id]) {
+				try {
+					$("#" + id).attr(property, persistence[id][property]);
+				} catch (e) {
+					console.log(e);
+				}
 			}
 		}
 	}
