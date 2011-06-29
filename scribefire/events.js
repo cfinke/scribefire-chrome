@@ -537,6 +537,9 @@ $(document).ready(function () {
 		SCRIBEFIRE.setBlog(blog);
 		
 		$.facebox.close();
+		
+		SCRIBEFIRE.populateBlogsList();
+		$("#list-blogs").val(blog.username + "@" + blog.url).change();
 	});
 	
 	$(".button-blog-add-cancel").live("click", function (e) {
