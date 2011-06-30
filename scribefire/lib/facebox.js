@@ -86,8 +86,8 @@
     settings: {
       opacity      : 0.5,
       overlay      : true,
-      loadingImage : '/skin/loading.gif',
-      closeImage   : '/skin/closelabel.gif',
+      loadingImage : 'skin/loading.gif',
+      closeImage   : 'skin/closelabel.gif',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none; width: 50%; margin-left: auto; margin-right: auto; border-radius: 10px; -moz-border-radius: 10px; padding: 10px;"> \
