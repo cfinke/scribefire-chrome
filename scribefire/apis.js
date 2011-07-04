@@ -58,6 +58,9 @@ var blogAPI = function () {
 	this.ui.excerpt = false;
 	this.ui.pages = false;
 	this.ui.getPosts = true;
+	/*
+	this.ui["featured-image"] = false;
+	*/
 };
 
 blogAPI.prototype = {
@@ -270,6 +273,13 @@ var genericMetaWeblogAPI = function () {
 							delete rv[i].dateCreated;
 						}
 						
+						/*
+						if ("wp_featured_image" in rv[i]) {
+							rv[i].featured_image = rv[i].wp_featured_image;
+							delete rv[i].wp_featured_image;
+						}
+						*/
+						
 						delete rv[i].postid;
 						delete rv[i].mt_keywords;
 						delete rv[i].post_status;
@@ -428,7 +438,13 @@ var genericMetaWeblogAPI = function () {
 				contentStruct.mt_excerpt = params.excerpt;
 			}
 		}
-
+		
+		/*
+		if (this.ui["featured-image"] && "featured_image" in params) {
+			contentStruct.wp_featured_image = params.wp_featured_image;
+		}
+		*/
+		
 		if (("id" in params) && params.id) {
 			var args = [params.id, this.username, this.password, contentStruct, publish];
 			var xml = performancingAPICalls.metaWeblog_editPost(args);
@@ -701,6 +717,9 @@ var wordpressAPI = function () {
 	this.ui["tags"] = { "posts" : true, "pages" : false, "default": true };
 	this.ui.excerpt = true;
 	this.ui.pages = true;
+	/*
+	this.ui["featured-image"] = (this.ui.upload);
+	*/
 	
 	this.publish = function (params, success, failure) {
 		// Some Wordpress plugins apparently rely on linebreaks being \n and not <br />. This is dumb.
@@ -708,6 +727,12 @@ var wordpressAPI = function () {
 		params.content = params.content.replace(/<\/p>\s*<p>/g, "\n\n");
 		
 		if (params.type == "posts") {
+			/*
+			if ("featured_image" in params) {
+				params.wp_featured_image = parseInt(params.featured_image.id, 10);
+			}
+			*/
+			
 			this.doPublish(params, success, failure);
 		}
 		else {
@@ -891,6 +916,26 @@ var wordpressAPI = function () {
 			);
 		}
 	}
+	
+	this.getMediaLibrary = function (params, success, failure) {
+		var args = [params.id, this.username, this.password, { number : 1 } ];
+		var xml = performancingAPICalls.wp_getMediaLibrary(args);
+
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml,
+			function (rv) {
+				if (success) {
+					success(rv);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
 };
 wordpressAPI.prototype = new genericMetaWeblogAPI();
 
@@ -1020,8 +1065,6 @@ var genericAtomAPI = function () {
 								$(this).find("category").each(function () {
 									post.categories.push($(this).attr("term"));
 								});
-								
-								post.tags = "";
 								
 								$(this).find("link").each(function () {
 									if ($(this).attr("rel") == "alternate") {
@@ -2413,6 +2456,9 @@ var performancingAPICalls = {
 	},
 	wp_getUsersBlogs : function (myParams) {
 		return XMLRPC_LIB.makeXML("wp.getUsersBlogs", myParams);
+	},
+	wp_getMediaLibrary : function (myParams) {
+		return XMLRPC_LIB.makeXML("wp.getMediaLibrary", myParams);
 	}
 };
 

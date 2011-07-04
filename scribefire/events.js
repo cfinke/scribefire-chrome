@@ -361,6 +361,12 @@ $(document).ready(function () {
 					}
 				}
 				
+				/*
+				if (featured_image = entry.data("featured_image")) {
+					$("#text-featured-image-id").val(featured_image.id);
+				}
+				*/
+				
 				SCRIBEFIRE.getAPI().getPostCategories(
 					{ "id" : postId },
 					function success (categories, key) {
@@ -580,6 +586,7 @@ $(document).ready(function () {
 	
 	$("#text-tags").val(SCRIBEFIRE.prefs.getCharPref("state.tags"));
 	SCRIBEFIRE.prefs.setCharPref("state.tags", "");
+	$("#text-tags").autocomplete(tagsAutocompleteData);
 	
 	$("#text-excerpt").val(SCRIBEFIRE.prefs.getCharPref("state.excerpt")).change();
 	SCRIBEFIRE.prefs.setCharPref("state.excerpt", "");
@@ -616,11 +623,6 @@ $(document).ready(function () {
 	
 	var is_private = SCRIBEFIRE.prefs.getBoolPref("state.private");
 	$("#checkbox-private").get(0).checked = is_private;
-	
-	$("#text-tags").val(SCRIBEFIRE.prefs.getCharPref("state.tags"));
-	SCRIBEFIRE.prefs.setCharPref("state.tags", "");
-	
-	$("#text-tags").autocomplete(tagsAutocompleteData);
 	
 	var entry_filter_timeout = null;
 	var last_filter = "";
@@ -793,11 +795,11 @@ $(document).ready(function () {
 		function saveEditorState() {
 			// Grab all of the input values for state persistence.
 			SCRIBEFIRE.prefs.setCharPref("state.entryId", $("#list-entries").val());
-			SCRIBEFIRE.prefs.setCharPref("state.title",   $("#text-title").val());
+			SCRIBEFIRE.prefs.setCharPref("state.title", $("#text-title").val());
 			SCRIBEFIRE.prefs.setCharPref("state.content", editor.val());
-			SCRIBEFIRE.prefs.setCharPref("state.tags",	$("#text-tags").val());
+			SCRIBEFIRE.prefs.setCharPref("state.tags", $("#text-tags").val());
 			SCRIBEFIRE.prefs.setCharPref("state.timestamp",getTimestamp());
-			SCRIBEFIRE.prefs.setBoolPref("state.draft",   $("#status-draft").val() == "1");
+			SCRIBEFIRE.prefs.setBoolPref("state.draft", $("#status-draft").val() == "1");
 			SCRIBEFIRE.prefs.setJSONPref("state.categories", $("#list-categories").val());
 			SCRIBEFIRE.prefs.setCharPref("state.slug", $("#text-slug").val());
 			SCRIBEFIRE.prefs.setJSONPref("state.customFields", SCRIBEFIRE.getCustomFields(true));

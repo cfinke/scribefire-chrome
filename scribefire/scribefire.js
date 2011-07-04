@@ -1060,6 +1060,9 @@ var SCRIBEFIRE = {
 		params.private = $("#checkbox-private").is(":checked");
 		params.excerpt = $("#text-excerpt").val();
 		params.custom_fields = SCRIBEFIRE.getCustomFields();
+		/*
+		params.featured_image = { id : $("#text-featured-image-id").val() };
+		*/
 		
 		if ($("#toggle-schedule-scheduled").is(":visible")) {
 			var timestampObject = new Date();

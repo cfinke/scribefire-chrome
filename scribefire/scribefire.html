@@ -176,25 +176,32 @@
 								<div class="subunderbar" last="true">
 									<textarea rows="5" name="text-excerpt" id="text-excerpt"></textarea>
 								</div>
-								<div class="ui-custom-fields" style="margin-top: 10px;">
-									<div class="subbar" id="bar-custom-fields">
-										<label><i18n data-key="label_customFields"></i18n></label>
-									</div>
-									<div class="subunderbar" last="true">
-										<div id="custom-fields">
-											<div class="custom_field">
-												<input type="hidden" name="id" />
-												<button class="button-remove-custom-field">-</button>
-												<input type="text" name="key" placeholder="Name" />
-												<textarea name="value" placeholder="Value"></textarea>
-											</div>
-										</div>
-
-										<button id="button-add-custom-field"><i18n data-key="action_customField_add"></i18n></button>
-									</div>
-								</div>
-							
 							</div>
+							
+							<div class="ui-custom-fields" style="margin-top: 10px;">
+								<div class="subbar" id="bar-custom-fields">
+									<label><i18n data-key="label_customFields"></i18n></label>
+								</div>
+								<div class="subunderbar" last="true">
+									<div id="custom-fields">
+										<div class="custom_field">
+											<input type="hidden" name="id" />
+											<button class="button-remove-custom-field">-</button>
+											<input type="text" name="key" placeholder="Name" />
+											<textarea name="value" placeholder="Value"></textarea>
+										</div>
+									</div>
+
+									<button id="button-add-custom-field"><i18n data-key="action_customField_add"></i18n></button>
+								</div>
+							</div>
+							
+							<!--
+							<div class="ui-featured-image" style="margin-top: 1em;">
+								<input type="text" id="text-featured-image-id" />
+								<button onclick="SCRIBEFIRE.getAPI().getMediaLibrary(SCRIBEFIRE.getAPI());">Try</button>
+							</div>
+							-->
 						</div>
 					</div>
 					<div class="blog-meta">
