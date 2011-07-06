@@ -294,7 +294,6 @@ var SCRIBEFIRE = {
 		var newSelectedBlog = null;
 		
 		$("#list-blogs").html("");
-		$("#list-inlinks-blogs").html("");
 		
 		var count = 0;
 		
@@ -325,10 +324,6 @@ var SCRIBEFIRE = {
 			}
 			
 			count++;
-			
-			if (blogs[i].type == 'wordpress' || blogs[i].type == 'drupal' || blogs[i].type == 'movabletype') {
-				$("#list-inlinks-blogs").append('<li><a href="'+blogs[i].url+'" target="_blank">'+blogs[i].name+'</a></li>');
-			}
 		}
 		
 		if (count > 0) {

@@ -258,9 +258,9 @@ $(document).ready(function () {
 	});
 	
 	$("#list-blogs").live("change", function () {
-		$("#button-inlinks").hide();
-		
 		SCRIBEFIRE.updateOptionalUI();
+		
+		SCRIBEFIRE.populateEntriesList($("#filter-entries").val());
 		
 		if (!$(this).val()) {
 			$(".blog-meta").hide();
@@ -269,14 +269,8 @@ $(document).ready(function () {
 		else {
 			$(".blog-unmeta").hide();
 			$(".blog-meta").show();
-			SCRIBEFIRE.updateOptionalUI();
 			
-			SCRIBEFIRE.populateEntriesList($("#filter-entries").val());
 			SCRIBEFIRE.populateCategoriesList();
-			
-			if ($(this).find("option:selected").data("type") == "wordpress") {
-				$("#button-inlinks").show();
-			}
 		}
 		
 		SCRIBEFIRE.prefs.setCharPref("selectedBlog", $(this).val());
@@ -499,9 +493,8 @@ $(document).ready(function () {
 		SCRIBEFIRE.publish(
 			function success(rv) {
 				button.removeClass("busy");
-				SCRIBEFIRE.notify(
-					scribefire_string("notification_draft_save")
-				);
+				$.facebox($("#panel-save-draft-notification"));
+				$("#panel-save-draft-notification").show();
 			},
 			function error(rv) {
 				button.removeClass("busy");
@@ -555,13 +548,6 @@ $(document).ready(function () {
 			
 			SCRIBEFIRE.importNextBlog();
 		}
-	});
-	
-	$("#button-inlinks").live("click", function (e) {
-		e.preventDefault();
-		
-		$.facebox($("#panel-inlinks"));
-		$("#panel-inlinks").show();
 	});
 	
 	$("#button-add-custom-field").live("click", function (e) {

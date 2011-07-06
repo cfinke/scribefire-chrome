@@ -72,6 +72,9 @@
 	"notification_publish_update": {
 		"message": "Your post was updated successfully."
 	},
+	"notification_publish_draft": {
+		"message": "Your draft was saved successfully."
+	},
 	"action_openBlogInTab": {
 		"message": "Open blog in a new tab"
 	},
@@ -446,46 +449,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "Are you sure you want to delete this post? It will be removed from your blog's server, and it will no longer appear on your blog."
-	},
-	"text_inlinks1": {
-		"message": "ScribeFire has partnered with $website$ to provide you with an easy-to-use monetization solution for your blog.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "What are InLinks?"
-	},
-	"text_inlinks2": {
-		"message": "InLinks are static HTML advertisements located within content areas of websites.  It is simply the most natural paid link on the market.  The benefits for you are:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "Ads that are easy on the eyes.  No annoying pop-ups!"
-	},
-	"text_inlinksBenefit2": {
-		"message": "Predictable revenue. Get paid a flat rate\/month\/ad sold."
-	},
-	"text_inlinksBenefit3": {
-		"message": "Blog-friendly. Install our simple plugin and we take care of the rest.  Just sit back and collect your monthly earnings."
-	},
-	"text_inlinksBlogs": {
-		"message": "Out of the blogs you have set up in ScribeFire, the following may be compatible with InLinks:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(For now, InLinks only works on blogs using Wordpress.org, Drupal, or MovableType.)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ Visit InLinks.com $link_close$ to download the InLinks plugin and start earning money on your blogs today!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "Blog Properties"

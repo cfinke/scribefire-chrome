@@ -47,7 +47,7 @@ var blogAPI = function () {
 	this.ui.categories = true;
 	this.ui["add-category"] = true;
 	this.ui.tags = true;
-	this.ui.draft = true;
+	this.ui.draft = false;
 	this.ui.deleteEntry = true;	
 	this.ui.timestamp = true;
 	this.ui.slug = false;
@@ -169,6 +169,7 @@ var genericMetaWeblogAPI = function () {
 	this.ui.timestamp = true;
 	this.ui.tags = false;
 	this.ui.upload = !!((platform == 'gecko') || (window.File && window.FileReader && window.FileList && window.Blob));
+	this.ui.draft = true;
 	
 	this.postInit = function () {
 		this.ui.timestamp = !(this.apiUrl.indexOf("http://api.xanga.com/") == 0);
@@ -946,7 +947,6 @@ var genericAtomAPI = function () {
 
 	this.ui.tags = false;
 	this.ui.categories = false;
-	this.ui.draft = false;
 	
 	this.getBlogs = function (params, success, failure) {
 		this.init(params);
@@ -1812,6 +1812,7 @@ var tumblrAPI = function () {
 	this.ui.timestamp = false;
 	this.ui.slug = true;
 	this.ui.private = true;
+	this.ui.draft = true;
 	
 	this.postInit = function () {
 		this.ui.getPosts = !this.isPrivate;
@@ -2076,7 +2077,6 @@ var posterousAPI = function () {
 	this.ui.timestamp = false;
 	this.ui.private = false; // until posterous fixes their bug
 	this.ui.upload = (platform == 'gecko');
-	this.ui.draft = false;
 	
 	this.token = "AFEuheynrHoJlBJqwHzoFEngfEkebtEI";
 	

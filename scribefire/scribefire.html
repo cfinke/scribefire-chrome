@@ -76,7 +76,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="blog-meta">
+					<div>
 						<div class="bar fixed" id="bar-entries">
 							<label><span class="entry-type-text"><i18n data-key="label_entry"></i18n></span></label>
 							<button class="bar-meta reset-button"><i18n data-key="action_reset"></i18n></button>
@@ -204,7 +204,7 @@
 							-->
 						</div>
 					</div>
-					<div class="blog-meta">
+					<div>
 						<div class="bar fixed" id="bar-publish">
 							<label><i18n data-key="label_publish"></i18n></label>
 						</div>
@@ -214,22 +214,22 @@
 
 							<div style="text-align: right; float: right;">
 								<span id="buttons-publish-draft">
-									<button id="button-save-progress"><i18n data-key="action_draft_save"></i18n></button>
-									<button id="button-publish-draft"><i18n data-key="action_publish"></i18n></button>
+									<button id="button-save-progress" class="i18n" data-key="action_draft_save"></button>
+									<button id="button-publish-draft" class="i18n blog-meta" data-key="action_publish"></button>
 								</span>
 								<span id="buttons-publish-published">
 									<button id="button-publish"><i18n data-key="action_publishUpdate"></i18n></button>
 								</span>
 							</div>
-							<span class="ui-private">
+							<span class="ui-private blog-meta">
 								<input type="checkbox" id="checkbox-private" /> <label><i18n data-key="label_private"></i18n></label>
 							</span>
-							<span class="ui-slug">
+							<span class="ui-slug blog-meta">
 								<a href="#" id="slug-toggle"><i18n data-key="action_permalink_edit"></i18n></a> 
 								<input type="url" style="width: 15em; display: none;" id="text-slug" />
 								<span id="slug-display"></span>
 							</span>
-							<span class="ui-timestamp">
+							<span class="ui-timestamp blog-meta">
 								<a href="#" id="toggle-schedule"><i18n data-key="action_schedule"></i18n></a>
 								<span id="toggle-schedule-immediately"><i18n data-key="option_publish_immediately"></i18n></span>
 								<span id="toggle-schedule-scheduled">
@@ -258,27 +258,6 @@
 				</td>
 			</tr>
 		</table>
-		
-		<div id="panel-inlinks" style="display: none;">
-			<image src="skin/inlinks.png" />
-
-			<p><i18n data-key="text_inlinks1"></i18n></p>
-
-			<h3><i18n data-key="header_inlinks"></i18n></h3>
-			<p><i18n data-key="text_inlinks2"></i18n></p>
-			
-			<ul>
-				<li><i18n data-key="text_inlinksBenefit1"></i18n></li>
-				<li><i18n data-key="text_inlinksBenefit2"></i18n></li>
-				<li><i18n data-key="text_inlinksBenefit3"></i18n></li>
-			</ul>
-			
-			<p><i18n data-key="text_inlinksBlogs"></i18n></p>
-			<ul id="list-inlinks-blogs"></ul>
-			
-			<p><i18n data-key="text_inlinksCompatibility"></i18n></p>
-			<p><i18n data-key="text_inlinks3"></i18n></p>
-		</div>
 		
 		<div id="panel-blog-edit" class="modal" style="display: none;">
 			<h3><i18n data-key="header_blogProperties"></i18n></h3>
@@ -414,7 +393,9 @@
 		</div>
 		
 		<div id="panel-publish-notification" style="display: none;">
-			<p><i18n data-key="notification_publish"></i18n><br /><br /><i18n data-key="label_genericQuestion"></i18n></p>
+			<h3 class="i18n" data-key="notification_publish"></h3>
+			
+			<p class="i18n" data-key="label_genericQuestion"></p>
 			
 			<div class="buttons">
 				<button class="button-meta button-blog-view"><i18n data-key="action_openBlogInTab"></i18n></button>
@@ -424,10 +405,23 @@
 		</div>
 		
 		<div id="panel-publish-update-notification" style="display: none;">
-			<p><i18n data-key="notification_publish_update"></i18n><br /><br /><i18n data-key="label_genericQuestion"></i18n></p>
+			<h3 class="i18n" data-key="notification_publish_update"></h3>
+			
+			<p class="i18n" data-key="label_genericQuestion"></p>
 			
 			<div class="buttons">
 				<button class="button-meta button-blog-view i18n" data-key="action_openBlogInTab"></button>
+				<button class="modal_close"><i18n data-key="action_continueEditing"></i18n></button>
+				<button class="reset-button modal_close"><i18n data-key="action_startNewPost"></i18n></button>
+			</div>
+		</div>
+		
+		<div id="panel-save-draft-notification" style="display: none;">
+			<h3 class="i18n" data-key="notification_publish_draft"></h1>
+			
+			<p class="i18n" data-key="label_genericQuestion"></p>
+			
+			<div class="buttons">
 				<button class="modal_close"><i18n data-key="action_continueEditing"></i18n></button>
 				<button class="reset-button modal_close"><i18n data-key="action_startNewPost"></i18n></button>
 			</div>

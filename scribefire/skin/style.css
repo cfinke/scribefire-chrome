@@ -159,9 +159,8 @@ a {
 	clear: both;
 }
 
-#underbar-publish > * {
-	margin-left: 1em;
-}
+#underbar-publish { min-height: 2em; }
+	#underbar-publish > * { margin-left: 1em; }
 
 #error-video-insert {
 	color: #f00;
