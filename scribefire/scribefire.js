@@ -68,6 +68,16 @@ var SCRIBEFIRE = {
 			return rv;
 		},
 		
+		getIntPref : function (prefName) {
+			var rv = this.getPref(prefName);
+
+			if (!rv || rv == "0" || rv == "null") {
+				return 0;
+			}
+
+			return parseInt(rv, 10);
+		},
+		
 		getJSONPref : function (prefName, defaultValue) {
 			var rv = this.getCharPref(prefName);
 			
@@ -123,6 +133,10 @@ var SCRIBEFIRE = {
 		
 		setBoolPref : function (prefName, prefVal) {
 			this.setPref(prefName, !!prefVal);
+		},
+		
+		setIntPref : function (prefName, prefVal) {
+			this.setPref(prefName, parseInt(prefVal, 10));
 		}
 	},
 
@@ -133,9 +147,14 @@ var SCRIBEFIRE = {
 			}
 		}
 		
+		pref("stats.asked", false);
+		pref("stats.allowed", false);
+		pref("stats.loadCounter", 0);
 		pref("markdown", true);
 		
 		SCRIBEFIRE.populateBlogsList();
+		
+		SCRIBEFIRE.prefs.setIntPref("stats.loadCounter", SCRIBEFIRE.prefs.getIntPref("stats.loadCounter") + 1);
 		
 		if ($("#list-blogs option").length == 0) {
 			if (!SCRIBEFIRE.prefs.getBoolPref("firstrun")) {

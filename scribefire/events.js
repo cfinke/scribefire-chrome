@@ -433,12 +433,29 @@ $(document).ready(function () {
 		$("#adbull-promo").hide();
 	});
 	
-	if (!SCRIBEFIRE.prefs.getBoolPref("zemanta.hidePromo")) {
+	if (SCRIBEFIRE.prefs.getIntPref("stats.loadCounter") > 10 && !SCRIBEFIRE.prefs.getBoolPref("stats.asked")) {
+		$("#stats-promo").show();
+	}
+	else if (!SCRIBEFIRE.prefs.getBoolPref("zemanta.hidePromo")) {
 		$("#zemanta-promo").show();
 	}
 	else if (!SCRIBEFIRE.prefs.getBoolPref("adbull.hidePromo")) {
 		$("#adbull-promo").show();
 	}
+	
+	$("#button-stats-yes").live("click", function (e) {
+		SCRIBEFIRE.prefs.setBoolPref("stats.asked", true);
+		SCRIBEFIRE.prefs.setBoolPref("stats.allowed", true);
+		
+		$("#stats-promo").hide();
+	});
+
+	$("#button-stats-no").live("click", function (e) {
+		SCRIBEFIRE.prefs.setBoolPref("stats.asked", true);
+		SCRIBEFIRE.prefs.setBoolPref("stats.allowed", false);
+		
+		$("#stats-promo").hide();
+	});
 	
 	$("#button-blog-add").live("click", function (e) {
 		SCRIBEFIRE_ACCOUNT_WIZARD.add();

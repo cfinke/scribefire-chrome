@@ -666,5 +666,19 @@
 	},
 	"text_count": {
 		"message": "$1 words; $2 characters"
+	},
+	"stats_introduction_header": {
+		"message": "Help Improve ScribeFire"
+	},
+	"stats_introduction": {
+		"message": "Is it ok if ScribeFire collects some anonymous stats about the way you use it? This includes things like the number of blogs you have, your browser version, and how often you the visual editor versus the code editor, but not things like your blogs' URLs, usernames, or passwords."
+	},
+	"stats_button_yes": {
+		"message": "Sure",
+		"description": "The text on the button that the user clicks to allow stats to be collected about their usage."
+	},
+	"stats_button_no": {
+		"message": "No Thanks",
+		"description": "The text on the button that the user clicks to stop stats from being collected about their usage."
 	}
 }
