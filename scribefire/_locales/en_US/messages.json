@@ -118,7 +118,7 @@
 		"message": "Delete"
 	},
 	"action_editHTML": {
-		"message": "Edit Code"
+		"message": "Edit Code (HTML and Markdown)"
 	},
 	"action_editVisual": {
 		"message": "Edit Visually"
