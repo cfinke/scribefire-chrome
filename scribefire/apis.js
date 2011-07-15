@@ -172,7 +172,8 @@ var genericMetaWeblogAPI = function () {
 	this.ui.draft = true;
 	
 	this.postInit = function () {
-		this.ui.timestamp = !(this.apiUrl.indexOf("http://api.xanga.com/") == 0);
+		this.ui.timestamp = !(this.apiUrl.indexOf("http://api.xanga.com/") == 0 || this.apiUrl.indexOf("http://my.opera.com/") == 0);
+		this.ui.draft = !(this.apiUrl.indexOf("http://my.opera.com/") == 0);
 	};
 	
 	this.getBlogs = function (params, success, failure) {
