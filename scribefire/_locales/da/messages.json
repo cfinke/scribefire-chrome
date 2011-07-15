@@ -65,12 +65,6 @@
 	"action_delete": {
 		"message": "Slet"
 	},
-	"action_editHTML": {
-		"message": "Skift til HTML-visning"
-	},
-	"action_editVisual": {
-		"message": "Skift til almindelig visning"
-	},
 	"action_customField_add": {
 		"message": "Tilføj brugerdefineret felt"
 	},
@@ -353,46 +347,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "Er du sikker på at du vil slette denne post? Den vil blive slettet fra din blogs server og vil ikke længere figurere på din blog."
-	},
-	"text_inlinks1": {
-		"message": "ScribeFire er gået sammen med $website$ for at gøre det lettere for dig at tjene penge på din blog.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "Hvad er InLinks?"
-	},
-	"text_inlinks2": {
-		"message": "InLinks er stillestående HTML-reklamer, som findes i indholdet på websider. Det er ganske enkelt det mest naturlige, betalte link på markedet. Dine fordele er:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "Diskrete reklamen, som ikke forstyrrer øjnene. Ingen irriterende pop-ups!"
-	},
-	"text_inlinksBenefit2": {
-		"message": "Forudsigelig omsætning. Få et fast beløb pr. måned\/solgt reklame."
-	},
-	"text_inlinksBenefit3": {
-		"message": "Blogvenlig. Installer vores simple plugin og vi tager os af resten. Bare læn dig tilbage og indkassér dit månedlige beløb."
-	},
-	"text_inlinksBlogs": {
-		"message": "Følgende blogs er kompatible med InLinks:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(InLinks virker for tiden kun med blogs fra Wordpress.org, Drupal og MovableType)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ Besøg InLinks.com $link_close$ for at downloade InLinks-plugin og starte din indtjening i dag!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "Blog indstillinger"

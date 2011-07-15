@@ -80,12 +80,6 @@
 	"action_delete": {
 		"message": "Hapus"
 	},
-	"action_editHTML": {
-		"message": "Pindah ke mode HTML"
-	},
-	"action_editVisual": {
-		"message": "Pindah ke Editor Visual"
-	},
 	"action_category_add": {
 		"message": "Tambah Katehori"
 	},

@@ -108,12 +108,6 @@
 	"action_delete": {
 		"message": "Supprimer"
 	},
-	"action_editHTML": {
-		"message": "Passer au mode HTML"
-	},
-	"action_editVisual": {
-		"message": "Passer au mode visuel"
-	},
 	"action_category_add": {
 		"message": "Ajouter une nouvelle catégorie"
 	},
@@ -426,46 +420,6 @@
 	"confirm_deletePost": {
 		"message": "Êtes-vous sûr de vouloir supprimer ce billet ? On l'enlèvera du serveur de votre blog et il n'apparaîtra plus dans votre blog."
 	},
-	"text_inlinks1": {
-		"message": "ScribeFire s'est associé avec $website$ pour vous apporter un moyen facile à utiliser de rentabiliser votre blog.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "Qu'est-ce que InLinks ?"
-	},
-	"text_inlinks2": {
-		"message": "InLinks sont des publicités fixées HTML situées dans le contenu des sites Web. C'est l'un des façons faciles d'avoir liens rémunérées. Vous recevez des bénéfices comme :"
-	},
-	"text_inlinksBenefit1": {
-		"message": "Pubs qui ne nous dérange pas. Plus de pubs surgissants ou intruse !"
-	},
-	"text_inlinksBenefit2": {
-		"message": "Projection des revenus."
-	},
-	"text_inlinksBenefit3": {
-		"message": "Notre plug-in est utilisable sur les blogs. Installez-le et nous nous occupons du reste. Détentez-vous et recevez vos revenus mensuels."
-	},
-	"text_inlinksBlogs": {
-		"message": "Parmi les blogs que vous avez lié à ScribeFire, les suivants ne sont pas compatibles avec InLinks:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "Pour l'instant, Inlinks ne marche que pour les blogs utilisant Wordpress.org, Drupal, or MovableType."
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ Visit InLinks.com $link_close$ pour télécharger le plugin et commencer à gagner de l'argent avec votre blog de suite !",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
-	},
 	"header_blogProperties": {
 		"message": "Propriétés du blog"
 	},
@@ -677,5 +631,8 @@
 	},
 	"button_migrate": {
 		"message": "Transférer Vos Données ScribFire depuis\/Vers un autre Ordinateur."
+	},
+	"text_count": {
+		"message": "$1 mots; $2 caractères"
 	}
 }

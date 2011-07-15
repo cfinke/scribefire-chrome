@@ -65,12 +65,6 @@
 	"action_delete": {
 		"message": "Ta bort"
 	},
-	"action_editHTML": {
-		"message": "Byt till HTML-läge"
-	},
-	"action_editVisual": {
-		"message": "Byt till den visuella editorn"
-	},
 	"action_customField_add": {
 		"message": "Lägg till eget fält"
 	},
@@ -353,46 +347,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "Är du säker på att du vill radera detta inlägg? Det kommer att tas bort från din bloggserver och det kommer inte längre att synas på din blogg."
-	},
-	"text_inlinks1": {
-		"message": "ScribeFire samarbetar med $website$ för att ge dig ett enkelt sätt att tjäna pengar på din blogg.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "Vad ä"
-	},
-	"text_inlinks2": {
-		"message": "InLinks är statiska HTML-annonser på en webbsida. Det är helt enkelt den naturligaste betalda länken på marknaden. Fördelarna för dig är:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "Annonser som är en fröjd för ögat. Inga irriterande pop up-fönster."
-	},
-	"text_inlinksBenefit2": {
-		"message": "Förutsägbar förtjänst. Betalt en fast summa\/månad\/annons såld."
-	},
-	"text_inlinksBenefit3": {
-		"message": "Bloggvänlig. Installera vårt enkla tillägg och vi tar hand om resten. Luta dig tilbaka och dra in pengar varje månad."
-	},
-	"text_inlinksBlogs": {
-		"message": "Av de bloggar du har lagt upp i ScribeFire så kan följande vara kompatibla med InLinks:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(För tillfället fungerar InLinks bara med bloggar som använder Wordpress.org, Drupal eller MovableType.)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ Besök InLinks.com $link_close$ för att ladda ner InLinks-tillägget och börja tjäna pengar på dina bloggar idag!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "Blogginformation"

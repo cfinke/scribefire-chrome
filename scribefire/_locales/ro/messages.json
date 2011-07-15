@@ -80,12 +80,6 @@
 	"action_delete": {
 		"message": "Ştergere"
 	},
-	"action_editHTML": {
-		"message": "Activează modul HTML"
-	},
-	"action_editVisual": {
-		"message": "Activează editorul vizual"
-	},
 	"action_category_add": {
 		"message": "Adaugă o categorie nouă"
 	},
@@ -380,46 +374,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "Eşti sigur că vrei să ştergi acest post? Va fi şters de pe serverul blogului tău şi nu va mai apărea pe blogul tău."
-	},
-	"text_inlinks1": {
-		"message": "ScribeFire a încheiat un parteneriat cu $website$ pentru a-ţi putea oferi o soluţie de monetizare uşoară pentru blog.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "Ce sunt InLinks?"
-	},
-	"text_inlinks2": {
-		"message": "InLinks sunt reclame HTML static localizate în conţinutul site-urilor. Este pur şi simplu cel mai natural link plătit de pe piaţă."
-	},
-	"text_inlinksBenefit1": {
-		"message": "Reclame uşor de vizualizat. Fără pop-uri!"
-	},
-	"text_inlinksBenefit2": {
-		"message": "Venit predictibil. Eşti plătit o sumă fixă\/pe lună\/per vânzare."
-	},
-	"text_inlinksBenefit3": {
-		"message": "Prietenos cu blogurile. Instaleaza pluginul nostru simplu şi vom avea grijă de restul. Stai liniştit şi colecteaază banii lunar."
-	},
-	"text_inlinksBlogs": {
-		"message": "Înafara blogurilor setate in ScribeFire, următoarele mai sunt compatibile cu InLinks:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(Pentru moment Inlinks functionează numai în Wordpress.org, Drupal sau MovableType.)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ Vizitează InLinks.com $link_close$ pentru a descărca pluginul InLinks şi a începe să câştigi bani cu blogul tău azi!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "Proprietăţile blogului"

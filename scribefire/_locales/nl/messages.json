@@ -65,12 +65,6 @@
 	"action_delete": {
 		"message": "Verwijder"
 	},
-	"action_editHTML": {
-		"message": "Switch naar HTML Mode"
-	},
-	"action_editVisual": {
-		"message": "Switch naar Visuele Editor"
-	},
 	"action_customField_add": {
 		"message": "Voeg Custom Veld toe"
 	},

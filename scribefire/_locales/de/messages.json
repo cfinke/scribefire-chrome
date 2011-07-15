@@ -108,12 +108,6 @@
 	"action_delete": {
 		"message": "Löschen"
 	},
-	"action_editHTML": {
-		"message": "Auf HTML-Modus umschalten"
-	},
-	"action_editVisual": {
-		"message": "Zum visuellen Editor wechseln"
-	},
 	"action_category_add": {
 		"message": "Neue Kategorie hinzufügen"
 	},
@@ -425,46 +419,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "Bist Du sicher, dass Du dieses Posting löschen willst? Es wird von Deinem Blogserver entfernt werden und nicht länger in Deinem Blog erscheinen."
-	},
-	"text_inlinks1": {
-		"message": "ScribeFire ist eine Partnerschaft mit $website$ eingegangen um Dir eine leicht zu bedienende Geldverdienstmöglichkeit für Dein Blog anzubieten.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "Was sind InLinks?"
-	},
-	"text_inlinks2": {
-		"message": "InLinks sind statische HTML-Werbeanzeigen im Content-Bereich von Webseiten. Sie sind die einfachste Form von bezahlten Links. Die Vorteile für dich sind:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "Eine Art von Werbung, die \"augenschonend\" ist. Keine nervigen Popups!"
-	},
-	"text_inlinksBenefit2": {
-		"message": "Voraussehbare Einnahmen. Erhalte einen festen Betrag pro verkaufter Werbung und Monat."
-	},
-	"text_inlinksBenefit3": {
-		"message": "Blog-freundlich. Installiere unser einfaches Plugin, wir erledigen den Rest."
-	},
-	"text_inlinksBlogs": {
-		"message": "Von den Blogs, die du zu ScribeFire hinzugefügt hast sind folgende kompatibel zu InLinks:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(derzeit funktioniert InLinks nur in Verbindung mit Wordpress.org, Drupal oder MovableType.)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ Besuche InLinks.com$link_close$ um das InLink-Plugin herunterzuladen und beginne sofort Geld mit deinem Blog zu verdienen!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "Blogeinstellungen"

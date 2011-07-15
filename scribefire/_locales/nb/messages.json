@@ -108,12 +108,6 @@
 	"action_delete": {
 		"message": "Slett"
 	},
-	"action_editHTML": {
-		"message": "Bytt til HTML-modus"
-	},
-	"action_editVisual": {
-		"message": "Bytt til Visuell editor"
-	},
 	"action_category_add": {
 		"message": "Legg til en ny kategori"
 	},
@@ -425,46 +419,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "Er du sikker på at du vil slette dette innlegget? Det vil bli slettet fra din bloggs tjener, og vil ikke lenger vises i bloggen din."
-	},
-	"text_inlinks1": {
-		"message": "ScribeFire har gått i partnerskap med $website$ for å gi deg en enkel inntjeningsløsning for bloggen din.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "Hva er InLinks?"
-	},
-	"text_inlinks2": {
-		"message": "InLinks er statiske HTML-annonser plassert i innholdsområder på nettsteder.  Det er ganske enkelt den enklest betalte lenken på markedet.  Dine fordeler er:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "Annonsene er fine å se på. Ingen irriterende pop-ups!"
-	},
-	"text_inlinksBenefit2": {
-		"message": "Forutsigbare inntekter. Få betalt en flat rate\/måned\/annonse solgt."
-	},
-	"text_inlinksBenefit3": {
-		"message": "Blogg-vennlog.  Installer våre enkle plugin, så tar vi oss av resten.  Bare len deg tilbake og innkassér dine månedlige inntekter."
-	},
-	"text_inlinksBlogs": {
-		"message": "Av bloggene du har satt opp i ScribeFire er følgende kompatible med InLinks:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(Foreløpig fungerer InLinks kun på blogger som bruker Wordpress, Drupal eller MovableType.)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ Besøk InLinks.com $link_close$ for å laste ned InLinks plugin og begynn å tjene penger på bloggen din i dag!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "Blogg-egenskaper"

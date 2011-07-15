@@ -65,12 +65,6 @@
 	"action_delete": {
 		"message": "删除"
 	},
-	"action_editHTML": {
-		"message": "转换到HTML模式"
-	},
-	"action_editVisual": {
-		"message": "转换到可视编辑器"
-	},
 	"action_customField_add": {
 		"message": "添加自定义域"
 	},
@@ -353,46 +347,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "确定删除这篇日志？日志将从博客中删除，并不再显示。"
-	},
-	"text_inlinks1": {
-		"message": "ScribeFire已和$website$合作，为你的博客提供简便的生财之道。",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "InLinks是什么？"
-	},
-	"text_inlinks2": {
-		"message": "InLinks是放在网站内容区里的静态HTML广告，是市面上最为自然的付费链接。好处是："
-	},
-	"text_inlinksBenefit1": {
-		"message": "广告容易被看到，没有烦人的弹出框！"
-	},
-	"text_inlinksBenefit2": {
-		"message": "可以预测的收入。"
-	},
-	"text_inlinksBenefit3": {
-		"message": "安装我们的插件，剩下的我们来做。你只用坐下来数数每月挣了多少。"
-	},
-	"text_inlinksBlogs": {
-		"message": "你在ScribeFire中添加的博客里，下列博客可使用InLinks："
-	},
-	"text_inlinksCompatibility": {
-		"message": "（目前为止，Inlinks只适用于使用Wordpress，Drupal，或MovableType搭建的博客）"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$访问InLinks.com网站，$link_close$下载InLinks插件，今天开始挣钱！",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "博客属性"

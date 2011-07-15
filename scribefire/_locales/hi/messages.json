@@ -96,12 +96,6 @@
 	"action_delete": {
 		"message": "रद्द"
 	},
-	"action_editHTML": {
-		"message": "HTML  भाषा में देखें"
-	},
-	"action_editVisual": {
-		"message": "दृश्य संपादक में देखें"
-	},
 	"action_category_add": {
 		"message": "नयी श्रेणी बनाएँ"
 	},
@@ -407,46 +401,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "क्या आप इस रचना को रद्द करना चाहते हैं? ये आपके ब्लॉग के सर्वर से रद्द कर दी जायेगी और आपके ब्लॉग से भी"
-	},
-	"text_inlinks1": {
-		"message": "अग्निलेखक ने इस $website$ से साझा किया है ताकि आप अपने ब्लॉग से आसानी से धन कमा सकें",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "InLinks क्या होते हैं?"
-	},
-	"text_inlinks2": {
-		"message": "InLinks स्थाई HTML विज्ञापन हैं जो की वेबसाईटों के रचना क्षेत्र में रहते हैं. आसान शब्दों में ये पैसे देने वाले सबसे अच्छे विज्ञापन हैं. आपके लिये जो फायदे हैं वो हैं:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "आँखों को ना चुभने वाले विज्ञापन. कोई फटाका विज्ञापन नहीं!"
-	},
-	"text_inlinksBenefit2": {
-		"message": "पूर्वनिश्चित आय. समान किराया हर महीना\/विज्ञापन विक्रीत कमाएँ."
-	},
-	"text_inlinksBenefit3": {
-		"message": "ब्लॉग-मित्रवत. सिर्फ हमारा आसान \"प्लगइन\" जोड़ें और बाकि फ़िक्र हम पर छोड दें. आराम करें और हर महीने कमाएँ"
-	},
-	"text_inlinksBlogs": {
-		"message": "आपने जो भी ब्लॉग अग्निलेखक में जोड़े हैं उनमें से ये ब्लॉग InLinks के साथ काम कर सकते हैं:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(अभी तक, InLinks सिर्फ वर्डप्रेस.ऑर्ग, Drupal, MovableType के ब्लोग्स में ही काम करते हैं .)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ InLinks.com पर जायें $link_close$ InLinks plugin लगाने के लिये और अपने ब्लॉग से धन कमाने के लिये!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "ब्लॉग की विस्तृत जानकारी"

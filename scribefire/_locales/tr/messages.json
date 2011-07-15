@@ -68,12 +68,6 @@
 	"action_delete": {
 		"message": "Sil"
 	},
-	"action_editHTML": {
-		"message": "HTML moduna geç"
-	},
-	"action_editVisual": {
-		"message": "Görsel düzenleyiciye geç"
-	},
 	"action_customField_add": {
 		"message": "Özel alan ekle"
 	},
@@ -356,46 +350,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "Bu gönderiyi silmekten emin misiniz?  Blogunuzdan kaldırılacak ve bir daha görünmeyecek."
-	},
-	"text_inlinks1": {
-		"message": "ScribeFire $website$ sitesiyle blogunuzdan kolayca para kazanabilmeniz için ortaklık kurdu.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "InLinks nedir?"
-	},
-	"text_inlinks2": {
-		"message": "InLinks websitelerin içerik alanlarında yer alan statik reklamlardır. Basitçe piyasadaki en doğal paralı bağlantılardır. Size yararları:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "Göze rahatsızlık vermeyen reklamlar. Sinir bozucu pop-up lar yok!"
-	},
-	"text_inlinksBenefit2": {
-		"message": "Tahmin edilebilir gelir. Sabit oranlı\/aylık\/satış başına."
-	},
-	"text_inlinksBenefit3": {
-		"message": "Blog-dostu. Basit pluginimizi yerleştirin ve gerisini biz halledelim. Siz sadece geriye yaslanın ve aylık kazancınızı tahsil edin."
-	},
-	"text_inlinksBlogs": {
-		"message": "ScribeFire'a kaydetmiş olduğunuz bloglardan, şunlar InLinks için uygun olabilir:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(Şimdilik, InLinks sadece Wordpress.org, Drupal veya MovebleType blogları ile çalışıyor.)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ InLinks.com u ziyaret edin $link_close$ ve InLinks pluginini indirip blogunuzdan para kazanmaya bugün başlayın!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "Blog Özellikleri"

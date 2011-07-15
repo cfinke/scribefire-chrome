@@ -80,12 +80,6 @@
 	"action_delete": {
 		"message": "Deletar"
 	},
-	"action_editHTML": {
-		"message": "Alternar para o modo HTML"
-	},
-	"action_editVisual": {
-		"message": "Alternar para o Visual Editor"
-	},
 	"action_category_add": {
 		"message": "Adicionar uma nova Categoria"
 	},
@@ -391,46 +385,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "Tem certeza que quer deletar este post? Ele será removido do servidor de seu blog, e não aparecerá mais no seu blog."
-	},
-	"text_inlinks1": {
-		"message": "ScribeFire fez uma parceria com $website$ para lhe proporcionar uma fácil solução de monetização para seu blog.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "O que são InLinks?"
-	},
-	"text_inlinks2": {
-		"message": "InLinks são propagandas estáticas HTML situadas em zonas de conteúdo de sites. É simplesmente o link pago mais natural no mercado. Os benefícios para você são:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "Os anúncios são sensíveis aos olhos. Sem pop-ups irritantes!"
-	},
-	"text_inlinksBenefit2": {
-		"message": "Receitas previsíveis. Receba um valor fixo para taxas\/mês\/anúncios vendidos."
-	},
-	"text_inlinksBenefit3": {
-		"message": "Blog-friendly. Instale nosso simples plugin e nós cuidamos do resto. Sente-se e comece a coletar seus rendimentos mensais."
-	},
-	"text_inlinksBlogs": {
-		"message": "Além dos blogs que você configurou no ScribeFire, os seguintes podem ser compatíveis com InLinks:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(Por enquanto InLinks só funciona em blogs usando Wordpress.org, Drupal, ou MovableType.)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ Visite InLinks.com $link_close$ para fazer o download do plugin InLinks e comece a ganhar dinheiro com seus blogs hoje!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "Propriedades do Blog"

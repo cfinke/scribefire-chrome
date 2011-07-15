@@ -35,9 +35,6 @@
 	"action_delete": {
 		"message": "Обриши"
 	},
-	"action_editHTML": {
-		"message": "Пребаците се у HTML поглед"
-	},
 	"action_publish": {
 		"message": "Објави"
 	},

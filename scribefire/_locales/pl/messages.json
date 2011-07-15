@@ -80,12 +80,6 @@
 	"action_delete": {
 		"message": "Usuń"
 	},
-	"action_editHTML": {
-		"message": "Przełącz w tryb HTML"
-	},
-	"action_editVisual": {
-		"message": "Przełącz w tryb Edytora"
-	},
 	"action_category_add": {
 		"message": "Dodaj nową kategorię"
 	},
@@ -391,40 +385,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "Jesteś pewien, że chcesz skasować ten wpis? Zostanie on usunięty z serwera bloga i nie pojawi się już na Twoim blogu."
-	},
-	"text_inlinks1": {
-		"message": "ScribeFire podjęło współpracę z $website$, by dostarczyć Ci łatwe w użyciu rozwiązanie na zarabianiu na Twoim blogu.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "Co to jest InLinks?"
-	},
-	"text_inlinks2": {
-		"message": "InLinks to statyczne reklamy umieszczone w obszarach stron internetowych zawierających treść. To najbardziej naturalne płatne linki dostępne na rynku. Oto korzyści z ich wykorzystania:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "Reklamy, które są przyjazne dla oczu. Bez denerwujących wyskakujących okienek!"
-	},
-	"text_inlinksBlogs": {
-		"message": "Z blogów skonfigurowanych za pomocą ScribeFire, następujące mogą być kompatybilne z InLinks:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(Obecnie InLinks działa tylko na blogach założonych w serwisach Wordpress.org, Drupal czy MovableType.)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ Odwiedź InLinks.com $link_close$, aby ściągnąć wtyczkę InLinks i już dziś zacząć zarabiać na swoich blogach!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "Właściwości bloga"

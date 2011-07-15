@@ -108,12 +108,6 @@
 	"action_delete": {
 		"message": "حذف"
 	},
-	"action_editHTML": {
-		"message": "التحول إلى نمط HTML"
-	},
-	"action_editVisual": {
-		"message": "التحول إلى المحرر الصوري"
-	},
 	"action_category_add": {
 		"message": "إضافة قسم جديد"
 	},
@@ -426,46 +420,6 @@
 	"confirm_deletePost": {
 		"message": "هل أنت متأكد بأنك تريد حذف هذا المقال؟ سيتم حذفه من خادم مدونتك ولن يتم عرضه في مدونتك."
 	},
-	"text_inlinks1": {
-		"message": "سكريب فاير عقد شراكة مع $website$ ليوفر لك طرق سهلة للحصول على سيولة من مدونتك.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "ما هي الإينلينك؟"
-	},
-	"text_inlinks2": {
-		"message": "الإينلينك عبارة عن إشهارات ثابتة بالـ HTML تكون في محتوى مواقع الأنترنيت.تعتبر ببساطة أسهل روابط مدفوعة في السوق. الفوائد منها هي:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "الإشهارات السهلة والغير معقدة بدون نوافذ البوب آب المزعجة"
-	},
-	"text_inlinksBenefit2": {
-		"message": "مداخيل محددة. يتم الدفع بـ نسبة ثابتة عن كل شهر \/ إشهار يباع"
-	},
-	"text_inlinksBenefit3": {
-		"message": "سهولة الإستخدام. فقط قم بتثبيت الإضافة ونحن نتكفل بالباقي. إسترح و تحصل على مدخول شهري خاص بك."
-	},
-	"text_inlinksBlogs": {
-		"message": "بالإضافة للمدونات التي قمت بإضافتها لسكريب فاير ، المدونات التالية قد تكون متوافقة مع الإينلينك:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(حاليا الإينلينك متوافق مع المدونات التي تستعمل ووردبريس ، دروبال ، موفابلتايب)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ قم بزيارة inLinks.com $link_close$ لتحميل إضافة الإينلينك و الشروع في كسب المال بمدونتك اليوم!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
-	},
 	"header_blogProperties": {
 		"message": "خصائص المدونة"
 	},
@@ -677,5 +631,8 @@
 	},
 	"button_migrate": {
 		"message": "نقل معلومات سكريب فاير من وإلى جهاز أخر."
+	},
+	"text_count": {
+		"message": "عدد الحروف: $2 ؛ عدد الكلمات: $1"
 	}
 }

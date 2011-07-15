@@ -5,14 +5,23 @@
 	"extDescription": {
 		"message": "Un redattore blog, facile da usare per pubblicare al tutti i tuoi blog."
 	},
+	"preferences": {
+		"message": "Preferenze"
+	},
 	"continue": {
 		"message": "Continua"
+	},
+	"action_close": {
+		"message": "Chiudi"
 	},
 	"firsttime_header": {
 		"message": "Benvenuto in ScribeFire!"
 	},
 	"firsttime_text": {
 		"message": "La prima cosa che probabilmente vuoi fare è aggiungere il tuo blog. Chiudi questa notifica e clicca su 'Aggiungi un nuovo Blog' per iniziare."
+	},
+	"text_get_started": {
+		"message": "Clicca su 'Aggiungi un nuovo Blog' per iniziare."
 	},
 	"entry_new_label": {
 		"message": "(nuovo)"
@@ -38,6 +47,12 @@
 	"notification_blog_add": {
 		"message": "Il tuo blog è stato aggiunto con successo!"
 	},
+	"notification_publish": {
+		"message": "Il tuo post è stato pubblicato con successo!"
+	},
+	"notification_publish_update": {
+		"message": "Il tuo post è stato aggiornato con successo!"
+	},
 	"action_openBlogInTab": {
 		"message": "Apri il blog in una nuova scheda"
 	},
@@ -50,14 +65,26 @@
 	"action_remove": {
 		"message": "Rimuovi"
 	},
+	"action_adbull": {
+		"message": "Monetizza"
+	},
 	"action_blog_add": {
 		"message": "Aggiungi un nuovo Blog"
+	},
+	"action_blog_import": {
+		"message": "Importa i tuoi Blog"
+	},
+	"message_blogs_import": {
+		"message": "Importa i tuoi Bog dalla precedente versione di ScribeFire. ScribeFire popolerà quanti più campi possibili, ma sta a te cliccare su 'Fine' e poi correggere eventuali errori."
 	},
 	"action_next": {
 		"message": "Successivo"
 	},
 	"action_cancel": {
 		"message": "Annulla"
+	},
+	"action_cancel_import": {
+		"message": "Non importare questo Blog"
 	},
 	"action_makeMoney": {
 		"message": "Guadagna con questo blog"
@@ -68,11 +95,8 @@
 	"action_delete": {
 		"message": "Cancella"
 	},
-	"action_editHTML": {
-		"message": "Passa alla modalità HTML"
-	},
-	"action_editVisual": {
-		"message": "Passa alla modalità Editor Visuale"
+	"action_category_add": {
+		"message": "Aggiungi una nuova Categoria"
 	},
 	"action_customField_add": {
 		"message": "Aggiungi un campo personalizzato"
@@ -95,8 +119,19 @@
 	"action_insert": {
 		"message": "Inserisci"
 	},
+	"action_reset": {
+		"message": "Inizia un nuovo $ignore1$ Post $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
+	},
 	"action_publishUpdate": {
-		"message": "Aggiorna $ignore1$ Articolo $ignore2$",
+		"message": "Aggiorna $ignore1$ Post $ignore2$",
 		"placeholders": {
 			"ignore1": {
 				"content": "<span class=\"entry-type-text\">"
@@ -172,6 +207,9 @@
 	"option_publish_month12": {
 		"message": "Dic"
 	},
+	"label_blog": {
+		"message": "Blog"
+	},
 	"label_blog_type": {
 		"message": "Tipo Blog:"
 	},
@@ -187,6 +225,12 @@
 	"label_loginCredentials": {
 		"message": "Credenziali di accesso"
 	},
+	"label_username": {
+		"message": "Nome Utente"
+	},
+	"label_password": {
+		"message": "Password"
+	},
 	"label_entry": {
 		"message": "Conferma"
 	},
@@ -201,6 +245,12 @@
 	},
 	"label_excerpt": {
 		"message": "Estratto:"
+	},
+	"label_categories": {
+		"message": "Categorie"
+	},
+	"label_tags": {
+		"message": "Etichette"
 	},
 	"label_customFields": {
 		"message": "Campi Personalizzati"
@@ -256,7 +306,7 @@
 		"message": "Si è incorsi in un errore inaspettato."
 	},
 	"error_api_getBlogs": {
-		"message": "ScribeFire non riesce ad ottenere le informazioni necessarie dal tuo blog. Fortunatamente, il blog ha restituito questo messaggio: $message$",
+		"message": "ScribeFire non riesce ad ottenere le informazioni necessarie dal tuo Blog. Fortunatamente, il Blog ha restituito questo messaggio: $message$",
 		"placeholders": {
 			"message": {
 				"content": "\n\n$1"
@@ -264,7 +314,7 @@
 		}
 	},
 	"error_api_invalid": {
-		"message": "Non è colpa tua, ma ScribeFire sta cercando un API ($api_type$) che non eisiste\n\nSe sei un alfa tester, devi rimuovere questo blog e aggiungerlo nuovamente..",
+		"message": "Non è colpa tua, ma ScribeFire sta cercando un API ($api_type$) che non eisiste\n\nSe sei un alfa tester, devi rimuovere questo Blog e aggiungerlo nuovamente..",
 		"placeholders": {
 			"api_type": {
 				"content": "$1"
@@ -272,7 +322,7 @@
 		}
 	},
 	"error_api_noBlog": {
-		"message": "Frena.... è necessario aggiungere il tuo blog prima di poter pubblicare."
+		"message": "Frena.... è necessario aggiungere il tuo Blog prima di poter pubblicare."
 	},
 	"error_api_noCategorySupport": {
 		"message": "Questo blog non consente l'aggiunga di categorie."
@@ -281,10 +331,10 @@
 		"message": "Questo blog non consente il caricamento di file."
 	},
 	"error_api_cannotConnect": {
-		"message": "ScribeFire non riesce a connettersi con successo al tuo blog."
+		"message": "ScribeFire non riesce a connettersi con successo al tuo Blog."
 	},
 	"error_api_setup": {
-		"message": "Mentre cercava di determinare le impostazioni del tuo blog, ScribeFire è incorso in questo codice $code$",
+		"message": "Mentre cercava di determinare le impostazioni del tuo Blog, ScribeFire è incorso in questo codice $code$",
 		"placeholders": {
 			"code": {
 				"content": "$1"
@@ -292,10 +342,10 @@
 		}
 	},
 	"error_api_setup_unknownBlogType": {
-		"message": "Puoi tentare di configurare il tuo blog manualmente."
+		"message": "Puoi tentare di configurare il tuo Blog manualmente."
 	},
 	"error_api_code412": {
-		"message": "Il blog ha restituito un codice errore 412. Puoi risolvere questo problema seguendo le istruzioni su $url$",
+		"message": "Il Blog ha restituito un codice errore 412. Puoi risolvere questo problema seguendo le istruzioni su $url$",
 		"placeholders": {
 			"url": {
 				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
@@ -303,7 +353,7 @@
 		}
 	},
 	"error_api_noMessage": {
-		"message": "Il blog ha ritornato codice errore $code$, ma nessun messaggio di errore può essere trovato.",
+		"message": "Il Blog ha ritornato codice errore $code$, ma nessun messaggio di errore può essere trovato.",
 		"placeholders": {
 			"code": {
 				"content": "$1"
@@ -356,46 +406,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "Sei sicuro di voler cancellare questo articolo? Verrà rimosso dal server del blog e non apparirà più sul tuo blog."
-	},
-	"text_inlinks1": {
-		"message": "ScibeFire è in contatto con $website$ per offrire una soluzione per guadagnare facilmente con il tuo blog.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "Cosa sono gli InLinks?"
-	},
-	"text_inlinks2": {
-		"message": "Inlinks è pubblicità HTML statica, che si trova all'interno di aree dei siti web. E' semplicemente il collegamento più pagato sul mercato. I vantaggi per voi sono:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "Annunci che sono belli da vedere. Nessun noioso pop-up!"
-	},
-	"text_inlinksBenefit2": {
-		"message": "Entrate previste. Fatti pagare una tariffa flat\/mensile\/per annuncio."
-	},
-	"text_inlinksBenefit3": {
-		"message": "Blog-firendly. Installa il nostro semplice plugin e noi pensiamo al resto. Siediti e raccogli il tuo guadagno mensile."
-	},
-	"text_inlinksBlogs": {
-		"message": "Fuori dai blog che hai impostato in ScribeFire, i seguenti possono essere compatibili con InLinks:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(Al momento, InLinks funziona solo con blog che usano Wordpress.org, Drupal o MovableType.)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ Visita InLinks.com $link_close$ per scaricare il plugin InLinks e cominciare a guadagnare denaro già oggi con il tuo blog!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "Proprietà del Blog"
@@ -455,5 +465,62 @@
 	},
 	"zemanta_tracking_optin": {
 		"message": "Sarebbe possibile di permettere ScribeFire d'aggiungere un'immagine invisibile per contare le statistiche d'uso Zemanta?  Non noti la differenza.  Se non accetti, non ti domanderemo pìu."
+	},
+	"zemanta_tracking_yes": {
+		"message": "Sì, ScribeFire può aggiungere un'immagine di monitoraggio ai post quando uso Zemanta."
+	},
+	"zemanta_tracking_no": {
+		"message": "No, preferisco non includere una immagine di monitoraggio."
+	},
+	"label_password_confirm": {
+		"message": "Comferma la Password:"
+	},
+	"label_email": {
+		"message": "Email:"
+	},
+	"label_adbull_site_url": {
+		"message": "URL del tuo sito:"
+	},
+	"label_mailing_address": {
+		"message": "Indirizzo postale"
+	},
+	"label_city": {
+		"message": "Città"
+	},
+	"label_state": {
+		"message": "Stato"
+	},
+	"option_select_state": {
+		"message": "Seleziona uno Stato"
+	},
+	"label_zipcode": {
+		"message": "Codice Postale"
+	},
+	"label_country": {
+		"message": "Paese:"
+	},
+	"label_phone": {
+		"message": "Telefono"
+	},
+	"text_uploading_image": {
+		"message": "Caricamento della tua immagine"
+	},
+	"text_uploading_images": {
+		"message": "Caricamento di $1 immagini..."
+	},
+	"options_page_title": {
+		"message": "Opzioni"
+	},
+	"settings_migrate": {
+		"message": "Importa\/Esporta"
+	},
+	"action_import": {
+		"message": "Importa"
+	},
+	"action_export": {
+		"message": "Esporta"
+	},
+	"text_count": {
+		"message": "$1 parole; $2 caratteri"
 	}
 }

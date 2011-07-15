@@ -65,12 +65,6 @@
 	"action_delete": {
 		"message": "Удалить"
 	},
-	"action_editHTML": {
-		"message": "Переключиться в режим HTML"
-	},
-	"action_editVisual": {
-		"message": "Переключиться на визуальный редактор"
-	},
 	"action_customField_add": {
 		"message": "Добавить клиентское поле"
 	},
@@ -353,46 +347,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "Вы уверены, что хотите удалить это сообщение? Оно будет удалено с сервера, на котором находится блог, и больше не появится в вашем блоге."
-	},
-	"text_inlinks1": {
-		"message": "ScribeFire стал партнером сайта $website$, чтобы предоставить вам легкие в использовании решения по монетизации вашего блога.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "Что такое Inlinks?"
-	},
-	"text_inlinks2": {
-		"message": "InLinks - это статическая HTML-реклама, расположенная внутри областей сайтов с контентом. Это самая естественная платная ссылка на рынке. В чем заключается выгода для вас:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "Реклама не давит на глаза. Нет раздражающих поп-апов!"
-	},
-	"text_inlinksBenefit2": {
-		"message": "Предсказуемый доход. Получайте деньги по единой ставке\/за месяц\/количество проданных объявлений."
-	},
-	"text_inlinksBenefit3": {
-		"message": "Интеграция с блогом. Установите наш простой плагин, и мы позаботимся об остальном. Просто откиньтесь на спику кресла и собирайте платежи."
-	},
-	"text_inlinksBlogs": {
-		"message": "Кроме добавленных в ScribeFire, следующие блоги могут быть совместимы с InlInks:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(Пока InLinks работает только с блогами, использующими Wordpress.org, Drupal или MovableType.)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ Посетите InLinks.com $link_close$ , чтобы скачать плагин InLinks и начать зарабатывать деньги на ваших блогах уже сегодня!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "Свойства блога"

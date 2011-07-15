@@ -65,9 +65,6 @@
 	"action_delete": {
 		"message": "Διαγραφή"
 	},
-	"action_editHTML": {
-		"message": "Αλλαγή σε στυλ HTML"
-	},
 	"action_draft_save": {
 		"message": "Αποθήκευση πρόχειρου"
 	},
@@ -330,46 +327,6 @@
 	},
 	"confirm_deletePost": {
 		"message": "Είστε σίγουρος\/η ότι θέλετε να διαγράψετε αυτό το άρθρο; Θα διαγραφεί από το Blog σας και τον Server και δεν θα είναι πλέον διαθέσιμο."
-	},
-	"text_inlinks1": {
-		"message": "Το ScribeFire συνεργάζεται με την ιστοσελίδα $website$ για να σας παρέχει μια εύκολη λύση για να κερδίσετε μέσω του Blog σας.",
-		"placeholders": {
-			"website": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">InLinks.com<\/a>"
-			}
-		}
-	},
-	"header_inlinks": {
-		"message": "Τι είναι το InLinks;"
-	},
-	"text_inlinks2": {
-		"message": "Το Inlinks είναι στατικές διαφημίσεις HTML που βρίσκεται μέσα στο περιεχόμενο των ιστοσελίδων. Είναι απλά το πιο φυσικό πληρωτέο link στην αγορά. Τα οφέλη για εσάς είναι:"
-	},
-	"text_inlinksBenefit1": {
-		"message": "Διαφημίσεις οι οποίες δεν είναι δυσάρεστες όταν εμφανίζονται. Όχι ενοχλητικά pop-ups!"
-	},
-	"text_inlinksBenefit2": {
-		"message": "Εκτιμώμενα έσοδα. Πληρωθείτε κατ 'αποκοπή \/ μήνα ή ανά πώληση."
-	},
-	"text_inlinksBenefit3": {
-		"message": "Blog-friendly. Εγκαταστήστε το πολύ απλό πρόσθετο (Plugin) μας και εμείς αναλαμβάνουμε τα υπόλοιπα. Απλά χαλαρώστε και αρχίστε να εισπράττετε τις μηνιαίες αποδοχές σας."
-	},
-	"text_inlinksBlogs": {
-		"message": "Από τα blogs που έχετε δημιουργήσει στο ScribeFire, συμβατά με το inlinks είναι τα ακόλουθα:"
-	},
-	"text_inlinksCompatibility": {
-		"message": "(Προς το παρόν, το InLinks είναι διαθέσιμο για blogs σε Wordpress.org, Drupal ή Movable Type.)"
-	},
-	"text_inlinks3": {
-		"message": "$link_open$ Επισκεφθείτε το InLinks.com $link_close$ για να κάνετε λήψη του InLinks plugin και να αρχίσετε να κερδίζετε χρήματα στο blog σας από σήμερα!!",
-		"placeholders": {
-			"link_open": {
-				"content": "<a href=\"http:\/\/www.inlinks.com\/?ref=240364\" target=\"_blank\">"
-			},
-			"link_close": {
-				"content": "<\/a>"
-			}
-		}
 	},
 	"header_blogProperties": {
 		"message": "Ρυθμίσεις Blog"
