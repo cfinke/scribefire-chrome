@@ -1010,7 +1010,12 @@ var genericAtomAPI = function () {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
 						if (req.status < 300) {
-							var xml = xmlFromRequest(req);
+							// Firefox doesn't do well with namespaced elements
+							var fakeReq = {};
+							fakeReq.responseText = req.responseText.replace(/<([^:>]+):([^>]+)>/g, "<$1_$2>");
+							
+							var xml = xmlFromRequest(fakeReq);
+							
 							var jxml = $(xml);
 							
 							var posts = [];
@@ -1086,7 +1091,7 @@ var genericAtomAPI = function () {
 								
 								post.published = true;
 								
-								$(this).find("draft").each(function () {
+								$(this).find("app_draft").each(function () {
 									if ($(this).text() == "yes") {
 										post.published = false;
 									}
@@ -1332,16 +1337,10 @@ var genericAtomAPI = function () {
 
 	this.buildRequest = function (method, url, callback) {
 		var req = new XMLHttpRequest();
-		
-		if (platform === 'presto') {
-			req.open(method, url, true);
-			req.setRequestHeader("Authorization", "Basic " + btoa(this.username + ":" + this.password));
-		}
-		else {
-			// encodeURIComponent is used here because otherwise some requests were failing
-			// when the password contains special characters like "@"
-			req.open(method, url, true, encodeURIComponent(this.username), encodeURIComponent(this.password));
-		}
+
+		var urlParts = url.split("://");
+		url = urlParts[0] + "://" + encodeURIComponent(this.username) + ":" + encodeURIComponent(this.password) + "@" + urlParts[1];
+		req.open(method, url, true);
 		
 		req.setRequestHeader("Content-Type", "application/atom+xml");
 		
