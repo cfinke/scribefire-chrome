@@ -1012,7 +1012,7 @@ var genericAtomAPI = function () {
 						if (req.status < 300) {
 							// Firefox doesn't do well with namespaced elements
 							var fakeReq = {};
-							fakeReq.responseText = req.responseText.replace(/<([^:>]+):([^>]+)>/g, "<$1_$2>");
+							fakeReq.responseText = req.responseText.replace(/<app:([^>]+)>/g, "<app_$1>");
 							
 							var xml = xmlFromRequest(fakeReq);
 							
@@ -1337,7 +1337,6 @@ var genericAtomAPI = function () {
 
 	this.buildRequest = function (method, url, callback) {
 		var req = new XMLHttpRequest();
-
 		var urlParts = url.split("://");
 		url = urlParts[0] + "://" + encodeURIComponent(this.username) + ":" + encodeURIComponent(this.password) + "@" + urlParts[1];
 		req.open(method, url, true);
@@ -2073,7 +2072,6 @@ var posterousAPI = function () {
 	
 	//this.ui.tags = false;
 	this.ui.categories = false;
-	this.ui.deleteEntry = true;
 	this.ui.timestamp = false;
 	this.ui.private = false; // until posterous fixes their bug
 	this.ui.upload = (platform == 'gecko');
