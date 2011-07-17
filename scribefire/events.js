@@ -258,6 +258,8 @@ $(document).ready(function () {
 	});
 	
 	$("#list-blogs").live("change", function () {
+		SCRIBEFIRE.currentAPI = null;
+		
 		SCRIBEFIRE.updateOptionalUI();
 		
 		SCRIBEFIRE.populateEntriesList($("#filter-entries").val());

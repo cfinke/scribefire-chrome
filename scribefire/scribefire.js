@@ -1,4 +1,6 @@
 var SCRIBEFIRE = {
+	currentAPI : null,
+	
 	error_codes : {
 		USER_TRIGGERED_FAILURE : -1
 	},
@@ -794,19 +796,21 @@ var SCRIBEFIRE = {
 	},
 	
 	getAPI : function () {
-		var selectedBlog = $("#list-blogs").val();
-		
-		if (!selectedBlog) {
-			var api = new blogAPI();
+		if (!SCRIBEFIRE.currentAPI) {
+			var selectedBlog = $("#list-blogs").val();
+			
+			if (!selectedBlog) {
+				SCRIBEFIRE.currentAPI = new blogAPI();
+			}
+			else {
+				var blog = SCRIBEFIRE.getBlog(selectedBlog);
+				
+				SCRIBEFIRE.currentAPI = getBlogAPI(blog.type, blog.apiUrl);
+				SCRIBEFIRE.currentAPI.init(blog);
+			}
 		}
-		else {
-			var blog = SCRIBEFIRE.getBlog(selectedBlog);
 		
-			var api = getBlogAPI(blog.type, blog.apiUrl);
-			api.init(blog);
-		}
-		
-		return api;
+		return SCRIBEFIRE.currentAPI;
 	},
 	
 	/**
