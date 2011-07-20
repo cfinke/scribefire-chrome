@@ -417,11 +417,11 @@ var genericMetaWeblogAPI = function () {
 			if (params.draft) {
 				// At least in Wordpress, a private post marked as a draft will just be published.
 				if ("private" in params && params.private) {
-					if (confirm("Due to limitations of your blogging service, a private post can't be saved as a draft.\n\nDo you want to save it as a draft and set it as private when you publish it?")) {
+					if (confirm(scribefire_string("confirm_private_status"))) {
 						delete contentStruct.post_status;
 					}
 					else {
-						failure({"status" : -1, "msg" : "Ok, I'll let you make whatever changes you need to make before saving this as a private post." });
+						failure({"status" : -1, "msg" : scribefire_string("cancel_private_status") });
 						return;
 					}
 				}

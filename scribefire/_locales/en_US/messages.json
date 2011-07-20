@@ -279,7 +279,7 @@
 		"description": "The text that a user clicks on if they need help with ScribeFire."
 	},
 	"label_title": {
-		"message": "Title:"
+		"message": "Title"
 	},
 	"label_content": {
 		"message": "Post Content"
@@ -489,7 +489,7 @@
 		"message": "$1 days ago"
 	},
 	"confirm_not_saved": {
-		"message": "Are you sure you want to switch posts? You haven't saved the current version of this post yet.\n\n(Click 'Save Progress' at the bottom of the page to save your progress.)"
+		"message": "Are you sure you want to do this? You haven't saved the current version of this post yet.\n\n(Click 'Save Progress' at the bottom of the page to save your progress.)"
 	},
 	"zemanta_related_articles": {
 		"message": "Related articles, courtesy of Zemanta:"
@@ -680,5 +680,35 @@
 	"stats_button_no": {
 		"message": "No Thanks",
 		"description": "The text on the button that the user clicks to stop stats from being collected about their usage."
+	},
+	"label_templates": {
+		"message": "Templates"
+	},
+	"button_save_template": {
+		"message": "Save Current Post as Template"
+	},
+	"notification_template_saved": {
+		"message": "Saved!"
+	},
+	"label_load_template": {
+		"message": "-- Select a template --"
+	},
+	"action_load": {
+		"message": "Load"
+	},
+	"confirm_private_status": {
+		"message": "Due to limitations of your blogging service, a private post can't be saved as a draft.\n\nDo you want to save it as a draft and set it as private when you publish it?"
+	},
+	"cancel_private_status": {
+		"message": "Ok, I'll let you make whatever changes you need to make before saving this as a private post."
+	},
+	"confirm_generic": {
+		"message": "Are you sure?"
+	},
+	"error_adbull": {
+		"message": "AdBull returned an unexpected response: $1"
+	},
+	"notification_import_complete": {
+		"message": "Import complete. Close and re-open ScribeFire to continue."
 	}
 }

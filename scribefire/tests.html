@@ -334,7 +334,8 @@
 										
 																	var newNow = new Date();
 																	
-																	originalPost.content = "The timestamp is *now* " + newNow.getTime();
+																	originalPost.title = "New title: " + newNow.getTime();
+																	originalPost.content = "New body: " + newNow.getTime();
 																	
 																	// Put the original parameters back into the object
 																	// This gets things like .draft set properly, since it's not returned
@@ -408,7 +409,8 @@
 																						}
 
 																						equal(thePost.title, originalPost.title, "[Edit] Title");
-																						ok(thePost.content == originalPost.content || ("<p>" + originalPost.content + "</p>") == thePost.content, "[Edit] Content");
+																						equal(thePost.content, originalPost.content, "[Edit] Content");
+//																						ok(thePost.content == originalPost.content || ("<p>" + originalPost.content + "</p>") == thePost.content, "[Edit] Content");
 																						
 																						// Put the original parameters back into the object
 																						// This gets things like .draft set properly, since it's not returned

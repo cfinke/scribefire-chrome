@@ -36,7 +36,7 @@ var ADBULL = {
 					try {
 						var json = JSON.parse(text);
 					} catch (invalidJSON) {
-						alert("AdBull returned an unexpected response: " + text);
+						alert(scribefire_string("error_adbull", [ text ]));
 						return;
 					}
 

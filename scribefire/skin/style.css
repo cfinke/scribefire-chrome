@@ -259,3 +259,8 @@ p.throbber {
 	float: left;
 	padding: 3px;
 }
+
+button.disabled {
+	text-decoration: none !important;
+	cursor: default !important;
+}

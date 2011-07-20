@@ -155,6 +155,7 @@ var SCRIBEFIRE = {
 		pref("markdown", true);
 		
 		SCRIBEFIRE.populateBlogsList();
+		SCRIBEFIRE.populateTemplatesList();
 		
 		SCRIBEFIRE.prefs.setIntPref("stats.loadCounter", SCRIBEFIRE.prefs.getIntPref("stats.loadCounter") + 1);
 		
@@ -255,6 +256,14 @@ var SCRIBEFIRE = {
 		notifier.show("slow", function () {
 			notifier.timer = setTimeout(function () { notifier.hide("slow"); }, 5000);
 		});
+	},
+	
+	notifyButton : function (button, msg) {
+		var currentText = button.text();
+		
+		button.text(msg);
+		
+		setTimeout(function (label) { button.text(label); }, 2000, currentText);
 	},
 
 	notifyModal : function (msg, buttons) {
@@ -613,6 +622,43 @@ var SCRIBEFIRE = {
 				}
 			);
 		}
+	},
+	
+	populateTemplatesList : function () {
+		var templates = SCRIBEFIRE.prefs.getJSONPref("templates", {});
+		var templateList = $("#list-templates");
+		
+		templateList.children(":not(:first)").remove();
+		
+		for (var i in templates) {
+			var option = $("<option/>");
+			option.val(i);
+			
+			var optionText = "";
+			
+			if (templates[i].title) {
+				optionText = templates[i].title + ": " + templates[i].content.substr(0,30);
+				
+				if (templates[i].content.length > 30) {
+					optionText += "...";
+				}
+			}
+			else {
+				optionText = templates[i].content.substr(0,50);
+				
+				if (templates[i].content.length > 50) {
+					optionText += "...";
+				}
+			}
+			
+			option.text(optionText);
+			option.data("title", templates[i].title);
+			option.data("content", templates[i].content);
+			
+			templateList.append(option);
+		}
+		
+		templateList.val("");
 	},
 	
 	clearCustomFields : function () {
@@ -1239,6 +1285,7 @@ var SCRIBEFIRE = {
 		editor.val('');
 		
 		SCRIBEFIRE.clearCustomFields();
+		SCRIBEFIRE.dirty = false;
 	},
 	
 	populateCategoriesList : function () {
@@ -1481,7 +1528,7 @@ var SCRIBEFIRE = {
 			
 			$("#import-file").val("");
 			$(document).trigger("close.facebox");
-			alert("Import complete. Close and re-open ScribeFire to continue.");
+			alert(scribefire_string("notification_import_complete"));
 		});
 	},
 	
@@ -1580,7 +1627,7 @@ var SCRIBEFIRE = {
 			
 			SCRIBEFIRE.doImport(json);
 			
-			alert("Import complete. Close and re-open ScribeFire to continue.");
+			alert(scribefire_string("notification_import_complete"));
 		}
 	},
 	

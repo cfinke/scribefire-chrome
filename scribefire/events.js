@@ -85,6 +85,20 @@ function setTimestamp(date) {
 }
 
 $(document).ready(function () {
+	$("#button-template-save").live("click", function (e) {
+		e.preventDefault();
+		
+		var template = { title : $("#text-title").val(), content : editor.val() };
+		var templateId = (new Date()).getTime();
+		
+		var templates = SCRIBEFIRE.prefs.getJSONPref("templates", {});
+		templates[templateId] = template;
+		SCRIBEFIRE.prefs.setJSONPref("templates", templates);
+		
+		SCRIBEFIRE.populateTemplatesList();
+		$("#list-templates").val(templateId).change();
+	});
+	
 	$(".post-meta").hide();
 	
 	if (!supports_input_placeholder()) {
@@ -190,7 +204,7 @@ $(document).ready(function () {
 	$("#button-blog-remove").live("click", function (e) {
 		e.preventDefault();
 		
-		if (confirm("Are you sure?")) {
+		if (confirm(scribefire_string("confirm_generic"))) {
 			SCRIBEFIRE.removeBlog($("#list-blogs").val());
 		}
 	});
@@ -408,6 +422,39 @@ $(document).ready(function () {
 		SCRIBEFIRE.updateOptionalUI();
 		
 		SCRIBEFIRE.dirty = false;
+	});
+	
+	$("#list-templates").live("change", function (e) {
+		if ($(this).val()) {
+			$(".template-anti-meta").hide();
+			$(".template-meta").show();
+		}
+		else {
+			$(".template-meta").hide();
+			$(".template-anti-meta").show();
+		}
+	}).change();
+	
+	$("#button-template-load").live("click", function (e) {
+		if (!SCRIBEFIRE.dirty || confirm(scribefire_string("confirm_not_saved"))) {
+			var selectionTemplate = $("#list-templates").find("option:selected");
+		
+			$("#text-title").val(selectionTemplate.data("title"));
+			editor.val(selectionTemplate.data("content"));
+		}
+	});
+	
+	$("#button-template-delete").live("click", function (e) {
+		if (confirm(scribefire_string("confirm_generic"))) {
+			var templateId = $("#list-templates").val();
+			
+			var templates = SCRIBEFIRE.prefs.getJSONPref("templates", {});
+			delete templates[templateId];
+			SCRIBEFIRE.prefs.setJSONPref("templates", templates);
+			
+			SCRIBEFIRE.populateTemplatesList();
+			SCRIBEFIRE.notify("Template deleted.");
+		}
 	});
 	
 	$("#list-categories").live("change", function (e) {
