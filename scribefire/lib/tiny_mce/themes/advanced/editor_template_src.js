@@ -940,7 +940,7 @@
 						fz = n.style.fontSize;
 
 					if (!fn && n.style.fontFamily)
-						fn = n.style.fontFamily.replace(/[\"\']+/g, '').replace(/^([^,]+).*/, '$1').toLowerCase();
+						fn = n.style.fontFamily.replace(/[\"\']+/g, '').replace(/^([^,]+).*/, '$1').toLowerCase(); //"
 				}
 
 				return false;

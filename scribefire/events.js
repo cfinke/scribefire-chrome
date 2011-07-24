@@ -797,15 +797,18 @@ $(document).ready(function () {
 			mode : "exact",
 			elements : "text-content",
 			theme : "advanced",
-			plugins : "wordpress,fullscreen,sf_video_plugin,sf_zemanta_plugin",
+			plugins : "wordpress,fullscreen,sf_video_plugin,sf_zemanta_plugin,table,tabletoggle",
 			
 			// Theme options
-			theme_advanced_buttons1 : "fontselect,fontsizeselect,bold,italic,underline,strikethrough,sub,sup,forecolor,blockquote,removeformat,|,link,unlink,image,video,zemanta,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,wp_more,fullscreen",//,|,removeformat",//,|,tablecontrols",
-			theme_advanced_buttons2 : "", theme_advanced_buttons3 : "", theme_advanced_buttons4 : "",
+			theme_advanced_buttons1 : "fontselect,fontsizeselect,bold,italic,underline,strikethrough,sub,sup,forecolor,blockquote,removeformat,|,link,unlink,image,video,zemanta,tabletoggle,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,wp_more,fullscreen",//,|,removeformat",//,|,tablecontrols",
+			theme_advanced_buttons2 : "tablecontrols",
+			theme_advanced_buttons3 : "",
+			theme_advanced_buttons4 : "",
 			theme_advanced_toolbar_location : "top",
 			theme_advanced_toolbar_align : "left",
 			theme_advanced_statusbar_location : "bottom",
 			theme_advanced_resizing : true,
+			
 			more_colors_func : false,
 			
 			extended_valid_elements : "iframe[title|width|height|src|frameborder|allowfullscreen]",

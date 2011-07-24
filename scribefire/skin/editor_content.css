@@ -2,3 +2,11 @@ body {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 14px;
 }
+
+table {
+	border-collapse: collapse;
+}
+
+table, table[border=0], table td, table[border=0] td {
+	border: 1px dotted #aaa;
+}
