@@ -26,38 +26,27 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 });
 
 function scribefireContextClick(info, tab) {
-	var htmlToInsert = "";
+	var blogThis = {
+		url : tab.url,
+		title : tab.title,
+		selection : info.selectionText
+	};
 	
 	if (info.linkUrl) {
-		if (info.selectionText) {
-			htmlToInsert = '<a href="' + info.linkUrl + '">'+info.selectionText.replace(/\n/g, "<br/>")+'</a>';
-		}
-		else {
-			htmlToInsert = '<a href="' + info.linkUrl + '">Your link text here.</a>';
-		}
-	}
-	else if (info.pageUrl) {
-		if (info.selectionText) {
-			htmlToInsert = '<a href="' + info.pageUrl + '">'+info.selectionText.replace(/\n/g, "<br/>")+'</a>';
-		}
-		else {
-			htmlToInsert = '<a href="' + info.pageUrl + '">Your link text here.</a>';
-		}
-	}
-	else if (info.selectionText) {
-		htmlToInsert = info.selectionText.replace(/\n/g, "<br/>");
+		blogThis.url = info.linkUrl;
+		blogThis.title = info.selectionText || "Your link text here.";
 	}
 	else if (info.mediaType == "video") {
-		htmlToInsert = '<video src="' + info.srcUrl + '"></video>';
+		blogThis.selection = '<video src="' + info.srcUrl + '"></video>';
 	}
 	else if (info.mediaType == "audio") {
-		htmlToInsert = '<audio src="' + info.srcUrl + '"></audio>';
+		blogThis.selection = '<audio src="' + info.srcUrl + '"></audio>';
 	}
 	else if (info.mediaType == "image") {
-		htmlToInsert = '<img src="' + info.srcUrl + '" />';
+		blogThis.selection = '<img src="' + info.srcUrl + '" />';
 	}
 	
-	localStorage["extensions.scribefire.blogThis"] = htmlToInsert;
+	localStorage["extensions.scribefire.blogThis"] = JSON.stringify(blogThis);
 	
 	openScribeFire();
 }

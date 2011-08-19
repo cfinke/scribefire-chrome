@@ -780,10 +780,12 @@ $(document).ready(function () {
 		
 		SCRIBEFIRE.prefs.setCharPref("state.content", "");
 		
-		var blogThisText = "";
+		var blogThisData = false;
 		
-		if (blogThisText = SCRIBEFIRE.prefs.getCharPref("blogThis")) {
-			editorContent += blogThisText;
+		if (blogThisData = SCRIBEFIRE.prefs.getCharPref("blogThis")) {
+			blogThisData = JSON.parse(blogThisData);
+			
+			editorContent += '<a href="' + blogThisData.url + '">' + blogThisData.title + '</a><br />' + (blogThisData.selection ? '<blockquote>' + blogThisData.selection + '</blockquote><br />' : '');
 			
 			SCRIBEFIRE.prefs.setCharPref("blogThis", "");
 		}
@@ -1001,9 +1003,7 @@ if (typeof safari != 'undefined') {
 			var url = responseParts.shift();
 			var selection = responseParts.join("\t");
 			
-			var html = '<p><a href="' + url + '">' + title + '</a></p><p>' + selection + '</p>';
-			
-			SCRIBEFIRE.blogThis(html);
+			SCRIBEFIRE.blogThis('<a href="' + url + '">' + title + '</a>' + (selection ? '<br /><blockquote>' + selection + '</blockquote><br />' : ''));
 		}
 	}
 	
