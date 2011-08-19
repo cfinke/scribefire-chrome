@@ -26,8 +26,8 @@ var ImageDialog = {
 			f.border.value = this.getAttrib(e, 'border');
 			f.vspace.value = this.getAttrib(e, 'vspace');
 			f.hspace.value = this.getAttrib(e, 'hspace');
-			f.width.value = ed.dom.getAttrib(e, 'width');
-			f.height.value = ed.dom.getAttrib(e, 'height');
+			lastWidth = f.width.value = ed.dom.getAttrib(e, 'width');
+			lastHeight = f.height.value = ed.dom.getAttrib(e, 'height');
 			f.insert.value = ed.getLang('update');
 			this.styleVal = ed.dom.getAttrib(e, 'style');
 			selectByValue(f, 'image_list', f.src.value);
@@ -218,17 +218,19 @@ var ImageDialog = {
 	resetImageData : function() {
 		var f = document.forms[0];
 
-		f.width.value = f.height.value = "";	
+		lastWidth = lastHeight = f.width.value = f.height.value = "";	
 	},
 
 	updateImageData : function() {
 		var f = document.forms[0], t = ImageDialog;
 
-		if (f.width.value == "")
-			f.width.value = t.preloadImg.width;
-
-		if (f.height.value == "")
-			f.height.value = t.preloadImg.height;
+		if (f.width.value == "") {
+			lastWidth = f.width.value = t.preloadImg.width;
+		}
+		
+		if (f.height.value == "") {
+			lastHeight = f.height.value = t.preloadImg.height;
+		}
 	},
 
 	getImageData : function() {

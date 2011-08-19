@@ -12,6 +12,10 @@
 		<link rel="stylesheet" type="text/css" href="../../../../skin/base.css" />
 		<link rel="stylesheet" type="text/css" href="../../../../skin/widgets.css" />
 		<link rel="stylesheet" type="text/css" href="../../../../skin/dialog.css" />
+		<script type="text/javascript">
+			var lastWidth = 0;
+			var lastHeight = 0;
+		</script>
 	</head>
 	<body id="image" style="display: none;" level="../../../../">
 		<h2>Insert/Edit image</h2>
@@ -65,9 +69,9 @@
 				  </tr>
 				  <tr>
 					<td class="nowrap"><label for="width">Dimensions</label></td>
-					<td><input id="width" name="width" type="number" value="" size="5" maxlength="5" placeholder="w" />
+					<td><input id="width" name="width" type="number" value="" size="5" maxlength="5" placeholder="w" onblur="if (lastWidth && lastHeight) { lastHeight = document.getElementById('height').value = Math.round(parseInt(this.value, 10) * (lastHeight / lastWidth));} lastWidth = this.value; " />
 					  x
-					  <input id="height" name="height" type="number" value="" size="5" maxlength="5" placeholder="h" /></td>
+					  <input id="height" name="height" type="number" value="" size="5" maxlength="5" placeholder="h" onblur="if (lastHeight && lastWidth) { lastWidth = document.getElementById('width').value = Math.round(parseInt(this.value, 10) * (lastWidth / lastHeight));} lastHeight = this.value;" /></td>
 				  </tr>
 				  <tr>
 					<td class="nowrap"><label for="border">Border</label></td>
