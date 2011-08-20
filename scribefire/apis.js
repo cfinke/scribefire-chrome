@@ -31,6 +31,9 @@ function getBlogAPI(type, apiUrl) {
 		case "posterous":
 			api = new posterousAPI();
 		break;
+		case "livejournal":
+			api = new livejournalAPI();
+		break;
 		default:
 			SCRIBEFIRE.error(scribefire_string("error_api_invalid", type));
 		break;
@@ -940,6 +943,203 @@ var wordpressAPI = function () {
 	};
 };
 wordpressAPI.prototype = new genericMetaWeblogAPI();
+
+var livejournalAPI = function () {
+	// LiveJournal doesn't actually use this anymore. It uses ATOM.
+	// But some other blogs still use this interface.
+	
+	this.ui.private = true;
+	this.ui.categories = false;
+	this.ui["add-category"] = false;
+	this.ui.tags = false;
+	this.ui.timestamp = false;
+	
+	this.apiUrl = "http://www.livejournal.com/interface/xmlrpc";
+	
+	this.getBlogs = function (params, success, failure) {
+		var args = [ { username : params.username, password : params.password } ];
+		var xml = XMLRPC_LIB.makeXML("LJ.XMLRPC.login", args);
+		
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml, 
+			function (rv) {
+				var blogs = [];
+				
+				var blog = {};
+				blog.name = params.username + "'s Livejournal";
+				blog.url = "http://" + params.username + ".livejournal.com/";
+				blog.id = rv.userid;
+				blog.apiUrl = "http://www.livejournal.com/interface/xmlrpc";
+				blog.type = "livejournal";
+				blog.username = params.username;
+				blog.password = params.password;
+				
+				blogs.push(blog);
+				
+				success(blogs);
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
+	
+	this.getPosts = function (params, success, failure) {
+		var self = this;
+		var args = [ { username : this.username, password : this.password, selecttype : "lastn", howmany : 50, ver : 1 } ];
+		var xml = XMLRPC_LIB.makeXML("LJ.XMLRPC.getevents", args);
+		
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml, 
+			function (rv) {
+				var posts = [];
+				
+				console.log(rv);
+				
+				for (var i = 0, _len = rv.events.length; i < _len; i++) {
+					var event = rv.events[i];
+					
+					var post = {};
+					
+					post.content = event.event;
+					post.title = event.subject;
+					
+					var val = event.eventtime;
+					
+					// Check for a timezone offset
+					var possibleOffset = val.substr(-6);
+					var hasTimezone = false;
+					var minutes = null;
+					
+					if (possibleOffset.charAt(0) == "-" || possibleOffset.charAt(0) == "+") {
+						var hours = parseInt(possibleOffset.substr(1,2), 10);
+						var minutes = (hours * 60) + parseInt(possibleOffset.substr(4,2), 10);
+						
+						if (possibleOffset.charAt(0) == "+") {
+							minutes *= -1;
+						}
+						
+						hasTimezone = true;
+					}
+					
+					val = val.replace(/-/gi, "");
+					
+					var year = parseInt(val.substring(0, 4), 10);
+					var month = parseInt(val.substring(4, 6), 10) - 1
+					var day = parseInt(val.substring(6, 8), 10);
+					var hour = parseInt(val.substring(9, 11), 10);
+					var minute = parseInt(val.substring(12, 14), 10);
+					var second = parseInt(val.substring(15, 17), 10);
+					
+					var dateutc =  Date.UTC(year, month, day, hour, minute, second);
+					dateutc = new Date(dateutc);
+					
+					if (!hasTimezone) {
+						minutes = new Date(dateutc).getTimezoneOffset();
+					}
+					
+					var offsetDate = dateutc.getTime();
+					offsetDate += (1000 * 60 * minutes);
+					dateutc.setTime(offsetDate);
+					
+					post.timestamp = dateutc;
+					
+					post.categories = [];
+					post.url = event.url;
+					post.id = event.itemid;
+					post.published = true;
+					posts.push(post);
+				}
+				
+				success(posts);
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
+	
+	this.publish = function (params, success, failure) {
+		var contentStruct = { };
+		contentStruct.username = this.username;
+		contentStruct.password = this.password;
+		contentStruct.ver = 1;
+		contentStruct.subject = params.title;
+		contentStruct.event = params.content;
+		
+		if ("private" in params && params.private) {
+			contentStruct.security = "private";
+		}
+		
+		var now = new Date();
+		
+		contentStruct.year = now.getFullYear();
+		contentStruct.mon = now.getMonth();
+		contentStruct.day = now.getDate();
+		contentStruct.hour = now.getHours();
+		contentStruct.min = now.getMinutes();
+		
+		var args = [ contentStruct ];
+		
+		if ("id" in params && params.id) {
+			contentStruct.itemid = params.id;
+			
+			var xml = XMLRPC_LIB.makeXML("LJ.XMLRPC.editevent", [ contentStruct ] );
+		}
+		else {
+			var xml = XMLRPC_LIB.makeXML("LJ.XMLRPC.postevent", [ contentStruct ]);
+		}
+		
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml, 
+			function (rv) {
+				console.log(rv);
+				if (success) {
+					if (("id" in params) && params.id) {
+						success({ "id" : params.id });
+					}
+					else {
+						success({ "id": rv });
+					}
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+	};
+	
+	this.deletePost = function (params, success, failure) {
+		var args = [ { username : this.username, password : this.password, ver : 1, itemid : params.id, event : "" } ];
+		var xml = XMLRPC_LIB.makeXML("LJ.XMLRPC.editevent", args);
+		
+		XMLRPC_LIB.doCommand(
+			this.apiUrl,
+			xml,
+			function (rv) {
+				if (success) {
+					success(rv);
+				}
+			},
+			function (status, msg) {
+				if (failure) {
+					failure({"status": status, "msg": msg});
+				}
+			}
+		);
+		
+	};
+};
+livejournalAPI.prototype = new blogAPI();
 
 var genericAtomAPI = function () {
 	var newUi = {};
