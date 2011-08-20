@@ -40,6 +40,7 @@ function getBlogAPI(type, apiUrl) {
 	}
 	
 	if (api) {
+		api.apiUrl = apiUrl;
 		blogApis[apiUrl] = api;
 		return api;
 	}
@@ -945,7 +946,7 @@ var wordpressAPI = function () {
 wordpressAPI.prototype = new genericMetaWeblogAPI();
 
 var livejournalAPI = function () {
-	// LiveJournal doesn't actually use this anymore. It uses ATOM.
+	// LiveJournal doesn't actually use this anymore. It uses Atom.
 	// But some other blogs still use this interface.
 	
 	this.ui.private = true;
@@ -954,9 +955,9 @@ var livejournalAPI = function () {
 	this.ui.tags = false;
 	this.ui.timestamp = false;
 	
-	this.apiUrl = "http://www.livejournal.com/interface/xmlrpc";
-	
 	this.getBlogs = function (params, success, failure) {
+		var self = this;
+		
 		var args = [ { username : params.username, password : params.password } ];
 		var xml = XMLRPC_LIB.makeXML("LJ.XMLRPC.login", args);
 		
@@ -967,10 +968,10 @@ var livejournalAPI = function () {
 				var blogs = [];
 				
 				var blog = {};
-				blog.name = params.username + "'s Livejournal";
-				blog.url = "http://" + params.username + ".livejournal.com/";
+				blog.name = params.username;
+				blog.url = self.apiUrl.replace("www.", params.username + ".").replace("interface/xmlrpc", "");
 				blog.id = rv.userid;
-				blog.apiUrl = "http://www.livejournal.com/interface/xmlrpc";
+				blog.apiUrl = self.apiUrl;
 				blog.type = "livejournal";
 				blog.username = params.username;
 				blog.password = params.password;
@@ -997,8 +998,6 @@ var livejournalAPI = function () {
 			xml, 
 			function (rv) {
 				var posts = [];
-				
-				console.log(rv);
 				
 				for (var i = 0, _len = rv.events.length; i < _len; i++) {
 					var event = rv.events[i];
@@ -1052,6 +1051,11 @@ var livejournalAPI = function () {
 					post.url = event.url;
 					post.id = event.itemid;
 					post.published = true;
+					post.private = false;
+					
+					if ("security" in event && event.security == "private") {
+						post.private = true;
+					}
 					posts.push(post);
 				}
 				
@@ -1080,7 +1084,7 @@ var livejournalAPI = function () {
 		var now = new Date();
 		
 		contentStruct.year = now.getFullYear();
-		contentStruct.mon = now.getMonth();
+		contentStruct.mon = now.getMonth() + 1;
 		contentStruct.day = now.getDate();
 		contentStruct.hour = now.getHours();
 		contentStruct.min = now.getMinutes();
@@ -1100,13 +1104,15 @@ var livejournalAPI = function () {
 			this.apiUrl,
 			xml, 
 			function (rv) {
-				console.log(rv);
 				if (success) {
-					if (("id" in params) && params.id) {
+					if (("itemid" in rv) && rv.itemid) {
+						success({ "id" : rv.itemid });
+					}
+					else if ("id" in params && params.id) {
 						success({ "id" : params.id });
 					}
 					else {
-						success({ "id": rv });
+						success({ "id" : rv });
 					}
 				}
 			},

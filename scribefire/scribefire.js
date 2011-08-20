@@ -909,6 +909,12 @@ var SCRIBEFIRE = {
 			metaData.id = 1;
 			metaData.apiUrl = "http://api.xanga.com/metaweblogapi";
 		}
+		else if (parsed.host.search(/\.dreamwidth\.org$/i) != -1) {
+			metaData.type = "livejournal";
+			metaData.apiUrl = "http://www.dreamwidth.org/interface/xmlrpc";
+		}
+		
+		console.log(metaData);
 		
 		if (metaData.type) {
 			callbackSuccess(metaData);

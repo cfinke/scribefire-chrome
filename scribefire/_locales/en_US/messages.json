@@ -196,6 +196,9 @@
 	"option_blogType_posterous": {
 		"message": "Posterous"
 	},
+	"option_blogType_livejournal": {
+		"message": "LiveJournal (Old)"
+	},
 	"option_publish_immediately": {
 		"message": "Publish Immediately"
 	},
@@ -454,7 +457,7 @@
 		"message": "Blog Properties"
 	},
 	"text_blogProperties1": {
-		"message": "You can edit the name and URL of your blog here.  To update your username, password, API URL, or blog ID, click the \"Remove\" button to remove the blog and then re-add it by clicking the \"Add a New Blog\" button."
+		"message": "You can edit the name and URL of your blog here.  To update your API URL or blog ID, click the \"Remove\" button to remove the blog and then re-add it by clicking the \"Add a New Blog\" button."
 	},
 	"header_video": {
 		"message": "Insert a Video"
