@@ -74,6 +74,8 @@ blogAPI.prototype = {
 		}
 		
 		this.postInit();
+		
+		return this;
 	},
 	
 	postInit : function () { },
