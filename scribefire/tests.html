@@ -249,8 +249,7 @@
 									function () {
 										stop();
 									
-										var api = getBlogAPI(passwords[service].type, passwords[service].apiUrl);
-										api.init(passwords[service]);
+										var api = getBlogAPI(passwords[service].type, passwords[service].apiUrl).init(passwords[service]);
 									
 										var thePostID = null;
 										var thePost = null;

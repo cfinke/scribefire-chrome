@@ -153,6 +153,7 @@ var SCRIBEFIRE = {
 		pref("stats.allowed", false);
 		pref("stats.loadCounter", 0);
 		pref("markdown", true);
+		pref("multipost", true);
 		
 		SCRIBEFIRE.populateBlogsList();
 		SCRIBEFIRE.populateTemplatesList();
@@ -851,8 +852,7 @@ var SCRIBEFIRE = {
 			else {
 				var blog = SCRIBEFIRE.getBlog(selectedBlog);
 				
-				SCRIBEFIRE.currentAPI = getBlogAPI(blog.type, blog.apiUrl);
-				SCRIBEFIRE.currentAPI.init(blog);
+				SCRIBEFIRE.currentAPI = getBlogAPI(blog.type, blog.apiUrl).init(blog);
 			}
 		}
 		
@@ -1271,6 +1271,93 @@ var SCRIBEFIRE = {
 				}
 			);
 		}
+	},
+	
+	multipublish : function (blog, callbackSuccess, callbackFailure) {
+		var params = {};
+		params.id = "";
+		params.title = $("#text-title").val();
+		params.content = editor.val();
+		params.categories = $("#list-categories").val() || [];
+		params.tags = $("#text-tags").val();
+		params.draft = $("#status-draft").val() == "1";
+		params.slug = $("#text-slug").val();
+		params.private = $("#checkbox-private").is(":checked");
+		params.excerpt = $("#text-excerpt").val();
+		params.custom_fields = SCRIBEFIRE.getCustomFields();
+		/*
+		params.featured_image = { id : $("#text-featured-image-id").val() };
+		*/
+		
+		if ($("#toggle-schedule-scheduled").is(":visible")) {
+			var timestampObject = new Date();
+			
+			var timestamp = getTimestamp();
+		
+			if (timestamp) {
+				var timestampObject = new Date();
+				timestamp = timestamp.replace(/[^0-9]/g, " ").replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
+				timestampParts = timestamp.split(" ");
+				
+				timestampObject.setFullYear(timestampParts[0]);
+				timestampObject.setMonth(timestampParts[1] - 1);
+				timestampObject.setDate(timestampParts[2]);
+				timestampObject.setHours(timestampParts[3]);
+				timestampObject.setMinutes(timestampParts[4]);
+				timestampObject.setSeconds(0);
+			}
+			
+			params.timestamp = timestampObject;
+		}
+		
+		// Not sure if this section is needed now with the Wordpress JavaScript.
+		// Preserve newlines and angle brackets in <pre>
+		
+		if (params.content.match(/<pre[^>]*>/i)) {
+			try {
+				var allMatches = params.content.match(/<pre[^>]*>([\s\S]+?)<\/pre>/img);
+				
+				for (var i = 0; i < allMatches.length; i++) {
+					var currentMatch = allMatches[i];
+					
+					var toReplace = currentMatch.match(/<pre[^>]*>([\s\S]+?)<\/pre>/im)[1];
+					
+					var replaced = toReplace.replace(/\n/g, "SCRIBEFIRE_NEWLINE");
+					//replaced = replaced.replace(/</g, "&lt;");
+					//replaced = replaced.replace(/>/g, "&gt;");
+					
+					// $ is a special backreference char.
+					replaced = replaced.replace(/\$/g, "$$$$");
+					
+					params.content = params.content.replace(toReplace, replaced);
+				}
+			} catch (e) {
+			}
+		}
+		
+		// Many APIs convert newlines to <br />
+		params.content = params.content.replace(/\n/g, "");
+		params.content = params.content.replace(/SCRIBEFIRE_NEWLINE/g, "\n");
+		
+		// Get rid of MS Word stuff.
+		params.content = params.content.replace(/<[^>\s]+:[^\s>]+[^>]*>/g, " ");
+		
+		var entryType = $("#list-entries option:selected").data("type");
+		
+		if (entryType != "posts" && entryType != "pages") {
+			// Posts are still loading.
+			entryType = "posts";
+		}
+		
+		params.type = entryType;
+		
+		console.log(params);
+		
+		getBlogAPI(blog.type, blog.apiUrl).init(blog).publish(
+			params,
+			callbackSuccess,
+			callbackFailure
+		);
 	},
 	
 	clearData : function () {

@@ -713,5 +713,8 @@
 	},
 	"notification_import_complete": {
 		"message": "Import complete. Close and re-open ScribeFire to continue."
+	},
+	"notice_publishing": {
+		"message": "Publishing..."
 	}
 }

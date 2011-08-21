@@ -521,8 +521,39 @@ $(document).ready(function () {
 		SCRIBEFIRE.publish(
 			function success(rv) {
 				button.removeClass("busy");
+				
+				if (SCRIBEFIRE.prefs.getBoolPref("multipost")) {
+					$(".ui-multipost").show();
+					$(".ui-multipost-inverse").hide();
+					$("#multipost-blog-list").html("").hide();
+					$("#multipost-progress").hide();
+					
+					var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
+					var selectedBlog = $("#list-blogs").val();
+					
+					for (var i in blogs) {
+						if (i != selectedBlog) {
+							$("#multipost-blog-list").append(
+								$("<li/>")
+									.text(blogs[i].name + " (" + blogs[i].url + ")")
+									.prepend($('<input type="checkbox" name="multipost-blog" />').val(i))
+								);
+						}
+					}
+					
+					$("#multipost-blog-list").show();
+				}
+				else {
+					$(".ui-multipost").hide();
+					$(".ui-multipost-inverse").show();
+				}
+				
 				$.facebox($("#panel-publish-notification"));
-				$("#panel-publish-notification").show();
+				
+				$("#panel-publish-notification")
+					.find(".pre-multipost-hidden").hide().end()
+					.find(".multipost-hidden").show().end()
+					.show();
 			},
 			function error(rv) {
 				button.removeClass("busy");
@@ -565,6 +596,51 @@ $(document).ready(function () {
 			function error(rv) {
 				button.removeClass("busy");
 			});
+	});
+	
+	$("#button-multipost").live("click", function (e) {
+		var selectedBlogs = $("#multipost-blog-list").find("input:checked");
+		
+		if (selectedBlogs.length == 0) {
+			alert("You must select at least one other blog to post to.");
+		}
+		else {
+			$(".multipost-hidden").hide();
+			
+			var blogs = [];
+			
+			selectedBlogs.each(function () {
+				blogs.push(SCRIBEFIRE.getBlog($(this).val()));
+			});
+			
+			var success = function (rv) {
+				$("#multipost-progress li:last").append(document.createTextNode("... Success!"));
+				postToNextBlog();
+			};
+			
+			var failure = function (rv) {
+				$("#multipost-progress li:last").append(document.createTextNode("... Failure:")).append($('<ul/>').append($('<li/>').text(rv.msg)));
+				postToNextBlog();
+			};
+			
+			function postToNextBlog() {
+				var blog = blogs.shift();
+				
+				if (blog) {
+					$("#multipost-progress").show().append($('<li/>').text("Publishing to ").append($('<a/>').text(blog.name).attr("href", blog.url).attr("target", "_blank")));
+					SCRIBEFIRE.multipublish(blog, success, failure);
+				}
+				else {
+					// Finished.
+					$(".pre-multipost-hidden").show();
+				}
+			}
+			
+			$("#multipost-blog-list").hide();
+			$("#multipost-progress").html("").show().append($('<li/>').text(scribefire_string("notice_publishing"));
+			
+			postToNextBlog();
+		}
 	});
 	
 	$("#button-blog-edit").live("click", function (e) {
