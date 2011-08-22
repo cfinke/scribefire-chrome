@@ -1161,7 +1161,7 @@
 		_mceLink : function(ui, val) {
 			var ed = this.editor;
 			
-			$.facebox('<iframe src="'+tinymce.baseURL + '/themes/advanced/link.htm" style="width: 100%; height: 300px; border: 0;"/>', true);
+			$.facebox('<iframe src="'+tinymce.baseURL + '/themes/advanced/link.htm" style="width: 100%; height: 200px; border: 0;"/>', true);
 		},
 
 		_mceNewDocument : function() {

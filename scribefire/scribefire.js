@@ -154,6 +154,7 @@ var SCRIBEFIRE = {
 		pref("stats.loadCounter", 0);
 		pref("markdown", true);
 		pref("multipost", true);
+		pref("defaultLinkTarget", "");
 		
 		SCRIBEFIRE.populateBlogsList();
 		SCRIBEFIRE.populateTemplatesList();
@@ -914,8 +915,6 @@ var SCRIBEFIRE = {
 			metaData.apiUrl = "http://www.dreamwidth.org/interface/xmlrpc";
 		}
 		
-		console.log(metaData);
-		
 		if (metaData.type) {
 			callbackSuccess(metaData);
 		}
@@ -1350,8 +1349,6 @@ var SCRIBEFIRE = {
 		}
 		
 		params.type = entryType;
-		
-		console.log(params);
 		
 		getBlogAPI(blog.type, blog.apiUrl).init(blog).publish(
 			params,

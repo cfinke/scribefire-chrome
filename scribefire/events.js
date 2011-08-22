@@ -637,7 +637,7 @@ $(document).ready(function () {
 			}
 			
 			$("#multipost-blog-list").hide();
-			$("#multipost-progress").html("").show().append($('<li/>').text(scribefire_string("notice_publishing"));
+			$("#multipost-progress").html("").show().append($('<li/>').text(scribefire_string("notice_publishing")));
 			
 			postToNextBlog();
 		}
@@ -861,7 +861,9 @@ $(document).ready(function () {
 		if (blogThisData = SCRIBEFIRE.prefs.getCharPref("blogThis")) {
 			blogThisData = JSON.parse(blogThisData);
 			
-			editorContent += '<a href="' + blogThisData.url + '">' + blogThisData.title + '</a><br />' + (blogThisData.selection ? '<blockquote>' + blogThisData.selection + '</blockquote><br />' : '');
+			var target = SCRIBEFIRE.prefs.getCharPref("defaultLinkTarget");
+			
+			editorContent += '<a href="' + blogThisData.url + '"' + (target ? ' target="' + target + '"' : '') + '>' + blogThisData.title + '</a><br />' + (blogThisData.selection ? '<blockquote>' + blogThisData.selection + '</blockquote><br />' : '') + '<br />';
 			
 			SCRIBEFIRE.prefs.setCharPref("blogThis", "");
 		}
@@ -1078,8 +1080,9 @@ if (typeof safari != 'undefined') {
 			var title = responseParts.shift();
 			var url = responseParts.shift();
 			var selection = responseParts.join("\t");
+			var target = SCRIBEFIRE.prefs.getCharPref("defaultLinkTarget");
 			
-			SCRIBEFIRE.blogThis('<a href="' + url + '">' + title + '</a>' + (selection ? '<br /><blockquote>' + selection + '</blockquote><br />' : ''));
+			SCRIBEFIRE.blogThis('<a href="' + url + '"' + (target ? ' target="' + target + '"' : '') + '>' + title + '</a>' + (selection ? '<br /><blockquote>' + selection + '</blockquote><br />' : '') + '<br />');
 		}
 	}
 	

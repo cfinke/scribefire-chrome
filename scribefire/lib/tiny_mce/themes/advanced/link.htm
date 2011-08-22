@@ -14,41 +14,46 @@
 		<link rel="stylesheet" type="text/css" href="../../../../skin/dialog.css" />
 	</head>
 	<body id="link" style="display: none;" level="../../../../">
-		<h2>Insert/edit link</h2>
+		<h2>Insert/Edit Link</h2>
+		
 		<form onsubmit="LinkDialog.update(); return false;" action="#">
 			<div class="panel_wrapper">
 				<div id="general_panel" class="current">
-
-				<table border="0" cellpadding="4" cellspacing="0">
-		          <tr>
-		            <td class="nowrap"><label for="href">Link URL</label></td>
-		            <td><table border="0" cellspacing="0" cellpadding="0"> 
-						  <tr> 
-							<td><input id="href" name="href" type="text" class="mceFocus" value="" style="width: 200px" onchange="LinkDialog.checkPrefix(this);" /></td> 
-							<td id="hrefbrowsercontainer">&nbsp;</td>
-						  </tr> 
-						</table></td>
-		          </tr>
-				  <tr>
-					<td><label for="link_list">Link list</label></td>
-					<td><select id="link_list" name="link_list" onchange="document.getElementById('href').value=this.options[this.selectedIndex].value;"></select></td>
-				  </tr>
-				<tr>
-					<td><label id="targetlistlabel" for="targetlist">Target</label></td>
-					<td><select id="target_list" name="target_list"></select></td>
-				</tr>
-		          <tr>
-		            <td class="nowrap"><label for="linktitle">Title</label></td>
-		            <td><input id="linktitle" name="linktitle" type="text" value="" style="width: 200px" /></td>
-		          </tr>
-					<tr>
-						<td><label for="class_list">Class</label></td>
-						<td><select id="class_list" name="class_list"></select></td>
-					</tr>
-		        </table>
+					<table border="0" cellpadding="4" cellspacing="0" style="width: 100%;">
+						<tr>
+							<td class="nowrap"><label for="href">Link URL</label></td>
+							<td>
+								<table border="0" cellspacing="0" cellpadding="0"> 
+									<tr>
+										<td><input id="href" name="href" type="text" class="mceFocus" value="" style="width: 200px" onchange="LinkDialog.checkPrefix(this);" /></td> 
+										<td id="hrefbrowsercontainer">&nbsp;</td>
+									</tr> 
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td><label for="link_list">Link list</label></td>
+							<td><select id="link_list" name="link_list" onchange="document.getElementById('href').value=this.options[this.selectedIndex].value;"></select></td>
+						</tr>
+						<tr>
+							<td><label id="targetlistlabel" for="targetlist">Target</label></td>
+							<td>
+								<select id="target_list" name="target_list" style="width: 50%;"></select>
+								<button id="button-set-link-target-default" style="display: none;">Set as Default</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="nowrap"><label for="linktitle">Title</label></td>
+							<td><input id="linktitle" name="linktitle" type="text" value="" style="width: 200px" /></td>
+						</tr>
+						<tr>
+							<td><label for="class_list">Class</label></td>
+							<td><select id="class_list" name="class_list"></select></td>
+						</tr>
+					</table>
 				</div>
 			</div>
-
+			
 			<div class="mceActionPanel">
 				<button id="cancel" name="cancel" class="cancel-button" onclick="event.preventDefault(); tinyMCEPopup.close();">Cancel</button>
 				<button id="insert" name="insert" class="accept-button">Insert</button>
@@ -56,5 +61,32 @@
 		</form>
 		<script type="text/javascript" src="../../../../lib/platform.js"></script>
 		<script type="text/javascript" src="../../../../lib/tinymce-popup.js"></script>
+		<script type="text/javascript" src="../../../../scribefire.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$("#target_list").change(function () {
+					var val = $(this).val();
+					
+					if (!val) val = "";
+					
+					if (SCRIBEFIRE.prefs.getCharPref("defaultLinkTarget") != val) {
+						$("#button-set-link-target-default").show();
+					}
+					else {
+						$("#button-set-link-target-default").hide();
+					}
+				});
+				
+				$("#button-set-link-target-default").click(function (e) { 
+					e.preventDefault();
+					
+					SCRIBEFIRE.prefs.setCharPref("defaultLinkTarget", $("#target_list").val());
+					
+					$("#target_list").change();
+				});
+				
+				$("#target_list").change();
+			});
+		</script>
 	</body>
 </html>

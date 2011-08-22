@@ -138,6 +138,9 @@ var SF_ZEMANTA = {
 					var aNode = $("<a/>");
 					aNode.attr("href", reference.source_url);
 					
+					var target = SCRIBEFIRE.prefs.getCharPref("defaultLinkTarget");
+					if (target) aNode.attr("target", target);
+					
 					var iNode = $("<img/>");
 					
 					if (reference.url_l_w > 300) {
@@ -356,11 +359,15 @@ var SF_ZEMANTA = {
 		val = $.trim(val);
 		editor.val(val);
 		
+		var target = SCRIBEFIRE.prefs.getCharPref("defaultLinkTarget");
+		
 		if (selectedArticles.length > 0) {
 			var html = '<div class="zemanta-articles">'+scribefire_string('zemanta_related_articles')+'<ul class="zemanta-articles">';
 			
 			selectedArticles.each(function () {
-				html += '<li><a href="'+$(this).attr('url')+'">'+$(this).attr("title")+'</a></li>';
+				html += '<li><a href="'+$(this).attr('url')+'"';
+				if (target) html += ' target="' + target + '"';
+				html += '>'+$(this).attr("title")+'</a></li>';
 			});
 			
 			html += '</ul>';

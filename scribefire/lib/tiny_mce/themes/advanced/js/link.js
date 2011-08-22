@@ -15,7 +15,7 @@ var LinkDialog = {
 		document.getElementById('hrefbrowsercontainer').innerHTML = getBrowserHTML('hrefbrowser', 'href', 'file', 'theme_advanced_link');
 		if (isVisible('hrefbrowser'))
 			document.getElementById('href').style.width = '180px';
-
+		
 		this.fillClassList('class_list');
 		this.fillFileList('link_list', 'tinyMCELinkList');
 		this.fillTargetList('target_list');
@@ -28,6 +28,11 @@ var LinkDialog = {
 			selectByValue(f, 'target_list', ed.dom.getAttrib(e, 'target'));
 			selectByValue(f, 'class_list', ed.dom.getAttrib(e, 'class'));
 		}
+		else {
+			selectByValue(f, 'target_list', SCRIBEFIRE.prefs.getCharPref("defaultLinkTarget"));
+		}
+		
+		$("#target_list").change();
 	},
 
 	update : function() {
