@@ -1,19 +1,18 @@
 /*
  * Facebox (for jQuery)
- * version: 1.2.shopping (05/05/2008) (modified to remove background images)
+ * version: 1.3
  * @requires jQuery v1.2 or later
- *
- * Examples at http://famspam.com/facebox/
+ * @homepage https://github.com/defunkt/facebox
  *
  * Licensed under the MIT:
  *   http://www.opensource.org/licenses/mit-license.php
  *
- * Copyright 2007, 2008 Chris Wanstrath [ chris@ozmm.org ]
+ * Copyright Forever Chris Wanstrath, Kyle Neath
  *
  * Usage:
- *  
+ *
  *  jQuery(document).ready(function() {
- *    jQuery('a[rel*=facebox]').facebox() 
+ *    jQuery('a[rel*=facebox]').facebox()
  *  })
  *
  *  <a href="#terms" rel="facebox">Terms</a>
@@ -27,22 +26,27 @@
  *
  *
  *  You can also use it programmatically:
- * 
+ *
  *    jQuery.facebox('some html')
+ *    jQuery.facebox('some html', 'my-groovy-style')
  *
  *  The above will open a facebox with "some html" as the content.
- *    
- *    jQuery.facebox(function($) { 
+ *
+ *    jQuery.facebox(function($) {
  *      $.get('blah.html', function(data) { $.facebox(data) })
  *    })
  *
  *  The above will show a loading screen before the passed function is called,
  *  allowing for a better ajaxy experience.
  *
- *  The facebox function can also display an ajax page or image:
- *  
+ *  The facebox function can also display an ajax page, an image, or the contents of a div:
+ *
  *    jQuery.facebox({ ajax: 'remote.html' })
- *    jQuery.facebox({ image: 'dude.jpg' })
+ *    jQuery.facebox({ ajax: 'remote.html' }, 'my-groovy-style')
+ *    jQuery.facebox({ image: 'stairs.jpg' })
+ *    jQuery.facebox({ image: 'stairs.jpg' }, 'my-groovy-style')
+ *    jQuery.facebox({ div: '#box' })
+ *    jQuery.facebox({ div: '#box' }, 'my-groovy-style')
  *
  *  Want to close the facebox?  Trigger the 'close.facebox' document event:
  *
@@ -54,6 +58,7 @@
  *    beforeReveal.facebox
  *    reveal.facebox (aliased as 'afterReveal.facebox')
  *    init.facebox
+ *    afterClose.facebox
  *
  *  Simply bind a function to any of these hooks:
  *
@@ -61,21 +66,14 @@
  *
  */
 (function($) {
-  $.facebox = function(data, hideClose) {
+  $.facebox = function(data, klass) {
     $.facebox.loading()
 
-    if (data.ajax) fillFaceboxFromAjax(data.ajax)
-    else if (data.image) fillFaceboxFromImage(data.image)
-    else if (data.div) fillFaceboxFromHref(data.div)
+    if (data.ajax) fillFaceboxFromAjax(data.ajax, klass)
+    else if (data.image) fillFaceboxFromImage(data.image, klass)
+    else if (data.div) fillFaceboxFromHref(data.div, klass)
     else if ($.isFunction(data)) data.call($)
-    else $.facebox.reveal(data)
-
-	if (hideClose) {
-		$("#facebox .modal_close").hide();
-	}
-	else {
-		$("#facebox .modal_close").show();
-	}
+    else $.facebox.reveal(data, klass)
   }
 
   /*
@@ -84,24 +82,16 @@
 
   $.extend($.facebox, {
     settings: {
+//      opacity      : 0.2,
       opacity      : 0.5,
       overlay      : true,
-      loadingImage : 'skin/loading.gif',
-      closeImage   : 'skin/closelabel.gif',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none; width: 50%; margin-left: auto; margin-right: auto; border-radius: 10px; -moz-border-radius: 10px; padding: 10px;"> \
       <div class="popup"> \
-        <table style="width: 100%;"> \
-          <tbody> \
-              <td class="body"> \
-                <div class="content"> \
-                </div> \
-                <div class="facebox-close-button"><button class="modal_close">X</button></div> \
-              </td> \
-            </tr> \
-          </tbody> \
-        </table> \
+        <div class="content"> \
+        </div> \
+        <div class="facebox-close-button"><button class="modal_close">X</button></div> \
       </div> \
     </div>'
     },
@@ -110,21 +100,20 @@
       init()
       if ($('#facebox .loading').length == 1) return true
       showOverlay()
-      
+
       /**
        * Added 2010/04/02 by @cfinke
        * Keeps content in the page so that a given node can be Facebox'd twice.
        */
       $("body").append( $("#facebox .content *:first").remove().hide() );
 
-      $('#facebox .content').empty()
-      $('#facebox .body').children().hide().end().
-        append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
+      $('#facebox .content').empty()/*.
+        append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')*/
 
-      $('#facebox').css({
-        top:	50,//getPageScroll()[1] + Math.round(getPageHeight() / 5),
-        left:	385.5
-      }).show()
+      $('#facebox').show().css({
+        top:	getPageScroll()[1] + (getPageHeight() / 10),
+        left:	$(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2)
+      })
 
       $(document).bind('keydown.facebox', function(e) {
         if (e.keyCode == 27) $.facebox.close()
@@ -136,11 +125,12 @@
     reveal: function(data, klass) {
       $(document).trigger('beforeReveal.facebox')
       if (klass) $('#facebox .content').addClass(klass)
-      $('#facebox .content').append(data)
-      $('#facebox .loading').remove()
-      $('#facebox .body').children().fadeIn('normal')
-      $('#facebox').css('left', $(window).width() / 2 - ($('#facebox table').width() / 2))
-      $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
+      $('#facebox .content').empty().append(data)
+      $('#facebox .popup').children().fadeIn('normal')
+      $('#facebox .popup').children().show();
+      $('#facebox .content').children().show();
+      $('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2))
+      $(document).trigger('reveal.facebox').trigger('afterReveal.facebox');
 
       // Hide the close button if the dialog has its own close buttons.
       $("#facebox .facebox-close-button").show();
@@ -160,6 +150,8 @@
    */
 
   $.fn.facebox = function(settings) {
+    if ($(this).length == 0) return
+
     init(settings)
 
     function clickHandler() {
@@ -174,7 +166,7 @@
       return false
     }
 
-    return this.click(clickHandler)
+    return this.bind('click.facebox', clickHandler)
   }
 
   /*
@@ -190,13 +182,27 @@
     makeCompatible()
 
     var imageTypes = $.facebox.settings.imageTypes.join('|')
-    $.facebox.settings.imageTypesRegexp = new RegExp('\.' + imageTypes + '$', 'i')
+    $.facebox.settings.imageTypesRegexp = new RegExp('\\.(' + imageTypes + ')(\\?.*)?$', 'i')
 
     if (settings) $.extend($.facebox.settings, settings)
-    $('body').append($.facebox.settings.faceboxHtml);
+    $('body').append($.facebox.settings.faceboxHtml)
 
+    //var preload = [ new Image(), new Image() ]
+    //preload[0].src = $.facebox.settings.closeImage
+    //preload[1].src = $.facebox.settings.loadingImage
+
+    $('#facebox').find('.b:first, .bl').each(function() {
+      preload.push(new Image())
+      preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1')
+    })
+
+    $('#facebox .close')
+      .click($.facebox.close)
+/*      .append('<img src="'
+              + $.facebox.settings.closeImage
+              + '" class="close_image" title="close">')*/
   }
-  
+
   // getPageScroll() by quirksmode.com
   function getPageScroll() {
     var xScroll, yScroll;
@@ -208,9 +214,9 @@
       xScroll = document.documentElement.scrollLeft;
     } else if (document.body) {// all other Explorers
       yScroll = document.body.scrollTop;
-      xScroll = document.body.scrollLeft;	
+      xScroll = document.body.scrollLeft;
     }
-    return new Array(xScroll,yScroll) 
+    return new Array(xScroll,yScroll)
   }
 
   // Adapted from getPageSize() by quirksmode.com
@@ -222,7 +228,7 @@
       windowHeight = document.documentElement.clientHeight;
     } else if (document.body) { // other Explorers
       windowHeight = document.body.clientHeight;
-    }	
+    }
     return windowHeight
   }
 
@@ -230,8 +236,8 @@
   function makeCompatible() {
     var $s = $.facebox.settings
 
-    $s.loadingImage = $s.loading_image || $s.loadingImage
-    $s.closeImage = $s.close_image || $s.closeImage
+    //$s.loadingImage = $s.loading_image || $s.loadingImage
+    //$s.closeImage = $s.close_image || $s.closeImage
     $s.imageTypes = $s.image_types || $s.imageTypes
     $s.faceboxHtml = $s.facebox_html || $s.faceboxHtml
   }
@@ -246,7 +252,8 @@
     if (href.match(/#/)) {
       var url    = window.location.href.split('#')[0]
       var target = href.replace(url,'')
-      $.facebox.reveal($(target).clone().show(), klass)
+      if (target == '#') return
+      $.facebox.reveal($(target).html(), klass)
 
     // image
     } else if (href.match($.facebox.settings.imageTypesRegexp)) {
@@ -270,31 +277,31 @@
   }
 
   function skipOverlay() {
-	$.facebox.settings.overlay == false || $.facebox.settings.opacity === null 
+    return $.facebox.settings.overlay == false || $.facebox.settings.opacity === null
   }
 
   function showOverlay() {
     if (skipOverlay()) return
 
-    if ($('facebox_overlay').length == 0) 
+    if ($('#facebox_overlay').length == 0)
       $("body").append('<div id="facebox_overlay" class="facebox_hide"></div>')
 
     $('#facebox_overlay').hide().addClass("facebox_overlayBG")
       .css('opacity', $.facebox.settings.opacity)
       .click(function() { $(document).trigger('close.facebox') })
-      .fadeIn(200);
-	
+      .show()
     return false
   }
 
   function hideOverlay() {
     if (skipOverlay()) return
 
-	$('#facebox_overlay').hide();
-	$("#facebox_overlay").removeClass("facebox_overlayBG");
-	$("#facebox_overlay").addClass("facebox_hide");
-	$("#facebox_overlay").remove();
-    
+    $('#facebox_overlay').fadeOut(200, function(){
+      $("#facebox_overlay").removeClass("facebox_overlayBG")
+      $("#facebox_overlay").addClass("facebox_hide")
+      $("#facebox_overlay").remove()
+    })
+
     return false
   }
 
@@ -304,18 +311,23 @@
 
   $(document).bind('close.facebox', function() {
     $(document).unbind('keydown.facebox')
-    $('#facebox').hide();
-//fadeOut(function() {
+    $('#facebox').fadeOut(function() {
       $('#facebox .content').removeClass().addClass('content')
-      hideOverlay()
       $('#facebox .loading').remove()
-//   })
+      $(document).trigger('afterClose.facebox');
+    })
+    hideOverlay()
+    
+    var firstNode = $("#facebox .content *:first");
+    if (firstNode && firstNode.attr("persist") === "false") {
+      firstNode.remove();
+    }
   })
 
 })(jQuery);
 
 $(document).ready(function () {
-	$(".modal_close").live("click", function (e) {
+	$(document).delegate(".modal_close, .modal_close_custom", "click", function (e) {
 		e.preventDefault();
 		
 		$(document).trigger('close.facebox');

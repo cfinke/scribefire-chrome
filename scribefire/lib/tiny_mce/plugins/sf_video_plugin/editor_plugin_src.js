@@ -9,8 +9,6 @@
 		init : function(ed, url) {
 			// Register commands
 			ed.addCommand('SF_Video', function() {
-				$.facebox($("#panel-video-insert"));
-				
 				// Reset the state of the panel.
 				$("#textarea-video-insert").val("");
 				$("#text-video-insert-url").val("");
@@ -48,7 +46,7 @@
 					}
 				});
 				
-				$("#panel-video-insert").show();
+				$.facebox($("#panel-video-insert"));
 				$("#text-video-insert-url").focus();
 			});
 

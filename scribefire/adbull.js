@@ -58,7 +58,6 @@ var ADBULL = {
 		
 		$("#panel-adbull-code .adbull_code").text(code);
 		$.facebox($("#panel-adbull-code"));
-		$("#panel-adbull-code").show();
 	},
 	
 	addSite : function (site) {
@@ -130,8 +129,6 @@ var ADBULL = {
 			});
 
 			$.facebox(panel);
-			panel.show();
-			
 		}
 		else {
 			ADBULL.register(site);
@@ -187,7 +184,6 @@ var ADBULL = {
 		});
 		
 		$.facebox(panel);
-		panel.show();
 	}
 };
 

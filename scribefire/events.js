@@ -302,9 +302,7 @@ $(document).ready(function () {
 	$("#button-migrate").live("click", function (e) {
 		e.preventDefault();
 		
-		var migratePanel = $("#panel-migrate");
-		$.facebox(migratePanel);
-		migratePanel.show();
+		$.facebox($("#panel-migrate"));
 	});
 	
 	$("#list-entries").live("change", function (e) {
@@ -548,12 +546,11 @@ $(document).ready(function () {
 					$(".ui-multipost-inverse").show();
 				}
 				
-				$.facebox($("#panel-publish-notification"));
-				
 				$("#panel-publish-notification")
 					.find(".pre-multipost-hidden").hide().end()
-					.find(".multipost-hidden").show().end()
-					.show();
+					.find(".multipost-hidden").show();
+				
+				$.facebox($("#panel-publish-notification"));
 			},
 			function error(rv) {
 				button.removeClass("busy");
@@ -571,7 +568,6 @@ $(document).ready(function () {
 			function success(rv) {
 				button.removeClass("busy");
 				$.facebox($("#panel-publish-update-notification"));
-				$("#panel-publish-update-notification").show();
 			},
 			function error(rv) {
 				button.removeClass("busy");
@@ -591,7 +587,6 @@ $(document).ready(function () {
 			function success(rv) {
 				button.removeClass("busy");
 				$.facebox($("#panel-save-draft-notification"));
-				$("#panel-save-draft-notification").show();
 			},
 			function error(rv) {
 				button.removeClass("busy");
@@ -661,7 +656,6 @@ $(document).ready(function () {
 		}
 		
 		$.facebox($("#panel-blog-edit"));
-		$("#panel-blog-edit").show();
 	});
 	
 	$(".button-blog-view").live("click", SCRIBEFIRE.viewBlog);

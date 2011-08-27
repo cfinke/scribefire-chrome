@@ -108,8 +108,6 @@ var SF_ZEMANTA = {
 		function _getRelated() {
 			if (!content) content = SF_ZEMANTA.getSelectedContent();
 			
-			$.facebox($("#panel-zemanta"));
-			
 			$("#panel-zemanta .loaded").hide();
 			$("#panel-zemanta .no-results").hide();
 			$("#panel-zemanta .zemanta-loading").hide();
@@ -159,7 +157,7 @@ var SF_ZEMANTA = {
 				var container = $("#zemanta-image-grid").html("");
 			}
 			
-			$("#panel-zemanta").show();
+			$.facebox($("#panel-zemanta"));
 			
 			SF_ZEMANTA.getAPIKey(function (apiKey) {
 				SF_ZEMANTA.getZemantaPrefs(apiKey, function (zprefs) {
@@ -318,9 +316,6 @@ var SF_ZEMANTA = {
 		}
 		
 		if (!SCRIBEFIRE.prefs.getBoolPref("zemanta.tos")) {
-			$.facebox($("#panel-zemanta-tos"));
-		
-			$("#panel-zemanta-tos").show();
 			$("#container-zemanta-tos").html('<iframe src="http://www.zemanta.com/raw/tos/" style="width: 100%;"/>');
 		
 			$("#button-zemanta-tos-accept").die("click").live("click", function () {
@@ -344,6 +339,8 @@ var SF_ZEMANTA = {
 					_getRelated();
 				}
 			});
+			
+			$.facebox($("#panel-zemanta-tos"));
 		}
 		else {
 			_getRelated();
