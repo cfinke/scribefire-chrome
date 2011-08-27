@@ -272,3 +272,27 @@ button.disabled {
 	border: 1px solid #c1c1c1;
 	z-index: 100;
 }
+
+#multipost-blog-list {
+	width: 100%;
+}
+
+#multipost-blog-list td:first-child {
+	width: 2em;
+}
+
+#multipost-blog-list td {
+	padding: 5px !important;
+}
+
+#multipost-blog-list tr:nth-child(even) {
+	background-color: #DADFE5;
+}
+
+#multipost-blog-list tr:first-child {
+	background-color: #62717F;
+}
+
+#multipost-blog-list {
+	border: 1px solid #62717F;
+}

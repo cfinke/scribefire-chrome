@@ -524,18 +524,56 @@ $(document).ready(function () {
 					$(".ui-multipost").show();
 					$(".ui-multipost-inverse").hide();
 					$("#multipost-blog-list").html("").hide();
-					$("#multipost-progress").hide();
 					
 					var blogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 					var selectedBlog = $("#list-blogs").val();
 					
+					$("#multipost-blog-list").append(
+						$("<tr/>")
+							.append(
+								$('<td colspan="4" />')
+									.append(
+										$('<input type="checkbox" />')
+											.click(function (e) {
+												var checked = $(this).get(0).checked;
+										
+												$("#multipost-blog-list input[type=checkbox]").each(function () {
+													$(this).get(0).checked = checked;
+												});
+											})
+									)
+							)
+					);
+					
+					var blogsToSelect = SCRIBEFIRE.prefs.getJSONPref("multipostBlogs", []);
+					
 					for (var i in blogs) {
 						if (i != selectedBlog) {
 							$("#multipost-blog-list").append(
-								$("<li/>")
-									.text(blogs[i].name + " (" + blogs[i].url + ")")
-									.prepend($('<input type="checkbox" name="multipost-blog" />').val(i))
-								);
+								$("<tr/>")
+									.attr("blog_id", i)
+									.append(
+										$('<td/>')
+											.append(
+												$('<input type="checkbox" name="multipost-blog" ' + (~$.inArray(i, blogsToSelect) ? ' checked="checked"' : '') + ' />').val(i)
+											)
+									)
+									.append(
+										$('<td/>')
+											.text(blogs[i].name)
+									)
+									.append(
+										$('<td/>')
+											.append(
+												$('<a target="_blank" />')
+												.attr("href", blogs[i].url)
+												.text(blogs[i].url)
+											)
+									)
+									.append(
+										$('<td/>')
+									)
+							);
 						}
 					}
 					
@@ -603,18 +641,30 @@ $(document).ready(function () {
 			$(".multipost-hidden").hide();
 			
 			var blogs = [];
+			var blogIds = [];
 			
 			selectedBlogs.each(function () {
+				blogIds.push($(this).val());
 				blogs.push(SCRIBEFIRE.getBlog($(this).val()));
 			});
 			
+			SCRIBEFIRE.prefs.setJSONPref("multipostBlogs", blogIds);
+			
+			var currentBlogId = null;
+			
 			var success = function (rv) {
-				$("#multipost-progress li:last").append(document.createTextNode("... Success!"));
+				$("#multipost-blog-list tr[blog_id='" + currentBlogId + "'] td:last-child").text("Published");
+				failure({ msg : "It stucked."});
 				postToNextBlog();
 			};
 			
 			var failure = function (rv) {
-				$("#multipost-progress li:last").append(document.createTextNode("... Failure:")).append($('<ul/>').append($('<li/>').text(rv.msg)));
+				$("#multipost-blog-list tr[blog_id='" + currentBlogId + "'] td:last-child")
+					.text("Failed")
+					.parent()
+					.after(
+						$("<tr/>").append($("<td colspan='4'/>").text(rv.msg))
+					);
 				postToNextBlog();
 			};
 			
@@ -622,7 +672,9 @@ $(document).ready(function () {
 				var blog = blogs.shift();
 				
 				if (blog) {
-					$("#multipost-progress").show().append($('<li/>').text("Publishing to ").append($('<a/>').text(blog.name).attr("href", blog.url).attr("target", "_blank")));
+					currentBlogId = blogIds.shift();
+					
+					$("#multipost-blog-list tr[blog_id='" + currentBlogId + "'] td:last-child").text("Publishing...");
 					SCRIBEFIRE.multipublish(blog, success, failure);
 				}
 				else {
@@ -630,9 +682,6 @@ $(document).ready(function () {
 					$(".pre-multipost-hidden").show();
 				}
 			}
-			
-			$("#multipost-blog-list").hide();
-			$("#multipost-progress").html("").show().append($('<li/>').text(scribefire_string("notice_publishing")));
 			
 			postToNextBlog();
 		}

@@ -40,7 +40,6 @@
 		<script type="text/javascript" src="vendor/jquery.js"></script>
 		<script type="text/javascript" src="vendor/jquery-ui.js"></script>
 		<script type="text/javascript" src="vendor/jquery-resize.js"></script>
-		<script type="text/javascript" src="vendor/jquery.shiftcheckbox.js"></script>
 		<script type="text/javascript" src="vendor/parseUri.js"></script>
 		<script type="text/javascript" src="vendor/facebox.js"></script>
 		<script type="text/javascript" src="lib/tiny_mce/tiny_mce_src.js"></script>
@@ -426,7 +425,7 @@
 			<h3 class="i18n" data-key="notification_publish"></h3>
 			
 			<div class="multipost-hidden">
-				<p class="i18n" data-key="label_genericQuestion"></p>
+				<!-- <p class="i18n" data-key="label_genericQuestion"></p> -->
 			
 				<div class="buttons">
 					<button class="button-meta button-blog-view multipost-hidden"><i18n data-key="action_openBlogInTab"></i18n></button>
@@ -438,11 +437,7 @@
 			<div class="ui-multipost">
 				<p class="multipost-hidden">Or do you want to publish this post to other blogs?</p>
 				
-				<ul id="multipost-blog-list">
-				</ul>
-				
-				<ul id="multipost-progress">
-				</ul>
+				<table id="multipost-blog-list"></table>
 				
 				<div class="buttons">
 					<button id="button-multipost" class="multipost-hidden">Publish to These Blogs Too</button>
@@ -455,7 +450,7 @@
 		<div id="panel-publish-update-notification" style="display: none;">
 			<h3 class="i18n" data-key="notification_publish_update"></h3>
 			
-			<p class="i18n" data-key="label_genericQuestion"></p>
+			<!-- <p class="i18n" data-key="label_genericQuestion"></p> -->
 			
 			<div class="buttons">
 				<button class="button-meta button-blog-view i18n" data-key="action_openBlogInTab"></button>
@@ -467,7 +462,7 @@
 		<div id="panel-save-draft-notification" style="display: none;">
 			<h3 class="i18n" data-key="notification_publish_draft"></h1>
 			
-			<p class="i18n" data-key="label_genericQuestion"></p>
+			<!-- <p class="i18n" data-key="label_genericQuestion"></p> -->
 			
 			<div class="buttons">
 				<button class="modal_close"><i18n data-key="action_continueEditing"></i18n></button>
