@@ -5,9 +5,6 @@
 	"extDescription": {
 		"message": "En brukervennlig tekstbehandler som enkelt lar deg poste til alle bloggene dine."
 	},
-	"preferences": {
-		"message": "Innstillinger"
-	},
 	"continue": {
 		"message": "Fortsett"
 	},
@@ -250,9 +247,6 @@
 	"label_help": {
 		"message": "HJELP!"
 	},
-	"label_title": {
-		"message": "Tittel:"
-	},
 	"label_content": {
 		"message": "Innleggs-innhold"
 	},
@@ -423,9 +417,6 @@
 	"header_blogProperties": {
 		"message": "Blogg-egenskaper"
 	},
-	"text_blogProperties1": {
-		"message": "Du kan endre navnet og URLen på bloggen din her.  For å oppdatere ditt brukernavn, passord, API-URL eller blogg-ID, klikk på \"Slett\"-knappen for å slette bloggen, og legg den så til på nytt med \"Legg til en blogg\"-knappen."
-	},
 	"header_video": {
 		"message": "Legg til en video"
 	},
@@ -457,9 +448,6 @@
 	},
 	"time_ago_days": {
 		"message": "$1 dager siden"
-	},
-	"confirm_not_saved": {
-		"message": "Er du sikker på at du vil bytte innlegg?  Du har ikke lagret den gjeldende versjonen av innlegget enda. Trykk \"Lagre oppdatering\" på bunnen av siden for å lagre oppdateringen."
 	},
 	"zemanta_related_articles": {
 		"message": "Relaterte artikler, fra Zemanta"

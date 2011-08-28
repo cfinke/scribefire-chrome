@@ -5,9 +5,6 @@
 	"extDescription": {
 		"message": "Un éditeur de blog facile à utiliser qui vous permet de poster sur tous vos blogs."
 	},
-	"preferences": {
-		"message": "Préférences"
-	},
 	"continue": {
 		"message": "Continuer"
 	},
@@ -250,9 +247,6 @@
 	"label_help": {
 		"message": "Aide !"
 	},
-	"label_title": {
-		"message": "Titre :"
-	},
 	"label_content": {
 		"message": "Contenu du billet"
 	},
@@ -423,9 +417,6 @@
 	"header_blogProperties": {
 		"message": "Propriétés du blog"
 	},
-	"text_blogProperties1": {
-		"message": "Vous pouvez ajouter ici l'adresse URL de votre blog. Pour modifier votre nom, mot de passe, API ou ID de blog, cliquez sur le bouton « Effacer » et ensuite sur « Ajouter un nouveau blog »."
-	},
 	"header_video": {
 		"message": "Insérer une vidéo"
 	},
@@ -457,9 +448,6 @@
 	},
 	"time_ago_days": {
 		"message": "Il y a $1 jours"
-	},
-	"confirm_not_saved": {
-		"message": "Êtes-vous sûr de vouloir changer de billet? Vous n'avez pas enregistré la version actuelle de ce billet.\n\n(Cliquez \"Enregistrer les modifications\" en bas de page pour enregistrer."
 	},
 	"zemanta_related_articles": {
 		"message": "Autres articles relatifs à celui-ci, grâce à Zemanta:"

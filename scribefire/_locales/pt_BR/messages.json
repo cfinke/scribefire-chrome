@@ -216,9 +216,6 @@
 	"label_help": {
 		"message": "AJUDA!"
 	},
-	"label_title": {
-		"message": "Título:"
-	},
 	"label_content": {
 		"message": "Conteúdo do Post"
 	},
@@ -389,9 +386,6 @@
 	"header_blogProperties": {
 		"message": "Propriedades do Blog"
 	},
-	"text_blogProperties1": {
-		"message": "Você pode editar o nome e URL do seu blog aqui. Para atualizar seu nome de usuário, senha, URL API, ou identificação do blog, clique no botão \"Remover\" para remover o Blog e em seguida adicioná-lo novamente clicando no botão \"Adicionar um novo blog\"."
-	},
 	"header_video": {
 		"message": "Inserir um Vídeo"
 	},
@@ -423,9 +417,6 @@
 	},
 	"time_ago_days": {
 		"message": "$1 dias atrás"
-	},
-	"confirm_not_saved": {
-		"message": "Você tem certeza que deseja trocar de post? Você ainda não salvou a versão atual deste post.\n\n(Clique em 'Salvar Progresso' ao fim da página para salvar seu progresso.)"
 	},
 	"zemanta_related_articles": {
 		"message": "Artigos relacionados, cortesia de Zemanta:"

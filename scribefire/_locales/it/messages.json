@@ -5,9 +5,6 @@
 	"extDescription": {
 		"message": "Un redattore blog, facile da usare per pubblicare al tutti i tuoi blog."
 	},
-	"preferences": {
-		"message": "Preferenze"
-	},
 	"continue": {
 		"message": "Continua"
 	},
@@ -246,9 +243,6 @@
 	"label_help": {
 		"message": "AIUTO!"
 	},
-	"label_title": {
-		"message": "Titolo:"
-	},
 	"label_content": {
 		"message": "Pubblica contenuto:"
 	},
@@ -419,9 +413,6 @@
 	"header_blogProperties": {
 		"message": "Proprietà del Blog"
 	},
-	"text_blogProperties1": {
-		"message": "Puoi modificare il nome e l'URL del tuo blog qui. Per aggiornare i tuoi nome utente, password, URL API o ID del blog, clicca sul bottone 'Rimuovi' per cancellare il blog e quindi inseriscilo di nuovo cliccando il bottone 'Aggiungi nuovo blog'."
-	},
 	"header_video": {
 		"message": "Inserisci un video"
 	},
@@ -453,9 +444,6 @@
 	},
 	"time_ago_days": {
 		"message": "$1 giorni fa"
-	},
-	"confirm_not_saved": {
-		"message": "Sai sicuro che vuoi cambiare l'articoli?  Non hai ancora salvato la versione attuale di questo articolo.\n\n(Clicca su 'Salva aggiornamenti' al fondo della pagina per salvare i tuoi aggiornamenti.)"
 	},
 	"zemanta_related_articles": {
 		"message": "Articoli simili, grazie a Zemanta:"

@@ -5,9 +5,6 @@
 	"extDescription": {
 		"message": "Ein benutzerfreundlicher Blog-Editor für das Posten zu all deinen Blogs."
 	},
-	"preferences": {
-		"message": "Einstellungen"
-	},
 	"continue": {
 		"message": "Fortfahren"
 	},
@@ -250,9 +247,6 @@
 	"label_help": {
 		"message": "HILFE!"
 	},
-	"label_title": {
-		"message": "Titel:"
-	},
 	"label_content": {
 		"message": "Inhalt absenden"
 	},
@@ -423,9 +417,6 @@
 	"header_blogProperties": {
 		"message": "Blogeinstellungen"
 	},
-	"text_blogProperties1": {
-		"message": "Du kannst Namen und URL Deines Blogs hier ändern. Um Deinen Benutzernamen, das Passwort, API, URL oder BlogID zu ändern, klicke auf \"Entfernen\" um das Blog aus ScribeFire zu löschen und füge dann Dein Blog über die Schaltfläche \"Neues Blog hinzufügen\" erneut hinzu."
-	},
 	"header_video": {
 		"message": "Video einfügen"
 	},
@@ -457,9 +448,6 @@
 	},
 	"time_ago_days": {
 		"message": "vor $1 Tagen"
-	},
-	"confirm_not_saved": {
-		"message": "Willst Du wirklich zu einem anderen Posting wechseln? Du hast die aktuelle Version dieses Postings noch nicht gespeichert.\n\n(Klicke 'Fortschritt speichern' am Ende der Seite um deinen Fortschritt zu speichern.)"
 	},
 	"zemanta_related_articles": {
 		"message": "Verwandte Artikel, zur Verfügung gestellt von Zemanta:"

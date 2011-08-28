@@ -205,9 +205,6 @@
 	"label_help": {
 		"message": "AJUTOR!"
 	},
-	"label_title": {
-		"message": "Titlu:"
-	},
 	"label_content": {
 		"message": "Conţinut post"
 	},
@@ -378,9 +375,6 @@
 	"header_blogProperties": {
 		"message": "Proprietăţile blogului"
 	},
-	"text_blogProperties1": {
-		"message": "Poţi modifica numele şi URL-ul blogului tău aici. Pentru a modifica numele de utilizator, parola, URL-ul API sau blog ID, click pe butonul \"Şterge\" pentru a şterge blogul şi apoi adaugă-l din nou printr-un click pe butonul \"Adaugă blog nou\"."
-	},
 	"header_video": {
 		"message": "Introducere video"
 	},
@@ -412,9 +406,6 @@
 	},
 	"time_ago_days": {
 		"message": "În urmă cu $1 zile"
-	},
-	"confirm_not_saved": {
-		"message": "Eşti sigur că vrei să selectezi alt post? Nu ai salvat încă versiunea curentă a acestui post.\n(Click pe \"salvează progres\" în josul paginii.)"
 	},
 	"zemanta_related_articles": {
 		"message": "Articole"

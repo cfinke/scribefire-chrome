@@ -5,9 +5,6 @@
 	"extDescription": {
 		"message": "あなたの持つすべてのブログに投稿できる使いやすいブログエディター"
 	},
-	"preferences": {
-		"message": "設定"
-	},
 	"continue": {
 		"message": "続行"
 	},
@@ -234,9 +231,6 @@
 	"label_help": {
 		"message": "助けて!"
 	},
-	"label_title": {
-		"message": "タイトル:"
-	},
 	"label_content": {
 		"message": "投稿の内容"
 	},
@@ -396,9 +390,6 @@
 	"header_blogProperties": {
 		"message": "ブログの設定"
 	},
-	"text_blogProperties1": {
-		"message": "ここでブログの名前とURLを変更できます。ユーザー名、パスワード、APIのURL、またはブログのIDを更新するには、\"削除\"ボタンを押してブログを消し、その後\"新しいブログを追加\"ボタンを押してもう一度追加してください。"
-	},
 	"header_video": {
 		"message": "ビデオを挿入する"
 	},
@@ -430,9 +421,6 @@
 	},
 	"time_ago_days": {
 		"message": "$1日前"
-	},
-	"confirm_not_saved": {
-		"message": "本当にページを離れてよろしいですか？投稿の現在の版はまだ保存されていません。\n\n(ページの下にある'現在の状態を保存' ボタンを押して、状態を保存します。)"
 	},
 	"zemanta_related_articles": {
 		"message": "関連記事(Zemantaによる提供):"

@@ -184,9 +184,6 @@
 	"label_help": {
 		"message": "HJÆLP!"
 	},
-	"label_title": {
-		"message": "Titel:"
-	},
 	"label_content": {
 		"message": "Post Indhold"
 	},
@@ -350,9 +347,6 @@
 	},
 	"header_blogProperties": {
 		"message": "Blog indstillinger"
-	},
-	"text_blogProperties1": {
-		"message": "Du kan redigere navnet og URL'en på din blog her. For at opdatere brugernavn, password, API URL eller blog ID, klik på \"slet\"-knappen for at fjerne bloggen og tilføj den igen ved at klikke på \"Tilføj ny blog\"."
 	},
 	"header_video": {
 		"message": "Indsæt video"

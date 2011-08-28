@@ -751,15 +751,15 @@
 		"message": "Default link target:"
 	},
 	"label_pref_markdown": {
-		"message": "Enable Markdown<a href=\"http://en.wikipedia.org/wiki/Markdown\" target=\"_blank\" class=\"explanatory\">?</a> support in the code editor"
+		"message": "Enable Markdown<a href=\"http:\/\/en.wikipedia.org\/wiki\/Markdown\" target=\"_blank\" class=\"explanatory\">?<\/a> support in the code editor"
 	},
 	"target_none": {
 		"message": "None"
 	},
 	"target_self": {
-		"message": "Same tab/window"
+		"message": "Same tab\/window"
 	},
 	"target_blank": {
-		"message": "New tab/window"
+		"message": "New tab\/window"
 	}
 }

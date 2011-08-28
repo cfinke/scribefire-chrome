@@ -184,9 +184,6 @@
 	"label_help": {
 		"message": "帮助！"
 	},
-	"label_title": {
-		"message": "标题："
-	},
 	"label_content": {
 		"message": "发布内容"
 	},
@@ -350,9 +347,6 @@
 	},
 	"header_blogProperties": {
 		"message": "博客属性"
-	},
-	"text_blogProperties1": {
-		"message": "在这里你可以编辑博客名字与地址。更新用户名，密码，API地址，或博客ID时，先点击“移除”移除博客，然后点击”添加新博客“重新添加博客"
 	},
 	"header_video": {
 		"message": "插入视频"

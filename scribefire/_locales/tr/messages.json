@@ -187,9 +187,6 @@
 	"label_help": {
 		"message": "YARDIM!"
 	},
-	"label_title": {
-		"message": "Başlık:"
-	},
 	"label_content": {
 		"message": "İçeriği yayınla"
 	},
@@ -354,9 +351,6 @@
 	"header_blogProperties": {
 		"message": "Blog Özellikleri"
 	},
-	"text_blogProperties1": {
-		"message": "Blogunuzun adını ve adresini buradan değiştirebilirsiniz. Kullanıcı adınız, şifreniz, API URL, veya Blog ID sini güncellemek için \"Çıkart\" butonuna tıklayın ve sonradan \"Yeni bir Blog Ekle\" den yeniden ekleyin."
-	},
 	"header_video": {
 		"message": "Video ekle"
 	},
@@ -388,9 +382,6 @@
 	},
 	"time_ago_days": {
 		"message": "$1 gün önce"
-	},
-	"confirm_not_saved": {
-		"message": "Gönderileri değiştirmekten emin misin? Halihazırdaki gönderiyi henüz kaydetmedin. \n(İlerleyişinizi kaydetmek için sayfanın altında yer alan \"İlerleyişi Kaydet\" butonuna tıklayın.)"
 	},
 	"zemanta_related_articles": {
 		"message": "İlgili makaleler, Zemanta'dan:"

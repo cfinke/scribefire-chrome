@@ -184,9 +184,6 @@
 	"label_help": {
 		"message": "HJÄLP!"
 	},
-	"label_title": {
-		"message": "Titel:"
-	},
 	"label_content": {
 		"message": "Postinnehåll"
 	},
@@ -350,9 +347,6 @@
 	},
 	"header_blogProperties": {
 		"message": "Blogginformation"
-	},
-	"text_blogProperties1": {
-		"message": "Du kan redigera namn och webbaddress till din blogg här. För att uppdatera ditt användarnamn, lösenord, API URL, eller blogg ID, klicka på Ta bort-knappen och lägg till den igen genom att klicka på Lägg till en ny blogg-knappen."
 	},
 	"header_video": {
 		"message": "Lägg till en video"
