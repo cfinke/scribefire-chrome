@@ -1,0 +1,551 @@
+{
+	"extName": {
+		"message": "ScribeFire"
+	},
+	"extDescription": {
+		"message": "あなたの持つすべてのブログに投稿できる使いやすいブログエディター"
+	},
+	"preferences": {
+		"message": "設定"
+	},
+	"continue": {
+		"message": "続行"
+	},
+	"action_close": {
+		"message": "閉じる"
+	},
+	"firsttime_header": {
+		"message": "ScribeFireにようこそ！"
+	},
+	"firsttime_text": {
+		"message": "おそらくあなたは早くブログを追加したいと思っていることでしょう。始めるにはこのダイアログを閉じ、'新しいブログを追加'をクリックしてください。"
+	},
+	"text_get_started": {
+		"message": "始めるには\"新しいブログを追加\"をクリックしてください。"
+	},
+	"entry_new_label": {
+		"message": "(新規)"
+	},
+	"entry_label_format": {
+		"message": "[$entry_type$] $entry_title$",
+		"placeholders": {
+			"entry_type": {
+				"content": "$1",
+				"example": "Draft"
+			},
+			"entry_title": {
+				"content": "$2",
+				"example": "My Day at the Beach"
+			}
+		}
+	},
+	"entry_localDraft_label": {
+		"message": "ローカルの下書き"
+	},
+	"entry_draft_label": {
+		"message": "下書き"
+	},
+	"entry_scheduled_label": {
+		"message": "スケジュール済"
+	},
+	"notification_draft_delete": {
+		"message": "下書きを削除しました。"
+	},
+	"notification_draft_save": {
+		"message": "下書きを保存しました。"
+	},
+	"notification_post_delete": {
+		"message": "投稿の削除に成功しました。"
+	},
+	"notification_blog_add": {
+		"message": "ブログの追加に成功しました！"
+	},
+	"notification_publish": {
+		"message": "投稿の公開に成功しました。"
+	},
+	"notification_publish_update": {
+		"message": "投稿の更新に成功しました。"
+	},
+	"notification_publish_draft": {
+		"message": "下書きの保存に成功しました。"
+	},
+	"action_openBlogInTab": {
+		"message": "新しいタブでブログを開く"
+	},
+	"action_view": {
+		"message": "閲覧"
+	},
+	"action_edit": {
+		"message": "編集"
+	},
+	"action_remove": {
+		"message": "削除"
+	},
+	"action_blog_add": {
+		"message": "新しいブログを追加"
+	},
+	"action_blog_import": {
+		"message": "ブログをインポート"
+	},
+	"message_blogs_import": {
+		"message": "以前のバージョンのScribeFireからブログをインポートしましょう。ScribeFireは可能な限り多くのデータを移行します。'完了'をクリックして、ミスを修正してください。"
+	},
+	"action_next": {
+		"message": "次へ"
+	},
+	"action_cancel": {
+		"message": "取り消し"
+	},
+	"action_cancel_import": {
+		"message": "このブログをインポートしないでください"
+	},
+	"action_makeMoney": {
+		"message": "このブログで収益を得る"
+	},
+	"action_finish": {
+		"message": "完了"
+	},
+	"action_delete": {
+		"message": "削除"
+	},
+	"action_editHTML": {
+		"message": "コードを編集(HTMLやMarkdown)"
+	},
+	"action_editVisual": {
+		"message": "視覚的に編集"
+	},
+	"action_category_add": {
+		"message": "新しいカテゴリを追加"
+	},
+	"action_customField_add": {
+		"message": "カスタムフィールドを追加"
+	},
+	"action_draft_save": {
+		"message": "現在の状態を保存"
+	},
+	"action_publish": {
+		"message": "公開"
+	},
+	"action_permalink_edit": {
+		"message": "このエントリーのURL:"
+	},
+	"action_schedule": {
+		"message": "スケジュール:"
+	},
+	"action_save": {
+		"message": "保存"
+	},
+	"action_insert": {
+		"message": "挿入"
+	},
+	"action_video_add": {
+		"message": "ビデオを挿入"
+	},
+	"option_blogType_select": {
+		"message": "(選択)"
+	},
+	"option_blogType_atom": {
+		"message": "Atom"
+	},
+	"option_blogType_blogger": {
+		"message": "Blogger"
+	},
+	"option_blogType_wordpress": {
+		"message": "Wordpress"
+	},
+	"option_blogType_tumblr": {
+		"message": "Tumblr"
+	},
+	"option_blogType_metaweblog": {
+		"message": "MetaWeblog"
+	},
+	"option_blogType_movabletype": {
+		"message": "MovableType"
+	},
+	"option_blogType_posterous": {
+		"message": "Posterous"
+	},
+	"option_publish_immediately": {
+		"message": "すぐに公開する"
+	},
+	"option_publish_month1": {
+		"message": "1月"
+	},
+	"option_publish_month2": {
+		"message": "2月"
+	},
+	"option_publish_month3": {
+		"message": "3月"
+	},
+	"option_publish_month4": {
+		"message": "4月"
+	},
+	"option_publish_month5": {
+		"message": "5月"
+	},
+	"option_publish_month6": {
+		"message": "6月"
+	},
+	"option_publish_month7": {
+		"message": "7月"
+	},
+	"option_publish_month8": {
+		"message": "8月"
+	},
+	"option_publish_month9": {
+		"message": "9月"
+	},
+	"option_publish_month10": {
+		"message": "10月"
+	},
+	"option_publish_month11": {
+		"message": "11月"
+	},
+	"option_publish_month12": {
+		"message": "12月"
+	},
+	"label_blog": {
+		"message": "ブログ"
+	},
+	"label_blog_type": {
+		"message": "ブログの種類:"
+	},
+	"label_url": {
+		"message": "URL:"
+	},
+	"label_apiUrl": {
+		"message": "API URL:"
+	},
+	"label_blogId": {
+		"message": "Blog ID:"
+	},
+	"label_loginCredentials": {
+		"message": "ログイン情報"
+	},
+	"label_username": {
+		"message": "ユーザー名:"
+	},
+	"label_password": {
+		"message": "パスワード:"
+	},
+	"label_entry": {
+		"message": "エントリー"
+	},
+	"label_help": {
+		"message": "助けて!"
+	},
+	"label_title": {
+		"message": "タイトル:"
+	},
+	"label_content": {
+		"message": "投稿の内容"
+	},
+	"label_excerpt": {
+		"message": "抜粋:"
+	},
+	"label_categories": {
+		"message": "カテゴリー"
+	},
+	"label_tags": {
+		"message": "タグ"
+	},
+	"label_customFields": {
+		"message": "カスタムフィールド"
+	},
+	"label_publish": {
+		"message": "公開"
+	},
+	"label_private": {
+		"message": "非公開"
+	},
+	"label_name": {
+		"message": "名前:"
+	},
+	"error_header": {
+		"message": "ごめんなさい、問題が発生しました..."
+	},
+	"error_post_delete": {
+		"message": "以下の投稿を削除する際に些細なエラーを発見しました: $status$\n\n$msg$",
+		"placeholders": {
+			"status": {
+				"content": "$1"
+			},
+			"msg": {
+				"content": "$2"
+			}
+		}
+	},
+	"error_post_publish": {
+		"message": "ScribeFireは投稿を公開することができませんでした。エラーメッセージを表示します: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_page_publish": {
+		"message": "ScribeFireはページを公開できませんでした。エラーメッセージを表示します: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_unknown": {
+		"message": "予期せぬエラーが発生しました。"
+	},
+	"error_api_getBlogs": {
+		"message": "ブログについての十分な情報を得られませんでした。ブログは以下のメッセージを返しました: $message$",
+		"placeholders": {
+			"message": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_invalid": {
+		"message": "ScribeFireが探しているAPI ($api_type$)は存在しませんでした。\n\nもしあなたがalpha版のテスターなら、このブログを一度削除して、再追加する必要があります。",
+		"placeholders": {
+			"api_type": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_noBlog": {
+		"message": "あせらないでください... 公開を押す前に、ブログを追加してください。"
+	},
+	"error_api_noCategorySupport": {
+		"message": "このブログはカテゴリーの追加をサポートしていません。"
+	},
+	"error_api_noUploadSupport": {
+		"message": "このブログはファイルのアップロードをサポートしていません。"
+	},
+	"error_api_cannotConnect": {
+		"message": "正常にブログに接続できませんでした。"
+	},
+	"error_api_setup": {
+		"message": "設定の確定中に以下のコードで動作を停止しました: $code$",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_code412": {
+		"message": "ブログが412エラーコードを返しました。 $url$ の指示を実行すれば、解決できるかもしれません。",
+		"placeholders": {
+			"url": {
+				"content": "http:\/\/wordpress.org\/support\/topic\/130095"
+			}
+		}
+	},
+	"error_api_noMessage": {
+		"message": "ブログが$code$エラーコードを返しましたが、エラーメッセージは見つかりませんでした。",
+		"placeholders": {
+			"code": {
+				"content": "$1"
+			}
+		}
+	},
+	"error_api_blogger_authentication": {
+		"message": "Bloggerのユーザー名またはパスワードが間違っています。"
+	},
+	"error_api_blogger_verify": {
+		"message": "アカウントのEメールアドレスを確認する必要があります。解決するには直接Bloggerアカウントにログインしてください。"
+	},
+	"error_api_blogger_tos": {
+		"message": "あなたはGoogleの利用規約にまだ同意していません。解決するには直接Bloggerアカウントにログインしてください。"
+	},
+	"error_api_blogger_deleted": {
+		"message": "あなたが使っているBloggerのアカウントは削除されています。"
+	},
+	"error_api_blogger_disabled": {
+		"message": "あなたのBloggerのアクセスは無効になっています。"
+	},
+	"error_api_blogger_unavailable": {
+		"message": "Bloggerのサービスは一時的に利用できなくなっています。"
+	},
+	"error_api_blogger_captcha": {
+		"message": "続行するために、このCAPTCHAの入力をGoogleが求めています。"
+	},
+	"error_api_blogger_unknown": {
+		"message": "Bloggerはうまく機能しませんでした。ScribeFireに以下のエラーを返しています: $error$",
+		"placeholders": {
+			"error": {
+				"content": "\n\n$1"
+			}
+		}
+	},
+	"error_api_blogger_authToken": {
+		"message": "認証トークンを取得できませんでした。"
+	},
+	"error_api_blogger_uploadAPIUnavailable": {
+		"message": "画像アップロードのためのAPIに接続できませんでした。"
+	},
+	"error_api_posterous_noDeleteSupport": {
+		"message": "Posterousは現時点では投稿の削除をサポートしていません。"
+	},
+	"error_video_noEmbed": {
+		"message": "ScribeFireはこのビデオのURLの埋め込みコードを生成できませんでした。 URLを確認、または手動で下部のボックスに埋め込みコードを貼り付けてください。"
+	},
+	"prompt_newCategory": {
+		"message": "新しいカテゴリの名前:"
+	},
+	"confirm_deletePost": {
+		"message": "本当にこの投稿を削除しますか？投稿はブログのサーバーから削除され、表示されなくなるでしょう。"
+	},
+	"header_blogProperties": {
+		"message": "ブログの設定"
+	},
+	"text_blogProperties1": {
+		"message": "ここでブログの名前とURLを変更できます。ユーザー名、パスワード、APIのURL、またはブログのIDを更新するには、\"削除\"ボタンを押してブログを消し、その後\"新しいブログを追加\"ボタンを押してもう一度追加してください。"
+	},
+	"header_video": {
+		"message": "ビデオを挿入する"
+	},
+	"text_video1": {
+		"message": "下のボックスにビデオのURLを貼り付けます。"
+	},
+	"text_video2": {
+		"message": "例:$url1$ または $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"text_video3": {
+		"message": "または、このボックスにビデオの埋め込みコードをコピーします。"
+	},
+	"time_ago_seconds": {
+		"message": "今さっき"
+	},
+	"time_ago_minutes": {
+		"message": "$1分前"
+	},
+	"time_ago_hours": {
+		"message": "$1時間前"
+	},
+	"time_ago_days": {
+		"message": "$1日前"
+	},
+	"confirm_not_saved": {
+		"message": "本当にページを離れてよろしいですか？投稿の現在の版はまだ保存されていません。\n\n(ページの下にある'現在の状態を保存' ボタンを押して、状態を保存します。)"
+	},
+	"zemanta_related_articles": {
+		"message": "関連記事(Zemantaによる提供):"
+	},
+	"zemanta_instructions": {
+		"message": "投稿に含めたい記事を選択:"
+	},
+	"zemanta_image_instructions": {
+		"message": "投稿に追加するためには、画像をクリックしてください。"
+	},
+	"action_zemanta_add": {
+		"message": "関連記事へのリンクを追加"
+	},
+	"zemanta_tos_description": {
+		"message": "続けるには、Zemantaの利用規約(下記)に同意する必要があります。"
+	},
+	"zemanta_tos_accept_request": {
+		"message": "規約に同意する場合、'続行'をクリックしてください"
+	},
+	"zemanta_no_results": {
+		"message": "Zemantaは関連する記事を見つけられませんでした。"
+	},
+	"zemanta_introduction_header": {
+		"message": "新機能: Zemantaの統合"
+	},
+	"zemanta_loading_articles_message": {
+		"message": "ZemantaからScribeFireが関連する記事を取得する間、しばらくおまちください..."
+	},
+	"zemanta_loading_images_message": {
+		"message": "ZemantaからScribeFireが関連する記事を取得する間、しばらくおまちください..."
+	},
+	"zemanta_articles_button_text": {
+		"message": "記事へのリンク"
+	},
+	"zemanta_images_button_text": {
+		"message": "画像を見つける"
+	},
+	"action_continueEditing": {
+		"message": "この記事の編集を続ける"
+	},
+	"action_startNewPost": {
+		"message": "新しい投稿を始める"
+	},
+	"action_hide": {
+		"message": "非表示"
+	},
+	"label_adbull_code": {
+		"message": "広告のコード:"
+	},
+	"adbull_company_name": {
+		"message": "AdBullでお金を稼ぐ"
+	},
+	"adbull_code_instructions": {
+		"message": "あなたのすることはこのコードをブログのテンプレートにコピー&ペーストするだけです。残りの作業はAdBullが行います。"
+	},
+	"adbull_learn_more": {
+		"message": "サインアップする前に、AdBullについてもっと詳しく知りたい場合はここをクリックしてください。"
+	},
+	"label_password_confirm": {
+		"message": "パスワードを確認："
+	},
+	"label_email": {
+		"message": "Email:"
+	},
+	"label_adbull_site_url": {
+		"message": "サイトのURL："
+	},
+	"label_mailing_address": {
+		"message": "メールアドレス:"
+	},
+	"label_city": {
+		"message": "市:"
+	},
+	"label_state": {
+		"message": "州:"
+	},
+	"option_select_state": {
+		"message": "州を選択"
+	},
+	"label_zipcode": {
+		"message": "郵便番号："
+	},
+	"label_country": {
+		"message": "国:"
+	},
+	"label_phone": {
+		"message": "電話番号:"
+	},
+	"text_adbull_header": {
+		"message": "新機能：あなたのブログでお金を稼ぐ"
+	},
+	"text_uploading_image": {
+		"message": "イメージをアップロードしています..."
+	},
+	"options_page_title": {
+		"message": "オプション"
+	},
+	"settings_migrate": {
+		"message": "インポート\/エクスポート"
+	},
+	"action_import": {
+		"message": "インポート"
+	},
+	"action_export": {
+		"message": "エクスポート"
+	},
+	"stats_introduction_header": {
+		"message": "ScribeFireの改善を手伝う"
+	},
+	"stats_button_yes": {
+		"message": "了解"
+	},
+	"stats_button_no": {
+		"message": "拒否"
+	}
+}

@@ -53,6 +53,9 @@
 	"notification_publish_update": {
 		"message": "Il tuo post è stato aggiornato con successo!"
 	},
+	"notification_publish_draft": {
+		"message": "La tua bozza è stata salvata con successo."
+	},
 	"action_openBlogInTab": {
 		"message": "Apri il blog in una nuova scheda"
 	},
@@ -94,6 +97,12 @@
 	},
 	"action_delete": {
 		"message": "Cancella"
+	},
+	"action_editHTML": {
+		"message": "Modifica il Codice (HTML e Markdown)"
+	},
+	"action_editVisual": {
+		"message": "Modifica visivamente"
 	},
 	"action_category_add": {
 		"message": "Aggiungi una nuova Categoria"
@@ -454,6 +463,9 @@
 	"zemanta_instructions": {
 		"message": "Scegli i articoli che vuoi includere al tuo post:"
 	},
+	"zemanta_image_instructions": {
+		"message": "Clicca su un'immagine per aggiungerla al tuo articolo"
+	},
 	"action_zemanta_add": {
 		"message": "Aggiungere collegamenti ai articoli simili."
 	},
@@ -471,6 +483,9 @@
 	},
 	"zemanta_tracking_no": {
 		"message": "No, preferisco non includere una immagine di monitoraggio."
+	},
+	"zemanta_pixie_reminder": {
+		"message": "Indicare se ScribeFire può aggiungere o no un'immagine invisibile al tuo articolo quando usi Zemanta."
 	},
 	"label_password_confirm": {
 		"message": "Comferma la Password:"
