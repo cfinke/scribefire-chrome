@@ -533,7 +533,7 @@ $(document).ready(function () {
 							.append(
 								$('<td colspan="4" />')
 									.append(
-										$('<input type="checkbox" />')
+										$('<input type="checkbox" id="multipost-select-all" />')
 											.click(function (e) {
 												var checked = $(this).get(0).checked;
 										
@@ -632,7 +632,7 @@ $(document).ready(function () {
 	});
 	
 	$("#button-multipost").live("click", function (e) {
-		var selectedBlogs = $("#multipost-blog-list").find("input:checked");
+		var selectedBlogs = $("#multipost-blog-list input:checked");
 		
 		if (selectedBlogs.length == 0) {
 			alert(scribefire_string("warning_selectBlog"));
@@ -650,11 +650,16 @@ $(document).ready(function () {
 			
 			SCRIBEFIRE.prefs.setJSONPref("multipostBlogs", blogIds);
 			
+			$("#multipost-select-all").remove();
+			
+			$("#multipost-blog-list input[type=checkbox]:not(:checked)").each(function () {
+				$(this).closest("tr").remove();
+			});
+			
 			var currentBlogId = null;
 			
 			var success = function (rv) {
 				$("#multipost-blog-list tr[blog_id='" + currentBlogId + "'] td:last-child").text(scribefire_string("status_published"));
-				failure({ msg : "It stucked."});
 				postToNextBlog();
 			};
 			
