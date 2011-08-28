@@ -158,9 +158,3 @@ button[disabled], input[type="submit"][disabled], button[disabled]:hover, input[
 	border-color: #AAA;
 	color: #888;
 }
-
-a.explanatory {
-	font-size: 80%;
-	position: relative;
-	top: -0.5em;
-}

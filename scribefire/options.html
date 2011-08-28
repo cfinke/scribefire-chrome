@@ -1,0 +1,137 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="skin/chrome-preferences-page.css" />
+		<link rel="icon" type="image/png" href="skin/icon-16.png" />
+		<script type="text/javascript">
+			// Safari tries to use $platform before it's defined, so I added this...
+			
+			if (typeof opera != "undefined") {
+				var platform = "presto";
+				var browser = "opera";
+			}
+			else if (typeof Components != 'undefined') {
+				var platform = "gecko";
+				var browser = 'firefox';
+			}
+			else {
+				var platform = "webkit";
+
+				if (typeof chrome != 'undefined') {
+					var browser = 'chrome';
+				}
+				else {
+					var browser = 'safari';
+				}
+			}
+		</script>
+		<script type="text/javascript" src="io.js"></script><!-- FIREFOX ONLY -->
+		<script type="text/javascript" src="messages.js"></script><!-- SAFARI ONLY -->
+		<script type="text/javascript" src="util.js"></script>
+		<script type="text/javascript" src="scribefire.js"></script>
+		<script type="text/javascript" src="zemanta.js"></script>
+		<script type="text/javascript" src="vendor/jquery.js"></script>
+		<script type="text/javascript" src="lib/keyboard.js"></script>
+		<script type="text/javascript">
+			function save() {
+				$(".preference").each(function () {
+					if ($(this).attr("pref-type") == "bool") {
+						SCRIBEFIRE.prefs.setBoolPref($(this).attr("pref-name"), this.checked);
+					}
+					else if ($(this).attr("pref-type") == "char") {
+						SCRIBEFIRE.prefs.setCharPref($(this).attr("pref-name"), $(this).val());
+					}
+					else if ($(this).attr("pref-type") == "int") {
+						SCRIBEFIRE.prefs.setIntPref($(this).attr("pref-name"), $(this).val());
+					}
+				});
+			}
+			
+			$(document).ready(function () {
+				SCRIBEFIRE.localize(document);
+				
+				document.title = scribefire_string("options_page_title");
+
+				$(".preference").change(function () {
+					if ($(this).attr("pref-type") == "bool") {
+						SCRIBEFIRE.prefs.setBoolPref($(this).attr("pref-name"), this.checked);
+					}
+					else if ($(this).attr("pref-type") == "char") {
+						SCRIBEFIRE.prefs.setCharPref($(this).attr("pref-name"), $(this).val());
+					}
+					else if ($(this).attr("pref-type") == "int") {
+						SCRIBEFIRE.prefs.setIntPref($(this).attr("pref-name"), $(this).val());
+					}
+					
+					// save();
+				});
+
+				$(".navbar-item").live("click", function () {
+					$(".navbar-item-selected").removeClass("navbar-item-selected");
+					$(this).addClass("navbar-item-selected");
+					
+					$(".page").hide();
+					$("#" + $(this).attr("pagename") + "Page").show();
+				});
+				
+				// Load defaults
+				$(".preference").each(function () {
+					if ($(this).attr("pref-type") == "bool") {
+						this.checked = SCRIBEFIRE.prefs.getBoolPref($(this).attr("pref-name"));
+					}
+					else if ($(this).attr("pref-type") == "char") {
+						$(this).val(SCRIBEFIRE.prefs.getCharPref($(this).attr("pref-name")));
+					}
+					else if ($(this).attr("pref-type") == "int") {
+						$(this).val(SCRIBEFIRE.prefs.getIntPref($(this).attr("pref-name")));
+					}
+				});
+			});
+		</script>
+	</head>
+	
+	<body style="font-family: Helvetica, sans-serif; font-size: 13px;">
+		<div id="main-content">
+			<div id="navbar-container">
+				<h1 id="settings-title" class="i18n" data-key="extName"></h1>
+				<h2 class="settings-subtitle i18n" data-key="preferences"></h2>
+				<ul id="sites">
+					<li class="navbar-item navbar-item-selected" pagename="general"><i18n data-key="options_general" /></li>
+				</ul>
+			</div>
+			<div id="mainview">
+				<div id="mainview-content">
+					<div id="generalPage" class="page">
+						<h1 class="i18n" data-key="options_general"></h1>
+					
+						<section>
+							<h3 class="i18n" data-key="header_publishing"></h3>
+							<div>
+								<input class="preference" id="pref-multipost" pref-name="multipost" pref-type="bool" type="checkbox" />
+								<label for="pref-multipost" class="i18n" data-key="label_pref_multipost"></label>
+							</div>
+						</section>
+						
+						<section>
+							<h3 class="i18n" data-key="header_composition"></h3>
+							<div>
+								<input class="preference" id="pref-markdown" pref-name="markdown" pref-type="bool" type="checkbox" />
+								<label for="pref-markdown" class="i18n" data-key="label_pref_markdown"></label>
+								
+								<br /><br />
+								
+								<label for="pref-defaultLinkTarget" class="i18n" data-key="label_pref_linkTarget"></label>
+								<select class="preference" id="pref-defaultLinkTarget" pref-name="defaultLinkTarget" pref-type="char">
+									<option value="" class="i18n" data-key="target_none"></option>
+									<option value="_self" class="i18n" data-key="target_self"></option>
+									<option value="_blank" class="i18n" data-key="target_blank"></option>
+								</select>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="lib/platform.js"></script>
+		<script type="text/javascript" src="lib/i18n.js"></script>
+	</body>
+</html>

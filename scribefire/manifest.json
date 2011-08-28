@@ -30,5 +30,7 @@
 		}
 	],
 	
-	"default_locale" : "en_US"
+	"default_locale" : "en_US",
+	
+	"options_page" : "options.html"
 }

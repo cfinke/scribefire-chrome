@@ -7,7 +7,7 @@
 		"description": "One-line description of ScribeFire."
 	},
 	"preferences": {
-		"message": "Preferences"
+		"message": "Options"
 	},
 	"continue": {
 		"message": "Continue"
@@ -734,5 +734,32 @@
 	},
 	"warning_selectBlog": {
 		"message": "You must select at least one blog to which to post."
+	},
+	"options_general": {
+		"message": "General"
+	},
+	"header_publishing": {
+		"message": "Publishing"
+	},
+	"header_composition": {
+		"message": "Composition"
+	},
+	"label_pref_multipost": {
+		"message": "After publishing a post, show list of other blogs to publish to."
+	},
+	"label_pref_linkTarget": {
+		"message": "Default link target:"
+	},
+	"label_pref_markdown": {
+		"message": "Enable Markdown<a href=\"http://en.wikipedia.org/wiki/Markdown\" target=\"_blank\" class=\"explanatory\">?</a> support in the code editor"
+	},
+	"target_none": {
+		"message": "None"
+	},
+	"target_self": {
+		"message": "Same tab/window"
+	},
+	"target_blank": {
+		"message": "New tab/window"
 	}
 }
