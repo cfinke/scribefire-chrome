@@ -635,7 +635,7 @@ $(document).ready(function () {
 		var selectedBlogs = $("#multipost-blog-list").find("input:checked");
 		
 		if (selectedBlogs.length == 0) {
-			alert("You must select at least one other blog to post to.");
+			alert(scribefire_string("warning_selectBlog"));
 		}
 		else {
 			$(".multipost-hidden").hide();
@@ -653,14 +653,14 @@ $(document).ready(function () {
 			var currentBlogId = null;
 			
 			var success = function (rv) {
-				$("#multipost-blog-list tr[blog_id='" + currentBlogId + "'] td:last-child").text("Published");
+				$("#multipost-blog-list tr[blog_id='" + currentBlogId + "'] td:last-child").text(scribefire_string("status_published"));
 				failure({ msg : "It stucked."});
 				postToNextBlog();
 			};
 			
 			var failure = function (rv) {
 				$("#multipost-blog-list tr[blog_id='" + currentBlogId + "'] td:last-child")
-					.text("Failed")
+					.text(scribefire_string("status_failure"))
 					.parent()
 					.after(
 						$("<tr/>").append($("<td colspan='4'/>").text(rv.msg))
@@ -674,7 +674,7 @@ $(document).ready(function () {
 				if (blog) {
 					currentBlogId = blogIds.shift();
 					
-					$("#multipost-blog-list tr[blog_id='" + currentBlogId + "'] td:last-child").text("Publishing...");
+					$("#multipost-blog-list tr[blog_id='" + currentBlogId + "'] td:last-child").text(scribefire_string("status_publishing"));
 					SCRIBEFIRE.multipublish(blog, success, failure);
 				}
 				else {

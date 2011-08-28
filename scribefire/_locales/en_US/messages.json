@@ -716,5 +716,23 @@
 	},
 	"notice_publishing": {
 		"message": "Publishing..."
+	},
+	"label_multipost": {
+		"message": "Or do you want to publish this post to other blogs?"
+	},
+	"action_multipost": {
+		"message": "Publish to These Blogs Too"
+	},
+	"status_publishing": {
+		"message": "Publishing..."
+	},
+	"status_published": {
+		"message": "Published"
+	},
+	"status_failure": {
+		"message": "Failed"
+	},
+	"warning_selectBlog": {
+		"message": "You must select at least one blog to which to post."
 	}
 }
