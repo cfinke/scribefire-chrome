@@ -611,7 +611,7 @@ var SCRIBEFIRE = {
 			
 			$("#list-entries").change();
 			$("#list-entries").removeAttr("ignoreContent")
-			$("#bar-entries").removeAttr("busy");
+			$("#bar-entries").attr("busy", "false");
 		}
 		
 		if (useCache && SCRIBEFIRE.entryListCache) {
@@ -623,7 +623,7 @@ var SCRIBEFIRE = {
 				success,
 				function failure(rv) {
 					rv.func = "getPosts";
-					$("#bar-entries").removeAttr("busy");
+					$("#bar-entries").attr("busy", "false");
 				
 					SCRIBEFIRE.genericError(rv);
 				}
@@ -1407,12 +1407,12 @@ var SCRIBEFIRE = {
 					SCRIBEFIRE.prefs.setJSONPref("state.categories", []);
 				}
 				
-				$("#bar-categories").removeAttr("busy");
+				$("#bar-categories").attr("busy", "false");
 			},
 			function failure(rv) {
 				rv.func = "getCategories";
 				
-				$("#bar-categories").removeAttr("busy");
+				$("#bar-categories").attr("busy", "false");
 				
 				SCRIBEFIRE.genericError(rv);
 			}
