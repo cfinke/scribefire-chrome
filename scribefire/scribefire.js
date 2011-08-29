@@ -161,19 +161,24 @@ var SCRIBEFIRE = {
 		
 		SCRIBEFIRE.prefs.setIntPref("stats.loadCounter", SCRIBEFIRE.prefs.getIntPref("stats.loadCounter") + 1);
 		
-		if ($("#list-blogs option").length == 0) {
+		if (($("#list-blogs option").length == 0)) {
 			if (!SCRIBEFIRE.prefs.getBoolPref("firstrun")) {
-				var panel = $("<div/>");
+				$.facebox(
+					$("<div/>")
+					.append(
+						$("<h2/>")
+							.addClass("i18n")
+							.attr("data-key", "firsttime_header")
+							.text(scribefire_string("firsttime_header"))
+						)
+					.append(
+						$("<p/>")
+							.addClass("i18n")
+							.attr("data-key", "firsttime_text")
+							.text(scribefire_string("firsttime_text"))
+						)
+					);
 				
-				var header = $("<h2/>");
-				header.text(scribefire_string("firsttime_header"));
-				panel.append(header);
-				
-				var message = $("<p/>");
-				message.text(scribefire_string("firsttime_text"));
-				panel.append(message);
-				
-				$.facebox(panel);
 				SCRIBEFIRE.prefs.setBoolPref("firstrun", true);
 			}
 		}
@@ -203,7 +208,7 @@ var SCRIBEFIRE = {
 			var string = scribefire_string($this.attr("data-key"));
 		
 			if (string) {
-				$this.text(string);
+				$this.html(string);
 			}
 		});
 	},
