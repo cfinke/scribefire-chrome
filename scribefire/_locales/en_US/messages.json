@@ -781,5 +781,17 @@
 	},
 	"header_display": {
 		"message": "Display Options"
+	},
+	"label_pref_mode": {
+		"message": "By default, open ScribeFire in..."
+	},
+	"mode_tab": {
+		"message": "a new tab."
+	},
+	"mode_window": {
+		"message": "a new window."
+	},
+	"mode_split_screen": {
+		"message": "split-screen mode."
 	}
 }

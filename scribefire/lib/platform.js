@@ -30,4 +30,7 @@ if (bodies.length > 0 && heads.length > 0) {
 	style.setAttribute("type", "text/css");
 	style.setAttribute("href", level + "skin/platform." + platform + ".css");
 	head.appendChild(style);
+	
+	$("*[platform-only][platform-only!='" + platform + "']").hide();
+	$("*[browser-only][browser-only!='" + browser + "']").hide();
 }

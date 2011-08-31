@@ -104,7 +104,6 @@
 						<h1 class="i18n" data-key="options_general"></h1>
 						<!--
 						
-						RTL
 						mode
 						imageMaxWidth (per blog)
 			            	
@@ -143,7 +142,19 @@
 						
 						<section>
 							<h3 class="i18n" data-key="header_display"></h3>
+							
 							<div>
+								<div platform-only="gecko">
+									<label for="pref-mode" class="i18n" data-key="label_pref_mode"></label>
+									<select class="preference" id="pref-mode" pref-name="mode" pref-type="char">
+										<option value="split-screen" class="i18n" data-key="mode_split_screen"></option>
+										<option value="tab" class="i18n" data-key="mode_tab"></option>
+										<option value="window" class="i18n" data-key="mode_window"></option>
+									</select>
+								
+									<br /><br />
+								</div>
+								
 								<input class="preference" id="pref-rtl" pref-name="rtl" pref-type="bool" type="checkbox" />
 								<label for="pref-rtl" class="i18n" data-key="label_pref_rtl"></label>
 							</div>
