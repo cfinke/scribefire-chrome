@@ -155,6 +155,8 @@ var SCRIBEFIRE = {
 		pref("markdown", true);
 		pref("multipost", true);
 		pref("defaultLinkTarget", "");
+		pref("blogThisTemplate", '<a href="$U">$T</a>\n<blockquote>$S</blockquote>\n\n');
+		pref("rtl", false);
 		
 		SCRIBEFIRE.populateBlogsList();
 		SCRIBEFIRE.populateTemplatesList();
@@ -309,8 +311,13 @@ var SCRIBEFIRE = {
 		$("#notification-modal").remove();
 	},
 	
-	blogThis : function (html) {
-		editor.val(editor.val() + html);
+	formatBlogThisData : function (url, title, selection) {
+		var template = SCRIBEFIRE.prefs.getCharPref("blogThisTemplate");
+		return template.replace(/\$U/g, url).replace(/\$T/g, title).replace(/\$S/g, selection);
+	},
+	
+	blogThis : function (url, title, selection) {
+		editor.val(editor.val() + SCRIBEFIRE.formatBlogThisData(url, title, selection));
 	},
 	
 	viewBlog : function () {

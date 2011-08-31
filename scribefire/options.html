@@ -102,7 +102,14 @@
 				<div id="mainview-content">
 					<div id="generalPage" class="page">
 						<h1 class="i18n" data-key="options_general"></h1>
-					
+						<!--
+						
+						RTL
+						mode
+						imageMaxWidth (per blog)
+			            	
+						-->
+						
 						<section>
 							<h3 class="i18n" data-key="header_publishing"></h3>
 							<div>
@@ -125,7 +132,14 @@
 									<option value="_self" class="i18n" data-key="target_self"></option>
 									<option value="_blank" class="i18n" data-key="target_blank"></option>
 								</select>
+								
+								<br /><br />
+								
+								<label for="pref-blogThisTemplate" class="i18n" data-key="label_pref_blogThisTemplate"></label>
+								<textarea class="preference" id="pref-blogThisTemplate" pref-name="blogThisTemplate" pref-type="char" rows="6" cols="80"></textarea>
+								<p class="i18n" data-key="description_blogThisTemplate"></p>
 							</div>
+						</section>
 					</div>
 				</div>
 			</div>

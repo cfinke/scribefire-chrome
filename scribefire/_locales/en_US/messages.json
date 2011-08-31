@@ -9,6 +9,9 @@
 	"preferences": {
 		"message": "Options"
 	},
+	"button_preferences": {
+		"message": "ScribeFire Options"
+	},
 	"continue": {
 		"message": "Continue"
 	},
@@ -665,7 +668,7 @@
 		"message": "Settings and Data"
 	},
 	"button_migrate": {
-		"message": "Transfer your ScribeFire data to\/from another computer."
+		"message": "Import/Export"
 	},
 	"text_count": {
 		"message": "$1 words; $2 characters"
@@ -766,5 +769,11 @@
 	},
 	"target_blank": {
 		"message": "New tab\/window"
+	},
+	"label_pref_blogThisTemplate": {
+		"message": "Template for 'Blog This':"
+	},
+	"description_blogThisTemplate": {
+		"message": "$U: URL of the page, $T: page title, $S: the selected text"
 	}
 }

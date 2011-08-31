@@ -305,6 +305,12 @@ $(document).ready(function () {
 		$.facebox($("#panel-migrate"));
 	});
 	
+	$("#button-settings").live("click", function (e) {
+		e.preventDefault();
+		
+		window.open("options.html");
+	});
+	
 	$("#list-entries").live("change", function (e) {
 		if (SCRIBEFIRE.dirty && $(this).data("lastPostId") && $(this).data("lastPostId") != $(this).val() && $(this).val().toString().indexOf("scribefire:new") != 0) {
 			if (!confirm(scribefire_string("confirm_not_saved"))) {
@@ -909,9 +915,7 @@ $(document).ready(function () {
 		if (blogThisData = SCRIBEFIRE.prefs.getCharPref("blogThis")) {
 			blogThisData = JSON.parse(blogThisData);
 			
-			var target = SCRIBEFIRE.prefs.getCharPref("defaultLinkTarget");
-			
-			editorContent += '<a href="' + blogThisData.url + '"' + (target ? ' target="' + target + '"' : '') + '>' + blogThisData.title + '</a><br />' + (blogThisData.selection ? '<blockquote>' + blogThisData.selection + '</blockquote><br />' : '') + '<br />';
+			editorContent += SCRIBEFIRE.formatBlogThisData(blogThisData.url, blogThisData.title, blogThisData.selection);
 			
 			SCRIBEFIRE.prefs.setCharPref("blogThis", "");
 		}
@@ -1130,7 +1134,7 @@ if (typeof safari != 'undefined') {
 			var selection = responseParts.join("\t");
 			var target = SCRIBEFIRE.prefs.getCharPref("defaultLinkTarget");
 			
-			SCRIBEFIRE.blogThis('<a href="' + url + '"' + (target ? ' target="' + target + '"' : '') + '>' + title + '</a>' + (selection ? '<br /><blockquote>' + selection + '</blockquote><br />' : '') + '<br />');
+			SCRIBEFIRE.blogThis(url, title, selection);
 		}
 	}
 	
