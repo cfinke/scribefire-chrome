@@ -775,5 +775,11 @@
 	},
 	"description_blogThisTemplate": {
 		"message": "$U: URL of the page, $T: page title, $S: the selected text"
+	},
+	"label_pref_rtl": {
+		"message": "Make text 'Right-to-left'"
+	},
+	"header_display": {
+		"message": "Display Options"
 	}
 }

@@ -184,10 +184,20 @@ var SCRIBEFIRE = {
 				SCRIBEFIRE.prefs.setBoolPref("firstrun", true);
 			}
 		}
+		
+		SCRIBEFIRE.observe("ignore", "ignore", "rtl");
 	},
 	
 	observe : function (subject, topic, prefName) {
 		switch (prefName) {
+			case "rtl":
+				if (SCRIBEFIRE.prefs.getBoolPref("rtl")) {
+					$("body").css("direction", "rtl");
+				}
+				else {
+					$("body").css("direction", "ltr");
+				}
+			break;
 		}
 	},
 	
