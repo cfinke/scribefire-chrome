@@ -43,3 +43,5 @@ button.busy, input[type="submit"].busy {
 button.busy:active, input[type="submit"].busy:active {
 	background: #c3c3c3 url(throbber-16.png) 8px 3px no-repeat;
 }
+
+#button-settings { display: none; }
