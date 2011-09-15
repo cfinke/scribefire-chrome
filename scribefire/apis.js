@@ -62,6 +62,9 @@ var blogAPI = function () {
 	this.ui.excerpt = false;
 	this.ui.pages = false;
 	this.ui.getPosts = true;
+	this.ui.oauth = false;
+	this.ui.nooauth = true;
+	
 	/*
 	this.ui["featured-image"] = false;
 	*/
@@ -226,7 +229,8 @@ var genericMetaWeblogAPI = function () {
 				if (failure) {
 					failure({"status": status, "msg": msg});
 				}
-			}
+			},
+			this.oauthToken
 		);
 	};
 	
@@ -364,7 +368,8 @@ var genericMetaWeblogAPI = function () {
 									failure({"status": status, "msg": msg});
 								}
 								*/
-							}
+							},
+							self.oauthToken
 						);
 					}
 					else {
@@ -376,7 +381,8 @@ var genericMetaWeblogAPI = function () {
 				if (failure) {
 					failure({"status": status, "msg": msg});
 				}
-			}
+			},
+			this.oauthToken
 		);
 	};
 
@@ -479,7 +485,8 @@ var genericMetaWeblogAPI = function () {
 				if (failure) {
 					failure({"status": status, "msg": msg});
 				}
-			}
+			},
+			this.oauthToken
 		);
 	};
 	
@@ -503,7 +510,8 @@ var genericMetaWeblogAPI = function () {
 				if (failure) {
 					failure({"status": status, "msg": msg});
 				}
-			}
+			},
+			this.oauthToken
 		);
 	};
 
@@ -525,7 +533,8 @@ var genericMetaWeblogAPI = function () {
 				if (failure) {
 					failure({"status": status, "msg": msg});
 				}
-			}
+			},
+			this.oauthToken
 		);
 	}
 };
@@ -725,9 +734,53 @@ var wordpressAPI = function () {
 	this.ui["tags"] = { "posts" : true, "pages" : false, "default": true };
 	this.ui.excerpt = true;
 	this.ui.pages = true;
+	
+	this.oauthToken = null;
+	
+	this.oauth = {
+		clientId : 13,
+		clientSecret : "JejQPQMRkqLsOcwphSUxyGBtuNO7njtLXehgv0atRTNfCO9hjg6uPnnK1kwq57MB",
+		redirectUri : "http://www.scribefire.com/oauth2/",
+		endpoints : {
+			authorization : "https://public-api.wordpress.com/oauth2/authorize?client_id=13&redirect_uri=" + encodeURIComponent("http://www.scribefire.com/oauth2/") + "&response_type=code",
+			token : "https://public-api.wordpress.com/oauth2/token"
+		}
+	};
+	
 	/*
 	this.ui["featured-image"] = (this.ui.upload);
 	*/
+	
+	this.postInit = function () {
+		if (this.oauthToken) {
+			this.id = null;
+			this.username = null;
+			this.password = null;
+			
+			this.ui.oauth = true;
+			this.ui.nooauth = false;
+		}
+	};
+	
+	this.getAuthToken = function (code, callback) {
+		var req = new XMLHttpRequest();
+		req.open("POST", "https://public-api.wordpress.com/oauth2/token", true);
+		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		req.onreadystatechange = function () {
+			if (req.readyState == 4) {
+				var text = req.responseText;
+				var json = JSON.parse(text);
+				
+				var token = json.access_token;
+				callback(token);
+			}
+		};
+		
+		var argString = "client_id=" + encodeURIComponent(this.oauth.clientId) + "&redirect_uri=" + encodeURIComponent(this.oauth.redirectUri) + "&client_secret=" + encodeURIComponent(this.oauth.clientSecret) + "&code=" + encodeURIComponent(code) + "&grant_type=authorization_code";
+		
+		req.send(argString);
+	};
 	
 	this.publish = function (params, success, failure) {
 		// Some Wordpress plugins apparently rely on linebreaks being \n and not <br />. This is dumb.
@@ -778,7 +831,7 @@ var wordpressAPI = function () {
 					contentStruct.mt_excerpt = params.excerpt;
 				}
 			}
-
+			
 			if (("id" in params) && params.id) {
 				var args = [params.id, this.username, this.password, contentStruct, publish];
 				var xml = performancingAPICalls.metaWeblog_editPost(args);
@@ -787,7 +840,7 @@ var wordpressAPI = function () {
 				var args = [this.id, this.username, this.password, contentStruct, publish];
 				var xml = performancingAPICalls.wp_newPage(args);
 			}
-		
+			
 			XMLRPC_LIB.doCommand(
 				this.apiUrl,
 				xml, 
@@ -805,7 +858,8 @@ var wordpressAPI = function () {
 					if (failure) {
 						failure({"status": status, "msg": msg});
 					}
-				}
+				},
+				this.oauthToken
 			);
 		}
 	};
@@ -813,6 +867,8 @@ var wordpressAPI = function () {
 	this.getBlogs = function (params, success, failure) {
 		var args = [params.username, params.password];
 		var xml = performancingAPICalls.wp_getUsersBlogs(args);
+		
+		var self = this;
 		
 		XMLRPC_LIB.doCommand(
 			params.apiUrl,
@@ -823,16 +879,18 @@ var wordpressAPI = function () {
 						var blogs = [];
 				
 						for (var i = 0, _len = rv.length; i < _len; i++) {
-							var blog = {};
-							blog.url = rv[i].url;
-							blog.id = rv[i].blogid;
-							blog.name = rv[i].blogName;
-							blog.apiUrl = rv[i].xmlrpc;
-							blog.type = params.type;
-							blog.username = params.username;
-							blog.password = params.password;
-					
-							blogs.push(blog);
+							if (rv[i].xmlrpc == params.apiUrl) {
+								var blog = {};
+								blog.url = rv[i].url;
+								blog.id = rv[i].blogid;
+								blog.name = rv[i].blogName;
+								blog.apiUrl = rv[i].xmlrpc;
+								blog.type = params.type;
+								blog.username = params.username;
+								blog.password = params.password;
+								
+								blogs.push(blog);
+							}
 						}
 					
 						success(blogs);
@@ -848,7 +906,8 @@ var wordpressAPI = function () {
 				if (failure) {
 					failure({"status": status, "msg": msg});
 				}
-			}
+			},
+			this.oauthToken
 		);
 	};
 	
@@ -876,7 +935,8 @@ var wordpressAPI = function () {
 				if (failure) {
 					failure({"status": status, "msg": msg});
 				}
-			}
+			},
+			this.oauthToken
 		);
 	};
 	
@@ -896,7 +956,8 @@ var wordpressAPI = function () {
 				if (failure) {
 					failure({"status": status, "msg": msg});
 				}
-			}
+			}	,
+				this.oauthToken
 		);
 	}
 	
@@ -920,7 +981,8 @@ var wordpressAPI = function () {
 					if (failure) {
 						failure({"status": status, "msg": msg});
 					}
-				}
+				}	,
+					this.oauthToken
 			);
 		}
 	}
@@ -941,7 +1003,8 @@ var wordpressAPI = function () {
 				if (failure) {
 					failure({"status": status, "msg": msg});
 				}
-			}
+			}	,
+				this.oauthToken
 		);
 	};
 };
@@ -1220,7 +1283,7 @@ var genericAtomAPI = function () {
 						if (req.status < 300) {
 							// Firefox doesn't do well with namespaced elements
 							var fakeReq = {};
-							fakeReq.responseText = req.responseText.replace(/<app:([^>]+)>/g, "<app_$1>");
+							fakeReq.responseText = req.responseText.replace(/<(\/)?app:/g, "<$1app_");
 							
 							var xml = xmlFromRequest(fakeReq);
 							
@@ -1833,14 +1896,16 @@ var bloggerAPI = function () {
 			
 				upreq.send(uploadStream);
 			}
-		
+			
 			var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).QueryInterface(Components.interfaces.nsIPrefBranch).getBranch("extensions.scribefire.");
 			prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
-		
+			
 			var prefObserver = {
 				observe : function (subject, topic, data) {
 					if (topic == 'nsPref:changed') {
 						if (data == 'google_token') {
+							prefs.removeObserver(prefObserver);
+							
 							var token = SCRIBEFIRE.prefs.getCharPref("google_token");
 						
 							if (!token) {

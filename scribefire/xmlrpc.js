@@ -1,9 +1,13 @@
 var XMLRPC_LIB = {
-	doCommand : function (apiUrl, xml, callback, callbackFailure) {
+	doCommand : function (apiUrl, xml, callback, callbackFailure, oauthToken) {
 		var req = new XMLHttpRequest();
 		req.open("POST", apiUrl, true);
 		req.setRequestHeader("Content-Type", "text/xml");
 		req.overrideMimeType("text/xml");
+		
+		if (oauthToken) {
+			req.setRequestHeader("Authorization", "Bearer " + oauthToken);
+		}
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
@@ -123,6 +127,10 @@ var XMLRPC_LIB = {
 	 * @returns {String} A string representation of the XML for sending myParams as an XML-RPC member.
 	 */
 	convertToXML : function (myParams) {
+		if (myParams === null) {
+			myParams = "";
+		}
+		
 		try {
 			var paramType = myParams.constructor.name;
 		} catch (e) {

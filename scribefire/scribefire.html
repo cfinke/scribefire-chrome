@@ -58,7 +58,7 @@
 				<td style="width: 25%; overflow: auto; height: 100%;" id="sidebar">
 					<div class="ui-blogs">
 						<div class="bar fixed" open="true" id="bar-blog">
-							<label><i18n data-key="label_blog"></i18n> <span id="label-current-blog"></span></label>
+							<label><i18n data-key="label_blog"></i18n></label>
 							<button class="bar-meta" id="button-blog-add"><i18n data-key="action_blog_add"></i18n></button>
 						</div>
 						<div class="underbar fixed" open="true">
@@ -303,16 +303,22 @@
 						<input type="url" class="blog-edit-field" name="url" />
 					</div>
 				</div>
-				<div>
+				<div class="ui-nooauth">
 					<div class="bar fixed"><label><i18n data-key="label_username"></i18n></label></div>
 					<div class="underbar" open="true" last="true">
 						<input type="text" class="blog-edit-field" name="username" />
 					</div>
 				</div>
-				<div>
+				<div class="ui-nooauth">
 					<div class="bar fixed"><label><i18n data-key="label_password"></i18n></label></div>
 					<div class="underbar" open="true" last="true">
 						<input type="password" class="blog-edit-field" name="password" />
+					</div>
+				</div>
+				<div class="ui-oauth">
+					<div class="bar fixed"><label>Authorization</label></div>
+					<div class="underbar" open="true" last="true">
+						To revoke ScribeFire's access to your blog, visit <a href="http://www.wordpress.com/wp-admin/index.php?page=connections">your wordpress.com profile</a> and click on "Connections" in the left-hand sidebar.
 					</div>
 				</div>
 				<div class="adbull_code" style="display: none;">
@@ -685,7 +691,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="step-2">
+				<div class="step-2-nooauth">
 					<div class="subbar" id="bar-add-blog-credentials">
 						<label><i18n data-key="label_loginCredentials"></i18n></label>
 					</div>
@@ -697,6 +703,14 @@
 						<p>
 							<button id="button-blog-logincheck"><i18n data-key="action_finish"></i18n></button>
 						</p>
+					</div>
+				</div>
+				<div class="step-2-oauth">
+					<div class="subbar" id="bar-oauth">
+						<label><i18n data-key="label_loginCredentials"></i18n></label>
+					</div>
+					<div class="subunderbar">
+						<iframe id="oauth_frame" style="width: 100%; height: 400px; display: none;"></iframe>
 					</div>
 				</div>
 			</div>

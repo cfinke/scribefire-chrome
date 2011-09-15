@@ -290,7 +290,6 @@ $(document).ready(function () {
 		}
 		
 		SCRIBEFIRE.prefs.setCharPref("selectedBlog", $(this).val());
-		$("#label-current-blog").text($(this).find("option:selected").text());
 	});
 	
 	$("#button-update-auth").live("click", function (e) {
@@ -734,7 +733,11 @@ $(document).ready(function () {
 		$.facebox.close();
 		
 		SCRIBEFIRE.populateBlogsList();
-		$("#list-blogs").val(blog.username + "@" + blog.url).change();
+		
+		var key = blog.url;
+		if (blog.username) key = blog.username + "@" + key;
+		
+		$("#list-blogs").val(key).change();
 	});
 	
 	$(".button-blog-add-cancel").live("click", function (e) {

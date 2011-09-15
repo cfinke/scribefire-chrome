@@ -1,6 +1,6 @@
 {
 	"name": "__MSG_extName__",
-	"version": "1.8",
+	"version": "1.9",
 	"description": "__MSG_extDescription__",
 	
 	"icons": {
@@ -27,10 +27,14 @@
 		{
 			"matches": ["http://www.scribefire.com/token.php*"],
 			"js" : ["token_listener.js"]
+		},
+		{
+			"matches": ["http://www.scribefire.com/oauth2*"],
+			"js" : ["wordpress_token_listener.js"],
+			"all_frames" : true
 		}
 	],
 	
 	"default_locale" : "en_US",
-	
 	"options_page" : "options.html"
 }
