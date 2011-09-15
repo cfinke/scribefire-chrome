@@ -1019,6 +1019,7 @@ var livejournalAPI = function () {
 	this.ui["add-category"] = false;
 	this.ui.tags = false;
 	this.ui.timestamp = false;
+	this.ui["text-content_wp_more"] = true;
 	
 	this.getBlogs = function (params, success, failure) {
 		var self = this;
@@ -1070,6 +1071,11 @@ var livejournalAPI = function () {
 					var post = {};
 					
 					post.content = event.event;
+					
+					post.content = post.content
+						.replace(/<a name=.cutid1.><\/a>/, '<!--more-->')
+						.replace(/<a name=.cutid1-end.><\/a>/, '<!--endmore-->');
+					
 					post.title = event.subject;
 					
 					var val = event.eventtime;
@@ -1140,6 +1146,18 @@ var livejournalAPI = function () {
 		contentStruct.password = this.password;
 		contentStruct.ver = 1;
 		contentStruct.subject = params.title;
+		
+		if (params.content.indexOf('<!--more-->') != -1) {
+			params.content = params.content.replace('<!--more-->', '<lj-cut text="Read more...">');
+		
+			if (params.content.indexOf('<!--endmore-->') == -1) {
+				params.content += '</lj-cut>';
+			}
+			else {
+				params.content = params.content.replace('<!--endmore-->', '</lj-cut>');
+			}
+		}
+		
 		contentStruct.event = params.content;
 		
 		if ("private" in params && params.private) {
@@ -1219,6 +1237,7 @@ var genericAtomAPI = function () {
 
 	this.ui.tags = false;
 	this.ui.categories = false;
+	this.ui["text-content_wp_more"] = true;
 	
 	this.getBlogs = function (params, success, failure) {
 		this.init(params);
@@ -1295,6 +1314,10 @@ var genericAtomAPI = function () {
 								var post = {};
 								
 								post.content = $(this).find("content:first").text();
+								post.content = post.content
+									.replace(/<a name=.cutid1.><\/a>/, '<!--more-->')
+									.replace(/<a name=.cutid1-end.><\/a>/, '<!--endmore-->');
+								
 								post.title = $(this).find("title:first").text();
 								
 								var val = $(this).find("published:first").text();
@@ -1419,6 +1442,17 @@ var genericAtomAPI = function () {
 		}
 		
 		if ("content" in params) {
+			if (params.content.indexOf('<!--more-->') != -1) {
+				params.content = params.content.replace('<!--more-->', '<lj-cut text="Read more...">');
+			
+				if (params.content.indexOf('<!--endmore-->') == -1) {
+					params.content += '</lj-cut>';
+				}
+				else {
+					params.content = params.content.replace('<!--endmore-->', '</lj-cut>');
+				}
+			}
+			
 			body += '<content type="html"><![CDATA[' + params.content + ']]></content>';
 		}
 
