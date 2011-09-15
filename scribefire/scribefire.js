@@ -1382,6 +1382,27 @@ var SCRIBEFIRE = {
 		);
 	},
 	
+	clearData : function () {
+		SCRIBEFIRE.prefs.setCharPref("state.entryId", "scribefire:new:" + $("#list-entries option:selected").data("type"))
+		
+		$("#list-entries").val("scribefire:new:" + $("#list-entries option:selected").data("type")).change();
+		$("#text-title").val("").change();
+		$("#text-tags").val("").change();
+		$("#text-excerpt").val("").change();
+		setTimestamp();
+			$("#toggle-schedule-immediately").show();
+			$("#toggle-schedule-scheduled").hide();
+		$("#status-draft").val("0").change();
+		$("#list-categories").val("").change();
+		$("#text-slug").val("").change();
+		$("#checkbox-private").get(0).checked = false;
+		
+		editor.val('');
+		
+		SCRIBEFIRE.clearCustomFields();
+		SCRIBEFIRE.dirty = false;
+	},
+	
 	populateCategoriesList : function () {
 		$("#list-categories").html("").change();
 		
