@@ -1155,7 +1155,7 @@
 			if (ed.dom.getAttrib(ed.selection.getNode(), 'class').indexOf('mceItem') != -1)
 				return;
 			
-			$.facebox('<iframe src="'+tinymce.baseURL + '/themes/advanced/image.htm" style="width: 100%; height: 300px; border: 0;"/>', true);
+			$.facebox('<iframe src="'+tinymce.baseURL + '/themes/advanced/image.htm" style="width: 100%; height: 400px; border: 0;"/>', true);
 		},
 
 		_mceLink : function(ui, val) {
