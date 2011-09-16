@@ -292,6 +292,17 @@ $(document).ready(function () {
 		SCRIBEFIRE.prefs.setCharPref("selectedBlog", $(this).val());
 	});
 	
+	$("#button-hide-upgrade-notice").live("click", function (e) {
+		e.preventDefault();
+		
+		$("#firefox-upgrade-notice").hide();
+		SCRIBEFIRE.prefs.setBoolPref("hideUpgradeNotice", true);
+	});
+	
+	if (SCRIBEFIRE.prefs.getBoolPref("hideUpgradeNotice")) {
+		$("#firefox-upgrade-notice").hide();
+	}
+	
 	$("#button-update-auth").live("click", function (e) {
 		e.preventDefault();
 		

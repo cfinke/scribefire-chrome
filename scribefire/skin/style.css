@@ -117,6 +117,23 @@ a {
 	top: 0px;
 }
 
+#firefox-upgrade-notice {
+	padding: 10px;
+	background-color: #ECD919;
+	color: #262005;
+	border-bottom: 1px solid #D9B00D;
+	font-weight: bold;
+	background: -webkit-linear-gradient(top, #ECD919, #F2BC0A);
+	background: -moz-linear-gradient(top, #ECD919, #F2BC0A);
+	
+}
+
+#firefox-upgrade-notice #button-hide-upgrade-notice {
+	float: right;
+	text-decoration: none;
+	font-weight: bold;
+}
+
 #editor-toggles {
 	display: none;
 }
