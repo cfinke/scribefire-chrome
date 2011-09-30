@@ -30,8 +30,11 @@
 		},
 		{
 			"matches": ["http://www.scribefire.com/oauth2*"],
-			"js" : ["wordpress_token_listener.js"],
-			"all_frames" : true
+			"js" : ["wordpress_token_listener.js"]
+		},
+		{
+			"matches": ["https://accounts.google.com/o/oauth2/approval*"],
+			"js" : ["google_token_listener.js"]
 		}
 	],
 	

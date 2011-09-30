@@ -1807,7 +1807,10 @@ var SCRIBEFIRE = {
 			
 			if (!((blog.username + "@" + blog.url) in existingBlogs)) {
 				$("#button-blog-add").click();
-		
+				
+				$(".dialog-blog-add-import").show();
+				$(".dialog-blog-add-normal").hide();
+				
 				$("#text-blog-url").val(blog.url);
 				$("#text-blog-username").val(blog.username);
 				$("#text-blog-password").val(blog.password);
@@ -1861,6 +1864,10 @@ var SCRIBEFIRE = {
 			
 			$.facebox(container);
 		}
+	},
+	
+	addTab : function (url) {
+		window.open(url);
 	}
 };
 
@@ -1942,8 +1949,10 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 							$(this).click();
 						}
 					});
-
-					if (metaData.url.indexOf(".wordpress.com") != -1 && platform != 'presto') {
+					
+					if (metaData.url.indexOf(".wordpress.com") != -1 || metaData.url.indexOf(".blogspot.com") != -1) {
+						$("#oauth-token-input").hide();
+						
 						// Use the OAuth2 authentication for wordpress.com.
 						$(".step-2-oauth").show();
 						$(".step-2-nooauth").hide();
@@ -1955,92 +1964,108 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 							}
 						});
 						
-						var tempApi = new wordpressAPI();
+						$("#button-oauth-authorize").unbind("click").click(function () {
+							var button = $(this).addClass("busy");
+							
+							// $("#oauth-token-input").show();
+							
+							if (metaData.url.indexOf(".wordpress.com") != -1) {
+								var tempApi = new wordpressAPI();
+							}
+							else {
+								var tempApi = new bloggerAPI();
+							}
 						
-						// Wait for the token pref to be sent by the content script.
-						var prefObserver = {
-							observe : function (subject, topic, data) {
-								if (topic == 'nsPref:changed') {
-									if (data == 'wordpress_token') {
-										if (platform == 'gecko') {
-											prefs.removeObserver("", prefObserver);
-										}
-										else {
-											SCRIBEFIRE.prefs.removeObserver(observerKey);
-										}
-										
-										$("#oauth_frame").removeAttr("src").hide();
-										
-										var token = SCRIBEFIRE.prefs.getCharPref("wordpress_token");
-										
-										if (!token) {
-											// If a blank token was set, an error message should have also been set.
-											button.removeClass("busy");
-											
-											var error = SCRIBEFIRE.prefs.getCharPref("wordpress_token_error");
-											
-											SCRIBEFIRE.error(error);
-											
-											SCRIBEFIRE.prefs.setCharPref("wordpress_token_error", "");
-											
-											return;
-										}
-										
-										// Exchange the access token for an auth token.
-										tempApi.getAuthToken(token, function (t) {
-											SCRIBEFIRE_ACCOUNT_WIZARD.accountWizardBlog.oauthToken = t;
-											
-											var params = SCRIBEFIRE_ACCOUNT_WIZARD.accountWizardBlog;
-											params.apiUrl = $("#text-blog-api-url").val();
-											params.type = $("#list-blog-types").val();
-											params.username = "";
-											params.password = "";
-											params.blogUrl = $("#text-blog-url").val();
-											
-											if ("url" in params) {
-												params.blogUrl = params.url;
-												delete params.url;
+							// Wait for the token pref to be sent by the content script.
+							var prefObserver = {
+								observe : function (subject, topic, data) {
+									if (topic == 'nsPref:changed') {
+										if (data == 'oauth_token') {
+											alert("1");
+											if (platform == 'gecko') {
+												prefs.removeObserver("", prefObserver);
+											}
+											else {
+												SCRIBEFIRE.prefs.removeObserver(observerKey);
 											}
 											
-											SCRIBEFIRE.getBlogs(
-												params,
-												function (rv) {
-													button.removeClass("busy");
-													
-													$(document).trigger("close.facebox");
-													
-													SCRIBEFIRE.notify(scribefire_string("notification_blog_add"));
-													
-													if ($("#list-entries").val().indexOf("scribefire:new") == 0) {
-														// Only select a new blog if the user wasn't working on an entry from another blog.
-														$("#list-blogs").val(rv[0].url).change();
-													}
-													
-													if (SCRIBEFIRE.blogsToImport.length > 0) {
-														SCRIBEFIRE.importNextBlog();
-													}
-												},
-												function (rv) {
-													button.removeClass("busy");
+											alert(2);
+											
+											var token = SCRIBEFIRE.prefs.getCharPref("oauth_token");
+//											$("#text-oauth-token").val(token);
+											
+											if (!token) {
+												// If a blank token was set, an error message should have also been set.
+												button.removeClass("busy");
+											
+												var error = SCRIBEFIRE.prefs.getCharPref("oauth_token_error");
+											
+												SCRIBEFIRE.error(error);
+											
+												SCRIBEFIRE.prefs.setCharPref("oauth_token_error", "");
+											
+												return;
+											}
+											alert(3);
+											// Exchange the access token for an auth token.
+											tempApi.getAuthToken(token, function (t) {
+												alert(4);
+												SCRIBEFIRE_ACCOUNT_WIZARD.accountWizardBlog.oauthToken = t;
+											
+												var params = SCRIBEFIRE_ACCOUNT_WIZARD.accountWizardBlog;
+												params.apiUrl = $("#text-blog-api-url").val();
+												params.type = $("#list-blog-types").val();
+												params.username = "";
+												params.password = "";
+												params.blogUrl = $("#text-blog-url").val();
+											
+												if ("url" in params) {
+													params.blogUrl = params.url;
+													delete params.url;
 												}
-											);
-										});
+											alert(5);
+												SCRIBEFIRE.getBlogs(
+													params,
+													function (rv) {
+														alert(6);
+														button.removeClass("busy");
+													
+														$(document).trigger("close.facebox");
+													
+														SCRIBEFIRE.notify(scribefire_string("notification_blog_add"));
+													
+														if ($("#list-entries").val().indexOf("scribefire:new") == 0) {
+															// Only select a new blog if the user wasn't working on an entry from another blog.
+															$("#list-blogs").val(rv[0].url).change();
+														}
+													
+														if (SCRIBEFIRE.blogsToImport.length > 0) {
+															SCRIBEFIRE.importNextBlog();
+														}
+														alert(7);
+													},
+													function (rv) {
+														button.removeClass("busy");
+													}
+												);
+											});
+										}
 									}
 								}
-							}
-						};
+							};
 						
-						if (platform == 'gecko') {
-							var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).QueryInterface(Components.interfaces.nsIPrefBranch).getBranch("extensions.scribefire.");
-							prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
+							if (platform == 'gecko') {
+								var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).QueryInterface(Components.interfaces.nsIPrefBranch).getBranch("extensions.scribefire.");
+								prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
 							
-							prefs.addObserver("", prefObserver, false);
-						}
-						else {
-							var observerKey = SCRIBEFIRE.prefs.addObserver(prefObserver);
-						}
+								prefs.addObserver("", prefObserver, false);
+							}
+							else {
+								var observerKey = SCRIBEFIRE.prefs.addObserver(prefObserver);
+							}
 						
-						$("#oauth_frame").attr("src", tempApi.oauth.endpoints.authorization + "&blog=" + encodeURIComponent(metaData.blogUrl || metaData.url)).show();
+							SCRIBEFIRE.addTab(tempApi.oauth.endpoints.authorizationUrl(metaData));
+						});
 					}
 					else {
 						$("#text-blog-username").focus();
@@ -2096,20 +2121,19 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 				params,
 				function (rv) {
 					button.removeClass("busy");
-
-					$(document).trigger("close.facebox");
-
-	//				$("#dialog-blog-add").hide();
-
-					SCRIBEFIRE.notify(scribefire_string("notification_blog_add"));
-
-					if ($("#list-entries").val().indexOf("scribefire:new") == 0) {
-						// Only select a new blog if the user wasn't working on an entry from another blog.
-						$("#list-blogs").val(rv[0].username + "@" + rv[0].url).change();
-					}
-
+					
 					if (SCRIBEFIRE.blogsToImport.length > 0) {
 						SCRIBEFIRE.importNextBlog();
+					}
+					else {
+						$(document).trigger("close.facebox");
+						
+						SCRIBEFIRE.notify(scribefire_string("notification_blog_add"));
+						
+						if ($("#list-entries").val().indexOf("scribefire:new") == 0) {
+							// Only select a new blog if the user wasn't working on an entry from another blog.
+							$("#list-blogs").val(rv[0].username + "@" + rv[0].url).change();
+						}
 					}
 				},
 				function (rv) {
@@ -2117,7 +2141,7 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 				}
 			);
 		});
-
+		
 		if (SCRIBEFIRE.blogsToImport.length == 0) {
 			$(".dialog-blog-add-normal").show();
 			$(".dialog-blog-add-import").hide();
@@ -2152,10 +2176,11 @@ if (typeof chrome != 'undefined') {
 			}
 			else if ("oauth_token" in request) {
 				if (!request.oauth_token) {
-					SCRIBEFIRE.prefs.setCharPref("wordpress_token_error", request.error);
+					SCRIBEFIRE.prefs.setCharPref("oauth_token_error", request.error);
 				}
 				
-				SCRIBEFIRE.prefs.setCharPref("wordpress_token", request.oauth_token);
+				SCRIBEFIRE.prefs.setCharPref("oauth_token", request.oauth_token);
+				chrome.tabs.remove(sender.tab.id);
 			}
 		}
 	);
@@ -2168,8 +2193,8 @@ else if (typeof opera != "undefined") {
 			SCRIBEFIRE.prefs.setCharPref("google_token", msg.token);
 		}
 		else if (msg.subject == 'oauth_token') {
-			SCRIBEFIRE.prefs.setCharPref("wordpress_token_error", msg.error);
-			SCRIBEFIRE.prefs.setCharPref("wordpress_token", msg.oauth_token);
+			SCRIBEFIRE.prefs.setCharPref("oauth_token_error", msg.error);
+			SCRIBEFIRE.prefs.setCharPref("oauth_token", msg.oauth_token);
 		}
 	}, false);
 }
@@ -2178,8 +2203,8 @@ else if (typeof safari != 'undefined') {
 		if (msgEvent.name == "oauth_token") {
 			var msg = JSON.parse(msgEvent.message);
 			
-			SCRIBEFIRE.prefs.setCharPref("wordpress_token_error", msg.error);
-			SCRIBEFIRE.prefs.setCharPref("wordpress_token", msg.oauth_token);
+			SCRIBEFIRE.prefs.setCharPref("oauth_token_error", msg.error);
+			SCRIBEFIRE.prefs.setCharPref("oauth_token", msg.oauth_token);
 		}
 	}
 	

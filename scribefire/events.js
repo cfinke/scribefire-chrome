@@ -758,6 +758,9 @@ $(document).ready(function () {
 			
 			SCRIBEFIRE.importNextBlog();
 		}
+		else {
+			$(document).trigger("close.facebox");
+		}
 	});
 	
 	$("#button-add-custom-field").live("click", function (e) {

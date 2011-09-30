@@ -65,6 +65,9 @@ var blogAPI = function () {
 	this.ui.oauth = false;
 	this.ui.nooauth = true;
 	
+	this.oauthToken = null
+	this.accessToken = null;
+	
 	/*
 	this.ui["featured-image"] = false;
 	*/
@@ -742,8 +745,9 @@ var wordpressAPI = function () {
 		clientSecret : "JejQPQMRkqLsOcwphSUxyGBtuNO7njtLXehgv0atRTNfCO9hjg6uPnnK1kwq57MB",
 		redirectUri : "http://www.scribefire.com/oauth2/",
 		endpoints : {
-			authorization : "https://public-api.wordpress.com/oauth2/authorize?client_id=13&redirect_uri=" + encodeURIComponent("http://www.scribefire.com/oauth2/") + "&response_type=code",
-			token : "https://public-api.wordpress.com/oauth2/token"
+			authorizationUrl : function (metaData) {
+				return "https://public-api.wordpress.com/oauth2/authorize?client_id=13&redirect_uri=" + encodeURIComponent("http://www.scribefire.com/oauth2/") + "&response_type=code&blog=" + encodeURIComponent(metaData.blogUrl || metaData.url);
+			}
 		}
 	};
 	
@@ -1239,6 +1243,10 @@ var genericAtomAPI = function () {
 	this.ui.categories = false;
 	this.ui["text-content_wp_more"] = true;
 	
+	this.processResponse = function (req, callback, failure) {
+		callback(false);
+	};
+	
 	this.getBlogs = function (params, success, failure) {
 		this.init(params);
 		
@@ -1250,40 +1258,47 @@ var genericAtomAPI = function () {
 			function (req) {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
-						if (req.status < 300) {
-							var xml = xmlFromRequest(req);
-							
-							if (!xml) {
-								if (failure) {
-									failure({"status": req.status, "msg": req.responseText});
-								}
+						self.processResponse(req, function (redo) {
+							if (redo) {
+								self.getBlogs(params, success, failure);
 							}
 							else {
-								var jxml = $(xml);
+								if (req.status < 300) {
+									var xml = xmlFromRequest(req);
+							
+									if (!xml) {
+										if (failure) {
+											failure({"status": req.status, "msg": req.responseText});
+										}
+									}
+									else {
+										var jxml = $(xml);
 								
-								var blogs = [];
+										var blogs = [];
 								
-								var blog = {};
-								blog.url = jxml.find("link[rel='alternate']:first").attr("href");
-								blog.name = jxml.find("title:first").text();
-								blog.id = jxml.find("id:first").text().split(":blog-")[1];
-								blog.apiUrl = params.apiUrl;
-								blog.type = params.type;
-								blog.username = params.username;
-								blog.password = params.password;
+										var blog = {};
+										blog.url = jxml.find("link[rel='alternate']:first").attr("href");
+										blog.name = jxml.find("title:first").text();
+										blog.id = jxml.find("id:first").text().split(":blog-")[1];
+										blog.apiUrl = params.apiUrl;
+										blog.type = params.type;
+										blog.username = params.username;
+										blog.password = params.password;
 								
-								blog.atomAPIs = self.atomAPIs;
+										blog.atomAPIs = self.atomAPIs;
 								
-								blogs.push(blog);
+										blogs.push(blog);
 								
-								success(blogs);
+										success(blogs);
+									}
+								}
+								else {
+									if (failure) {
+										failure({"status": req.status, "msg": req.responseText});
+									}
+								}
 							}
-						}
-						else {
-							if (failure) {
-								failure({"status": req.status, "msg": req.responseText});
-							}
-						}
+						}, failure);
 					}
 				};
 				
@@ -1293,112 +1308,121 @@ var genericAtomAPI = function () {
 	};
 	
 	this.getPosts = function (params, success, failure) {
+		var self = this;
+		
 		this.buildRequest(
 			"GET",
 			this.atomAPIs["service.feed"],
 			function (req) {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
-						if (req.status < 300) {
-							// Firefox doesn't do well with namespaced elements
-							var fakeReq = {};
-							fakeReq.responseText = req.responseText.replace(/<(\/)?app:/g, "<$1app_");
+						self.processResponse(req, function (redo) {
+							if (redo) {
+								self.getPosts(params, success, failure);
+							}
+							else {
+								if (req.status < 300) {
+									// Firefox doesn't do well with namespaced elements
+									var fakeReq = {};
+									fakeReq.responseText = req.responseText.replace(/<(\/)?app:/g, "<$1app_");
 							
-							var xml = xmlFromRequest(fakeReq);
+									var xml = xmlFromRequest(fakeReq);
 							
-							var jxml = $(xml);
+									var jxml = $(xml);
 							
-							var posts = [];
+									var posts = [];
 						
-							jxml.find("entry").each(function () {
-								var post = {};
+									jxml.find("entry").each(function () {
+										var post = {};
 								
-								post.content = $(this).find("content:first").text();
-								post.content = post.content
-									.replace(/<a name=.cutid1.><\/a>/, '<!--more-->')
-									.replace(/<a name=.cutid1-end.><\/a>/, '<!--endmore-->');
+										post.content = $(this).find("content:first").text();
+										post.content = post.content
+											.replace(/<a name=.cutid1.><\/a>/, '<!--more-->')
+											.replace(/<a name=.cutid1-end.><\/a>/, '<!--endmore-->');
 								
-								post.title = $(this).find("title:first").text();
+										post.title = $(this).find("title:first").text();
 								
-								var val = $(this).find("published:first").text();
+										var val = $(this).find("published:first").text();
 								
-								// Check for a timezone offset
-								var possibleOffset = val.substr(-6);
-								var hasTimezone = false;
-								var minutes = null;
+										// Check for a timezone offset
+										var possibleOffset = val.substr(-6);
+										var hasTimezone = false;
+										var minutes = null;
 								
-								if (possibleOffset.charAt(0) == "-" || possibleOffset.charAt(0) == "+") {
-									var hours = parseInt(possibleOffset.substr(1,2), 10);
-									var minutes = (hours * 60) + parseInt(possibleOffset.substr(4,2), 10);
+										if (possibleOffset.charAt(0) == "-" || possibleOffset.charAt(0) == "+") {
+											var hours = parseInt(possibleOffset.substr(1,2), 10);
+											var minutes = (hours * 60) + parseInt(possibleOffset.substr(4,2), 10);
 									
-									if (possibleOffset.charAt(0) == "+") {
-										minutes *= -1;
-									}
+											if (possibleOffset.charAt(0) == "+") {
+												minutes *= -1;
+											}
 									
-									hasTimezone = true;
-								}
+											hasTimezone = true;
+										}
 								
-								val = val.replace(/-/gi, "");
+										val = val.replace(/-/gi, "");
 								
-								var year = parseInt(val.substring(0, 4), 10);
-								var month = parseInt(val.substring(4, 6), 10) - 1
-								var day = parseInt(val.substring(6, 8), 10);
-								var hour = parseInt(val.substring(9, 11), 10);
-								var minute = parseInt(val.substring(12, 14), 10);
-								var second = parseInt(val.substring(15, 17), 10);
+										var year = parseInt(val.substring(0, 4), 10);
+										var month = parseInt(val.substring(4, 6), 10) - 1
+										var day = parseInt(val.substring(6, 8), 10);
+										var hour = parseInt(val.substring(9, 11), 10);
+										var minute = parseInt(val.substring(12, 14), 10);
+										var second = parseInt(val.substring(15, 17), 10);
 								
-								var dateutc =  Date.UTC(year, month, day, hour, minute, second);
-								dateutc = new Date(dateutc);
+										var dateutc =  Date.UTC(year, month, day, hour, minute, second);
+										dateutc = new Date(dateutc);
 								
-								if (!hasTimezone) {
-									minutes = new Date(dateutc).getTimezoneOffset();
-								}
+										if (!hasTimezone) {
+											minutes = new Date(dateutc).getTimezoneOffset();
+										}
 								
-								var offsetDate = dateutc.getTime();
-								offsetDate += (1000 * 60 * minutes);
-								dateutc.setTime(offsetDate);
+										var offsetDate = dateutc.getTime();
+										offsetDate += (1000 * 60 * minutes);
+										dateutc.setTime(offsetDate);
 								
-								post.timestamp = dateutc;
+										post.timestamp = dateutc;
 								
-								post.categories = [];
+										post.categories = [];
 								
-								$(this).find("category").each(function () {
-									post.categories.push($(this).attr("term"));
-								});
+										$(this).find("category").each(function () {
+											post.categories.push($(this).attr("term"));
+										});
 								
-								$(this).find("link").each(function () {
-									if ($(this).attr("rel") == "alternate") {
-										post.url = $(this).attr("href");
-									}
-								});
+										$(this).find("link").each(function () {
+											if ($(this).attr("rel") == "alternate") {
+												post.url = $(this).attr("href");
+											}
+										});
 								
-								//var postUrl = $(this).find("id:first").text();
+										//var postUrl = $(this).find("id:first").text();
 								
-								post.id = $(this).find("id:first").text();//postUrl.match( /(?:\/|post-)(\d{5,})(?!\d*\/)/)[1];
+										post.id = $(this).find("id:first").text();//postUrl.match( /(?:\/|post-)(\d{5,})(?!\d*\/)/)[1];
 								
-								if ($(this).find("link[rel='service.edit']:first").length > 0) {
-									post["service.edit"] = $(this).find("link[rel='service.edit']:first").attr("href");
+										if ($(this).find("link[rel='service.edit']:first").length > 0) {
+											post["service.edit"] = $(this).find("link[rel='service.edit']:first").attr("href");
+										}
+										else {
+											post["service.edit"] = $(this).find("link[rel='edit']:first").attr("href");
+										}
+								
+										post.published = true;
+								
+										$(this).find("app_draft").each(function () {
+											if ($(this).text() == "yes") {
+												post.published = false;
+											}
+										});
+								
+										posts.push(post);
+									});
+							
+									success(posts);
 								}
 								else {
-									post["service.edit"] = $(this).find("link[rel='edit']:first").attr("href");
+									failure({ "status": req.status, "msg": req.responseText });
 								}
-								
-								post.published = true;
-								
-								$(this).find("app_draft").each(function () {
-									if ($(this).text() == "yes") {
-										post.published = false;
-									}
-								});
-								
-								posts.push(post);
-							});
-							
-							success(posts);
-						}
-						else {
-							failure({ "status": req.status, "msg": req.responseText });
-						}
+							}
+						}, failure);
 					}
 				};
 				
@@ -1408,6 +1432,8 @@ var genericAtomAPI = function () {
 	};
 		
 	this.publish = function (params, success, failure) {
+		var self = this;
+		
 		var method = "POST";
 		var apiUrl = this.atomAPIs["service.post"];
 		
@@ -1481,21 +1507,28 @@ var genericAtomAPI = function () {
 				
 				req.onreadystatechange = function () {
 					if (req.readyState == 4) {
-						if (req.status < 300) {
-							var xml = xmlFromRequest(req);
-							var jxml = $(xml);
-							
-							var postId = jxml.find("id:first").text();//.split(".post-")[1];
-							
-							if (!postId && params.id) {
-								postId = params.id;
+						self.processResponse(req, function (redo) {
+							if (redo) {
+								self.publish(params, success, failure);
 							}
-							
-							success({ "id": postId });
-						}
-						else {
-							failure({ "status": req.status, "msg": req.responseText });
-						}
+							else {
+								if (req.status < 300) {
+									var xml = xmlFromRequest(req);
+									var jxml = $(xml);
+
+									var postId = jxml.find("id:first").text();//.split(".post-")[1];
+
+									if (!postId && params.id) {
+										postId = params.id;
+									}
+
+									success({ "id": postId });
+								}
+								else {
+									failure({ "status": req.status, "msg": req.responseText });
+								}
+							}
+						}, failure);
 					}
 				};
 				
@@ -1620,18 +1653,27 @@ var genericAtomAPI = function () {
 	*/
 	
 	this.deletePost = function (params, success, failure) {
+		var self = this;
+		
 		this.buildRequest(
 			"DELETE",
 			params["service.edit"],
 			function (req) {
 				req.onreadystatechange = function () {
 					if (req.readyState == 4){
-						if (req.status < 300) {
-							success(true);
-						}
-						else {
-							failure({ "status": req.status, "msg": req.responseText });
-						}
+						self.processResponse(req, function (redo) {
+							if (redo) {
+								self.deletePost(params, success, failure);
+							}
+							else {
+								if (req.status < 300) {
+									success(true);
+								}
+								else {
+									failure({ "status": req.status, "msg": req.responseText });
+								}
+							}
+						}, failure);
 					}
 				};
 				
@@ -1662,9 +1704,106 @@ var bloggerAPI = function () {
 	this.ui.upload = !!(((platform == 'gecko') || (window.File && window.FileReader && window.FileList && window.Blob)) && (browser != 'opera'));
 	this.ui.draft = true;
 	
+	// this.oauthToken is the complete JSON response, containing access_token, expires_on, refresh_token.
+	this.oauthToken = null;
+	// this.accessToken gets set to this.oauthToken.access_token
+	this.accessToken = null;
+	
+	this.oauth = {
+		clientId : "116375103348.apps.googleusercontent.com",
+		clientSecret : "ZV6urYYje-6AaTcjoya3RW7Y",
+		redirectUri : "urn:ietf:wg:oauth:2.0:oob",
+		endpoints : {
+			authorizationUrl : function (metaData) {
+				return "https://accounts.google.com/o/oauth2/auth?client_id=" + encodeURIComponent("116375103348.apps.googleusercontent.com") + "&redirect_uri=" + encodeURIComponent("urn:ietf:wg:oauth:2.0:oob") + "&scope=" + encodeURIComponent("https://www.blogger.com/feeds/ http://picasaweb.google.com/data/") + "&response_type=code";
+			}
+		}
+	};
+	
+	this.postInit = function () {
+		if (this.oauthToken) {
+			this.id = null;
+			this.username = null;
+			this.password = null;
+			
+			this.ui.oauth = true;
+			this.ui.nooauth = false;
+			
+			this.accessToken = this.oauthToken.access_token;
+		}
+	};
+	
+	this.getAuthToken = function (code, callback) {
+		var req = new XMLHttpRequest();
+		req.open("POST", "https://accounts.google.com/o/oauth2/token", true);
+		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		req.onreadystatechange = function () {
+			if (req.readyState == 4) {
+				console.log(req.responseText);
+				var json = JSON.parse(req.responseText);
+				callback(json);
+			}
+		};
+		
+		var argString = "client_id=" + encodeURIComponent(this.oauth.clientId) + "&redirect_uri=" + encodeURIComponent(this.oauth.redirectUri) + "&client_secret=" + encodeURIComponent(this.oauth.clientSecret) + "&code=" + encodeURIComponent(code) + "&grant_type=authorization_code";
+		
+		req.send(argString);
+	};
+	
+	this.refreshAuthToken = function (success, failure) {
+		var self = this;
+		
+		var req = new XMLHttpRequest();
+		req.open("POST", "https://accounts.google.com/o/oauth2/token", true);
+		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		req.onreadystatechange = function () {
+			if (req.readyState == 4) {
+				console.log("Refresh");
+				console.log(req.status);
+				console.log(req.responseText);
+				if (req.status < 300) {
+					var json = JSON.parse(req.responseText);
+					var blog = SCRIBEFIRE.getBlog();
+					blog.oauthToken = json;
+					self.oauthToken = json;
+					self.accessToken = self.oauthToken.access_token;
+					SCRIBEFIRE.setBlog(blog);
+				
+					success(true);
+				}
+				else {
+					failure({ status : req.status, "msg" : req.responseText });
+				}
+			}
+		};
+		
+		var codeJson = self.oauthToken;
+		var argString = "client_id=" + encodeURIComponent(this.oauth.clientId) + "&client_secret=" + encodeURIComponent(this.oauth.clientSecret) + "&refresh_token=" + encodeURIComponent(codeJson.refresh_token) + "&grant_type=refresh_token";
+		console.log(argString);
+		req.send(argString);
+	};
+	
+	this.processResponse = function (req, callback, failure) {
+		console.log(req.status);
+		console.log(this.accessToken);
+		if (!this.accessToken) {
+			callback(false);
+		}
+		else if (req.status != 401) {
+			callback(false);
+		}
+		else {
+			this.refreshAuthToken(callback, failure);
+		}
+	};
+	
 	this.authToken = null;
 	
 	this.getCategories = function (params, success, failure) {
+		var self = this;
+		
 		this.getPosts(
 			params,
 			function (posts) {
@@ -1822,8 +1961,6 @@ var bloggerAPI = function () {
 	};
 	
 	this.buildRequest = function (method, url, callback) {
-		var token = this.authToken;
-		
 		var self = this;
 		
 		function build(token) {
@@ -1837,8 +1974,16 @@ var bloggerAPI = function () {
 			return req;
 		}
 		
-		if (token) {
-			var req = build(token);
+		if (this.accessToken) {
+			var req = new XMLHttpRequest();
+			req.open(method, url, true);
+			req.setRequestHeader("Authorization", "Bearer " + this.accessToken);
+			req.setRequestHeader("Content-Type", "application/atom+xml");
+			
+			callback(req);
+		}
+		else if (this.authToken) {
+			var req = build(this.authToken);
 			callback(req);
 		}
 		else {
@@ -1850,12 +1995,13 @@ var bloggerAPI = function () {
 	};
 
 	this.upload = function (fileName, fileType, fileData, success, failure, file) {
-		if (platform == 'gecko') { 
-			var self = this;
+		var self = this;
+		var invalidTokens = 0;
 		
-			var invalidTokens = 0;
-		
-			function doUpload(token) {
+		if (!(window.File && window.FileReader && window.FileList && window.Blob) && platform == 'gecko') { 
+			function doUpload(token, tokenType) {
+				if (!tokenType) tokenType = "AuthSub";
+				
 				var mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
 				var theMimeType = mimeSvc.getTypeFromFile(file);
 			
@@ -1884,224 +2030,258 @@ var bloggerAPI = function () {
 			
 				var upreq = new XMLHttpRequest();
 				upreq.open("POST", "http://picasaweb.google.com/data/feed/api/user/default/albumid/default", true);
-				upreq.setRequestHeader("Authorization","AuthSub token="+token);
+				
+				if (tokenType == "AuthSub") {
+					upreq.setRequestHeader("Authorization","AuthSub token="+token);
+				}
+				else {
+					upreq.setRequestHeader("Authorization","Bearer "+token);
+				}
+				
 				upreq.setRequestHeader("Content-Type", theMimeType);
 				upreq.setRequestHeader("Content-Length", (uploadStream.available()));
 				upreq.overrideMimeType("text/xml");
 			
 				upreq.onreadystatechange = function () {
 					if (upreq.readyState == 4) {
-						if (upreq.status < 300) {
-							invalidTokens = 0;
-						
-							try {
-								var imageUrl = $(xmlFromRequest(upreq)).find("content:first").attr("src");
-								success( { "url" : imageUrl } );
-							} catch (e) {
-								failure( { "status" : upreq.status, "msg" : upreq.responseText });
-							}
-						}
-						else {
-							if (upreq.status == 403 && upreq.responseText.match(/Token invalid/)) {
-								invalidTokens++;
-							
-								if (invalidTokens > 1) {
-									failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_authToken") });
-								}
-								else {
-									delete tokens_json[self.username];
-								
-									SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
-									SCRIBEFIRE.prefs.setCharPref("google_token", "");
-								
-									self.upload(fileName, fileType, fileData, success, failure, file);
-								}
-							}
-							else if (upreq.responseText.match(/Must sign terms/i)) {
-								// @todo gOpener.parent.getWebBrowser().selectedTab = gOpener.parent.getWebBrowser().addTab("http://picasaweb.google.com/");
-								failure( { "status" : upreq.status, "msg" : upreq.responseText });
+						self.processResponse(upreq, function (redo) {
+							if (redo) {
+								self.upload(fileName, fileType, fileData, success, failure, file);
 							}
 							else {
-								failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_uploadAPIUnavailable") } );
+								if (upreq.status < 300) {
+									invalidTokens = 0;
+						
+									try {
+										var imageUrl = $(xmlFromRequest(upreq)).find("content:first").attr("src");
+										success( { "url" : imageUrl } );
+									} catch (e) {
+										failure( { "status" : upreq.status, "msg" : upreq.responseText });
+									}
+								}
+								else {
+									if (tokenType == "AuthSub" && upreq.status == 403 && upreq.responseText.match(/Token invalid/)) {
+										invalidTokens++;
+							
+										if (invalidTokens > 1) {
+											failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_authToken") });
+										}
+										else {
+											delete tokens_json[self.username];
+								
+											SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
+											SCRIBEFIRE.prefs.setCharPref("google_token", "");
+								
+											self.upload(fileName, fileType, fileData, success, failure, file);
+										}
+									}
+									else if (upreq.responseText.match(/Must sign terms/i)) {
+										// @todo gOpener.parent.getWebBrowser().selectedTab = gOpener.parent.getWebBrowser().addTab("http://picasaweb.google.com/");
+										failure( { "status" : upreq.status, "msg" : upreq.responseText });
+									}
+									else {
+										failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_uploadAPIUnavailable") } );
+									}
+								}
 							}
-						}
+						}, failure);
 					}
 				};
 			
 				upreq.send(uploadStream);
 			}
 			
-			var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).QueryInterface(Components.interfaces.nsIPrefBranch).getBranch("extensions.scribefire.");
-			prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
-			
-			var prefObserver = {
-				observe : function (subject, topic, data) {
-					if (topic == 'nsPref:changed') {
-						if (data == 'google_token') {
-							prefs.removeObserver(prefObserver);
-							
-							var token = SCRIBEFIRE.prefs.getCharPref("google_token");
-						
-							if (!token) {
-								return;
-							}
-						
-							var req = new XMLHttpRequest();
-							req.open("GET", "https://www.google.com/accounts/AuthSubSessionToken", true);
-							req.setRequestHeader("Authorization","AuthSub token=\""+token+"\"");
-						
-							req.onreadystatechange = function () {
-								if (req.readyState == 4) {
-									if (req.status == 200) {
-										var lines = req.responseText.split("\n");
-										var newTokenLine = lines[0];
-										var newToken = newTokenLine.split("=")[1];
-									
-										var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
-									
-										tokens_json[self.username] = newToken;
-										SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
-									
-										doUpload(newToken);
-									}
-									else {
-										failure( { "status" : req.status, "msg" : scribefire_string("error_api_blogger_authToken") } );
-									}
-								}
-							};
-						
-							req.send(null);
-						}
-					}
-				}
-			};
-		
-			prefs.addObserver("", prefObserver, false);
-		
-			var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
-		
-			if (self.username in tokens_json) {
-				doUpload(tokens_json[self.username]);
+			if (self.accessToken) {
+				doUpload(self.accessToken, "Bearer");
 			}
 			else {
-				invalidTokens++;
+				var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).QueryInterface(Components.interfaces.nsIPrefBranch).getBranch("extensions.scribefire.");
+				prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
 			
-				window.open("https://www.google.com/accounts/AuthSubRequest"
-						+ "?scope="+encodeURIComponent('http://picasaweb.google.com/data/')
-						+ "&next="+ encodeURIComponent('http://www.scribefire.com/token.php') +"&session=1", 
-					"sf-google-token", 
-					"height=400,width=600,menubar=no,toolbar=no,location=no,personalbar=no,status=no");
+				var prefObserver = {
+					observe : function (subject, topic, data) {
+						if (topic == 'nsPref:changed') {
+							if (data == 'google_token') {
+								prefs.removeObserver(prefObserver);
+							
+								var token = SCRIBEFIRE.prefs.getCharPref("google_token");
+						
+								if (!token) {
+									return;
+								}
+						
+								var req = new XMLHttpRequest();
+								req.open("GET", "https://www.google.com/accounts/AuthSubSessionToken", true);
+								req.setRequestHeader("Authorization","AuthSub token=\""+token+"\"");
+						
+								req.onreadystatechange = function () {
+									if (req.readyState == 4) {
+										if (req.status == 200) {
+											var lines = req.responseText.split("\n");
+											var newTokenLine = lines[0];
+											var newToken = newTokenLine.split("=")[1];
+									
+											var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+									
+											tokens_json[self.username] = newToken;
+											SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
+									
+											doUpload(newToken);
+										}
+										else {
+											failure( { "status" : req.status, "msg" : scribefire_string("error_api_blogger_authToken") } );
+										}
+									}
+								};
+						
+								req.send(null);
+							}
+						}
+					}
+				};
+		
+				prefs.addObserver("", prefObserver, false);
+		
+				var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+		
+				if (self.username in tokens_json) {
+					doUpload(tokens_json[self.username]);
+				}
+				else {
+					invalidTokens++;
+			
+					window.open("https://www.google.com/accounts/AuthSubRequest"
+							+ "?scope="+encodeURIComponent('http://picasaweb.google.com/data/')
+							+ "&next="+ encodeURIComponent('http://www.scribefire.com/token.php') +"&session=1", 
+						"sf-google-token", 
+						"height=400,width=600,menubar=no,toolbar=no,location=no,personalbar=no,status=no");
+				}
 			}
 		}
 		else {
-			var self = this;
-		
-			var invalidTokens = 0;
-		
-			function doUpload(token) {
+			function doUpload(token, tokenType) {
 				var upreq = new XMLHttpRequest();
 				upreq.open("POST", "http://picasaweb.google.com/data/feed/api/user/default/albumid/default", true);
-				upreq.setRequestHeader("Authorization","AuthSub token="+token);
+				
+				if (tokenType == "AuthSub") {
+					upreq.setRequestHeader("Authorization","AuthSub token="+token);
+				}
+				else {
+					upreq.setRequestHeader("Authorization","Bearer "+token);
+				}
+				
 				upreq.setRequestHeader("Content-Type", fileType);
 				upreq.overrideMimeType("text/xml");
 			
 				upreq.onreadystatechange = function () {
 					if (upreq.readyState == 4) {
-						if (upreq.status < 300) {
-							invalidTokens = 0;
-						
-							try {
-								var imageUrl = $(xmlFromRequest(upreq)).find("content:first").attr("src");
-								success( { "url" : imageUrl } );
-							} catch (e) {
-								failure( { "status" : upreq.status, "msg" : upreq.responseText });
-							}
-						}
-						else {
-							if (upreq.status == 403 && upreq.responseText.match(/Token invalid/)) {
-								invalidTokens++;
-							
-								if (invalidTokens > 1) {
-									failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_authToken") });
-								}
-								else {
-									delete tokens_json[self.username];
-								
-									SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
-									SCRIBEFIRE.prefs.setCharPref("google_token", "");
-								
-									self.upload(fileName, fileType, fileData, success, failure);
-								}
-							}
-							else if (upreq.responseText.match(/Must sign terms/i)) {
-								// @todo gOpener.parent.getWebBrowser().selectedTab = gOpener.parent.getWebBrowser().addTab("http://picasaweb.google.com/");
-								failure( { "status" : upreq.status, "msg" : upreq.responseText });
+						self.processResponse(upreq, function (redo) {
+							if (redo) {
+								self.upload(fileName, fileType, fileData, success, failure, file);
 							}
 							else {
-								failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_uploadAPIUnavailable") } );
+								if (upreq.status < 300) {
+									invalidTokens = 0;
+								
+									try {
+										var imageUrl = $(xmlFromRequest(upreq)).find("content:first").attr("src");
+										success( { "url" : imageUrl } );
+									} catch (e) {
+										failure( { "status" : upreq.status, "msg" : upreq.responseText });
+									}
+								}
+								else {
+									if (tokenType == "AuthSub" && upreq.status == 403 && upreq.responseText.match(/Token invalid/)) {
+										invalidTokens++;
+							
+										if (invalidTokens > 1) {
+											failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_authToken") });
+										}
+										else {
+											delete tokens_json[self.username];
+								
+											SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
+											SCRIBEFIRE.prefs.setCharPref("google_token", "");
+								
+											self.upload(fileName, fileType, fileData, success, failure);
+										}
+									}
+									else if (upreq.responseText.match(/Must sign terms/i)) {
+										// @todo gOpener.parent.getWebBrowser().selectedTab = gOpener.parent.getWebBrowser().addTab("http://picasaweb.google.com/");
+										failure( { "status" : upreq.status, "msg" : upreq.responseText });
+									}
+									else {
+										failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_uploadAPIUnavailable") } );
+									}
+								}
 							}
-						}
+						}, failure);
 					}
 				};
 			
 				upreq.send(file);
 			}
 		
-			var prefObserver = {
-				observe : function (subject, topic, data) {
-					if (topic == 'nsPref:changed') {
-						if (data == 'google_token') {
-							var token = SCRIBEFIRE.prefs.getCharPref("google_token");
-					
-							if (!token) {
-								return;
-							}
-					
-							var req = new XMLHttpRequest();
-							req.open("GET", "https://www.google.com/accounts/AuthSubSessionToken", true);
-							req.setRequestHeader("Authorization","AuthSub token=\""+token+"\"");
-					
-							req.onreadystatechange = function () {
-								if (req.readyState == 4) {
-									if (req.status == 200) {
-										var lines = req.responseText.split("\n");
-										var newTokenLine = lines[0];
-										var newToken = newTokenLine.split("=")[1];
-								
-										var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
-								
-										tokens_json[self.username] = newToken;
-										SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
-								
-										doUpload(newToken);
-									}
-									else {
-										failure( { "status" : req.status, "msg" : scribefire_string("error_api_blogger_authToken") } );
-									}
-								}
-							};
-					
-							req.send(null);
-						}
-					}
-				}
-			};
-		
-			SCRIBEFIRE.prefs.addObserver(prefObserver);
-		
-			var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
-		
-			if (self.username in tokens_json) {
-				doUpload(tokens_json[self.username]);
+			if (self.accessToken) {
+				doUpload(self.accessToken, "Bearer");
 			}
 			else {
-				invalidTokens++;
+				var prefObserver = {
+					observe : function (subject, topic, data) {
+						if (topic == 'nsPref:changed') {
+							if (data == 'google_token') {
+								var token = SCRIBEFIRE.prefs.getCharPref("google_token");
+					
+								if (!token) {
+									return;
+								}
+					
+								var req = new XMLHttpRequest();
+								req.open("GET", "https://www.google.com/accounts/AuthSubSessionToken", true);
+								req.setRequestHeader("Authorization","AuthSub token=\""+token+"\"");
+					
+								req.onreadystatechange = function () {
+									if (req.readyState == 4) {
+										if (req.status == 200) {
+											var lines = req.responseText.split("\n");
+											var newTokenLine = lines[0];
+											var newToken = newTokenLine.split("=")[1];
+								
+											var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+								
+											tokens_json[self.username] = newToken;
+											SCRIBEFIRE.prefs.setJSONPref("google_tokens", tokens_json);
+								
+											doUpload(newToken);
+										}
+										else {
+											failure( { "status" : req.status, "msg" : scribefire_string("error_api_blogger_authToken") } );
+										}
+									}
+								};
+					
+								req.send(null);
+							}
+						}
+					}
+				};
 			
-				window.open("https://www.google.com/accounts/AuthSubRequest"
-						+ "?scope="+encodeURIComponent('http://picasaweb.google.com/data/')
-						+ "&next="+ encodeURIComponent('http://www.scribefire.com/token.php') +"&session=1", 
-					"sf-google-token", 
-					"height=400,width=600,menubar=no,toolbar=no,location=no,personalbar=no,status=no");
+				SCRIBEFIRE.prefs.addObserver(prefObserver);
+			
+				var tokens_json = SCRIBEFIRE.prefs.getJSONPref("google_tokens", {});
+			
+				if (self.username in tokens_json) {
+					doUpload(tokens_json[self.username]);
+				}
+				else {
+					invalidTokens++;
+			
+					window.open("https://www.google.com/accounts/AuthSubRequest"
+							+ "?scope="+encodeURIComponent('http://picasaweb.google.com/data/')
+							+ "&next="+ encodeURIComponent('http://www.scribefire.com/token.php') +"&session=1", 
+						"sf-google-token", 
+						"height=400,width=600,menubar=no,toolbar=no,location=no,personalbar=no,status=no");
+				}
 			}
 		}
 	}
@@ -2379,7 +2559,7 @@ var posterousAPI = function () {
 	
 	//this.ui.tags = false;
 	this.ui.categories = false;
-	this.ui.timestamp = false;
+	this.ui.timestamp = true;
 	this.ui.private = false; // until posterous fixes their bug
 	this.ui.upload = (platform == 'gecko');
 	
@@ -2508,6 +2688,15 @@ var posterousAPI = function () {
 							entry.published = true; // @todo Does Posterous support drafts?
 							entry.private = json_entry.is_private;
 							
+							if ("display_date" in json_entry) {
+								entry.timestamp = new Date(json_entry.display_date);
+							}
+							
+							if ("timestamp" in params && params.timestamp) {
+								args["post[display_date]"] = params.timestamp;
+							}
+							
+							
 							var tags = [];
 							
 							for (var j = 0, _jlen = json_entry.tags.length; j < _jlen; j++) {
@@ -2554,6 +2743,10 @@ var posterousAPI = function () {
 			args["post[body]"] = params.content;
 			args["post[tags]"] = params.tags;
 			args["post[source]"] = "ScribeFire";
+			
+			if ("timestamp" in params && params.timestamp) {
+				args["post[display_date]"] = params.timestamp;
+			}
 			
 			if ("private" in params) {
 				args["post[is_private]"] = params.private * 1;
