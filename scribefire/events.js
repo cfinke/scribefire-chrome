@@ -993,6 +993,12 @@ $(document).ready(function () {
 			}
 		});
 		
+		$("html").pasteImageReader();
+		
+		setTimeout(function () {
+			$("#text-content_ifr").contents().find("html").pasteImageReader();
+		}, 3000);
+		
 		// We use .parent() here because putting an id on the element breaks the flex box model someho
 		// $("#text-content").parent().resize();
 		
@@ -1074,7 +1080,7 @@ function adjustForSize() {
 		if ("activeEditor" in tinyMCE && tinyMCE.activeEditor) {
 			var windowHeight = $(window).height();
 			var windowWidth = $(window).width();
-			var bodyWidth = $("#content-body").width();
+			var bodyWidth = $("#drag-and-drop-upload-form").width();
 			
 			var editorHeight = $("#text-content_ifr").height();
 			var editorWidth = $("#text-content_ifr").width();

@@ -12,8 +12,6 @@ if (!message.oauth_token) {
 	} catch (e) { }
 }
 
-console.log(message);
-
 chrome.extension.sendRequest( message, function (response) {
 	// Nothing to do.
 });

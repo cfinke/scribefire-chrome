@@ -16,11 +16,18 @@ var SCRIBEFIRE_UPLOAD = {
 			reader.onload = (function (theFile) {
 				return function (e) {
 					var binaryData = e.target.result;
-					var filename = theFile.name;
 					
 					var fileType = theFile.type;
+					var filename = theFile.name;
 					
-					if (!fileType) {
+					if (!filename && !fileType) {
+						fileType = "image/jpg";
+					}
+					
+					if (!filename && fileType) {
+						var filename = (new Date()).getTime() + "." + fileType.split("/").pop();
+					}
+					else if (!fileType && filename) {
 						fileType = "image/";
 						
 						var extension = filename.split(".").pop();

@@ -517,7 +517,7 @@ var genericMetaWeblogAPI = function () {
 			this.oauthToken
 		);
 	};
-
+	
 	this.upload = function (fileName, fileType, fileData, success, failure) {
 		var bits = btoa(fileData);
 		
@@ -1740,7 +1740,6 @@ var bloggerAPI = function () {
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
-				console.log(req.responseText);
 				var json = JSON.parse(req.responseText);
 				callback(json);
 			}
@@ -1760,9 +1759,6 @@ var bloggerAPI = function () {
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
-				console.log("Refresh");
-				console.log(req.status);
-				console.log(req.responseText);
 				if (req.status < 300) {
 					var json = JSON.parse(req.responseText);
 					var blog = SCRIBEFIRE.getBlog();
@@ -1781,13 +1777,10 @@ var bloggerAPI = function () {
 		
 		var codeJson = self.oauthToken;
 		var argString = "client_id=" + encodeURIComponent(this.oauth.clientId) + "&client_secret=" + encodeURIComponent(this.oauth.clientSecret) + "&refresh_token=" + encodeURIComponent(codeJson.refresh_token) + "&grant_type=refresh_token";
-		console.log(argString);
 		req.send(argString);
 	};
 	
 	this.processResponse = function (req, callback, failure) {
-		console.log(req.status);
-		console.log(this.accessToken);
 		if (!this.accessToken) {
 			callback(false);
 		}
@@ -2211,7 +2204,7 @@ var bloggerAPI = function () {
 										failure( { "status" : upreq.status, "msg" : upreq.responseText });
 									}
 									else {
-										failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_uploadAPIUnavailable") } );
+										failure( { "status" : upreq.status, "msg" : scribefire_string("error_api_blogger_uploadAPIUnavailable") + " " + upreq.responseText } );
 									}
 								}
 							}
