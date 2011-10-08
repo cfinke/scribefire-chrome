@@ -918,11 +918,7 @@ var SCRIBEFIRE = {
 		metaData.url = url;
 		
 		// Standard URL blog services.
-		/*if (parsed.host.search(/\.wordpress\.com$/i) != -1) {
-			metaData.type = "wordpress";
-			metaData.apiUrl = "http://wordpress.com/xmlrpc.php";
-		}
-		else */if (parsed.host.search(/\.tumblr\.com$/i) != -1) {
+		if (parsed.host.search(/\.tumblr\.com$/i) != -1) {
 			metaData.type = "tumblr";
 			metaData.apiUrl = "http://www.tumblr.com/api";
 		}
