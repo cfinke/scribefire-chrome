@@ -218,23 +218,23 @@
 							type : "posts"
 						},
 						"draft" : {
-							title : now.getTime().toString(),
-							content : "The timestamp is now " + now.getTime(),
+							title : (now.getTime() + 5000).toString(),
+							content : "The timestamp is now " + (now.getTime() + 5000),
 							tags : "",
 							draft : true,
-							slug : "this-is-the-slug-" + (now.getTime() + 1),
+							slug : "this-is-the-slug-" + (now.getTime() + 5000),
 							"private" : false,
 							type : "posts"
 						},
 						"scheduled" : {
-							title : now.getTime().toString(),
-							content : "The timestamp is now " + now.getTime(),
+							title : (now.getTime() + 10000).toString(),
+							content : "The timestamp is now " + (now.getTime() + 10000),
 							tags : "",
 							draft : false,
-							slug : "this-is-the-slug-" + (now.getTime() + 1),
+							slug : "this-is-the-slug-" + (now.getTime() + 10000),
 							"private" : false,
 							type : "posts",
-							timestamp : (function () { var timestamp = new Date(); timestamp.setFullYear(2012); timestamp.setMonth(5); timestamp.setDate(15); timestamp.setHours(6); timestamp.setMinutes(12); timestamp.setSeconds(0); timestamp.setMilliseconds(0); return timestamp; })()
+							timestamp : (function () { var timestamp = new Date(2012, 5, 15, 6, 12, 0, 0); return timestamp; })()
 						}
 					};
 					
@@ -247,9 +247,13 @@
 								test(
 									"api." + service + " (" + aPostKey + ")",
 									function () {
-										stop();
-									
 										var api = getBlogAPI(passwords[service].type, passwords[service].apiUrl).init(passwords[service]);
+										
+										if (originalPost.draft && !api.ui.draft) {
+											return;
+										}
+										
+										stop();
 									
 										var thePostID = null;
 										var thePost = null;
@@ -329,7 +333,7 @@
 																	}
 																	
 																	equal(thePost.title, originalPost.title, "Title");
-																	ok(thePost.content == originalPost.content || ("<p>" + originalPost.content + "</p>") == thePost.content, "Content");
+																	equal(thePost.content.replace(/<\/?p>/g, ''), originalPost.content, "Content");
 										
 																	var newNow = new Date();
 																	
@@ -408,7 +412,7 @@
 																						}
 
 																						equal(thePost.title, originalPost.title, "[Edit] Title");
-																						equal(thePost.content, originalPost.content, "[Edit] Content");
+																						equal(thePost.content.replace(/<\/?p>/g, ''), originalPost.content, "[Edit] Content");
 //																						ok(thePost.content == originalPost.content || ("<p>" + originalPost.content + "</p>") == thePost.content, "[Edit] Content");
 																						
 																						// Put the original parameters back into the object
