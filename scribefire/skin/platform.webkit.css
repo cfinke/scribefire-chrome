@@ -6,7 +6,7 @@
 	background: url(arrow-right-blue.png) 8px 4px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf));
 }
 
-.subbar[open="true"] {
+.subbar[is_open] {
 	background: url(arrow-down-blue.png) 7px 5px no-repeat, -webkit-gradient(linear, 100% 0%, 100% 100%, from(#798bb2), to(#a2b1cf)) !important;
 }
 

@@ -59,7 +59,7 @@
 			<a href="#" id="button-hide-upgrade-notice">X</a>
 		</div>
 	
-		<form id="drag-and-drop-upload-form" style="width: 100%; height: 99%;">
+		<form id="drag-and-drop-upload-form" style="width: 100%; height: 99%;" onsubmit="return false;">
 			<input type="file" multiple="true" id="hidden-file-upload" class="ui-upload" onclick="event.preventDefault();"/>
 
 			<table style="height: 100%; width: 100%;" cellspacing="0" cellpadding="0">
@@ -442,7 +442,7 @@
 				<div class="buttons">
 					<button class="button-meta button-blog-view multipost-hidden"><i18n data-key="action_openBlogInTab"></i18n></button>
 					<button class="modal_close"><i18n data-key="action_continueEditing"></i18n></button>
-					<button class="reset-button modal_close"><i18n data-key="action_startNewPost"></i18n></button>
+					<button class="reset-button modal_close"><i18n data-key="action_reset"></i18n></button>
 				</div>
 			</div>
 		
@@ -454,7 +454,7 @@
 				<div class="buttons">
 					<button id="button-multipost" class="multipost-hidden i18n" data-key="action_multipost"></button>
 					<button class="modal_close pre-multipost-hidden"><i18n data-key="action_continueEditing"></i18n></button>
-					<button class="reset-button modal_close pre-multipost-hidden"><i18n data-key="action_startNewPost"></i18n></button>
+					<button class="reset-button modal_close pre-multipost-hidden"><i18n data-key="action_reset"></i18n></button>
 				</div>
 			</div>
 		</div>
@@ -467,7 +467,7 @@
 			<div class="buttons">
 				<button class="button-meta button-blog-view i18n" data-key="action_openBlogInTab"></button>
 				<button class="modal_close"><i18n data-key="action_continueEditing"></i18n></button>
-				<button class="reset-button modal_close"><i18n data-key="action_startNewPost"></i18n></button>
+				<button class="reset-button modal_close"><i18n data-key="action_reset"></i18n></button>
 			</div>
 		</div>
 	
@@ -478,7 +478,7 @@
 		
 			<div class="buttons">
 				<button class="modal_close"><i18n data-key="action_continueEditing"></i18n></button>
-				<button class="reset-button modal_close"><i18n data-key="action_startNewPost"></i18n></button>
+				<button class="reset-button modal_close"><i18n data-key="action_reset"></i18n></button>
 			</div>
 		</div>
 		
@@ -654,10 +654,10 @@
 			<p id="dialog-blog-add-error" style="display: none;" class="error"></p>
 			<div id="dialog-blog-add-container">
 				<div class="step-1">
-					<div id="bar-add-blog-url" class="subbar" open="true">
+					<div id="bar-add-blog-url" class="subbar">
 						<label><i18n data-key="label_url"></i18n> <span id="label-add-blog-url"></span></label>
 					</div>
-					<div class="subunderbar" open="true">
+					<div class="subunderbar">
 						<input type="url" id="text-blog-url" accept="button-blog-urlcheck" cancel="button-addblog-cancel" />
 						<p>
 							<button id="button-blog-urlcheck"><i18n data-key="action_next"></i18n></button>

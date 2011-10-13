@@ -18,7 +18,7 @@
 	padding-left: 18px !important;
 }
 
-.subbar[open="true"] {
+.subbar[is_open] {
 	background: #798bb2 url(arrow-down-blue.png) 7px 5px no-repeat;
 }
 

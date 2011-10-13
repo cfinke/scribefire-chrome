@@ -13,7 +13,7 @@ body {
 	padding-left: 18px !important;
 }
 
-.subbar[open="true"] {
+.subbar[is_open] {
 	background: url(arrow-down-blue.png) 7px 5px no-repeat, -moz-linear-gradient(bottom, #798bb2, #a2b1cf) !important;
 }
 

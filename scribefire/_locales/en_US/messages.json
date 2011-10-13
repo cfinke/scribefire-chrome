@@ -136,7 +136,15 @@
 		"message": "Save Progress"
 	},
 	"action_publish": {
-		"message": "Publish"
+		"message": "Publish $ignore1$ Post $ignore2$",
+		"placeholders": {
+			"ignore1": {
+				"content": "<span class=\"entry-type-text\">"
+			},
+			"ignore2": {
+				"content": "<\/span>"
+			}
+		}
 	},
 	"action_permalink_edit": {
 		"message": "Permalink:"
@@ -553,9 +561,6 @@
 	},
 	"action_continueEditing": {
 		"message": "Continue editing this post"
-	},
-	"action_startNewPost": {
-		"message": "Start a new post"
 	},
 	"action_hide": {
 		"message": "Hide",

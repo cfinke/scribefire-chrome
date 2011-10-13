@@ -79,10 +79,6 @@ a {
 	border: #bdbdbd 1px solid;
 }
 
-.subunderbar[open="true"] {
-	display: block !important;
-}
-
 #content .underbar[last], .subunderbar[last] {
 	border-width: 0 1px 1px 1px;
 }

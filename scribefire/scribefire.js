@@ -361,7 +361,7 @@ var SCRIBEFIRE = {
 			var label = blogs[i].name + " (" + blogs[i].url + ")";
 			
 			for (var j in blogs) {
-				if (j != i && blogs[j].url == blogs[i].url) {
+				if (j != i && blogs[j].url == blogs[i].url && blogs[i].username) {
 					label = blogs[i].name + " ("+blogs[i].username + " @ " + blogs[i].url+")";
 					break;
 				}
@@ -1768,6 +1768,8 @@ var SCRIBEFIRE = {
 	blogsToImport : [],
 	
 	migrate : function (blogs, notes) {
+		alert("Migrating.");
+		
 		if (notes.length > 0) { 
 			for (var i = 0, _len = notes.length; i < _len; i++) {
 				var params = {};
@@ -1801,7 +1803,7 @@ var SCRIBEFIRE = {
 			
 			var existingBlogs = SCRIBEFIRE.prefs.getJSONPref("blogs", {});
 			
-			if (!((blog.username + "@" + blog.url) in existingBlogs)) {
+			if (!((blog.username + "@" + blog.url) in existingBlogs && !(blog.url in existingBlogs))) {
 				$("#button-blog-add").click();
 				
 				$(".dialog-blog-add-import").show();
@@ -1926,7 +1928,7 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 					$("#dialog-blog-add .step-2 *[disabled]").removeAttr("disabled");
 				
 					$("#dialog-blog-add .step-2 .subbar").each(function () {
-						if (!$(this).attr("open") == "true") {
+						if (!$(this).attr("is_open")) {
 							$(this).click();
 						}
 					});
@@ -1935,13 +1937,13 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 					// Collapse the blog type container
 					// Collapse the API URL container.
 					$("#bar-add-blog-url, #bar-add-blog-type, #bar-add-blog-apiurl").each(function () {
-						if ($(this).attr("open") == "true") {
+						if ($(this).attr("is_open")) {
 							$(this).click();
 						}
 					});
 
 					$("#bar-add-blog-credentials").each(function () {
-						if (!$(this).attr("open") || $(this).attr("open") == "false") {
+						if (!$(this).attr("is_open")) {
 							$(this).click();
 						}
 					});
@@ -1955,7 +1957,7 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 						
 						// Open up the auth container.
 						$("#bar-oauth").each(function () {
-							if (!$(this).attr("open") || $(this).attr("open") == "false") {
+							if (!$(this).attr("is_open")) {
 								$(this).click();
 							}
 						});
@@ -1977,15 +1979,12 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 								observe : function (subject, topic, data) {
 									if (topic == 'nsPref:changed') {
 										if (data == 'oauth_token') {
-											alert("1");
 											if (platform == 'gecko') {
 												prefs.removeObserver("", prefObserver);
 											}
 											else {
 												SCRIBEFIRE.prefs.removeObserver(observerKey);
 											}
-											
-											alert(2);
 											
 											var token = SCRIBEFIRE.prefs.getCharPref("oauth_token");
 //											$("#text-oauth-token").val(token);
@@ -2002,10 +2001,9 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 											
 												return;
 											}
-											alert(3);
+											
 											// Exchange the access token for an auth token.
 											tempApi.getAuthToken(token, function (t) {
-												alert(4);
 												SCRIBEFIRE_ACCOUNT_WIZARD.accountWizardBlog.oauthToken = t;
 											
 												var params = SCRIBEFIRE_ACCOUNT_WIZARD.accountWizardBlog;
@@ -2019,11 +2017,10 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 													params.blogUrl = params.url;
 													delete params.url;
 												}
-											alert(5);
+												
 												SCRIBEFIRE.getBlogs(
 													params,
 													function (rv) {
-														alert(6);
 														button.removeClass("busy");
 													
 														$(document).trigger("close.facebox");
@@ -2038,7 +2035,6 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 														if (SCRIBEFIRE.blogsToImport.length > 0) {
 															SCRIBEFIRE.importNextBlog();
 														}
-														alert(7);
 													},
 													function (rv) {
 														button.removeClass("busy");
@@ -2081,7 +2077,7 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 						$("#dialog-blog-add .step-2 *[disabled]").removeAttr("disabled");
 
 						$("#dialog-blog-add .step-2 .subbar").each(function () {
-							if (!$(this).attr("open") == "true") {
+							if (!$(this).attr("is_open")) {
 								$(this).click();
 							}
 						});
@@ -2147,18 +2143,18 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 			$(".dialog-blog-add-normal").hide();
 		}
 
-		$("#dialog-blog-add").show();
-
+		$("#dialog-blog-add").show()
+			.find(".subbar[is_open]").removeAttr("is_open").end()
+			.find(".subunderbar").hide().end()
+			.find(".step-1 .subbar").click();//each(function () { $(this).click(); });
+			
 		$("#text-blog-url").val("").change();
 		$("#list-blog-types").val("").change();
 		$("#text-blog-api-url").val("").change();
 		$("#text-blog-username").val("");
 		$("#text-blog-password").val("");
 		$("#text-addblog-id").val("").change();
-
-		$("#dialog-blog-add .subbar[open='true']").click();
-		$("#bar-add-blog-url").click();
-
+		
 		$("#text-blog-url").focus();
 	}
 };
@@ -2182,9 +2178,9 @@ if (typeof chrome != 'undefined') {
 	);
 }
 else if (typeof opera != "undefined") {
-	opera.extension.onmessage(function (evt) {
+	opera.extension.onmessage = function (evt) {
 		var msg = JSON.parse(evt.data);
-		
+		alert("msg: " + evt.data);
 		if (msg.subject == 'token') {
 			SCRIBEFIRE.prefs.setCharPref("google_token", msg.token);
 		}
@@ -2192,7 +2188,7 @@ else if (typeof opera != "undefined") {
 			SCRIBEFIRE.prefs.setCharPref("oauth_token_error", msg.error);
 			SCRIBEFIRE.prefs.setCharPref("oauth_token", msg.oauth_token);
 		}
-	}, false);
+	};
 }
 else if (typeof safari != 'undefined') {
 	function waitForMessage(msgEvent) {

@@ -238,13 +238,13 @@ $(document).ready(function () {
 	
 	$(".subbar").live("click", function () {
 		if ($(this).attr("disabled") != "true") {
-			$(this).parent().find(".subunderbar:first").toggle();
-		
-			if ($(this).attr("open") == "true") {
-				$(this).attr("open", "false");
+			if ($(this).attr("is_open")) {
+				$(this).removeAttr("is_open");
+				$(this).parent().find(".subunderbar:first").hide();
 			}
 			else {
-				$(this).attr("open", "true");
+				$(this).attr("is_open", "true");
+				$(this).parent().find(".subunderbar:first").show();
 			}
 		}
 	});
