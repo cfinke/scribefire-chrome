@@ -2552,7 +2552,7 @@ var posterousAPI = function () {
 	this.ui = newUi;
 	
 	this.ui.categories = false;
-	this.ui.timestamp = true;
+	this.ui.timestamp = false; // Scheduling posterous changes the time, but it doesn't delay the publication.
 	this.ui.private = true;
 	this.ui.upload = (platform == 'gecko');
 	
