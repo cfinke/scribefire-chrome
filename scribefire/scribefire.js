@@ -1768,8 +1768,6 @@ var SCRIBEFIRE = {
 	blogsToImport : [],
 	
 	migrate : function (blogs, notes) {
-		alert("Migrating.");
-		
 		if (notes.length > 0) { 
 			for (var i = 0, _len = notes.length; i < _len; i++) {
 				var params = {};
@@ -2180,7 +2178,7 @@ if (typeof chrome != 'undefined') {
 else if (typeof opera != "undefined") {
 	opera.extension.onmessage = function (evt) {
 		var msg = JSON.parse(evt.data);
-		alert("msg: " + evt.data);
+		
 		if (msg.subject == 'token') {
 			SCRIBEFIRE.prefs.setCharPref("google_token", msg.token);
 		}
