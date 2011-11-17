@@ -1,0 +1,1 @@
+scp scribefire-chrome.xml efinke.com:~/webapps/efinke/files/updaters/
