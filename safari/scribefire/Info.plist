@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>ScribeFire</string>
+	<key>CFBundleDisplayName</key>
+	<string>ScribeFire</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.scribefire.scribefire</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>4</string>
+	<key>CFBundleVersion</key>
+	<string>4</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Context Menu Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>sfBlogThis</string>
+				<key>Identifier</key>
+				<string>scribefire-blog-this</string>
+				<key>Title</key>
+				<string>Blog This</string>
+			</dict>
+		</array>
+		<key>Global Page</key>
+		<string>background.html</string>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>openScribeFire</string>
+				<key>Identifier</key>
+				<string>scribefire</string>
+				<key>Image</key>
+				<string>icon-16.png</string>
+				<key>Label</key>
+				<string>ScribeFire</string>
+				<key>Palette Label</key>
+				<string>ScribeFire</string>
+				<key>Tool Tip</key>
+				<string>Open ScribeFire</string>
+			</dict>
+		</array>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict>
+			<key>End</key>
+			<array>
+				<string>content-end.js</string>
+			</array>
+		</dict>
+	</dict>
+	<key>Description</key>
+	<string>A full-featured blog editor.</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
+	</dict>
+	<key>Update Manifest URL</key>
+	<string>http://www.chrisfinke.com/files/updaters/scribefire-safari.plist</string>
+	<key>Website</key>
+	<string>http://www.scribefire.com/</string>
+</dict>
+</plist>

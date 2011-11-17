@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+   <key>Extension Updates</key>
+   <array>
+     <dict>
+       <key>CFBundleIdentifier</key>
+       <string>com.scribefire.scribefire</string>
+       <key>Team Identifier</key>
+       <string>LL4A294QMA</string>
+       <key>CFBundleVersion</key>
+       <string>4</string>
+       <key>CFBundleShortVersionString</key>
+       <string>4</string>
+       <key>URL</key>
+       <string>http://scribefire-chrome.googlecode.com/files/scribefire-4.safariextz</string>
+     </dict>
+   </array>
+</dict>
+</plist>

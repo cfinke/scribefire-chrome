@@ -1,0 +1,63 @@
+<script>
+
+function sfCommandHandler(event) {
+	if (event.command == "openScribeFire") {
+		var url = safari.extension.baseURI + "scribefire.html";
+		
+		var currentTabs = safari.application.activeBrowserWindow.tabs;
+		
+		for (var i = 0; i < currentTabs.length; i++) {
+			var tab = currentTabs[i];
+			
+			if (tab.url == url) {
+				tab.activate();
+				return false;
+			}
+		}
+		
+		var tab = safari.application.activeBrowserWindow.openTab("foreground");
+		tab.url = url;
+		
+		return true;
+	}
+	else {
+		safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("blog-this", "meta");
+	}
+}
+
+safari.application.addEventListener("command", sfCommandHandler, false);
+
+function waitForMessage(msgEvent) {
+	if (msgEvent.name == "blog-this-meta") {
+		var doTimeout = sfCommandHandler( { command : "openScribeFire" } );
+		
+		if (doTimeout) {
+			var length = 1000;
+		}
+		else {
+			var length = 0;
+		}
+		
+		setTimeout( function () {
+			safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("blog-this", msgEvent.message);
+		}, length);
+	}
+	else if (msgEvent.name == "oauth_token") {
+		var doTimeout = sfCommandHandler( { command : "openScribeFire" } );
+		
+		if (doTimeout) {
+			var length = 1000;
+		}
+		else {
+			var length = 0;
+		}
+		
+		setTimeout( function () {
+			safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("oauth_token", msgEvent.message);
+		}, length);
+	}
+}
+
+safari.application.addEventListener("message", waitForMessage, false);
+
+</script>
