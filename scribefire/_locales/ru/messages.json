@@ -71,9 +71,6 @@
 	"action_draft_save": {
 		"message": "Сохранить прогресс"
 	},
-	"action_publish": {
-		"message": "Опубликовать"
-	},
 	"action_permalink_edit": {
 		"message": "Постоянная ссылка:"
 	},

@@ -2,14 +2,33 @@
 	"extName": {
 		"message": "స్రైబ్‌ఫైర్"
 	},
+	"preferences": {
+		"message": "ఎంపికలు"
+	},
 	"continue": {
 		"message": "కొనసాగించు"
+	},
+	"action_close": {
+		"message": "మూసివేయి"
 	},
 	"firsttime_header": {
 		"message": "స్క్రైబ్ ఫైర్ కు స్వాగతం!"
 	},
 	"entry_new_label": {
 		"message": "(కొత్తది)"
+	},
+	"entry_label_format": {
+		"message": "[$entry_type$] $entry_title$",
+		"placeholders": {
+			"entry_type": {
+				"content": "$1",
+				"example": "Draft"
+			},
+			"entry_title": {
+				"content": "$2",
+				"example": "My Day at the Beach"
+			}
+		}
 	},
 	"entry_localDraft_label": {
 		"message": "స్థానిక ప్రతి"
@@ -25,6 +44,9 @@
 	},
 	"notification_post_delete": {
 		"message": "విజయవంతంగా టపా తొలగించబడింది"
+	},
+	"notification_blog_add": {
+		"message": "మీ బ్లాగుని విజయవంతంగా చేర్చాం!"
 	},
 	"action_remove": {
 		"message": "తొలగించు"
@@ -43,9 +65,6 @@
 	},
 	"action_delete": {
 		"message": "తొలగించు"
-	},
-	"action_publish": {
-		"message": "ప్రచురించు"
 	},
 	"action_permalink_edit": {
 		"message": "స్థిరలంకె:"
@@ -110,11 +129,20 @@
 	"option_publish_month12": {
 		"message": "డిసెం"
 	},
+	"label_blog": {
+		"message": "బ్లాగు"
+	},
 	"label_blog_type": {
 		"message": "బ్లాగు రకం:"
 	},
 	"label_loginCredentials": {
 		"message": "ప్రవేశ వివరాలు"
+	},
+	"label_username": {
+		"message": "వాడుకరి పేరు:"
+	},
+	"label_password": {
+		"message": "సంకేతపదం:"
 	},
 	"label_entry": {
 		"message": "టపా"
@@ -122,11 +150,20 @@
 	"label_help": {
 		"message": "సహాయం!"
 	},
+	"label_title": {
+		"message": "శీర్షిక"
+	},
 	"label_content": {
 		"message": "టపా విషయం"
 	},
 	"label_excerpt": {
 		"message": "సంగ్రహం:"
+	},
+	"label_categories": {
+		"message": "వర్గాలు"
+	},
+	"label_tags": {
+		"message": "ట్యాగులు"
 	},
 	"label_publish": {
 		"message": "ప్రచురణ"
@@ -148,5 +185,70 @@
 	},
 	"header_blogProperties": {
 		"message": "బ్లాగు లక్షణాలు"
+	},
+	"text_video2": {
+		"message": "ఉదా॥ $url1$ లేదా $url2$",
+		"placeholders": {
+			"url1": {
+				"content": "youtube.com\/watch?v=b_NVbDzsEuw"
+			},
+			"url2": {
+				"content": "http:\/\/hulu.com\/watch\/191543"
+			}
+		}
+	},
+	"time_ago_seconds": {
+		"message": "కొన్ని క్షణాల క్రితం"
+	},
+	"time_ago_minutes": {
+		"message": "$1 నిమిషాల క్రితం"
+	},
+	"time_ago_hours": {
+		"message": "$1 గంటల క్రితం"
+	},
+	"time_ago_days": {
+		"message": "$1 రోజుల క్రితం"
+	},
+	"zemanta_related_articles": {
+		"message": "సంబంధిత వ్యాసాలు, జెమంతా సౌజన్యంతో:"
+	},
+	"action_hide": {
+		"message": "దాచు"
+	},
+	"label_password_confirm": {
+		"message": "సంకేతపదం నిర్ధారణ:"
+	},
+	"label_city": {
+		"message": "నగరం:"
+	},
+	"label_state": {
+		"message": "రాష్ట్రం:"
+	},
+	"label_country": {
+		"message": "దేశం:"
+	},
+	"options_page_title": {
+		"message": "ఎంపికలు"
+	},
+	"text_count": {
+		"message": "$1 పదాలు; $2 అక్షరాలు"
+	},
+	"status_published": {
+		"message": "ప్రచురితం"
+	},
+	"status_failure": {
+		"message": "విఫలం"
+	},
+	"options_general": {
+		"message": "సాధారణం"
+	},
+	"header_publishing": {
+		"message": "ప్రచురణ"
+	},
+	"target_none": {
+		"message": "ఏమీలేదు"
+	},
+	"target_blank": {
+		"message": "కొత్త ట్యాబు\/కిటికీ"
 	}
 }

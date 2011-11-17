@@ -71,9 +71,6 @@
 	"action_draft_save": {
 		"message": "Gem ændringer"
 	},
-	"action_publish": {
-		"message": "Offentliggør"
-	},
 	"action_permalink_edit": {
 		"message": "Permalink:"
 	},

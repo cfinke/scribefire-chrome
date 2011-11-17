@@ -71,9 +71,6 @@
 	"action_draft_save": {
 		"message": "Sla concept op"
 	},
-	"action_publish": {
-		"message": "Publiseer"
-	},
 	"action_permalink_edit": {
 		"message": "Permalink:"
 	},

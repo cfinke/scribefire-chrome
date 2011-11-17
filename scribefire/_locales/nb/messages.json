@@ -114,9 +114,6 @@
 	"action_draft_save": {
 		"message": "Lagring utføres"
 	},
-	"action_publish": {
-		"message": "Publiser"
-	},
 	"action_permalink_edit": {
 		"message": "permalenke"
 	},

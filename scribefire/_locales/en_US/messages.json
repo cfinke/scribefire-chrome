@@ -673,7 +673,7 @@
 		"message": "Settings and Data"
 	},
 	"button_migrate": {
-		"message": "Import/Export"
+		"message": "Import\/Export"
 	},
 	"text_count": {
 		"message": "$1 words; $2 characters"

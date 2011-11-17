@@ -114,9 +114,6 @@
 	"action_draft_save": {
 		"message": "حفظ التقدم"
 	},
-	"action_publish": {
-		"message": "نشر"
-	},
 	"action_permalink_edit": {
 		"message": "رابط دائم"
 	},
@@ -506,9 +503,6 @@
 	"action_continueEditing": {
 		"message": "مواصلة كتابة هذا المقال"
 	},
-	"action_startNewPost": {
-		"message": "كتابة مقال جديد"
-	},
 	"action_hide": {
 		"message": "إخفاء"
 	},
@@ -616,9 +610,6 @@
 	},
 	"label_settings_section": {
 		"message": "الإعدادات و المعلومات"
-	},
-	"button_migrate": {
-		"message": "نقل معلومات سكريب فاير من وإلى جهاز أخر."
 	},
 	"text_count": {
 		"message": "عدد الحروف: $2 ؛ عدد الكلمات: $1"

@@ -114,9 +114,6 @@
 	"action_draft_save": {
 		"message": "Fortschritt speichern"
 	},
-	"action_publish": {
-		"message": "Veröffentlichen"
-	},
 	"action_permalink_edit": {
 		"message": "Permalink:"
 	},
@@ -506,9 +503,6 @@
 	"action_continueEditing": {
 		"message": "Bearbeiten des Postings fortsetzen"
 	},
-	"action_startNewPost": {
-		"message": "Neues Posting anlegen"
-	},
 	"action_hide": {
 		"message": "Ausblenden"
 	},
@@ -616,8 +610,5 @@
 	},
 	"label_settings_section": {
 		"message": "Einstellungen und Daten"
-	},
-	"button_migrate": {
-		"message": "Übertrage deine ScribeFire-Daten auf\/von einen anderen Computer."
 	}
 }

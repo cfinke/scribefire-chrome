@@ -35,9 +35,6 @@
 	"action_delete": {
 		"message": "Обриши"
 	},
-	"action_publish": {
-		"message": "Објави"
-	},
 	"action_schedule": {
 		"message": "Распоред:"
 	},

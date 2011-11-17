@@ -110,9 +110,6 @@
 	"action_draft_save": {
 		"message": "Salva aggiornamenti"
 	},
-	"action_publish": {
-		"message": "Pubblica"
-	},
 	"action_permalink_edit": {
 		"message": "Link permanente:"
 	},

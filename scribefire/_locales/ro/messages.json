@@ -89,9 +89,6 @@
 	"action_draft_save": {
 		"message": "Progresul salvării"
 	},
-	"action_publish": {
-		"message": "Publică"
-	},
 	"action_permalink_edit": {
 		"message": "Permalink"
 	},

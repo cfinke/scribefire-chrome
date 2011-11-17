@@ -89,9 +89,6 @@
 	"action_draft_save": {
 		"message": "Salvar Progresso"
 	},
-	"action_publish": {
-		"message": "Publicar"
-	},
 	"action_permalink_edit": {
 		"message": "Permalink:"
 	},
@@ -459,9 +456,6 @@
 	},
 	"action_continueEditing": {
 		"message": "Continuar editando este post"
-	},
-	"action_startNewPost": {
-		"message": "Iniciar um novo post"
 	},
 	"action_hide": {
 		"message": "Esconder"

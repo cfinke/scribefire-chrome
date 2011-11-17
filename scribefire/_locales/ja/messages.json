@@ -120,9 +120,6 @@
 	"action_draft_save": {
 		"message": "現在の状態を保存"
 	},
-	"action_publish": {
-		"message": "公開"
-	},
 	"action_permalink_edit": {
 		"message": "このエントリーのURL:"
 	},
@@ -460,9 +457,6 @@
 	},
 	"action_continueEditing": {
 		"message": "この記事の編集を続ける"
-	},
-	"action_startNewPost": {
-		"message": "新しい投稿を始める"
 	},
 	"action_hide": {
 		"message": "非表示"

@@ -71,9 +71,6 @@
 	"action_draft_save": {
 		"message": "保存进程"
 	},
-	"action_publish": {
-		"message": "发布"
-	},
 	"action_permalink_edit": {
 		"message": "永久链接"
 	},

@@ -71,9 +71,6 @@
 	"action_draft_save": {
 		"message": "Spara ändringar"
 	},
-	"action_publish": {
-		"message": "Publicera"
-	},
 	"action_permalink_edit": {
 		"message": "Permalänk:"
 	},

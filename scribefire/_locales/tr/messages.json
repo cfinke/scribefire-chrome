@@ -74,9 +74,6 @@
 	"action_draft_save": {
 		"message": "İlerleyişi kaydet"
 	},
-	"action_publish": {
-		"message": "Yayınla"
-	},
 	"action_permalink_edit": {
 		"message": "Kalıcı bağlantı"
 	},

@@ -68,9 +68,6 @@
 	"action_draft_save": {
 		"message": "Αποθήκευση πρόχειρου"
 	},
-	"action_publish": {
-		"message": "Δημοσίευση"
-	},
 	"action_permalink_edit": {
 		"message": "Σύνδεσμος:"
 	},

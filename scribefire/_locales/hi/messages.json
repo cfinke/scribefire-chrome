@@ -102,9 +102,6 @@
 	"action_draft_save": {
 		"message": "कार्य प्रगति सुरक्षित करें"
 	},
-	"action_publish": {
-		"message": "प्रकाशित करें"
-	},
 	"action_permalink_edit": {
 		"message": "चिरस्थाई परिचय"
 	},
@@ -472,9 +469,6 @@
 	},
 	"action_continueEditing": {
 		"message": "रचना संपादन जारी रखें"
-	},
-	"action_startNewPost": {
-		"message": "नयी रचना शुरू करें"
 	},
 	"action_hide": {
 		"message": "छुपाएँ"

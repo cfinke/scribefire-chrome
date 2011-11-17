@@ -114,9 +114,6 @@
 	"action_draft_save": {
 		"message": "Enregistrer l'avancement du billet"
 	},
-	"action_publish": {
-		"message": "Publier"
-	},
 	"action_permalink_edit": {
 		"message": "Lien permanent :"
 	},
@@ -506,9 +503,6 @@
 	"action_continueEditing": {
 		"message": "Continuer à éditer ce billet"
 	},
-	"action_startNewPost": {
-		"message": "Commencer un nouveau billet"
-	},
 	"action_hide": {
 		"message": "Masquer"
 	},
@@ -616,9 +610,6 @@
 	},
 	"label_settings_section": {
 		"message": "Données et Configurations"
-	},
-	"button_migrate": {
-		"message": "Transférer Vos Données ScribFire depuis\/Vers un autre Ordinateur."
 	},
 	"text_count": {
 		"message": "$1 mots; $2 caractères"

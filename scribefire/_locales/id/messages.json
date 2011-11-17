@@ -89,9 +89,6 @@
 	"action_draft_save": {
 		"message": "Simpan Perubahan"
 	},
-	"action_publish": {
-		"message": "Terbitkan"
-	},
 	"action_permalink_edit": {
 		"message": "Taut Permanen"
 	},
