@@ -1,0 +1,23 @@
+<html>
+	<body>
+		<script type="text/javascript">
+			var ToolbarUIItemProperties = {
+				disabled: false,
+				title: "ScribeFire",
+				icon: "skin/icon-16.png",
+				onclick : function () {
+					opera.extension.tabs.create( { url : "scribefire.html", focused : true } );
+				}
+			}
+			
+			opera.postError("Creating listener.");
+			
+			opera.extension.onmessage = function (evt) {
+				opera.extension.broadcastMessage(evt.data);
+			};
+			
+			var theButton = opera.contexts.toolbar.createItem(ToolbarUIItemProperties);
+			opera.contexts.toolbar.addItem(theButton);
+		</script>
+	</body>
+</html>
