@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript">
+		<![CDATA[
+		
+		addEventListener("load", function () {
+			removeEventListener("load", arguments.callee, false);
+			
+			var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+			                   .getService(Components.interfaces.nsIWindowMediator);
+			
+			var win = wm.getMostRecentWindow("navigator:browser");
+		
+			if (win) {
+				win.gBrowser.selectedTab = win.gBrowser.addTab("chrome://scribefire-next/content/options.html");
+			}
+			else {
+				window.open("chrome://scribefire-next/content/options.html");
+			}
+		
+			window.close();
+		}, false);
+		
+		]]>
+	</script>
+</dialog>

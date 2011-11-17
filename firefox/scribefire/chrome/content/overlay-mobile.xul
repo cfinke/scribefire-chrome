@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://scribefire-next/skin/mobile/mobile-browser.css" type="text/css"?>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="chrome://scribefire-next/content/browser-mobile.js"></script>
+	<vbox id="browser-controls">
+		<toolbarbutton 
+			id="scribefire-mobile-toggle" 
+			label="ScribeFire"
+			insertbefore="tool-panel-open" 
+			class="browser-control-button button-image" 
+			oncommand="SCRIBEFIRE_BROWSER.open();" 
+			/>
+	</vbox>
+</overlay>

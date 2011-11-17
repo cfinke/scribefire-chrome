@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript">
+		<![CDATA[
+		
+		(function () {
+			addEventListener("load", function () {
+				function watchForScribeFireGoogleToken(event) {
+					var page = event.target;
+					
+					if (page.location.href.indexOf('http://www.scribefire.com/token.php') === 0) {
+						SCRIBEFIRE_BROWSER.prefs._prefs.setCharPref("google_token", decodeURIComponent(page.location.href.split("token=")[1]));
+						window.close();
+					}
+				}
+			
+				document.getElementById("content").addEventListener("DOMContentLoaded", watchForScribeFireGoogleToken, false);
+				
+				function watchForScribeFireGoogleOAuthToken(event) {
+					var page = event.target;
+
+					if (page.location.href.indexOf('https://accounts.google.com/o/oauth2/approval') === 0) {
+						var oauth_token = "";
+
+						try {
+							oauth_token = page.getElementById("code").innerHTML;
+						} catch (e) { }
+
+						var error = "";
+
+						if (!oauth_token) {
+							try {
+								error = page.getElementById("access_denied").innerHTML;
+							} catch (e) { }
+						}
+
+						SCRIBEFIRE_BROWSER.prefs._prefs.setCharPref("oauth_token_error", error);
+						SCRIBEFIRE_BROWSER.prefs._prefs.setCharPref("oauth_token", oauth_token);
+						page.defaultView.close();
+					}
+				}
+
+				document.getElementById("content").addEventListener("DOMContentLoaded", watchForScribeFireGoogleOAuthToken, false);
+				
+				function watchForScribeFireWordPressToken(event) {
+					var page = event.target;
+				
+					if (page.location.href.indexOf('http://www.scribefire.com/oauth2') === 0) {
+						var oauth_token = "";
+						
+						try {
+							oauth_token = decodeURIComponent(page.location.href.split("code=")[1].split("&")[0]);
+						} catch (e) { }
+						
+						var error = "";
+						
+						if (!oauth_token) {
+							try {
+								error = decodeURIComponent(page.location.href.split("error_description=")[1].split("&")[0]).replace(/\+/g, " ");
+							} catch (e) { }
+						}
+						
+						SCRIBEFIRE_BROWSER.prefs._prefs.setCharPref("oauth_token_error", error);
+						SCRIBEFIRE_BROWSER.prefs._prefs.setCharPref("oauth_token", oauth_token);
+						page.defaultView.close();
+					}
+				}
+				
+				document.getElementById("content").addEventListener("DOMContentLoaded", watchForScribeFireWordPressToken, false);
+			}, false);
+		})();
+		
+		]]>
+	</script>
+</overlay>

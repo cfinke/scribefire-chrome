@@ -1,0 +1,17 @@
+content scribefire-next   chrome/content/ contentaccessible=yes
+skin    scribefire-next   classic/1.0      chrome/skin/
+
+overlay chrome://browser/content/browser.xul         chrome://scribefire-next/content/overlay.xul application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+overlay chrome://browser/content/browser.xul         chrome://scribefire-next/content/background.xul application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+overlay chrome://browser/content/browser.xul         chrome://scribefire-next/content/overlay-mobile.xul application={a23983c0-fd0e-11dc-95ff-0800200c9a66}
+
+style   chrome://global/content/customizeToolbar.xul chrome://scribefire-next/skin/desktop/browser.css application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+
+override    chrome://scribefire-next/skin/desktop/toolbar-button-small.svg chrome://scribefire-next/skin/desktop/editor-icon-16x16.png
+override    chrome://scribefire-next/skin/desktop/toolbar-button-large.svg chrome://scribefire-next/skin/desktop/editor-icon-24x24.png
+override    chrome://scribefire-next/skin/desktop/toolbar-button-small.svg chrome://scribefire-next/skin/desktop/toolbar-button-16x16.svg appversion>=4.0b1
+override    chrome://scribefire-next/skin/desktop/toolbar-button-large.svg chrome://scribefire-next/skin/desktop/toolbar-button-24x24.svg appversion>=4.0b1
+override    chrome://scribefire-next/skin/desktop/toolbar-button-small.svg chrome://scribefire-next/skin/desktop/toolbar-button-16x16.svg os=Darwin appversion>=4.0b1
+override    chrome://scribefire-next/skin/desktop/toolbar-button-large.svg chrome://scribefire-next/skin/desktop/toolbar-button-16x16.svg os=Darwin appversion>=4.0b1
+override    chrome://scribefire-next/skin/desktop/toolbar-button-small.svg chrome://scribefire-next/skin/desktop/toolbar-button-16x16.svg os=WINNT appversion>=4.0b1
+override    chrome://scribefire-next/skin/desktop/toolbar-button-large.svg chrome://scribefire-next/skin/desktop/toolbar-button-16x16.svg os=WINNT appversion>=4.0b1

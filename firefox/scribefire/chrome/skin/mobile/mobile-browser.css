@@ -1,0 +1,7 @@
+#scribefire-mobile-toggle {
+	list-style-image: url("chrome://scribefire-next/skin/mobile/toolbarbutton-default-scribefire.png");
+}
+
+#scribefire-mobile-toggle:active {
+	list-style-image: url("chrome://scribefire-next/skin/mobile/toolbarbutton-active-scribefire.png");
+}

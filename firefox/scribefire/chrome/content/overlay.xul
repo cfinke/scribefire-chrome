@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://scribefire-next/skin/desktop/browser.css" type="text/css"?>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="chrome://scribefire-next/content/browser.js"></script>
+	
+	<popupset id="mainPopupSet">
+		<menupopup id="scribefire-context-menu">
+			<menuitem label="Open ScribeFire in a tab"
+				oncommand="SCRIBEFIRE_BROWSER.openTab();" />
+			<menuitem label="Open ScribeFire in a window" 
+				oncommand="SCRIBEFIRE_BROWSER.openWindow();" />
+			<menuitem label="Open ScribeFire split-screen" 
+				oncommand="SCRIBEFIRE_BROWSER.openSplitScreen();" />
+		</menupopup>
+	</popupset>
+	
+	<!-- Firefox Context Menu -->
+	
+	<popup id="contentAreaContextMenu">
+		<menuitem id="scribefire-blog-this" insertafter="context-selectall" label="Blog This" class="menuitem-iconic menu-iconic" oncommand="SCRIBEFIRE_BROWSER.blogThis(event);" />
+		<menuseparator id="scribefire-contextmenu-separator" insertafter="context-selectall" />
+	</popup>
+	
+	<menupopup id="menu_ToolsPopup">
+		<menuitem id="tools-scribefire" insertbefore="sanitizeSeparator" label="ScribeFire" oncommand="SCRIBEFIRE_BROWSER.toggle();" />
+	</menupopup>
+	
+	<toolbarpalette id="BrowserToolbarPalette">
+		<toolbarbutton id="scribefire-toolbar-button"
+			type="menu-button"
+			tooltiptext="ScribeFire"
+			title="ScribeFire"
+			class="toolbarbutton-1 chromeclass-toolbar-additional"
+			oncommand="SCRIBEFIRE_BROWSER.toggle();"
+			context="scribefire-context-menu">
+			<menupopup>
+				<menuitem label="Open ScribeFire in a tab" 
+					oncommand="SCRIBEFIRE_BROWSER.openTab(); event.stopPropagation();" />
+				<menuitem label="Open ScribeFire in a window" 
+					oncommand="SCRIBEFIRE_BROWSER.openWindow(); event.stopPropagation();" />
+				<menuitem label="Open ScribeFire split-screen" 
+					oncommand="SCRIBEFIRE_BROWSER.openSplitScreen(); event.stopPropagation();" />
+			</menupopup>
+		</toolbarbutton>
+	</toolbarpalette>
+	
+	<vbox id="appcontent" flex="1">
+		<box id="scribefire-split-screen-frame" collapsed="true" insertbefore="content" flex="1" >
+			<iframe flex="1" id="scribefire-split-screen-iframe" src="about:blank"/>
+		</box>
+		<splitter id="scribefire-splitter" collapse="none" resizeafter="farthest" insertbefore="content" collapsed="true" height="18px">
+			<spring flex="1"/>
+			<grippy />
+			<spring flex="1"/>
+			<image id="scribefire-close-button" class="url" onclick="SCRIBEFIRE_BROWSER.closeSplitScreen();" />
+		</splitter>
+	</vbox>
+	
+	<statusbarpanel id="scribefire-statusbar-panel" context="scribefire-context-menu">
+		<toolbarbutton id="scribefire-statusbar-button"
+			tooltiptext="Open the ScribeFire editor"
+			oncommand="SCRIBEFIRE_BROWSER.toggle();" />
+	</statusbarpanel>
+
+	<statusbar id="status-bar">
+		<statusbarpanel id="scribefire-statusbar-panel" insertafter="statusbar-progresspanel" />
+	</statusbar>
+
+	<toolbar id="addon-bar">
+		<statusbarpanel id="scribefire-statusbar-panel" />
+	</toolbar>
+</overlay>

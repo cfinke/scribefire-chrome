@@ -1,0 +1,45 @@
+#scribefire-statusbar-button {
+	list-style-image: url("chrome://scribefire-next/skin/desktop/editor-icon-16x16.png");
+	padding: 0;
+	margin: 0;
+	border: none !important; 
+	-moz-appearance: none !important;
+}
+
+#scribefire-close-button {
+	background-image: url('chrome://scribefire-next/skin/desktop/close.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 16px;
+	width: 16px;
+	cursor: pointer;
+}
+
+#scribefire-split-screen-frame {
+	min-height: 100px;
+}
+
+#scribefire-splitter {
+	border-width: 1px 0px 0px 0px;
+	border-color: #999;
+	border-style: solid;
+	background-color: ThreeDFace;
+}
+
+.url {
+	cursor: pointer;
+	text-decoration: underline;
+	color: #3A69A6;
+}
+
+#scribefire-toolbar-button {
+	list-style-image: url(chrome://scribefire-next/skin/desktop/toolbar-button-large.svg);
+}
+
+toolbar[iconsize="small"] #scribefire-toolbar-button {
+	list-style-image: url(chrome://scribefire-next/skin/desktop/toolbar-button-small.svg);
+}
+
+#scribefire-blog-this {
+	list-style-image: url("chrome://scribefire-next/content/skin/icon-16.png");
+}
