@@ -5,3 +5,10 @@ Updating ScribeFire for Chrome
 1. Click "Update File" in the "Upload" section.
 1. Optionally run ../update-locales.sh
 1. Run ./build-zip.sh and upload the resulting ZIP file.
+
+Developing ScribeFire for Chrome
+================================
+1. In Chrome, open chrome://extensions
+1. Choose "Load unpacked extension..."
+1. Select the ./scribefire/ directory.
+1. After making changes, reload ScribeFire to test.
