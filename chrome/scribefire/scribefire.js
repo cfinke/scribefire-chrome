@@ -1946,7 +1946,7 @@ var SCRIBEFIRE_ACCOUNT_WIZARD = {
 						}
 					});
 					
-					if (metaData.url.indexOf(".wordpress.com") != -1 || metaData.url.indexOf(".blogspot.com") != -1) {
+					if (false && ( metaData.url.indexOf(".wordpress.com") != -1 || metaData.url.indexOf(".blogspot.com") != -1 ) ) {
 						$("#oauth-token-input").hide();
 						
 						// Use the OAuth2 authentication for wordpress.com.

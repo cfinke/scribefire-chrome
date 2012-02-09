@@ -756,6 +756,7 @@ var wordpressAPI = function () {
 	*/
 	
 	this.postInit = function () {
+		/*
 		if (this.oauthToken) {
 			this.id = null;
 			this.username = null;
@@ -764,6 +765,7 @@ var wordpressAPI = function () {
 			this.ui.oauth = true;
 			this.ui.nooauth = false;
 		}
+		*/
 	};
 	
 	this.getAuthToken = function (code, callback) {
@@ -1721,6 +1723,7 @@ var bloggerAPI = function () {
 	};
 	
 	this.postInit = function () {
+		/*
 		if (this.oauthToken) {
 			this.id = null;
 			this.username = null;
@@ -1731,6 +1734,7 @@ var bloggerAPI = function () {
 			
 			this.accessToken = this.oauthToken.access_token;
 		}
+		*/
 	};
 	
 	this.getAuthToken = function (code, callback) {

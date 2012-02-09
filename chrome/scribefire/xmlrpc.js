@@ -5,9 +5,11 @@ var XMLRPC_LIB = {
 		req.setRequestHeader("Content-Type", "text/xml");
 		req.overrideMimeType("text/xml");
 		
+		/*
 		if (oauthToken) {
 			req.setRequestHeader("Authorization", "Bearer " + oauthToken);
 		}
+		*/
 		
 		req.onreadystatechange = function () {
 			if (req.readyState == 4) {
